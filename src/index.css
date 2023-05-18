@@ -32,8 +32,9 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+  font-size: 30pt;
+  line-height: 0.5;
+  color: #ffff;
 }
 
 button {
@@ -58,12 +59,13 @@ button:focus-visible {
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
+    /* background: linear-gradient(to top, #310161, #4F0094, #5802AD, #7102E0); */
+    background-color: #310161;
   }
   a:hover {
     color: #747bff;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #f1ee2c;
   }
 }

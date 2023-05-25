@@ -1,16 +1,23 @@
-import { useState } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css'
+import { HojadevidaHome } from "./pages/HojadevidaHome";
+import { Formulario } from './pages/Formulario';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HojadevidaHome />
+  },
+  {
+    path: "/perfiles",
+    element: <Formulario />
+  }
+])
 
 function App() {
-
   return (
-    <>
-      <img src="/src/assets/images/disruptialogo.png" alt="" />
-      <h1>Vamos a crear una</h1>
-      <h1>hoja de vida Disruptiva</h1>
-      <button>¡EMPECEMOS!</button>
-    </>
-  )
+    <RouterProvider router={router} />
+  );
 }
 
-export default App
+export default App;

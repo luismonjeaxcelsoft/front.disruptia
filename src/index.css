@@ -1,4 +1,24 @@
-:root {
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #310161;
+  display: flex;
+  place-items: center;
+  width: 100%;
+  justify-content: center;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 600;
+
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+/* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -12,26 +32,28 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
+} */
+/* 
 a {
   font-weight: 500;
   color: #646cff;
   text-decoration: inherit;
-}
-a:hover {
+} */
+/* a:hover {
   color: #535bf2;
-}
+} */
 
-body {
+/* body { /*Esta sirve para tener todo centrado
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+  /* min-width: 320px; */
+  /* min-height: 100vh; 
+  width: 100%;
+  height: 100%;
+}  */
 
-h1 {
+/* h1 {
   font-size: 30pt;
   line-height: 0.5;
   color: #ffff;
@@ -45,18 +67,18 @@ button {
   font-weight: 500;
   color: #7102E0;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  background-color: #f1ee2c;
+  background-color: #F3CF46;
   cursor: pointer;
   transition: border-color 0.25s;
   width: 300px;
 }
 button:hover {
   border-color: #646cff;
-}
-button:focus,
+} */
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -65,7 +87,7 @@ button:focus-visible {
     
   }
   a:hover {
-    color: #747bff;
+    /* color: #747bff; */
   }
   /* button {
     background-color: #f1ee2c;

@@ -1,0 +1,8 @@
+.containerTitle_TabOne {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.button_tabOne {
+background: #704F91;
+}

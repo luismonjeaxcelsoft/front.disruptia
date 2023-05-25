@@ -1,4 +1,4 @@
-import "../styles/hojadevidahome.css";
+ import "../styles/hojadevidahome.css";
 import { Link } from 'react-router-dom';
 export const Home = () => {
   return (

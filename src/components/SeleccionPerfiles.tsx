@@ -9,22 +9,19 @@ interface Perfiles {
 
 export const SeleccionPerfiles = () => {
   const [data, setData] = useState<Perfiles[]>([]);
- const [sendData, setSendData] = useState<number[]>([])
-
+  const [sendData, setSendData] = useState<number[]>([]);
 
   const filterButtoms = (perfil: Perfiles) => {
-    const value = sendData.some((data:number)=>data === perfil.id)
-    if(value){
-      setSendData(sendData.filter((item:number)=> item !== perfil.id))
-      return
+    const value = sendData.some((data: number) => data === perfil.id);
+    if (value) {
+      setSendData(sendData.filter((item: number) => item !== perfil.id));
+      return;
     }
-    setSendData([...sendData,perfil.id])
-  
+    setSendData([...sendData, perfil.id]);
   };
-  const idPerfilSelect = async()=>{
- const res = await perfilesSelect(1,sendData)
-  console.log("🚀 ~ file: SeleccionPerfiles.tsx:26 ~ idPerfilSelect ~ res:", res)
-  }
+  const idPerfilSelect = async () => {
+    await perfilesSelect(1, sendData);
+  };
   useEffect(() => {
     const fetchPerfiles = async () => {
       try {
@@ -46,43 +43,42 @@ export const SeleccionPerfiles = () => {
       </div>
       <div className="gripPositionTab">
         {data.map((perfil, key) => {
-          const validate = sendData.some((item:any)=> item === perfil.id)
+          const validate = sendData.some((item: any) => item === perfil.id);
           return (
             <div
-            key={key}
-            onClick={() => {
-              filterButtoms(perfil);
-            }}
-            className="row justify-content-md-center"
-           
-          >
-            <div
-              style={{
-                background: validate ? "#7102E0" : "#704F91",
-                borderRadius: "50px",
-                display: "flex",
-                justifyContent: "center",
-                marginBottom: "10%",
-                cursor: "pointer",
-                width:"387px"
+              key={key}
+              onClick={() => {
+                filterButtoms(perfil);
               }}
-              className="col col-lg-2"
+              className="row justify-content-md-center"
             >
-              <span
+              <div
                 style={{
-                  fontWeight: validate ? "bold" : "",
-                  fontSize: "20px",
-                  margin: "0%",
-                  padding: "10px",
-                  color: "white",
-                  opacity: validate ? "" : "0.5",
+                  background: validate ? "#7102E0" : "#704F91",
+                  borderRadius: "50px",
+                  display: "flex",
+                  justifyContent: "center",
+                  marginBottom: "10%",
+                  cursor: "pointer",
+                  width: "387px",
                 }}
+                className="col col-lg-2"
               >
-                {perfil.name}
-              </span>
+                <span
+                  style={{
+                    fontWeight: validate ? "bold" : "",
+                    fontSize: "20px",
+                    margin: "0%",
+                    padding: "10px",
+                    color: "white",
+                    opacity: validate ? "" : "0.5",
+                  }}
+                >
+                  {perfil.name}
+                </span>
+              </div>
             </div>
-          </div>
-          )
+          );
         })}
       </div>
       <div
@@ -94,7 +90,7 @@ export const SeleccionPerfiles = () => {
             border: "1px solid #F3CF46",
             background: "#310161",
             width: "227px",
-            height:"49px"
+            height: "49px",
           }}
           onClick={idPerfilSelect}
         >
@@ -110,11 +106,14 @@ export const SeleccionPerfiles = () => {
             Continuar
           </p>
         </button>
-      
       </div>
       <div className="img_disruptiaTab_one">
-        <img style={{width:"10%"}} src="/src/assets/images/disruptialogo.png" alt="" />
-        </div>
+        <img
+          style={{ width: "10%" }}
+          src="/src/assets/images/disruptialogo.png"
+          alt=""
+        />
+      </div>
     </div>
   );
 };

@@ -19,13 +19,14 @@ export const PerfilesService = async (): Promise<Perfiles[]> => {
   }
 };
 
-export const perfilesSelect = async (disrupterId:number,perfilesId:Array<number>): Promise<perfilesSelect[]> => {
+export const perfilesSelect = async (
+  disrupterId: number,
+  perfilesId: Array<number>
+): Promise<perfilesSelect[]> => {
   try {
     const response = await axios.post(`${API_URL}/seleccionperfil`, {
-      body: {
-        disrupterId:disrupterId,
-        perfilesId:perfilesId
-      }
+      disrupterId: disrupterId,
+      perfilesId: perfilesId,
     });
     return response.data as perfilesSelect[];
   } catch (error) {

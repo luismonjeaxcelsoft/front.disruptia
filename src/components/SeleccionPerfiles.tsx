@@ -29,9 +29,11 @@ export const SeleccionPerfiles = () => {
       <div className="containerTitle_TabOne">
         <h1 style={{ fontSize: "40px" }}>¿En qué te gustaría trabajar?</h1>
       </div>
-      <div>
+      <div style={{display: "grid",gridTemplateColumns:"1fr 1fr 1fr"}}>
         {data.map((perfil) => (
-          <button className="button_tabOne">perfil</button>
+         <div >
+           <button className="button_tabOne">perfil</button>
+         </div>
         ))}
       </div>
     </div>

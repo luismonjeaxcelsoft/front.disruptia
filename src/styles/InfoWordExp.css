@@ -1,0 +1,58 @@
+.spanFormationAcademy {
+  font-family: Avenir, Heavy;
+  font-size: 25px;
+  color: #f3cf46;
+}
+.spanStudy {
+  font-family: Avenir, Heavy;
+  color: #f3cf46;
+}
+.containerStudies {
+  display: flex;
+  flex-direction: column;
+  width: 211px;
+}
+
+.selectColor {
+  background: #4f2678;
+  color: white;
+}
+.ant-select-selector {
+  background: #4f2678 !important;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper
+  > input.ant-input {
+  background: #4f2678;
+  color: white;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper
+  .ant-input-show-count-suffix {
+  color: white;
+  opacity: 0.6;
+}
+
+.ant-checkbox-inner {
+  background: transparent !important;
+  border: 1px solid #f7c947 !important;
+}
+.labelsInsputs {
+  color: #ffffff;
+  opacity: 0.6;
+  font-family: Avenir, Heavy;
+}
+.inputBorderNone {
+  background: #4F2678;
+  color: white;
+  border: none;
+}
+.containerButtonContinue{
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+.containerDate   {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5%;
+   
+   }

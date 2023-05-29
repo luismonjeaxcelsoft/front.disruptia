@@ -33,3 +33,12 @@ export const perfilesSelect = async (
     throw new Error("Error al cargar los perfiles");
   }
 };
+
+export const getPerfilesService = async (disrupterId:any): Promise<Perfiles[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/seleccionperfil/disrupter/${disrupterId}`,);
+    return response.data as Perfiles[];
+  } catch (error) {
+    throw new Error("Error al obtener los perfiles");
+  }
+};

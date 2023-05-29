@@ -2,7 +2,40 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 4%;
+    margin-bottom: 6%;
 }
 .button_tabOne {
 background: #704F91;
+border-radius: 50px;
+display: flex;
+justify-content: center;
+width: 125%;
+margin-bottom: 14%;
 }
+
+.containerTabs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.gripPositionTab {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2%;
+    justify-content: center;
+}
+
+ .titleTabOne {
+    display: flex;
+    justify-content: center;
+    margin-top: 3%;
+    margin-bottom: 8%;
+ }
+ .img_disruptiaTab_one {
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 3%;
+ }

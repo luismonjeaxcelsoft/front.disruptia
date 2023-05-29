@@ -21,7 +21,7 @@ export const Sidebar: FC<Sidebar> = ({
   backColor,
   img
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className={isOpen ? "sidebar-open" : "sidebar"}>

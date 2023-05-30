@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
 import InfoWordExperience from "./InfoWordExperience";
 import ".././styles/InfoWordExp.css";
-
+import logo from "../assets/images/disruptialogo.png";
 interface FormInfoExperienceProps {
   setNextTab: React.Dispatch<string>;
   setActiviKey: any;
@@ -38,6 +38,7 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
     INITIAL_VALUES_FORM,
   ]);
 
+
   return (
     <div>
       <div>
@@ -53,18 +54,19 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
           );
         })}
       </div>
+      
       <div className="containerButtonContinue">
         <button
           onClick={() => {
             setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
           }}
-          className="btn btn-primary hoverAgregated"
+          className="btn btn-primary hoverAgregar"
         >
           Agregar estudio +
         </button>
-        <button className="buttomSave btn btn-primary">Guardar</button>
       </div>
-      <div className="containerButtomSelect">
+      
+      <div className="containerSelect">
         <button
           className="buttonContinueSelect"
           onClick={() => {
@@ -72,8 +74,13 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
             setActiviKey([...activiKey, { tabThree: true }]);
           }}
         >
-          <p className="textButtomSelect">Siguiente</p>
+          <p className="textSiguienteSelect">Siguiente</p>
         </button>
+      </div>
+      <div
+        style={{ display: "flex", justifyContent: "center", marginTop: "3%" }}
+      >
+        <img style={{ width: "100px" }} alt="" src={logo} />
       </div>
     </div>
   );

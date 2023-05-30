@@ -42,44 +42,50 @@
   font-family: Avenir, Heavy;
 }
 .inputBorderNone {
-  background: #4F2678;
+  background: #4f2678;
   color: white;
   border: none;
   height: 57px;
 }
-.containerButtonContinue{
-    display: flex;
-    justify-content: end;
-    margin-top: 20px;
+.containerButtonContinue {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 100px;
 }
-.containerDate   {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3%;
-   
-   }
-.imgCaneca{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+.containerDate {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3%;
 }
-
-.hoverAgregated {
-    margin-right:87px;
-    background: transparent !important;
-    border-radius: 20px !important;
-    border:none !important;
-    width: 217px
+.imgCaneca {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.hoverAgregated:hover {
-    background: #5801AD !important;
+.hoverAgregar {
+  margin-right: 87px;
+  background: transparent !important;
+  border-radius: 20px !important;
+  border: none !important;
+  width: 217px;
 }
 
-.buttomSave {
-    background: transparent !important;
-    border: 1px solid #F7C947 !important;
-    border-radius: 20px !important;
-    color: #F7C947 !important;
-    width: 100px;
+.hoverAgregar:hover {
+  background: #5801ad !important;
+}
+
+.SaveInfo {
+  background: transparent !important;
+  border: 1px solid #f7c947 !important;
+  border-radius: 20px !important;
+  color: #f7c947 !important;
+  width: 100px;
+}
+
+.containerSaveAction {
+  display: flex;
+  margin-top: 4%;
+  justify-content: center;
 }

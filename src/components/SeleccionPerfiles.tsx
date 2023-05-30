@@ -112,7 +112,7 @@ export const SeleccionPerfiles: FC<SeleccionPerfilesProps> = ({
           );
         })}
       </div>
-      <div className="containerButtomSelect">
+      <div className="containerSelect">
         <button
           className="buttonContinueSelect"
           onClick={() => {
@@ -126,7 +126,7 @@ export const SeleccionPerfiles: FC<SeleccionPerfilesProps> = ({
             ]);
           }}
         >
-          <p className="textButtomSelect">Continuar</p>
+          <p className="textSiguienteSelect">Continuar</p>
         </button>
       </div>
       <div className="img_disruptiaTab_one">

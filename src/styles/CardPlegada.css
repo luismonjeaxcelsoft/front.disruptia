@@ -1,0 +1,20 @@
+.containerElement {
+    width: 590px;
+    border-radius: 50px;
+    height: 70px;
+    background: #7102E0;
+}
+
+.containerText {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 30px;
+    width: 90%;
+    height: 100%;
+    align-items: center;
+}
+
+.textSpanInfo {
+    font-size: 25px;
+    color: white;
+}

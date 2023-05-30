@@ -47,7 +47,7 @@
   color: white;
 }
 
-.containerButtomSelect {
+.containerSelect {
   display: flex;
   justify-content: center;
   margin-top: 8%;
@@ -67,7 +67,7 @@
   color: #310161;
 
 }
-.textButtomSelect {
+.textSiguienteSelect {
   color: yellow;
   font-size: 20px;
   margin: 0;
@@ -75,7 +75,7 @@
   margin-bottom: 5%;
   font-family:Avenir,Heavy
 }
-.textButtomSelect:hover {
+.textSiguienteSelect:hover {
   color: #310161;
   font-family:Avenir,Heavy
 

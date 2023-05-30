@@ -18,7 +18,8 @@
   color: white;
 }
 .ant-select-selector {
-  background: #4f2678 !important;
+  background: #310161 !important;
+  color: white !important;
 }
 :where(.css-dev-only-do-not-override-15rg2km).ant-input-affix-wrapper
   > input.ant-input {
@@ -44,6 +45,7 @@
   background: #4F2678;
   color: white;
   border: none;
+  height: 57px;
 }
 .containerButtonContinue{
     display: flex;
@@ -53,6 +55,31 @@
 .containerDate   {
     display: flex;
     flex-wrap: wrap;
-    gap: 5%;
+    gap: 3%;
    
    }
+.imgCaneca{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.hoverAgregated {
+    margin-right:87px;
+    background: transparent !important;
+    border-radius: 20px !important;
+    border:none !important;
+    width: 217px
+}
+
+.hoverAgregated:hover {
+    background: #5801AD !important;
+}
+
+.buttomSave {
+    background: transparent !important;
+    border: 1px solid #F7C947 !important;
+    border-radius: 20px !important;
+    color: #F7C947 !important;
+    width: 100px;
+}

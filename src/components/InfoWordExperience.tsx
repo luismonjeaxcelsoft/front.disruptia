@@ -1,28 +1,75 @@
 import { Card, Checkbox, Form, Input, Select } from "antd";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ".././styles/InfoWordExp.css";
-
+import caneca from "../assets/images/canecasinFondo.png";
 interface InfoWordExperienceProps {
-  setNextTab: React.Dispatch<string>;
-  setActiviKey: any;
-  activiKey: any;
+  setValues: any;
+  values: any;
+  id: number;
+  valuesFilter: Array<object>;
+  setCountPosition:any;
+  countPosition:number
 }
 
 const InfoWordExperience: FC<InfoWordExperienceProps> = ({
-  setNextTab,
-  setActiviKey,
-  activiKey,
+  setValues,
+  values,
+  id,
+  valuesFilter,
+  setCountPosition,
+  countPosition
+  
 }) => {
+  const onChangeValues = (e: any) => {
+    const { name, value } = e.target;
+    changeValuesForm(name, value);
+  };
+  const changeValuesForm = (name: string, value: string) => {
+    setValues((prevValues: any) => {
+      let newValues = [...prevValues];
+      newValues[id] = { ...values, [name]: value };
+      return newValues;
+    });
+  };
+  const EliminateForm = () => {
+    let valuesFilterForm = valuesFilter.filter(
+      (item: any) => item.position != id
+    );
+   
+    return setValues(valuesFilterForm);
+  };
+ 
+ useEffect(() => {
+  setCountPosition(id)
+ }, [valuesFilter])
+ 
   return (
     <div>
       <div>
-        <span className="spanFormationAcademy">Formación Académica</span>
+        <span className="spanFormationAcademy">{id === 0 && "Formación Académica"}</span>
       </div>
-      <div style={{ width: "80rem" }}>
-        <Card style={{ background: "#310161" }}>
+      <div style={{ width: "60rem" }}>
+        <Card
+          style={{
+            background: "#310161",
+            padding: "20px",
+            borderRadius: "25px",
+            marginTop:"10px"
+          }}
+        >
           <div>
-            <div>
-              <span className="spanStudy">Estudio 1</span>
+            <div className="imgCaneca">
+              <span className="spanStudy">Estudio {id + 1}</span>
+              <img
+                style={{
+                  width: "24px",
+                  cursor: "pointer",
+                  display: valuesFilter.length === 1 ? "none" : "",
+                }}
+                alt="eliminar"
+                src={caneca}
+                onClick={EliminateForm}
+              />
             </div>
             <div>
               <Form>
@@ -40,6 +87,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       placeholder="Ej: Técnico en servicio al cliente y ventas"
                       maxLength={20}
                       showCount
+                      onChange={onChangeValues}
                     />
                   </div>
                   <div className="containerDate">
@@ -58,8 +106,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           style={{
                             background: "#4F2678",
                             color: "white",
-                            border: "1px solid #FFFFFF",
-                            width:"211px"
+                            width: "161px",
+                            marginRight: "10px",
                           }}
                           options={[
                             { value: "1", label: "Enero" },
@@ -75,14 +123,14 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             { value: "11", label: "Noviembre" },
                             { value: "12", label: "Diciembre" },
                           ]}
-                          id="user_id"
+                          onChange={(e) => changeValuesForm("dateInit", e)}
+                          id="dateInit"
                         />
                         <Select
                           style={{
                             background: "#4F2678",
                             color: "white",
-                            border: "1px solid #FFFFFF",
-                            width:"121px"
+                            width: "75px",
                           }}
                           options={[
                             { value: "1", label: "2000" },
@@ -98,7 +146,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             { value: "11", label: "2010" },
                             { value: "12", label: "2011" },
                           ]}
-                          id="user_id"
+                          id="dateInitOne"
+                          onChange={(e) => changeValuesForm("dateInitOne", e)}
                         />
                       </div>
                     </div>
@@ -106,54 +155,55 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       <label className="labelsInsputs" htmlFor="dateEnd">
                         Fecha de finalización
                       </label>
-                  <div>
-                  <Select
-                        style={{
-                          background: "#4F2678",
-                          color: "white",
-                          border: "1px solid #FFFFFF",
-                          width:"211px"
-                        }}
-                        options={[
-                          { value: "1", label: "Enero" },
-                          { value: "2", label: "Febrero" },
-                          { value: "3", label: "Marzo" },
-                          { value: "4", label: "Abril" },
-                          { value: "5", label: "Mayo" },
-                          { value: "6", label: "Junio" },
-                          { value: "7", label: "Julio" },
-                          { value: "8", label: "Agosto" },
-                          { value: "9", label: "Septiembre" },
-                          { value: "10", label: "Octubre" },
-                          { value: "11", label: "Noviembre" },
-                          { value: "12", label: "Diciembre" },
-                        ]}
-                        id="user_id"
-                      />
-                      <Select
-                        style={{
-                          background: "#4F2678",
-                          color: "white",
-                          border: "1px solid #FFFFFF",
-                          width:"121px"
-                        }}
-                        options={[
-                          { value: "1", label: "2000" },
-                          { value: "2", label: "2001" },
-                          { value: "3", label: "2002" },
-                          { value: "4", label: "2003" },
-                          { value: "5", label: "2004" },
-                          { value: "6", label: "2005" },
-                          { value: "7", label: "2006" },
-                          { value: "8", label: "2007" },
-                          { value: "9", label: "2008" },
-                          { value: "10", label: "2009" },
-                          { value: "11", label: "2010" },
-                          { value: "12", label: "2011" },
-                        ]}
-                        id="user_id"
-                      />
-                  </div>
+                      <div>
+                        <Select
+                          style={{
+                            background: "#4F2678",
+                            color: "white",
+                            width: "161px",
+                            marginRight: "10px",
+                          }}
+                          options={[
+                            { value: "1", label: "Enero" },
+                            { value: "2", label: "Febrero" },
+                            { value: "3", label: "Marzo" },
+                            { value: "4", label: "Abril" },
+                            { value: "5", label: "Mayo" },
+                            { value: "6", label: "Junio" },
+                            { value: "7", label: "Julio" },
+                            { value: "8", label: "Agosto" },
+                            { value: "9", label: "Septiembre" },
+                            { value: "10", label: "Octubre" },
+                            { value: "11", label: "Noviembre" },
+                            { value: "12", label: "Diciembre" },
+                          ]}
+                          id="dateEnd"
+                          onChange={(e) => changeValuesForm("dateEnd", e)}
+                        />
+                        <Select
+                          style={{
+                            background: "#4F2678",
+                            color: "white",
+                            width: "75px",
+                          }}
+                          options={[
+                            { value: "1", label: "2000" },
+                            { value: "2", label: "2001" },
+                            { value: "3", label: "2002" },
+                            { value: "4", label: "2003" },
+                            { value: "5", label: "2004" },
+                            { value: "6", label: "2005" },
+                            { value: "7", label: "2006" },
+                            { value: "8", label: "2007" },
+                            { value: "9", label: "2008" },
+                            { value: "10", label: "2009" },
+                            { value: "11", label: "2010" },
+                            { value: "12", label: "2011" },
+                          ]}
+                          id="dateEndOne"
+                          onChange={(e) => changeValuesForm("dateEndOne", e)}
+                        />
+                      </div>
                     </div>
                   </div>
                   <div style={{ marginBottom: "15px" }}>
@@ -182,6 +232,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       showCount
                       maxLength={20}
                       placeholder="Ej: Sena"
+                      onChange={onChangeValues}
                     />
                   </div>
                   <div
@@ -196,16 +247,17 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         Tipo de estudio
                       </label>
                       <Select
-                        id="user_id"
+                        id="studies"
                         options={[
-                          { value: "jack", label: "Jack" },
-                          { value: "lucy", label: "Lucy" },
-                          { value: "Yiminghe", label: "yiminghe" },
+                          { value: "técnico", label: "técnico" },
+                          { value: "tecnológico", label: "tecnológico" },
+                          { value: "PostGrado", label: "PostGrado" },
                         ]}
+                        onChange={(e) => changeValuesForm("studies", e)}
                       />
                     </div>
                     <div>
-                      <label className="labelsInsputs" htmlFor="studies">
+                      <label className="labelsInsputs" htmlFor="countries">
                         País y Ciudad donde curso
                       </label>
                       <div
@@ -221,24 +273,26 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             background: "#4F2678",
                             color: "white",
                           }}
-                          id="user_id"
+                          id="countries"
                           options={[
-                            { value: "jack", label: "Jack" },
-                            { value: "lucy", label: "Lucy" },
-                            { value: "Yiminghe", label: "yiminghe" },
+                            { value: "Colombia", label: "Colombia" },
+                            { value: "Venezuela", label: "Venezuela" },
+                            { value: "Ecuador", label: "Ecuador" },
                           ]}
+                          onChange={(e) => changeValuesForm("countries", e)}
                         />
                         <Select
                           style={{
                             background: "#4F2678",
                             color: "white",
                           }}
-                          id="user_id"
+                          id="countriesOne"
                           options={[
-                            { value: "jack", label: "Jack" },
-                            { value: "lucy", label: "Lucy" },
-                            { value: "Yiminghe", label: "yiminghe" },
+                            { value: "Bogotá", label: "Bogotá" },
+                            { value: "Medellin", label: "Medellin" },
+                            { value: "Cali", label: "Cali" },
                           ]}
+                          onChange={(e) => changeValuesForm("countriesOne", e)}
                         />
                       </div>
                     </div>
@@ -248,34 +302,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
             </div>
           </div>
         </Card>
-        <div className="containerButtonContinue">
-          <button
-            className="btn btn-primary"
-            style={{
-              background: "transparent",
-              border: "1px solid #F7C947",
-              borderRadius: "20px",
-              color: "#F7C947",
-              width: "100px",
-            }}
-          >
-            Guardar
-          </button>
-        </div>
       </div>
-      <div>
-        <div className="containerButtomSelect">
-          <button
-            className="buttonContinueSelect"
-            onClick={() => {
-              setNextTab("3");
-              setActiviKey([...activiKey, { tabThree: true }]);
-            }}
-          >
-            <p className="textButtomSelect">Siguiente</p>
-          </button>
-        </div>
-      </div>
+      <div></div>
     </div>
   );
 };

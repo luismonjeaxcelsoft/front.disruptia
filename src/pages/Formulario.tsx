@@ -15,6 +15,7 @@ import doctor from "../assets/images/doctorsinFondo.png";
 import credencial from "../assets/images/tablasinFondo.png";
 import { useState } from "react";
 import InfoWordExperience from "../components/InfoWordExperience";
+import FormInfoExperience from "../components/FormInfoExperience";
 
 export const Formulario = () => {
   const [nextTab, setNextTab] = useState<string>("1");
@@ -74,11 +75,11 @@ export const Formulario = () => {
                 key: "2",
                 children: (
                   <div>
-                    <InfoWordExperience
-                      setActiviKey={setActiviKey}
-                      activiKey={activiKey}
-                      setNextTab={setNextTab}
-                    />
+                  <FormInfoExperience
+                   setActiviKey={setActiviKey}
+                   activiKey={activiKey}
+                   setNextTab={setNextTab}
+                  />
                   </div>
                 ),
               },

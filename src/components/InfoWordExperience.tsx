@@ -1,5 +1,5 @@
 import { Card, Checkbox, Form, Input, Select } from "antd";
-import React, { FC, useEffect, useState } from "react";
+import  { FC, useEffect } from "react";
 import ".././styles/InfoWordExp.css";
 import caneca from "../assets/images/canecasinFondo.png";
 interface InfoWordExperienceProps {

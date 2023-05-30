@@ -1,5 +1,5 @@
 import { Card, Checkbox, Form, Input, Select } from "antd";
-import  { FC, useEffect } from "react";
+import  { FC } from "react";
 import ".././styles/InfoWordExp.css";
 import caneca from "../assets/images/canecasinFondo.png";
 interface InfoWordExperienceProps {
@@ -7,8 +7,7 @@ interface InfoWordExperienceProps {
   values: any;
   id: number;
   valuesFilter: Array<object>;
-  setCountPosition:any;
-  countPosition:number
+ 
 }
 
 const InfoWordExperience: FC<InfoWordExperienceProps> = ({
@@ -16,8 +15,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   values,
   id,
   valuesFilter,
-  setCountPosition,
-  countPosition
+
   
 }) => {
   const onChangeValues = (e: any) => {
@@ -32,16 +30,14 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     });
   };
   const EliminateForm = () => {
-    let valuesFilterForm = valuesFilter.filter(
-      (item: any) => item.position != id
-    );
+setValues((prevValues:any)=>{
+  const newValues = prevValues.filter((_form:any,i:number)=>i !== id )
+  return newValues
+})
    
-    return setValues(valuesFilterForm);
+   
   };
  
- useEffect(() => {
-  setCountPosition(id)
- }, [valuesFilter])
  
   return (
     <div>

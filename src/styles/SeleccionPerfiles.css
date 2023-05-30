@@ -1,41 +1,90 @@
 .containerTitle_TabOne {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 4%;
-    margin-bottom: 6%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4%;
+  margin-bottom: 6%;
 }
 .button_tabOne {
-background: #704F91;
-border-radius: 50px;
-display: flex;
-justify-content: center;
-width: 125%;
-margin-bottom: 14%;
+  background: #704f91;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  width: 125%;
+  margin-bottom: 14%;
 }
 
 .containerTabs {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .gripPositionTab {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2%;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%;
+  justify-content: center;
 }
 
- .titleTabOne {
-    display: flex;
-    justify-content: center;
-    margin-top: 3%;
-    margin-bottom: 8%;
- }
- .img_disruptiaTab_one {
-    display: flex;
-    justify-content: center;
-    margin-top: 5%;
-    margin-bottom: 3%;
- }
+.titleTabOne {
+  display: flex;
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: 8%;
+}
+.img_disruptiaTab_one {
+  display: flex;
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 3%;
+}
+
+.perfilName {
+  font-size: 20px;
+  margin: 0%;
+  padding: 10px;
+  color: white;
+}
+
+.containerButtomSelect {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.buttonContinueSelect {
+  border-radius: 50px;
+  border: 1px solid #f3cf46;
+  background: #310161;
+  width: 227px;
+  height: 49px;
+  cursor: pointer;
+}
+.buttonContinueSelect:hover {
+  background: #f3cf46;
+  cursor: pointer;
+  color: #310161;
+
+}
+.textButtomSelect {
+  color: yellow;
+  font-size: 20px;
+  margin: 0;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  font-family:Avenir,Heavy
+}
+.textButtomSelect:hover {
+  color: #310161;
+  font-family:Avenir,Heavy
+
+}
+
+.ant-tabs-nav {
+  width: 60%;
+}
+
+.ant-tabs {
+  align-items: center;
+}

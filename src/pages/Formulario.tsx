@@ -3,19 +3,26 @@ import { Sidebar } from "../components/Sidebar";
 import iconotab1 from "../assets/images/Iconos.png";
 import "../styles/formulario.css";
 import { SeleccionPerfiles } from "../components/SeleccionPerfiles";
-import toga from "../assets/images/toga-removebg-preview.png";
-import maletin from "../assets/images/maletin-removebg-preview.png";
-import rueda from "../assets/images/rueda.png";
-import bombilla from "../assets/images/bombilla.png";
-import word from "../assets/images/word.png";
-import manoGris from "../assets/images/p1h1ccfkk3m7bdken7a1fbi12vn4_page_16-removebg-preview.png"
-import computador from "../assets/images/computador.png"
-import cubo from "../assets/images/cubo.png"
-import doctor from "../assets/images/doctor.png"
-import credencial from "../assets/images/credencial.png"
+import toga from "../assets/images/togasinFondo.png";
+import maletin from "../assets/images/maletinsinFondo.png";
+import rueda from "../assets/images/ruedasinFondo.png";
+import bombilla from "../assets/images/bombillasinFondo.png";
+import word from "../assets/images/wordsinFondo.png";
+import manoGris from "../assets/images/manosinFondo.png";
+import computador from "../assets/images/portatilsinFondo.png";
+import cubo from "../assets/images/cubosinFondo.png";
+import doctor from "../assets/images/doctorsinFondo.png";
+import credencial from "../assets/images/tablasinFondo.png";
+import { useState } from "react";
+import InfoWordExperience from "../components/InfoWordExperience";
 
 export const Formulario = () => {
-  
+  const [nextTab, setNextTab] = useState<string>("1");
+  const [activiKey, setActiviKey] = useState<any>([
+    {
+      tabOne: true,
+    },
+  ]);
   return (
     <div>
       <div>
@@ -28,33 +35,63 @@ export const Formulario = () => {
       <div className="formulario">
         <div className="tabs">
           <Tabs
+            activeKey={nextTab}
             className="tabs-2"
             defaultActiveKey="1"
             centered
-            size="middle"
+            size="small"
             items={[
               {
-                label: <img style={{width:"100%"}} alt="agenda" src={iconotab1} />,
+                label: (
+                  <div>
+                    <img
+                      style={{ width: "30%" }}
+                      alt="agenda"
+                      src={iconotab1}
+                    />
+                  </div>
+                ),
                 key: "1",
                 children: (
                   <div>
-                    <SeleccionPerfiles />
+                    <SeleccionPerfiles
+                      setNextTab={setNextTab}
+                      setActiviKey={setActiviKey}
+                      activiKey={activiKey}
+                      nextTab={nextTab}
+                    />
                   </div>
                 ),
               },
               {
                 label: (
                   <div>
-                    <img alt="toga" style={{width:"50%"}} src={toga} />
+                    {activiKey[1]?.tabTwo && (
+                      <img alt="toga" style={{ width: "30%" }} src={toga} />
+                    )}
                   </div>
                 ),
                 key: "2",
-                children: "Tab 2",
+                children: (
+                  <div>
+                    <InfoWordExperience
+                      setActiviKey={setActiviKey}
+                      activiKey={activiKey}
+                      setNextTab={setNextTab}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    <img alt="maletin" style={{width:"50%"}} src={maletin} />
+                    {activiKey[2]?.tabThree && (
+                      <img
+                        alt="maletin"
+                        style={{ width: "50%" }}
+                        src={maletin}
+                      />
+                    )}
                   </div>
                 ),
                 key: "3",
@@ -63,7 +100,9 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="mano" style={{width:"50%"}} src={manoGris} />
+                    {nextTab === "4" && (
+                      <img alt="mano" style={{ width: "50%" }} src={manoGris} />
+                    )}
                   </div>
                 ),
                 key: "4",
@@ -72,7 +111,9 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="rueda" style={{width:"50%"}} src={rueda} />
+                    {nextTab === "5" && (
+                      <img alt="rueda" style={{ width: "50%" }} src={rueda} />
+                    )}
                   </div>
                 ),
                 key: "5",
@@ -81,7 +122,13 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="bombilla" style={{width:"50%"}} src={bombilla} />
+                    {nextTab === "6" && (
+                      <img
+                        alt="bombilla"
+                        style={{ width: "50%" }}
+                        src={bombilla}
+                      />
+                    )}
                   </div>
                 ),
                 key: "6",
@@ -90,7 +137,9 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="word" style={{width:"50%"}} src={word} />
+                    {nextTab === "7" && (
+                      <img alt="word" style={{ width: "50%" }} src={word} />
+                    )}
                   </div>
                 ),
                 key: "7",
@@ -99,7 +148,13 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="computador" style={{width:"50%"}} src={computador} />
+                    {nextTab === "8" && (
+                      <img
+                        alt="computador"
+                        style={{ width: "50%" }}
+                        src={computador}
+                      />
+                    )}
                   </div>
                 ),
                 key: "8",
@@ -108,7 +163,9 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="cubo" style={{width:"50%"}} src={cubo} />
+                    {nextTab === "9" && (
+                      <img alt="cubo" style={{ width: "50%" }} src={cubo} />
+                    )}
                   </div>
                 ),
                 key: "9",
@@ -117,7 +174,9 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="doctor" style={{width:"50%"}} src={doctor} />
+                    {nextTab === "10" && (
+                      <img alt="doctor" style={{ width: "50%" }} src={doctor} />
+                    )}
                   </div>
                 ),
                 key: "10",
@@ -126,7 +185,13 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    <img alt="credencial" style={{width:"50%"}} src={credencial} />
+                    {nextTab === "11" && (
+                      <img
+                        alt="credencial"
+                        style={{ width: "50%" }}
+                        src={credencial}
+                      />
+                    )}
                   </div>
                 ),
                 key: "11",

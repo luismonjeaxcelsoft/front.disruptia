@@ -173,6 +173,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             ]}
                             onChange={(e) => changeValuesForm("dateInit", e)}
                             id="dateInit"
+                            value={values.fechaInicio.split("-")[0]}
                           />
                           <Select
                             style={{
@@ -201,6 +202,9 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 `${values.dateInit}-${e}`
                               )
                             }
+                            value={values.fechaInicio.split("-")[1]}
+                            
+                            
                           />
                         </div>
                       </div>
@@ -232,6 +236,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             ]}
                             id="dateEnd"
                             onChange={(e) => changeValuesForm("dateEnd", e)}
+                            value={values.fechaFin.split("-")[0]}
                           />
                           <Select
                             style={{
@@ -260,6 +265,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 `${values.dateEnd}-${e}`
                               )
                             }
+                            value={values.fechaFin.split("-")[1]}
                           />
                         </div>
                       </div>
@@ -317,6 +323,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             value: item,
                           }))}
                           onChange={(e) => changeValuesForm("tipoEstudio", e)}
+                          value={values.tipoEstudio}
                         />
                       </div>
                       <div>
@@ -342,6 +349,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               value: item.codigoPais,
                             }))}
                             onChange={(e) => changeValuesForm("paisId", e)}
+                            value={values.paisId}
                           />
                           <Select
                             style={{
@@ -354,6 +362,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               value: item.municipioId,
                             }))}
                             onChange={(e) => changeValuesForm("ciudadId", e)}
+                            value={values.ciudadId}
+
                           />
                         </div>
                       </div>

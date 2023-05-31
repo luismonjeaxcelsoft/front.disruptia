@@ -1,6 +1,7 @@
 import { FC } from "react";
 import "../../src/styles/CardPlegada.css"
 import dropDown from "../assets/images/dropDownSinFondo.png"
+import { DownOutlined } from "@ant-design/icons";
 
 type CardPlegadaProps = {
   valuesFilter: any;
@@ -12,8 +13,9 @@ const CardPlegada: FC<CardPlegadaProps> = ({ valuesFilter,setCardValidate }) => 
     <div >
       <div className="containerElement">
        <div className="containerText">
-       <span className="textSpanInfo"> {valuesFilter.nameCurse}</span>
-       <img style={{width:"40px",cursor:"pointer"}} onClick={()=>setCardValidate(false)} src={dropDown}/>
+       <span className="textSpanInfo"> {valuesFilter.nombreCurso}</span>
+       <DownOutlined className="iconDropDown" onClick={()=>setCardValidate(false)} />
+
        </div>
       </div>
     </div>

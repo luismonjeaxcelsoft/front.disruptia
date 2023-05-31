@@ -3,12 +3,29 @@ import { FC, useEffect, useState } from "react";
 import ".././styles/InfoWordExp.css";
 import caneca from "../assets/images/canecasinFondo.png";
 import CardPlegada from "./CardPlegada";
+import {
+  CreateStudy,
+  FormationAcademy,
+  GetCountries,
+  GetMunicipality,
+} from "../services/EstudiesService";
 interface InfoWordExperienceProps {
   setValues: any;
   values: any;
   id: number;
   valuesFilter: Array<object>;
 }
+type VALUESCOUNTRIES = {
+  codigoPais: number;
+  nombrePais: string;
+};
+type MUNICIPALITYINFO = {
+  municipioDepartamento: string;
+  municipioId: number;
+  departamentoId: number;
+  codigoPais: number;
+  nombrePais: string;
+};
 
 const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   setValues,
@@ -16,12 +33,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   id,
   valuesFilter,
 }) => {
-  console.log(
-    "🚀 ~ file: InfoWordExperience.tsx:19 ~ valuesFilter:",
-    valuesFilter
-  );
   const [cardValidate, setCardValidate] = useState<boolean>(false);
-
+  const [valuesAcademy, setValuesAcademy] = useState<any>([]);
+  const [countries, setCountries] = useState<Array<VALUESCOUNTRIES>>([]);
+  const [municipality, setMunicipality] = useState<Array<MUNICIPALITYINFO>>([]);
+  const [valueCheck, setValueCheck] = useState<boolean>(false);
   const onChangeValues = (e: any) => {
     const { name, value } = e.target;
     changeValuesForm(name, value);
@@ -48,6 +64,24 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     }
   };
 
+  const createStudies = async () => {
+    delete values.dateInit, delete values.dateEnd;
+    values["estudioId"] = id + 1;
+    values["cursando"] = valueCheck;
+    await CreateStudy(values);
+  };
+  const getInfoAcademy = async () => {
+    const res = await FormationAcademy();
+    const resCountries = await GetCountries();
+    const getMunicipalities = await GetMunicipality();
+    setValuesAcademy(res);
+    setCountries(resCountries);
+    setMunicipality(getMunicipalities);
+  };
+  useEffect(() => {
+    getInfoAcademy();
+  }, []);
+
   return (
     <div>
       <div>
@@ -57,7 +91,10 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       </div>
       <div style={{ width: "60rem" }}>
         {cardValidate ? (
-          <CardPlegada setCardValidate={setCardValidate} valuesFilter={values} />
+          <CardPlegada
+            setCardValidate={setCardValidate}
+            valuesFilter={values}
+          />
         ) : (
           <Card
             style={{
@@ -92,12 +129,13 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         type="text"
                         className="inputBorderNone"
                         id="user_id"
-                        name="nameCurse"
+                        name="nombreCurso"
                         autoComplete="off"
                         placeholder="Ej: Técnico en servicio al cliente y ventas"
-                        maxLength={20}
+                        maxLength={200}
                         showCount
                         onChange={onChangeValues}
+                        value={values.nombreCurso}
                       />
                     </div>
                     <div className="containerDate">
@@ -120,15 +158,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               marginRight: "10px",
                             }}
                             options={[
-                              { value: "1", label: "Enero" },
-                              { value: "2", label: "Febrero" },
-                              { value: "3", label: "Marzo" },
-                              { value: "4", label: "Abril" },
-                              { value: "5", label: "Mayo" },
-                              { value: "6", label: "Junio" },
-                              { value: "7", label: "Julio" },
-                              { value: "8", label: "Agosto" },
-                              { value: "9", label: "Septiembre" },
+                              { value: "01", label: "Enero" },
+                              { value: "02", label: "Febrero" },
+                              { value: "03", label: "Marzo" },
+                              { value: "04", label: "Abril" },
+                              { value: "05", label: "Mayo" },
+                              { value: "06", label: "Junio" },
+                              { value: "07", label: "Julio" },
+                              { value: "08", label: "Agosto" },
+                              { value: "09", label: "Septiembre" },
                               { value: "10", label: "Octubre" },
                               { value: "11", label: "Noviembre" },
                               { value: "12", label: "Diciembre" },
@@ -143,8 +181,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               width: "75px",
                             }}
                             options={[
-                              { value: "1", label: "2000" },
-                              { value: "2", label: "2001" },
+                              { value: "2000", label: "2000" },
+                              { value: "2001", label: "2001" },
                               { value: "3", label: "2002" },
                               { value: "4", label: "2003" },
                               { value: "5", label: "2004" },
@@ -156,8 +194,13 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               { value: "11", label: "2010" },
                               { value: "12", label: "2011" },
                             ]}
-                            id="dateInitOne"
-                            onChange={(e) => changeValuesForm("dateInitOne", e)}
+                            id="fechaInicio"
+                            onChange={(e) =>
+                              changeValuesForm(
+                                "fechaInicio",
+                                `${values.dateInit}-${e}`
+                              )
+                            }
                           />
                         </div>
                       </div>
@@ -174,15 +217,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               marginRight: "10px",
                             }}
                             options={[
-                              { value: "1", label: "Enero" },
-                              { value: "2", label: "Febrero" },
-                              { value: "3", label: "Marzo" },
-                              { value: "4", label: "Abril" },
-                              { value: "5", label: "Mayo" },
-                              { value: "6", label: "Junio" },
-                              { value: "7", label: "Julio" },
-                              { value: "8", label: "Agosto" },
-                              { value: "9", label: "Septiembre" },
+                              { value: "01", label: "Enero" },
+                              { value: "02", label: "Febrero" },
+                              { value: "03", label: "Marzo" },
+                              { value: "04", label: "Abril" },
+                              { value: "05", label: "Mayo" },
+                              { value: "06", label: "Junio" },
+                              { value: "07", label: "Julio" },
+                              { value: "08", label: "Agosto" },
+                              { value: "09", label: "Septiembre" },
                               { value: "10", label: "Octubre" },
                               { value: "11", label: "Noviembre" },
                               { value: "12", label: "Diciembre" },
@@ -197,8 +240,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               width: "75px",
                             }}
                             options={[
-                              { value: "1", label: "2000" },
-                              { value: "2", label: "2001" },
+                              { value: "2000", label: "2000" },
+                              { value: "2001", label: "2001" },
                               { value: "3", label: "2002" },
                               { value: "4", label: "2003" },
                               { value: "5", label: "2004" },
@@ -210,14 +253,21 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               { value: "11", label: "2010" },
                               { value: "12", label: "2011" },
                             ]}
-                            id="dateEndOne"
-                            onChange={(e) => changeValuesForm("dateEndOne", e)}
+                            id="fechaFin"
+                            onChange={(e) =>
+                              changeValuesForm(
+                                "fechaFin",
+                                `${values.dateEnd}-${e}`
+                              )
+                            }
                           />
                         </div>
                       </div>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <Checkbox />
+                      <Checkbox
+                        onChange={(e) => setValueCheck(e.target.checked)}
+                      />
                       <label
                         style={{
                           color: "#FFFFFF",
@@ -230,19 +280,23 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       </label>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <label className="labelsInsputs" htmlFor="institution">
+                      <label
+                        className="labelsInsputs"
+                        htmlFor="nombreInstitucion"
+                      >
                         Institución Educativa
                       </label>
                       <Input
                         type="text"
                         className="inputBorderNone"
                         id="user_id"
-                        name="institution"
+                        name="nombreInstitucion"
                         autoComplete="off"
                         showCount
-                        maxLength={20}
+                        maxLength={200}
                         placeholder="Ej: Sena"
                         onChange={onChangeValues}
+                        value={values.nombreInstitucion}
                       />
                     </div>
                     <div
@@ -253,21 +307,20 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       }}
                     >
                       <div className="containerStudies">
-                        <label className="labelsInsputs" htmlFor="studies">
+                        <label className="labelsInsputs" htmlFor="tipoEstudio">
                           Tipo de estudio
                         </label>
                         <Select
-                          id="studies"
-                          options={[
-                            { value: "técnico", label: "técnico" },
-                            { value: "tecnológico", label: "tecnológico" },
-                            { value: "PostGrado", label: "PostGrado" },
-                          ]}
-                          onChange={(e) => changeValuesForm("studies", e)}
+                          id="tipoEstudio"
+                          options={valuesAcademy.map((item: any) => ({
+                            label: item,
+                            value: item,
+                          }))}
+                          onChange={(e) => changeValuesForm("tipoEstudio", e)}
                         />
                       </div>
                       <div>
-                        <label className="labelsInsputs" htmlFor="countries">
+                        <label className="labelsInsputs" htmlFor="paisId">
                           País y Ciudad donde curso
                         </label>
                         <div
@@ -283,28 +336,24 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               background: "#4F2678",
                               color: "white",
                             }}
-                            id="countries"
-                            options={[
-                              { value: "Colombia", label: "Colombia" },
-                              { value: "Venezuela", label: "Venezuela" },
-                              { value: "Ecuador", label: "Ecuador" },
-                            ]}
-                            onChange={(e) => changeValuesForm("countries", e)}
+                            id="ciudadId"
+                            options={countries.map((item: any) => ({
+                              label: item.nombrePais,
+                              value: item.codigoPais,
+                            }))}
+                            onChange={(e) => changeValuesForm("paisId", e)}
                           />
                           <Select
                             style={{
                               background: "#4F2678",
                               color: "white",
                             }}
-                            id="countriesOne"
-                            options={[
-                              { value: "Bogotá", label: "Bogotá" },
-                              { value: "Medellin", label: "Medellin" },
-                              { value: "Cali", label: "Cali" },
-                            ]}
-                            onChange={(e) =>
-                              changeValuesForm("countriesOne", e)
-                            }
+                            id="ciudadId"
+                            options={municipality.map((item: any) => ({
+                              label: item.municipioDepartamento,
+                              value: item.municipioId,
+                            }))}
+                            onChange={(e) => changeValuesForm("ciudadId", e)}
                           />
                         </div>
                       </div>
@@ -319,7 +368,10 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
           <div className="containerSaveAction">
             <button
               style={{ width: "168px" }}
-              onClick={activeCard}
+              onClick={() => {
+                activeCard();
+                createStudies();
+              }}
               className="SaveInfo btn btn-primary"
             >
               Guardar

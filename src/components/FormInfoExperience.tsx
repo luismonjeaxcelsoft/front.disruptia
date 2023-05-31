@@ -1,48 +1,71 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState,useEffect } from "react";
 import InfoWordExperience from "./InfoWordExperience";
 import ".././styles/InfoWordExp.css";
 import logo from "../assets/images/disruptialogo.png";
+import { GetStudiesId } from "../services/EstudiesService";
 interface FormInfoExperienceProps {
   setNextTab: React.Dispatch<string>;
   setActiviKey: any;
   activiKey: any;
 }
-type FormEstudies = {
-  nameCurse: string;
-  dateInit: string;
-  dateInitOne: string;
-  dateEnd: string;
-  dateEndOne: string;
-  institution: string;
-  studies: string;
-  countries: string;
-  countriesOne: string;
-};
+
 const INITIAL_VALUES_FORM = {
-  nameCurse: "",
+  disrupterId:1,
+  estudioId:0,
+  nombreCurso: "",
   dateInit: "",
-  dateInitOne: "",
+  fechaInicio: "",
   dateEnd: "",
-  dateEndOne: "",
-  institution: "",
-  studies: "",
-  countries: "",
-  countriesOne: "",
+  fechaFin: "",
+  cursando:false,
+  nombreInstitucion: "",
+  tipoEstudio: "",
+  paisId: 0,
+  ciudadId: 0,
 };
 const FormInfoExperience: FC<FormInfoExperienceProps> = ({
   setNextTab,
   setActiviKey,
   activiKey,
 }) => {
-  const [valuesForm, setValuesForm] = useState<Array<FormEstudies>>([
+  const [valuesForm, setValuesForm] = useState<any>([
     INITIAL_VALUES_FORM,
   ]);
+  console.log("🚀 ~ file: FormInfoExperience.tsx:47 ~ valuesForm:", valuesForm)
+const getFormStudies = async()=>{
+  const res = await GetStudiesId(1)
+  if(res.length > 0){
+  let infoMap = res.map((item:any)=>{
+return {
+  disrupterId:1,
+  estudioId:item.estudioId,
+  nombreCurso: item.nombreCurso,
+  dateInit: item.dateInit,
+  fechaInicio: item.fechaInicio,
+  dateEnd: item.dateEnd,
+  fechaFin: item.fechaFin,
+  cursando:item.cursando,
+  nombreInstitucion: item.nombreInstitucion,
+  tipoEstudio: item.tipoEstudio,
+  paisId: item.paisId,
+  ciudadId: item.ciudadId,
+}
+   })
+   const nuevoArray = infoMap.reduce((accumulator:any, currentValue) => {
+    return [...accumulator, currentValue];
+  }, []);
+setValuesForm(nuevoArray)
+  }
+}
 
+useEffect(() => {
+  getFormStudies()
+}, [])
 
   return (
     <div>
       <div>
-        {valuesForm.map((valueForm, i) => {
+        {valuesForm.map((valueForm:any, i:any) => {
           return (
             <InfoWordExperience
               setValues={setValuesForm}

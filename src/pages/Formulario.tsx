@@ -14,8 +14,8 @@ import cubo from "../assets/images/cubosinFondo.png";
 import doctor from "../assets/images/doctorsinFondo.png";
 import credencial from "../assets/images/tablasinFondo.png";
 import { useState } from "react";
-import InfoWordExperience from "../components/InfoWordExperience";
 import FormInfoExperience from "../components/FormInfoExperience";
+import ValidateExpFather from "../components/ValidateExpFather";
 
 export const Formulario = () => {
   const [nextTab, setNextTab] = useState<string>("1");
@@ -46,7 +46,7 @@ export const Formulario = () => {
                 label: (
                   <div>
                     <img
-                      style={{ width: "30%" }}
+                      style={{ width: "53px" }}
                       alt="agenda"
                       src={iconotab1}
                     />
@@ -68,7 +68,7 @@ export const Formulario = () => {
                 label: (
                   <div>
                     {activiKey[1]?.tabTwo && (
-                      <img alt="toga" style={{ width: "30%" }} src={toga} />
+                      <img alt="toga" style={{ width: "53px" }} src={toga} />
                     )}
                   </div>
                 ),
@@ -89,20 +89,26 @@ export const Formulario = () => {
                     {activiKey[2]?.tabThree && (
                       <img
                         alt="maletin"
-                        style={{ width: "50%" }}
+                        style={{ width: "53px" }}
                         src={maletin}
                       />
                     )}
                   </div>
                 ),
                 key: "3",
-                children: "Tab 3",
+                children:(
+                  <div>
+                    <ValidateExpFather
+                     
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
                     {nextTab === "4" && (
-                      <img alt="mano" style={{ width: "50%" }} src={manoGris} />
+                      <img alt="mano" style={{ width: "53px" }} src={manoGris} />
                     )}
                   </div>
                 ),
@@ -113,7 +119,7 @@ export const Formulario = () => {
                 label: (
                   <div>
                     {nextTab === "5" && (
-                      <img alt="rueda" style={{ width: "50%" }} src={rueda} />
+                      <img alt="rueda" style={{ width: "53px" }} src={rueda} />
                     )}
                   </div>
                 ),

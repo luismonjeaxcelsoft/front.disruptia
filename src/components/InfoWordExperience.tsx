@@ -36,18 +36,25 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   valuesFilter,
   setValidateViewB,
 }) => {
-  console.log("🚀 ~ file: InfoWordExperience.tsx:39 ~ values:", values);
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valuesAcademy, setValuesAcademy] = useState<any>([]);
   const [countries, setCountries] = useState<Array<VALUESCOUNTRIES>>([]);
   const [municipality, setMunicipality] = useState<Array<MUNICIPALITYINFO>>([]);
   const [valueCheck, setValueCheck] = useState<boolean>(false);
-
+  const maxWords = 20;
   const onChangeValues = (e: any) => {
+    const palabras = e.target.value.trim().split(/\s+/);
+    if (palabras.length > maxWords) {
+      window.alert(
+        "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
+      );
+      return;
+    }
     const { name, value } = e.target;
     changeValuesForm(name, value);
   };
   const changeValuesForm = (name: string, value: string) => {
+    
     setValues((prevValues: any) => {
       let newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
@@ -63,6 +70,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
 
   const activeCard = () => {
     const value = valuesFilter.some((_data: any, i: any) => i === id);
+
     if (value) {
       setCardValidate(true);
       return;
@@ -98,11 +106,12 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
           {id === 0 && "Formación Académica"}
         </p>
       </div>
-      <div style={{ width: "60rem" }}>
+      <div style={{ width: "58rem" }}>
         {cardValidate ? (
           <CardPlegada
             setCardValidate={setCardValidate}
             valuesFilter={values}
+            type={"estudios"}
           />
         ) : (
           <Card
@@ -142,8 +151,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         name="nombreCurso"
                         autoComplete="off"
                         placeholder="Ej: Técnico en servicio al cliente y ventas"
-                        maxLength={200}
-                        showCount
                         onChange={onChangeValues}
                         value={values.nombreCurso}
                       />
@@ -164,7 +171,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             style={{
                               background: "#4F2678",
                               color: "white",
-                              width: "161px",
+                              width: "155px",
                               marginRight: "10px",
                             }}
                             options={[
@@ -220,7 +227,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "161px",
+                                width: "154px",
                                 marginRight: "10px",
                               }}
                               options={[
@@ -300,81 +307,122 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         id="user_id"
                         name="nombreInstitucion"
                         autoComplete="off"
-                        showCount
-                        maxLength={200}
                         placeholder="Ej: Sena"
                         onChange={onChangeValues}
                         value={values.nombreInstitucion}
                       />
                     </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        width: "74%",
-                      }}
-                    >
-                      <div className="containerStudies">
-                        <label className="labelsInsputs" htmlFor="tipoEstudio">
-                          Tipo de estudio
-                        </label>
-                        <Select
-                          id="tipoEstudio"
-                          options={valuesAcademy.map((item: any) => ({
-                            label: item,
-                            value: item,
-                          }))}
-                          onChange={(e) => changeValuesForm("tipoEstudio", e)}
-                          value={values.tipoEstudio}
-                          style={{ width: "157px" }}
-                        />
+                    <div>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "50% 50%",
+                          gap: "5px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
+                          <label
+                            className="labelsInsputs"
+                            htmlFor="tipoEstudio"
+                          >
+                            Tipo de estudio
+                          </label>
+                          <Select
+                            id="tipoEstudio"
+                            options={valuesAcademy.map((item: any) => ({
+                              label: item,
+                              value: item,
+                            }))}
+                            onChange={(e) => changeValuesForm("tipoEstudio", e)}
+                            value={values.tipoEstudio}
+                            style={{ width: "215px" }}
+                          />
+                        </div>
+                        <div className="containerStudies">
+                          <label className="labelsInsputs" htmlFor="modalidad">
+                            Modalidad
+                          </label>
+                          <Select
+                            id="modalidad"
+                            options={[
+                              {
+                                value: "1",
+                                label: "virtual",
+                              },
+                              {
+                                value: "2",
+                                label: "Presencial",
+                              },
+                            ]}
+                            onChange={(e) => changeValuesForm("modalidad", e)}
+                            style={{ width: "215px" }}
+                          />
+                        </div>
                       </div>
-                      <div>
-                        <label className="labelsInsputs" htmlFor="paisId">
-                          País y Ciudad donde curso
-                        </label>
+                      {values.modalidad === "2" && (
                         <div
                           style={{
                             display: "grid",
                             gridTemplateColumns: "50% 50%",
-                            gap: "17%",
+                            gap: "13px",
                           }}
-                          className="containerStudies"
                         >
-                          <Select
+                          <div
                             style={{
-                              background: "#4F2678",
-                              color: "white",
-                              width: "135px",
+                              display: "flex",
+                              flexDirection: "column",
+                              marginTop: "15px",
                             }}
-                            id="ciudadId"
-                            options={countries.map((item: any) => ({
-                              label: item.nombrePais,
-                              value: item.codigoPais,
-                            }))}
-                            onChange={(e) => {
-                              changeValuesForm("paisId", e);
-                            }}
-                            value={values.paisId}
-                          />
-                          {values.paisId === 169 && (
+                          >
+                            <label className="labelsInsputs" htmlFor="paisId">
+                              País y Ciudad donde curso
+                            </label>
+
                             <Select
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "203px",
+                                width: "250px",
                               }}
                               id="ciudadId"
-                              options={municipality.map((item: any) => ({
-                                label: item.municipioDepartamento,
-                                value: item.municipioId,
+                              options={countries.map((item: any) => ({
+                                label: item.nombrePais,
+                                value: item.codigoPais,
                               }))}
-                              onChange={(e) => changeValuesForm("ciudadId", e)}
-                              value={values.ciudadId}
+                              onChange={(e) => {
+                                changeValuesForm("paisId", e);
+                              }}
+                              value={values.paisId}
                             />
-                          )}
+                          </div>
+                          <div>
+                            {values.paisId === 169 && (
+                              <Select
+                                style={{
+                                  background: "#4F2678",
+                                  color: "white",
+                                  width: "250px",
+                                  marginTop: "42px",
+                                }}
+                                id="ciudadId"
+                                options={municipality.map((item: any) => ({
+                                  label: item.municipioDepartamento,
+                                  value: item.municipioId,
+                                }))}
+                                onChange={(e) =>
+                                  changeValuesForm("ciudadId", e)
+                                }
+                                value={values.ciudadId}
+                              />
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </div>
                 </Form>

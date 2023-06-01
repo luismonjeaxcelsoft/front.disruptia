@@ -1,12 +1,12 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
 import InfoWordExperience from "./InfoWordExperience";
 import ".././styles/InfoWordExp.css";
 import logo from "../assets/images/disruptialogo.png";
 import { GetStudiesId } from "../services/EstudiesService";
 interface FormInfoExperienceProps {
-  setNextTab: React.Dispatch<string>;
+  setNextTab: any;
   setActiviKey: any;
-  activiKey: any;
+  activiKey: any ;
 }
 
 const INITIAL_VALUES_FORM = {
@@ -19,6 +19,7 @@ const INITIAL_VALUES_FORM = {
   fechaFin: "",
   cursando: "",
   nombreInstitucion: "",
+  modalidad:"",
   tipoEstudio: "",
   paisId: "",
   ciudadId: "",

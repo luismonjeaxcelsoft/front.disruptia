@@ -11,7 +11,8 @@ const router = createBrowserRouter([
   {
     path: "/perfiles",
     element: <Formulario />
-  }
+  },
+  
 ])
 
 function App() {

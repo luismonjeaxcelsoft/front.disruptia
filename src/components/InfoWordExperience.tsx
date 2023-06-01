@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from "react";
 import ".././styles/InfoWordExp.css";
 import caneca from "../assets/images/canecasinFondo.png";
 import CardPlegada from "./CardPlegada";
+import years from "../components/yearsData";
 import {
   CreateStudy,
   FormationAcademy,
@@ -14,6 +15,7 @@ interface InfoWordExperienceProps {
   values: any;
   id: number;
   valuesFilter: Array<object>;
+  setValidateViewB: React.Dispatch<boolean>;
 }
 type VALUESCOUNTRIES = {
   codigoPais: number;
@@ -32,12 +34,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   values,
   id,
   valuesFilter,
+  setValidateViewB,
 }) => {
+  console.log("🚀 ~ file: InfoWordExperience.tsx:39 ~ values:", values);
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valuesAcademy, setValuesAcademy] = useState<any>([]);
   const [countries, setCountries] = useState<Array<VALUESCOUNTRIES>>([]);
   const [municipality, setMunicipality] = useState<Array<MUNICIPALITYINFO>>([]);
   const [valueCheck, setValueCheck] = useState<boolean>(false);
+
   const onChangeValues = (e: any) => {
     const { name, value } = e.target;
     changeValuesForm(name, value);
@@ -68,7 +73,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     delete values.dateInit, delete values.dateEnd;
     values["estudioId"] = id + 1;
     values["cursando"] = valueCheck;
-    await CreateStudy(values);
+
+    const res = await CreateStudy(values);
+    if (res === "Estudio guardado") {
+      setValidateViewB(true);
+    }
   };
   const getInfoAcademy = async () => {
     const res = await FormationAcademy();
@@ -125,6 +134,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       <label className="labelsInsputs" htmlFor="nameCurse">
                         Nombre del Curso
                       </label>
+
                       <Input
                         type="text"
                         className="inputBorderNone"
@@ -173,7 +183,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             ]}
                             onChange={(e) => changeValuesForm("dateInit", e)}
                             id="dateInit"
-                            value={values.fechaInicio.split("-")[0]}
+                            value={
+                              values.fechaInicio !== ""
+                                ? values.fechaInicio.split("-")[0]
+                                : values.dateInit
+                            }
                           />
                           <Select
                             style={{
@@ -181,20 +195,10 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               color: "white",
                               width: "75px",
                             }}
-                            options={[
-                              { value: "2000", label: "2000" },
-                              { value: "2001", label: "2001" },
-                              { value: "3", label: "2002" },
-                              { value: "4", label: "2003" },
-                              { value: "5", label: "2004" },
-                              { value: "6", label: "2005" },
-                              { value: "7", label: "2006" },
-                              { value: "8", label: "2007" },
-                              { value: "9", label: "2008" },
-                              { value: "10", label: "2009" },
-                              { value: "11", label: "2010" },
-                              { value: "12", label: "2011" },
-                            ]}
+                            options={years.map((item: any) => ({
+                              label: item.label,
+                              value: item.value,
+                            }))}
                             id="fechaInicio"
                             onChange={(e) =>
                               changeValuesForm(
@@ -203,72 +207,70 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               )
                             }
                             value={values.fechaInicio.split("-")[1]}
-                            
-                            
                           />
                         </div>
                       </div>
-                      <div style={{ marginBottom: "15px" }}>
-                        <label className="labelsInsputs" htmlFor="dateEnd">
-                          Fecha de finalización
-                        </label>
-                        <div>
-                          <Select
-                            style={{
-                              background: "#4F2678",
-                              color: "white",
-                              width: "161px",
-                              marginRight: "10px",
-                            }}
-                            options={[
-                              { value: "01", label: "Enero" },
-                              { value: "02", label: "Febrero" },
-                              { value: "03", label: "Marzo" },
-                              { value: "04", label: "Abril" },
-                              { value: "05", label: "Mayo" },
-                              { value: "06", label: "Junio" },
-                              { value: "07", label: "Julio" },
-                              { value: "08", label: "Agosto" },
-                              { value: "09", label: "Septiembre" },
-                              { value: "10", label: "Octubre" },
-                              { value: "11", label: "Noviembre" },
-                              { value: "12", label: "Diciembre" },
-                            ]}
-                            id="dateEnd"
-                            onChange={(e) => changeValuesForm("dateEnd", e)}
-                            value={values.fechaFin.split("-")[0]}
-                          />
-                          <Select
-                            style={{
-                              background: "#4F2678",
-                              color: "white",
-                              width: "75px",
-                            }}
-                            options={[
-                              { value: "2000", label: "2000" },
-                              { value: "2001", label: "2001" },
-                              { value: "3", label: "2002" },
-                              { value: "4", label: "2003" },
-                              { value: "5", label: "2004" },
-                              { value: "6", label: "2005" },
-                              { value: "7", label: "2006" },
-                              { value: "8", label: "2007" },
-                              { value: "9", label: "2008" },
-                              { value: "10", label: "2009" },
-                              { value: "11", label: "2010" },
-                              { value: "12", label: "2011" },
-                            ]}
-                            id="fechaFin"
-                            onChange={(e) =>
-                              changeValuesForm(
-                                "fechaFin",
-                                `${values.dateEnd}-${e}`
-                              )
-                            }
-                            value={values.fechaFin.split("-")[1]}
-                          />
+                      {!valueCheck && (
+                        <div style={{ marginBottom: "15px" }}>
+                          <label className="labelsInsputs" htmlFor="dateEnd">
+                            Fecha de finalización
+                          </label>
+                          <div>
+                            <Select
+                              style={{
+                                background: "#4F2678",
+                                color: "white",
+                                width: "161px",
+                                marginRight: "10px",
+                              }}
+                              options={[
+                                { value: "01", label: "Enero" },
+                                { value: "02", label: "Febrero" },
+                                { value: "03", label: "Marzo" },
+                                { value: "04", label: "Abril" },
+                                { value: "05", label: "Mayo" },
+                                { value: "06", label: "Junio" },
+                                { value: "07", label: "Julio" },
+                                { value: "08", label: "Agosto" },
+                                { value: "09", label: "Septiembre" },
+                                { value: "10", label: "Octubre" },
+                                { value: "11", label: "Noviembre" },
+                                { value: "12", label: "Diciembre" },
+                              ]}
+                              id="dateEnd"
+                              onChange={(e) => changeValuesForm("dateEnd", e)}
+                              value={
+                                values.fechaFin !== ""
+                                  ? values?.fechaFin?.split("-")[0]
+                                  : values?.dateEnd
+                              }
+                            />
+                            <Select
+                              style={{
+                                background: "#4F2678",
+                                color: "white",
+                                width: "75px",
+                              }}
+                              options={years.map((item: any) => ({
+                                label: item.label,
+                                value: item.value,
+                              }))}
+                              id="fechaFin"
+                              onChange={(e) =>
+                                changeValuesForm(
+                                  "fechaFin",
+                                  `${values.dateEnd}-${e}`
+                                )
+                              }
+                              value={
+                                values.fechaFin !== ""
+                                  ? values?.fechaFin?.split("-")[1]
+                                  : values.dateEnd
+                              }
+                            />
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                       <Checkbox
@@ -309,7 +311,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        width: "87%",
+                        width: "74%",
                       }}
                     >
                       <div className="containerStudies">
@@ -324,6 +326,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           }))}
                           onChange={(e) => changeValuesForm("tipoEstudio", e)}
                           value={values.tipoEstudio}
+                          style={{ width: "157px" }}
                         />
                       </div>
                       <div>
@@ -333,8 +336,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         <div
                           style={{
                             display: "grid",
-                            gridTemplateColumns: "211px 71px",
-                            gap: "5px",
+                            gridTemplateColumns: "50% 50%",
+                            gap: "17%",
                           }}
                           className="containerStudies"
                         >
@@ -342,29 +345,34 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             style={{
                               background: "#4F2678",
                               color: "white",
+                              width: "135px",
                             }}
                             id="ciudadId"
                             options={countries.map((item: any) => ({
                               label: item.nombrePais,
                               value: item.codigoPais,
                             }))}
-                            onChange={(e) => changeValuesForm("paisId", e)}
+                            onChange={(e) => {
+                              changeValuesForm("paisId", e);
+                            }}
                             value={values.paisId}
                           />
-                          <Select
-                            style={{
-                              background: "#4F2678",
-                              color: "white",
-                            }}
-                            id="ciudadId"
-                            options={municipality.map((item: any) => ({
-                              label: item.municipioDepartamento,
-                              value: item.municipioId,
-                            }))}
-                            onChange={(e) => changeValuesForm("ciudadId", e)}
-                            value={values.ciudadId}
-
-                          />
+                          {values.paisId === 169 && (
+                            <Select
+                              style={{
+                                background: "#4F2678",
+                                color: "white",
+                                width: "203px",
+                              }}
+                              id="ciudadId"
+                              options={municipality.map((item: any) => ({
+                                label: item.municipioDepartamento,
+                                value: item.municipioId,
+                              }))}
+                              onChange={(e) => changeValuesForm("ciudadId", e)}
+                              value={values.ciudadId}
+                            />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -389,7 +397,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
           </div>
         )}
       </div>
-      <div></div>
     </div>
   );
 };

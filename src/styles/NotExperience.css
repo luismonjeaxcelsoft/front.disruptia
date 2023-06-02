@@ -1,0 +1,17 @@
+.containerVideo {
+    width: 768px;
+    height: 391px;
+    border-radius: 15px 
+}
+.contentTextSpan {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.textContent {
+    color:#F3CF46;
+    font-size:35px;
+  
+}

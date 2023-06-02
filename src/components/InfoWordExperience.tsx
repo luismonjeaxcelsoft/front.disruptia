@@ -10,6 +10,7 @@ import {
   GetCountries,
   GetMunicipality,
 } from "../services/EstudiesService";
+import { Sidebar } from "./Sidebar";
 interface InfoWordExperienceProps {
   setValues: any;
   values: any;
@@ -54,7 +55,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     changeValuesForm(name, value);
   };
   const changeValuesForm = (name: string, value: string) => {
-    
     setValues((prevValues: any) => {
       let newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
@@ -102,11 +102,18 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   return (
     <div>
       <div>
+        <Sidebar
+          subTitle="Aquí encontrarás las instrucciones para diligenciar los campos requeridos"
+          backColor={false}
+          img={true}
+        />
+      </div>
+      <div className="containerTitle">
         <p className="spanFormationAcademy">
           {id === 0 && "Formación Académica"}
         </p>
       </div>
-      <div style={{ width: "58rem" }}>
+      <div style={{ width: "750px" }}>
         {cardValidate ? (
           <CardPlegada
             setCardValidate={setCardValidate}
@@ -140,7 +147,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                 <Form>
                   <div>
                     <div style={{ marginBottom: "15px" }}>
-                      <label className="labelsInsputs" htmlFor="nameCurse">
+                      <label className="labelsInsputs " htmlFor="nameCurse">
                         Nombre del Curso
                       </label>
 
@@ -171,7 +178,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             style={{
                               background: "#4F2678",
                               color: "white",
-                              width: "155px",
+                              width: "210px",
                               marginRight: "10px",
                             }}
                             options={[
@@ -200,7 +207,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             style={{
                               background: "#4F2678",
                               color: "white",
-                              width: "75px",
+                              width: "102px",
                             }}
                             options={years.map((item: any) => ({
                               label: item.label,
@@ -227,7 +234,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "154px",
+                                width: "210px",
                                 marginRight: "10px",
                               }}
                               options={[
@@ -256,7 +263,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "75px",
+                                width: "102px",
                               }}
                               options={years.map((item: any) => ({
                                 label: item.label,
@@ -340,7 +347,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             }))}
                             onChange={(e) => changeValuesForm("tipoEstudio", e)}
                             value={values.tipoEstudio}
-                            style={{ width: "215px" }}
+                            style={{ width: "325px" }}
                           />
                         </div>
                         <div className="containerStudies">
@@ -360,7 +367,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               },
                             ]}
                             onChange={(e) => changeValuesForm("modalidad", e)}
-                            style={{ width: "215px" }}
+                            style={{ width: "325px" }}
                           />
                         </div>
                       </div>

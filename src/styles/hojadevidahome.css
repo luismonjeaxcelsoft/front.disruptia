@@ -6,6 +6,7 @@
   height: 100%;
   text-align: center;
   width: 100%;
+  margin-left: 15%;
 }
 
 img {
@@ -16,6 +17,7 @@ h1 {
   font-size: 20pt;
   line-height: 0.5;
   color: #ffff;
+  margin: 0;
 }
 
 .button2 {
@@ -31,4 +33,20 @@ h1 {
   transition: border-color 0.25s;
   width: 280px;
   margin-top: 3%;
+}
+
+.containerImages {
+  position: relative;
+  display: flex;
+}
+
+.containerGirlImages {
+  margin-top: 26%;
+  width: 0;
+}
+
+.containerImagesOne {
+  width: 95%;
+  margin-top: 26%;
+  margin-left: -141px;
 }

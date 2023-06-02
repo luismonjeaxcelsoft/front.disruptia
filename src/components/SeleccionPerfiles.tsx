@@ -5,6 +5,7 @@ import {
   perfilesSelect,
 } from "../services/PerfilesService";
 import "../../src/styles/SeleccionPerfiles.css";
+import { Sidebar } from "./Sidebar";
 
 interface Perfiles {
   id: number;
@@ -70,6 +71,14 @@ export const SeleccionPerfiles: FC<SeleccionPerfilesProps> = ({
   }, [nextTab, validateResGet]);
 
   return (
+   <>
+      <div>
+        <Sidebar
+          subTitle="Andrea, en este campo deberás seleccionar a qué tipo de cargos quieres postularte con tu hoja de vida"
+          backColor={false}
+          img={true}
+        />
+    </div>
     <div>
       <div className="titleTabOne">
         <h1 style={{ fontSize: "40px",color:"white" }}>¿En qué te gustaría trabajar?</h1>
@@ -137,5 +146,6 @@ export const SeleccionPerfiles: FC<SeleccionPerfilesProps> = ({
         />
       </div>
     </div>
+   </>
   );
 };

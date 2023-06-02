@@ -17,4 +17,14 @@
 
 .ant-tabs-tab-active {
     width: 160px;
+    
 }
+
+.ant-tabs-nav-wrap {
+    justify-content: left !important;
+}
+ 
+  
+ 
+  
+ 

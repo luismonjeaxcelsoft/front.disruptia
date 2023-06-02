@@ -12,6 +12,27 @@ html, body {
   font-weight: 600;
 
 }
+@font-face {
+  font-family: 'Avenir Heavy'; /* Reemplaza 'Nombre de la Fuente' con el nombre que deseas utilizar para la fuente */
+  src: url('./fonts/Avenir_Heavy.ttf'); /* Reemplaza 'nombre-de-la-fuente.ttf' con el nombre del archivo de la fuente descargada */
+  /* Agrega más formatos si la fuente tiene diferentes archivos para diferentes formatos de navegadores, como .woff, .woff2, etc. */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Montserrat-Bold'; /* Reemplaza 'Nombre de la Fuente' con el nombre que deseas utilizar para la fuente */
+  src: url('./fonts/Montserrat-Bold.ttf'); /* Reemplaza 'nombre-de-la-fuente.ttf' con el nombre del archivo de la fuente descargada */
+  /* Agrega más formatos si la fuente tiene diferentes archivos para diferentes formatos de navegadores, como .woff, .woff2, etc. */
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Montserrat-Black'; /* Reemplaza 'Nombre de la Fuente' con el nombre que deseas utilizar para la fuente */
+  src: url('./fonts/Montserrat-Black.ttf'); /* Reemplaza 'nombre-de-la-fuente.ttf' con el nombre del archivo de la fuente descargada */
+  /* Agrega más formatos si la fuente tiene diferentes archivos para diferentes formatos de navegadores, como .woff, .woff2, etc. */
+  font-weight: normal;
+  font-style: normal;
+}
 
 #root {
   width: 100%;

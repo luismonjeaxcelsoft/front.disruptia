@@ -1,5 +1,4 @@
 import { Tabs } from "antd";
-import { Sidebar } from "../components/Sidebar";
 import iconotab1 from "../assets/images/Iconos.png";
 import "../styles/formulario.css";
 import { SeleccionPerfiles } from "../components/SeleccionPerfiles";
@@ -26,13 +25,6 @@ export const Formulario = () => {
   ]);
   return (
     <div>
-      <div>
-        <Sidebar
-          subTitle="Andrea, en este campo deberás seleccionar a qué tipo de cargos quieres postularte con tu hoja de vida"
-          backColor={false}
-          img={true}
-        />
-      </div>
       <div className="formulario">
         <div className="tabs">
           <Tabs
@@ -40,7 +32,8 @@ export const Formulario = () => {
             className="tabs-2"
             defaultActiveKey="1"
             centered
-            size="small"
+         
+            tabBarStyle={{width:"934px"}}
             items={[
               {
                 label: (

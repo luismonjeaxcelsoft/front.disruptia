@@ -6,6 +6,7 @@
 .spanStudy {
   font-family: Avenir, Heavy;
   color: #f3cf46;
+  font-size: 18px;
 }
 .containerStudies {
   display: flex;
@@ -40,6 +41,7 @@
   color: #ffffff;
   opacity: 0.6;
   font-family: Avenir, Heavy;
+  font-size: 18px !important;
 }
 .inputBorderNone {
   background: #4f2678;
@@ -88,4 +90,12 @@
   display: flex;
   margin-top: 4%;
   justify-content: center;
+}
+
+.containerTitle {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-switch .ant-switch-inner {
+  background:#4F2678;
 }

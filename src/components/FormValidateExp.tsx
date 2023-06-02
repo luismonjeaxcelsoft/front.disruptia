@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,FC } from "react";
 import logo from "../assets/images/disruptialogo.png";
 import InfoValidateExperience from "./InfoValidateExperience";
 
@@ -15,7 +15,11 @@ const INITIAL_VALUES_FORM = {
   nombreInstitucion: "",
 };
 
-const FormValidateExp = () => {
+type FormValidateExpProps = {
+type:string,
+}
+
+const FormValidateExp:FC <FormValidateExpProps> = ({type}) => {
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
   // const getFormStudies = async () => {
@@ -59,6 +63,7 @@ const FormValidateExp = () => {
               setValues={setValuesForm}
               values={valueForm}
               setValidateViewB={setValidateViewB}
+              type={type}
             />
           );
         })}

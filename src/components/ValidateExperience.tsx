@@ -10,19 +10,25 @@ type ValidateExperienceProps = {
 const ValidateExperience: FC <ValidateExperienceProps> = ({validadorComponente}) => {
   return (
     <div className="containerValidateExperience">
-      <div>
+      <div style={{
+        position: "relative",
+        marginLeft: "-5%"
+      }}>
         <img style={{ width: "800px" }} src={Experiencia} />
       </div>
       <div className="containerBodyExperience">
-        <span style={{ fontSize: "70px", color: "white" }}>
-          ¿Has tenido experiencia laboral?
+      <div>
+        <span style={{ fontSize: "70px", color: "white",marginLeft:"120px" }}>¿Has tenido</span><p/>
+      <span style={{ fontSize: "70px", color: "white" }}>
+           experiencia laboral?
         </span>
+      </div>
         <div className="containerOptionsExperience">
-          <button onClick={()=>validadorComponente(2)} className="btn btn-primary backOptionsExperience">
+          <button onClick={()=>validadorComponente(2)} style={{width: "250px",height:"87px"}} className="btn btn-primary backOptionsExperience">
             ¡Si!
             <SmileOutlined className="iconFaceDown" />
           </button>
-          <button className="btn btn-primary backOptionsExperience">
+          <button onClick={()=>validadorComponente(3)} style={{width: "265px",height:"87px"}} className="btn btn-primary backOptionsExperience">
             No, nunca
             <FrownOutlined className="iconFaceDown" />
           </button>

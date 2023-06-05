@@ -1,13 +1,10 @@
-import { FC, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import InfoWordExperience from "./InfoWordExperience";
 import ".././styles/InfoWordExp.css";
 import logo from "../assets/images/disruptialogo.png";
 import { GetStudiesId } from "../services/EstudiesService";
-interface FormInfoExperienceProps {
-  setNextTab: any;
-  setActiviKey: any;
-  activiKey: any ;
-}
+import { useNavigate } from "react-router-dom";
+
 
 const INITIAL_VALUES_FORM = {
   disrupterId: 1,
@@ -24,16 +21,16 @@ const INITIAL_VALUES_FORM = {
   paisId: "",
   ciudadId: "",
 };
-const FormInfoExperience: FC<FormInfoExperienceProps> = ({
-  setNextTab,
-  setActiviKey,
-  activiKey,
-}) => {
+const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
+  const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false)
+  const [valuesRes, setValuesRes] = useState<any>(false)
   const getFormStudies = async () => {
+   try {
     const res = await GetStudiesId(1);
-    if (res.length > 0) {
+    if (res && res.length > 0) {
+      setValuesRes(true)
       let infoMap = res.map((item: any) => {
         return {
           disrupterId: 1,
@@ -55,6 +52,9 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
       }, []);
       setValuesForm(nuevoArray);
     }
+   } catch (error) {
+    setValuesRes(false)
+   }
   };
 
   useEffect(() => {
@@ -73,6 +73,7 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
               key={i}
               id={i}
               setValidateViewB={setValidateViewB}
+              valuesRes={valuesRes}
             />
           );
         })}
@@ -82,8 +83,11 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
         <div className="containerButtonContinue">
           <button
             onClick={() => {
+              setValuesRes(false)
               setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
               setValidateViewB(false)
+          
+
             }}
             className="btn btn-primary hoverAgregar"
           >
@@ -97,10 +101,11 @@ const FormInfoExperience: FC<FormInfoExperienceProps> = ({
           <button
             className="buttonContinueSelect"
             onClick={() => {
-              setNextTab("3");
-              setActiviKey([...activiKey, { tabThree: true }]);
+              navigate("/perfiles/3");
+              setValidateImgs([...validateImgs,"3"])
             }}
           >
+          
             <p className="textSiguienteSelect">Siguiente</p>
           </button>
         </div>

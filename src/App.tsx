@@ -9,9 +9,10 @@ const router = createBrowserRouter([
     element: <HojadevidaHome />
   },
   {
-    path: "/perfiles",
-    element: <Formulario />
+    path: "/perfiles/:tab",
+    element: <Formulario  />
   },
+ 
   
 ])
 

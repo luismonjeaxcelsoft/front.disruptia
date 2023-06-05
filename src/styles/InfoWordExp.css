@@ -97,5 +97,27 @@
   margin-bottom: 20px;
 }
 :where(.css-dev-only-do-not-override-15rg2km).ant-switch .ant-switch-inner {
-  background:#4F2678;
+  background: #4f2678;
+}
+
+.countInput {
+  color: white;
+  position: absolute;
+  left: 89%;
+  top: 145px;
+}
+.countInputIns {
+  color: white;
+  position: absolute;
+  left: 89%;
+  top: 377px;
+}
+
+.ant-radio-inner{
+  background:transparent !important;
+  boRder-color:#F7C947 !important
+}
+
+.ant-radio-inner::after {
+  background: #F7C947 !important;
 }

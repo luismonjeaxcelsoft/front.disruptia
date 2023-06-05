@@ -17,6 +17,7 @@ interface InfoWordExperienceProps {
   id: number;
   valuesFilter: Array<object>;
   setValidateViewB: React.Dispatch<boolean>;
+  valuesRes: any;
 }
 type VALUESCOUNTRIES = {
   codigoPais: number;
@@ -36,15 +37,24 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   id,
   valuesFilter,
   setValidateViewB,
+  valuesRes,
 }) => {
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valuesAcademy, setValuesAcademy] = useState<any>([]);
   const [countries, setCountries] = useState<Array<VALUESCOUNTRIES>>([]);
   const [municipality, setMunicipality] = useState<Array<MUNICIPALITYINFO>>([]);
   const [valueCheck, setValueCheck] = useState<boolean>(false);
+  const [countPalabras, setCountPalabras] = useState<string>("");
+  const [countKeysIns, setCountKeysIns] = useState<string>("");
   const maxWords = 20;
+
   const onChangeValues = (e: any) => {
     const palabras = e.target.value.trim().split(/\s+/);
+    if (e.target?.id === "nombreCurso") {
+      setCountPalabras(palabras);
+    } else if (e.target?.id === "nombreInstitucion") {
+      setCountKeysIns(palabras);
+    }
     if (palabras.length > maxWords) {
       window.alert(
         "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
@@ -69,12 +79,20 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   };
 
   const activeCard = () => {
+    setValidateViewB(true);
     const value = valuesFilter.some((_data: any, i: any) => i === id);
-
     if (value) {
       setCardValidate(true);
       return;
     }
+  };
+
+  const activeCardInit = () => {
+    setValidateViewB(true);
+    if (valuesRes) {
+      setCardValidate(true);
+      return;
+    } setValidateViewB(false)
   };
 
   const createStudies = async () => {
@@ -95,9 +113,33 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     setCountries(resCountries);
     setMunicipality(getMunicipalities);
   };
+  const validateForm = () => {
+    const {
+      nombreCurso,
+      fechaInicio,
+      nombreInstitucion,
+      modalidad,
+      tipoEstudio,
+    } = values;
+
+    if (
+      nombreCurso !== "" &&
+      fechaInicio !== "" &&
+      nombreInstitucion !== "" &&
+      modalidad !== "" &&
+      tipoEstudio !== ""
+    ) {
+      createStudies();
+      activeCard();
+    } else {
+      window.alert("Por favor diligencie todos los campos");
+    }
+  };
+
   useEffect(() => {
     getInfoAcademy();
-  }, []);
+    activeCardInit();
+  }, [valuesRes]);
 
   return (
     <div>
@@ -147,20 +189,24 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                 <Form>
                   <div>
                     <div style={{ marginBottom: "15px" }}>
-                      <label className="labelsInsputs " htmlFor="nameCurse">
+                      <label className="labelsInsputs " htmlFor="nombreCurso">
                         Nombre del Curso
                       </label>
-
-                      <Input
-                        type="text"
-                        className="inputBorderNone"
-                        id="user_id"
-                        name="nombreCurso"
-                        autoComplete="off"
-                        placeholder="Ej: Técnico en servicio al cliente y ventas"
-                        onChange={onChangeValues}
-                        value={values.nombreCurso}
-                      />
+                      <div>
+                        <Input
+                          type="text"
+                          className="inputBorderNone"
+                          id="nombreCurso"
+                          name="nombreCurso"
+                          autoComplete="off"
+                          placeholder="Ej: Técnico en servicio al cliente y ventas"
+                          onChange={onChangeValues}
+                          value={values.nombreCurso}
+                        />
+                        <span className="countInput">
+                          {countPalabras.length}/20
+                        </span>
+                      </div>
                     </div>
                     <div className="containerDate">
                       <div
@@ -308,16 +354,21 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       >
                         Institución Educativa
                       </label>
-                      <Input
-                        type="text"
-                        className="inputBorderNone"
-                        id="user_id"
-                        name="nombreInstitucion"
-                        autoComplete="off"
-                        placeholder="Ej: Sena"
-                        onChange={onChangeValues}
-                        value={values.nombreInstitucion}
-                      />
+                      <div>
+                        <Input
+                          type="text"
+                          className="inputBorderNone"
+                          id="nombreInstitucion"
+                          name="nombreInstitucion"
+                          autoComplete="off"
+                          placeholder="Ej: Sena"
+                          onChange={onChangeValues}
+                          value={values.nombreInstitucion}
+                        />
+                        <span className="countInputIns">
+                          {countKeysIns.length}/20
+                        </span>
+                      </div>
                     </div>
                     <div>
                       <div
@@ -376,7 +427,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           style={{
                             display: "grid",
                             gridTemplateColumns: "50% 50%",
-                            gap: "13px",
+                            gap: "5px",
                           }}
                         >
                           <div
@@ -394,7 +445,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "250px",
+                                width: "324px",
                               }}
                               id="ciudadId"
                               options={countries.map((item: any) => ({
@@ -413,8 +464,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 style={{
                                   background: "#4F2678",
                                   color: "white",
-                                  width: "250px",
-                                  marginTop: "42px",
+                                  width: "325px",
+                                  marginTop: "48px",
                                 }}
                                 id="ciudadId"
                                 options={municipality.map((item: any) => ({
@@ -442,8 +493,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
             <button
               style={{ width: "168px" }}
               onClick={() => {
-                activeCard();
-                createStudies();
+                validateForm();
               }}
               className="SaveInfo btn btn-primary"
             >

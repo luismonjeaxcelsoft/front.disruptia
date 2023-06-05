@@ -34,7 +34,7 @@ const NotExperience: FC <NotExperienceProps> = ({validadorComponente}) => {
         <button
           style={{ width: "195px", height: "56px" }}
           className="btn btn-primary backOptionsExperience"
-          onClick={()=>validadorComponente(4)}
+          onClick={()=>validadorComponente(5)}
         >
          <span style={{fontSize:"20px"}}>
          Si, añadir
@@ -43,6 +43,7 @@ const NotExperience: FC <NotExperienceProps> = ({validadorComponente}) => {
         <button
           style={{ width: "195px", height: "56px" }}
           className="btn btn-primary backOptionsExperience"
+          onClick={()=>validadorComponente(4)}
         >
           <span style={{fontSize:"20px"}}>
           No, Continuar

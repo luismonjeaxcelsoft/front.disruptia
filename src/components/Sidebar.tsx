@@ -1,7 +1,8 @@
 import "../styles/Sidebar.css";
 import { FC, useState } from "react";
-import { ArrowRightOutlined, CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 import anotacion from "../assets/images/infoSinFondo.png";
+import Deslizar from "../assets/images/Deslizar.png";
 interface Sidebar {
   smallTitle?: string;
   title?: string;
@@ -10,7 +11,7 @@ interface Sidebar {
   titleTwo?: string;
   backColor: boolean;
   img: boolean;
-  video?:boolean
+  video?: boolean;
 }
 
 export const Sidebar: FC<Sidebar> = ({
@@ -21,7 +22,7 @@ export const Sidebar: FC<Sidebar> = ({
   titleTwo,
   backColor,
   img,
-  video
+  video,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -30,9 +31,11 @@ export const Sidebar: FC<Sidebar> = ({
       <div className={isOpen ? "sidebar-open" : "sidebar"}>
         <div>
           {!isOpen && (
-            <button className="buttonside" onClick={() => setIsOpen(!isOpen)}>
-              <ArrowRightOutlined />
-            </button>
+            <img
+              onClick={() => setIsOpen(!isOpen)}
+              style={{ width: "50px", cursor: "pointer" }}
+              src={Deslizar}
+            />
           )}
           {isOpen && (
             <div>

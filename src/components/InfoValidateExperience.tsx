@@ -5,7 +5,7 @@ import { Form } from "react-router-dom";
 import years from "../components/yearsData";
 import CardPlegada from "./CardPlegada";
 import { Sidebar } from "./Sidebar";
-
+import { Radio } from "antd";
 type InfoValidateExperienceProps = {
   id: number;
   valuesFilter: any;
@@ -24,8 +24,14 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   type,
 }) => {
   const maxWords = 20;
+  const maxWordsIns = 50;
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valueCheck, setValueCheck] = useState<boolean>(false);
+  const [countPalabras, setCountPalabras] = useState<string>("");
+  const [countKeysIns, setCountKeysIns] = useState<string>("");
+  const [countKeysLogrosObtenidos, setCountKeysLogrosObtenidos] =
+    useState<string>("");
+
   const EliminateForm = () => {
     setValues((prevValues: any) => {
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
@@ -33,13 +39,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     });
   };
   const changeValuesForm = (name: string, value: string) => {
-    const palabras = value.trim().split(/\s+/);
-    if (palabras.length > maxWords) {
-      window.alert(
-        "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
-      );
-      return;
-    }
     setValues((prevValues: any) => {
       let newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
@@ -47,6 +46,26 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     });
   };
   const onChangeValues = (e: any) => {
+    const palabras = e.target.value.trim().split(/\s+/);
+    if (e.target?.id === "nombreCurso") {
+      setCountPalabras(palabras);
+    } else if (e.target?.id === "cargo") {
+      setCountKeysIns(palabras);
+    }
+    if (e.target?.id !== "nombreInstitucion" && palabras.length > maxWords) {
+      window.alert(
+        "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
+      );
+      return;
+    } else if (e.target?.id === "nombreInstitucion") {
+      setCountKeysLogrosObtenidos(palabras);
+      if (palabras.length > maxWordsIns) {
+        window.alert(
+          "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 50 palabras"
+        );
+        return;
+      }
+    }
     const { name, value } = e.target;
     changeValuesForm(name, value);
   };
@@ -76,6 +95,8 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
               ? "Experiencia Laboral"
               : id === 0 && type === "additionalCurse"
               ? "Información Complementaria"
+              : id === 0 && type === "additionalActivity"
+              ? ""
               : ""}
           </p>
         </div>
@@ -100,7 +121,9 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                   <span className="spanStudy">
                     {type === "experience"
                       ? "Experiencia"
-                      : "Cursos Adicionales"}{" "}
+                      : type === "additionalCurse"
+                      ? "Cursos Adicionales"
+                      : "Actividad"}{" "}
                     {id + 1}
                   </span>
                   <img
@@ -121,38 +144,55 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         <label className="labelsInsputs" htmlFor="nameCurse">
                           {type === "experience"
                             ? "Nombre de la empresa"
-                            : "Nombre del curso"}
+                            : type === "additionalCurse"
+                            ? "Nombre del curso"
+                            : "Nombre de la Actividad"}
                         </label>
 
-                        <Input
-                          type="text"
-                          className="inputBorderNone"
-                          id="user_id"
-                          name="nombreCurso"
-                          autoComplete="off"
-                          placeholder="Ej: Disruptia"
-                          onChange={onChangeValues}
-                          value={values.nombreCurso}
-                          style={{ height: "57px" }}
-                        />
-                      </div>
-                      {type === "experience" && (
-                        <div style={{ marginBottom: "15px" }}>
-                          <label className="labelsInsputs" htmlFor="nameCurse">
-                            Cargo que desempeñaba
-                          </label>
-
+                        <div>
                           <Input
                             type="text"
                             className="inputBorderNone"
-                            id="user_id"
-                            name="cargo"
+                            id="nombreCurso"
+                            name="nombreCurso"
                             autoComplete="off"
-                            placeholder="Ej: Project Manager"
+                            placeholder="Ej: Disruptia"
                             onChange={onChangeValues}
-                            value={values.cargo}
+                            value={values.nombreCurso}
                             style={{ height: "57px" }}
                           />
+                          <span className="countInput">
+                            {countPalabras.length}/20
+                          </span>
+                        </div>
+                      </div>
+                      {type !== "additionalCurse" && (
+                        <div style={{ marginBottom: "15px" }}>
+                          <label className="labelsInsputs" htmlFor="nameCurse">
+                            {type === "experience"
+                              ? "Cargo que desempeñaba"
+                              : "Organización"}
+                          </label>
+
+                          <div>
+                            <Input
+                              type="text"
+                              className="inputBorderNone"
+                              id="cargo"
+                              name="cargo"
+                              autoComplete="off"
+                              placeholder="Ej: Project Manager"
+                              onChange={onChangeValues}
+                              value={values.cargo}
+                              style={{ height: "57px" }}
+                            />
+                            <span
+                              className="countInputIns"
+                              style={{ top: "249px" }}
+                            >
+                              {countKeysIns.length}/20
+                            </span>
+                          </div>
                         </div>
                       )}
                       <div className="containerDate">
@@ -171,7 +211,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "155px",
+                                width: "210px",
                                 marginRight: "10px",
                               }}
                               options={[
@@ -200,7 +240,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                               style={{
                                 background: "#4F2678",
                                 color: "white",
-                                width: "75px",
+                                width: "102px",
                               }}
                               options={years.map((item: any) => ({
                                 label: item.label,
@@ -227,7 +267,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                                 style={{
                                   background: "#4F2678",
                                   color: "white",
-                                  width: "154px",
+                                  width: "210px",
                                   marginRight: "10px",
                                 }}
                                 options={[
@@ -256,7 +296,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                                 style={{
                                   background: "#4F2678",
                                   color: "white",
-                                  width: "75px",
+                                  width: "102px",
                                 }}
                                 options={years.map((item: any) => ({
                                   label: item.label,
@@ -296,29 +336,41 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             : "Cursando Actualmente"}
                         </label>
                       </div>
-                      <div style={{ marginBottom: "15px" }}>
-                        <label
-                          className="labelsInsputs"
-                          htmlFor="nombreInstitucion"
-                        >
-                          {type === "experience"
-                            ? "¿Cuáles fueron los logros obtenidos en esta experiencia?"
-                            : "Institución"}
-                        </label>
-                        <Input
-                          type="text"
-                          className="inputBorderNone"
-                          id="user_id"
-                          name="nombreInstitucion"
-                          autoComplete="off"
-                          onChange={onChangeValues}
-                          value={values.nombreInstitucion}
-                          style={{ height: "120px" }}
-                        />
-                      </div>
+                      {type !== "additionalActivity" && (
+                        <div style={{ marginBottom: "15px" }}>
+                          <label
+                            className="labelsInsputs"
+                            htmlFor="nombreInstitucion"
+                          >
+                            {type === "experience"
+                              ? "¿Cuáles fueron los logros obtenidos en esta experiencia?"
+                              : "Institución"}
+                          </label>
+                          <div>
+                            <Input
+                              type="text"
+                              className="inputBorderNone"
+                              id="nombreInstitucion"
+                              name="nombreInstitucion"
+                              autoComplete="off"
+                              onChange={onChangeValues}
+                              value={values.nombreInstitucion}
+                              style={{ height: "120px" }}
+                            />
+                            <span
+                              className="countInputIns"
+                              style={{
+                                top: type === "experience" ? "555px" : "450px",
+                              }}
+                            >
+                              {countKeysLogrosObtenidos.length}/50
+                            </span>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     {type === "additionalCurse" && (
-                      <div style={{ display: "flex",flexDirection:"column" }}>
+                      <div style={{ display: "flex", flexDirection: "column" }}>
                         <label
                           style={{
                             color: "white",
@@ -336,6 +388,33 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             defaultChecked
                           />
                         </div>
+                      </div>
+                    )}
+                    {type === "additionalActivity" && (
+                      <div style={{ display: "flex", flexDirection: "column" }}>
+                        <Radio>
+                          <span style={{ color: "white" }}>Voluntariado</span>
+                        </Radio>
+                        <Radio>
+                          <span style={{ color: "white" }}>
+                            Actividad extracurricular
+                          </span>
+                        </Radio>
+                        <Radio>
+                          <span style={{ color: "white" }}>
+                            Actividad Comunitaria
+                          </span>
+                        </Radio>
+                        <Radio>
+                          <span style={{ color: "white" }}>
+                            Servicio Social
+                          </span>
+                        </Radio>
+                        <Radio>
+                          <span style={{ color: "white" }}>
+                            Otra_______________________
+                          </span>
+                        </Radio>
                       </div>
                     )}
                   </Form>

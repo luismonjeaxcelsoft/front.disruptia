@@ -18,7 +18,7 @@ export const Home = () => {
             <h1 style={{margin:"0"}}>Vamos a crear una</h1>
             <h1 style={{width:"300px"}}>hoja de vida Disruptiva</h1>
           </div>
-          <Link to={"/perfiles"}>
+          <Link to={"/perfiles/1"}>
             <button className="button2">¡EMPECEMOS!</button>
           </Link>
         </div>

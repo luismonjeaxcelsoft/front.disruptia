@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Tabs } from "antd";
 import iconotab1 from "../assets/images/Iconos.png";
 import "../styles/formulario.css";
@@ -12,28 +13,23 @@ import computador from "../assets/images/portatilsinFondo.png";
 import cubo from "../assets/images/cubosinFondo.png";
 import doctor from "../assets/images/doctorsinFondo.png";
 import credencial from "../assets/images/tablasinFondo.png";
-import { useState } from "react";
 import FormInfoExperience from "../components/FormInfoExperience";
 import ValidateExpFather from "../components/ValidateExpFather";
+import { useParams } from "react-router-dom";
 
 export const Formulario = () => {
-  const [nextTab, setNextTab] = useState<string>("1");
-  const [activiKey, setActiviKey] = useState<any>([
-    {
-      tabOne: true,
-    },
-  ]);
+  const { tab } = useParams();
+  const [validateImgs, setValidateImgs] = useState<any>([]);
   return (
     <div>
       <div className="formulario">
         <div className="tabs">
           <Tabs
-            activeKey={nextTab}
+            activeKey={tab}
             className="tabs-2"
             defaultActiveKey="1"
             centered
-         
-            tabBarStyle={{width:"934px"}}
+            tabBarStyle={{ width: "934px" }}
             items={[
               {
                 label: (
@@ -49,10 +45,8 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <SeleccionPerfiles
-                      setNextTab={setNextTab}
-                      setActiviKey={setActiviKey}
-                      activiKey={activiKey}
-                      nextTab={nextTab}
+                     setValidateImgs={setValidateImgs}
+                     validateImgs={validateImgs}
                     />
                   </div>
                 ),
@@ -60,7 +54,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {activiKey[1]?.tabTwo && (
+                    {validateImgs[0] === "2" && (
                       <img alt="toga" style={{ width: "53px" }} src={toga} />
                     )}
                   </div>
@@ -68,18 +62,17 @@ export const Formulario = () => {
                 key: "2",
                 children: (
                   <div>
-                  <FormInfoExperience
-                   setActiviKey={setActiviKey}
-                   activiKey={activiKey}
-                   setNextTab={setNextTab}
-                  />
+                    <FormInfoExperience
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                    />
                   </div>
                 ),
               },
               {
                 label: (
                   <div>
-                    {activiKey[2]?.tabThree && (
+                    {validateImgs[1] === "3"  && (
                       <img
                         alt="maletin"
                         style={{ width: "53px" }}
@@ -89,19 +82,21 @@ export const Formulario = () => {
                   </div>
                 ),
                 key: "3",
-                children:(
+                children: (
                   <div>
-                    <ValidateExpFather
-                     
-                    />
+                    <ValidateExpFather />
                   </div>
                 ),
               },
               {
                 label: (
                   <div>
-                    {nextTab === "4" && (
-                      <img alt="mano" style={{ width: "53px" }} src={manoGris} />
+                    {tab === "4" && (
+                      <img
+                        alt="mano"
+                        style={{ width: "53px" }}
+                        src={manoGris}
+                      />
                     )}
                   </div>
                 ),
@@ -111,7 +106,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "5" && (
+                    {tab === "5" && (
                       <img alt="rueda" style={{ width: "53px" }} src={rueda} />
                     )}
                   </div>
@@ -122,7 +117,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "6" && (
+                    {tab === "6" && (
                       <img
                         alt="bombilla"
                         style={{ width: "50%" }}
@@ -137,7 +132,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "7" && (
+                    {tab === "7" && (
                       <img alt="word" style={{ width: "50%" }} src={word} />
                     )}
                   </div>
@@ -148,7 +143,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "8" && (
+                    {tab === "8" && (
                       <img
                         alt="computador"
                         style={{ width: "50%" }}
@@ -163,7 +158,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "9" && (
+                    {tab === "9" && (
                       <img alt="cubo" style={{ width: "50%" }} src={cubo} />
                     )}
                   </div>
@@ -174,7 +169,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "10" && (
+                    {tab === "10" && (
                       <img alt="doctor" style={{ width: "50%" }} src={doctor} />
                     )}
                   </div>
@@ -185,7 +180,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {nextTab === "11" && (
+                    {tab === "11" && (
                       <img
                         alt="credencial"
                         style={{ width: "50%" }}

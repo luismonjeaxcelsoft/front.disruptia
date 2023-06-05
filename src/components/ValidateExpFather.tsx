@@ -16,8 +16,10 @@ const ValidateExpFather = () => {
          <FormValidateExp type={"experience"}/>
        </div> : validateComponent === 3 ? <div>
         <NotExperience validadorComponente={setValidateComponent}/>
-       </div> : <div>
+       </div> : validateComponent === 4 ? <div>
        <FormValidateExp type={"additionalCurse"}/>
+       </div> : <div>
+       <FormValidateExp type={"additionalActivity"}/>
        </div>
       }
     </div>

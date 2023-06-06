@@ -24,14 +24,14 @@ h1 {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 15pt;
+  font-size: 30PX;
   font-weight: 500;
   color: #7102e0;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Montserrat-Bold;
   background-color: #f3cf46;
   cursor: pointer;
   transition: border-color 0.25s;
-  width: 280px;
+  width: 300px;
   margin-top: 3%;
 }
 

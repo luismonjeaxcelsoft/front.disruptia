@@ -72,13 +72,13 @@ h3 {
 .titulo {
   font-size: 40px;
   color: #f3cf46;
-  font-family: Monserrat, Black;
+  font-family: Montserrat-Bold;
   font-weight: bold;
 }
 
 .titulo2 {
-  font-size: 50px;
-  font-family: Avenir, Heavy;
+  font-size: 40px;
+  font-family: Montserrat-Bold;
   color: #7102e0;
   height: 100%;
   margin: 0;
@@ -100,7 +100,7 @@ h3 {
 .titulo3 {
   font-size: 30pt;
   color: #ffffff;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Avenir, Heavy;
   line-height: 1;
   margin-top: 5%;
 }
@@ -108,7 +108,7 @@ h3 {
 .titulo4 {
   font-size: 15pt;
   color: #ffffff;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family:  Avenir-Medium;
   line-height: 1;
   margin-top: 50px;
 }

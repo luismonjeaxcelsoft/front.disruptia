@@ -18,6 +18,7 @@ import ValidateExpFather from "../components/ValidateExpFather";
 import { useParams } from "react-router-dom";
 import ComunityFather from "../components/ComunityFather";
 import FormValidateExp from "../components/FormValidateExp";
+import InformationLenguajes from "../components/InformationLenguajes";
 
 export const Formulario = () => {
   const { tab } = useParams();
@@ -126,13 +127,16 @@ export const Formulario = () => {
                 ),
                 key: "5",
                 children: (<div>
-                  <FormValidateExp type={"additionalCurse"}/>
+                  <FormValidateExp
+                   setValidateImgs={setValidateImgs}
+                   validateImgs={validateImgs}
+                  type={"additionalCurse"}/>
                 </div>),
               },
               {
                 label: (
                   <div>
-                    {tab === "6" && (
+                    {validateImgs[4] === "6" && (
                       <img
                         alt="bombilla"
                         style={{ width: "50%" }}
@@ -142,7 +146,11 @@ export const Formulario = () => {
                   </div>
                 ),
                 key: "6",
-                children: "Tab 6",
+                children: (
+                  <div>
+                    <InformationLenguajes/>
+                  </div>
+                ),
               },
               {
                 label: (

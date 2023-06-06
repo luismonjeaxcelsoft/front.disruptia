@@ -1,14 +1,13 @@
-import { useState,FC } from "react";
+import { useState, FC } from "react";
 import logo from "../assets/images/disruptialogo.png";
 import InfoValidateExperience from "./InfoValidateExperience";
 import { useNavigate } from "react-router-dom";
-
 
 const INITIAL_VALUES_FORM = {
   disrupterId: 1,
   estudioId: 1,
   nombreCurso: "",
-  cargo:"",
+  cargo: "",
   dateInit: "",
   fechaInicio: "",
   dateEnd: "",
@@ -18,12 +17,16 @@ const INITIAL_VALUES_FORM = {
 };
 
 type FormValidateExpProps = {
-type:string,
-validateImgs?:any,
-setValidateImgs?:any
-}
+  type: string;
+  validateImgs?: any;
+  setValidateImgs?: any;
+};
 
-const FormValidateExp:FC <FormValidateExpProps> = ({type,setValidateImgs,validateImgs}) => {
+const FormValidateExp: FC<FormValidateExpProps> = ({
+  type,
+  setValidateImgs,
+  validateImgs,
+}) => {
   const navigate = useNavigate();
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
@@ -56,7 +59,18 @@ const FormValidateExp:FC <FormValidateExpProps> = ({type,setValidateImgs,validat
   // useEffect(() => {
   //   getFormStudies();
   // }, []);
-
+const validateNavigation= ()=>{
+  if (type === "experience") {
+    setValidateImgs([...validateImgs, "4"]);
+    navigate("/perfiles/4");
+  } else if (type === "additionalActivity") {
+    setValidateImgs([...validateImgs, "5"]);
+    navigate("/perfiles/5");
+  } else if (type === "additionalCurse") {
+    setValidateImgs([...validateImgs, "6"]);
+    navigate("/perfiles/6");
+  }
+}
   return (
     <div>
       <div>
@@ -90,16 +104,12 @@ const FormValidateExp:FC <FormValidateExpProps> = ({type,setValidateImgs,validat
 
       {validateViewB && (
         <div className="containerSelect">
-          <button onClick={()=>{
-            if(type === "experience"){
-              setValidateImgs([...validateImgs,"4"])
-              navigate("/perfiles/4");
-            }else if (type === "additionalActivity") {
-              setValidateImgs([...validateImgs,"5"])
-              navigate("/perfiles/5");
-            }
-              
-          }} className="buttonContinueSelect">
+          <button
+            onClick={() => {
+              validateNavigation()
+            }}
+            className="buttonContinueSelect"
+          >
             <p className="textSiguienteSelect">Siguiente</p>
           </button>
         </div>

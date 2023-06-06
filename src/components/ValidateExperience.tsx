@@ -3,17 +3,17 @@ import Experiencia from "../assets/images/Experiencia.png";
 import "../styles/ValidateExperience.css";
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-
+import logo from "../assets/images/disruptialogo.png";
 type ValidateExperienceProps = {
   validadorComponente: React.Dispatch<number>;
-  setValidateImgs:any,
-  validateImgs:any
+  setValidateImgs: any;
+  validateImgs: any;
 };
 
 const ValidateExperience: FC<ValidateExperienceProps> = ({
   validadorComponente,
   setValidateImgs,
-  validateImgs
+  validateImgs,
 }) => {
   const navigate = useNavigate();
   return (
@@ -29,12 +29,12 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
       <div className="containerBodyExperience">
         <div>
           <span
-            style={{ fontSize: "70px", color: "white", marginLeft: "120px" }}
+            style={{ fontSize: "60px", color: "white", marginLeft: "120px",fontFamily:"Montserrat-Bold" }}
           >
             ¿Has tenido
           </span>
           <p />
-          <span style={{ fontSize: "70px", color: "white" }}>
+          <span style={{ fontSize: "60px", color: "white",fontFamily:"Montserrat-Bold" }}>
             experiencia laboral?
           </span>
         </div>
@@ -50,13 +50,28 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             <SmileOutlined className="iconFaceDown" />
           </button>
           <button
-            onClick={() => {validadorComponente(3);setValidateImgs([...validateImgs,"4"]); navigate("/perfiles/4");}}
+            onClick={() => {
+              validadorComponente(3);
+              setValidateImgs([...validateImgs, "4"]);
+              navigate("/perfiles/4");
+            }}
             style={{ width: "265px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"
           >
             No, nunca
             <FrownOutlined className="iconFaceDown" />
           </button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "135px",
+            marginLeft:"-102%",
+
+          }}
+        >
+          <img style={{ width: "100px" }} alt="" src={logo} />
         </div>
       </div>
     </div>

@@ -69,7 +69,7 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
       </div>
       <div>
         <div className="titleTabOne">
-          <h1 style={{ fontSize: "40px", color: "white" }}>
+          <h1 style={{ fontSize: "40px", color: "white",fontFamily:"Montserrat-Bold" }}>
             ¿En qué te gustaría trabajar?
           </h1>
         </div>
@@ -99,6 +99,7 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
                 >
                   <span
                     style={{
+                      fontFamily:"Montserrat-Bold;",
                       fontWeight: validate ? "bold" : "",
                       opacity: validate ? "" : "0.5",
                     }}

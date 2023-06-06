@@ -1,0 +1,18 @@
+.textTitleComponent {
+    font-size:25px;
+    color:#F3CF46;
+    font-family: Avenir, Heavy;
+    margin-top: 15px;
+}
+
+.textSubtitleComponent {
+    font-size:20px;
+    color:#FFFFFF;
+    font-family: Avenir-Medium;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.containerTextComponent {
+    display: flex;
+    flex-direction: column
+}

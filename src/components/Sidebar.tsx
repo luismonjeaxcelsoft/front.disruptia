@@ -64,14 +64,12 @@ export const Sidebar: FC<Sidebar> = ({
                   <p className="titulo4">{subText}</p>
                   {video && (
                     <div className="videoContainer">
-                      <video
-                        style={{
-                          width: "100%",
-                          borderRadius: "11px",
-                        }}
-                        src={"https://www.youtube.com/watch?v=SSyRzzuJpEs"}
-                        controls
-                      />
+                      <iframe
+                        width="100%"
+                        height="315"
+                        src="https://www.youtube.com/embed/SSyRzzuJpEs"
+                        style={{ borderRadius: "10px", border: "none" }}
+                      ></iframe>
                     </div>
                   )}
                 </div>

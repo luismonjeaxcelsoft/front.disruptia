@@ -16,9 +16,12 @@ import credencial from "../assets/images/tablasinFondo.png";
 import FormInfoExperience from "../components/FormInfoExperience";
 import ValidateExpFather from "../components/ValidateExpFather";
 import { useParams } from "react-router-dom";
+import ComunityFather from "../components/ComunityFather";
+import FormValidateExp from "../components/FormValidateExp";
 
 export const Formulario = () => {
   const { tab } = useParams();
+  
   const [validateImgs, setValidateImgs] = useState<any>([]);
   return (
     <div>
@@ -45,8 +48,8 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <SeleccionPerfiles
-                     setValidateImgs={setValidateImgs}
-                     validateImgs={validateImgs}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
                     />
                   </div>
                 ),
@@ -72,7 +75,7 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[1] === "3"  && (
+                    {validateImgs[1] === "3" && (
                       <img
                         alt="maletin"
                         style={{ width: "53px" }}
@@ -84,14 +87,17 @@ export const Formulario = () => {
                 key: "3",
                 children: (
                   <div>
-                    <ValidateExpFather />
+                    <ValidateExpFather
+                     setValidateImgs={setValidateImgs}
+                     validateImgs={validateImgs}
+                    />
                   </div>
                 ),
               },
               {
                 label: (
                   <div>
-                    {tab === "4" && (
+                    {validateImgs[2] === "4" && (
                       <img
                         alt="mano"
                         style={{ width: "53px" }}
@@ -101,18 +107,27 @@ export const Formulario = () => {
                   </div>
                 ),
                 key: "4",
-                children: "Tab 4",
+                children: (
+                  <div>
+                    <ComunityFather
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    {tab === "5" && (
+                    {validateImgs[3] === "5" && (
                       <img alt="rueda" style={{ width: "53px" }} src={rueda} />
                     )}
                   </div>
                 ),
                 key: "5",
-                children: "Tab 5",
+                children: (<div>
+                  <FormValidateExp type={"additionalCurse"}/>
+                </div>),
               },
               {
                 label: (

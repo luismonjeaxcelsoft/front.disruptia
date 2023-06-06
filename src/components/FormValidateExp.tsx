@@ -1,6 +1,8 @@
 import { useState,FC } from "react";
 import logo from "../assets/images/disruptialogo.png";
 import InfoValidateExperience from "./InfoValidateExperience";
+import { useNavigate } from "react-router-dom";
+
 
 const INITIAL_VALUES_FORM = {
   disrupterId: 1,
@@ -17,9 +19,12 @@ const INITIAL_VALUES_FORM = {
 
 type FormValidateExpProps = {
 type:string,
+validateImgs?:any,
+setValidateImgs?:any
 }
 
-const FormValidateExp:FC <FormValidateExpProps> = ({type}) => {
+const FormValidateExp:FC <FormValidateExpProps> = ({type,setValidateImgs,validateImgs}) => {
+  const navigate = useNavigate();
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
   // const getFormStudies = async () => {
@@ -85,7 +90,16 @@ const FormValidateExp:FC <FormValidateExpProps> = ({type}) => {
 
       {validateViewB && (
         <div className="containerSelect">
-          <button className="buttonContinueSelect">
+          <button onClick={()=>{
+            if(type === "experience"){
+              setValidateImgs([...validateImgs,"4"])
+              navigate("/perfiles/4");
+            }else if (type === "additionalActivity") {
+              setValidateImgs([...validateImgs,"5"])
+              navigate("/perfiles/5");
+            }
+              
+          }} className="buttonContinueSelect">
             <p className="textSiguienteSelect">Siguiente</p>
           </button>
         </div>

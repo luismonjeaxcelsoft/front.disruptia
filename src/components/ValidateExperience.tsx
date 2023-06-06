@@ -2,15 +2,20 @@ import { FrownOutlined, SmileOutlined } from "@ant-design/icons";
 import Experiencia from "../assets/images/Experiencia.png";
 import "../styles/ValidateExperience.css";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 type ValidateExperienceProps = {
   validadorComponente: React.Dispatch<number>;
+  setValidateImgs:any,
+  validateImgs:any
 };
 
 const ValidateExperience: FC<ValidateExperienceProps> = ({
   validadorComponente,
+  setValidateImgs,
+  validateImgs
 }) => {
-
+  const navigate = useNavigate();
   return (
     <div className="containerValidateExperience">
       <div
@@ -41,11 +46,11 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             style={{ width: "250px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"
           >
-            ¡Si!
+            ¡Sí!
             <SmileOutlined className="iconFaceDown" />
           </button>
           <button
-            onClick={() => validadorComponente(3)}
+            onClick={() => {validadorComponente(3);setValidateImgs([...validateImgs,"4"]); navigate("/perfiles/4");}}
             style={{ width: "265px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"
           >

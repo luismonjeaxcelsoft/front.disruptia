@@ -2,64 +2,68 @@ import {FC} from 'react'
 import "../styles/NotExperience.css";
 import { Sidebar } from "./Sidebar";
 import logo from "../assets/images/disruptialogo.png";
+import { useNavigate } from "react-router-dom";
 
 type NotExperienceProps ={
-    validadorComponente:any
+  setFormComponent: React.Dispatch<boolean>;
+  setValidateImgs:any,
+  validateImgs:any
 }
-
-const NotExperience: FC <NotExperienceProps> = ({validadorComponente}) => {
+const NotExperience:FC <NotExperienceProps> = ({setFormComponent, setValidateImgs,
+  validateImgs}) => {
+  const navigate = useNavigate();
   return (
     <>
-       <div>
+      <div>
         <Sidebar
           subTitle="Aquí encontrarás las instrucciones para diligenciar los campos requeridos"
           backColor={false}
           img={true}
         />
       </div>
-    <div style={{ width: "75rem" }}>
-      <div style={{ marginTop: "25px" }}>
-        <video
-          className="containerVideo"
-          src={"https://www.youtube.com/watch?v=SSyRzzuJpEs"}
-          controls
-        />
-      </div>
-      <div className="contentTextSpan">
-        <span className="textContent">¿Has realizado algún voluntariado</span>
-        <p />
-        <span className="textContent">o trabajo comunitario?</span>
-      </div>
-      <div style={{marginTop:"23px"}} className="containerOptionsExperience">
-        <button
-          style={{ width: "195px", height: "56px" }}
-          className="btn btn-primary backOptionsExperience"
-          onClick={()=>validadorComponente(5)}
+      <div style={{ width: "75rem" }}>
+        <div style={{ marginTop: "25px" }}>
+          <iframe
+            width="100%"
+            height="315"
+            src="https://www.youtube.com/embed/SSyRzzuJpEs"
+            style={{ borderRadius: "10px", border: "none" }}
+          ></iframe>
+        </div>
+        <div className="contentTextSpan">
+          <span className="textContent">¿Has realizado algún voluntariado</span>
+          <p />
+          <span className="textContent">o trabajo comunitario?</span>
+        </div>
+        <div
+          style={{ marginTop: "23px" }}
+          className="containerOptionsExperience"
         >
-         <span style={{fontSize:"20px"}}>
-         Si, añadir
-         </span>
-        </button>
-        <button
-          style={{ width: "195px", height: "56px" }}
-          className="btn btn-primary backOptionsExperience"
-          onClick={()=>validadorComponente(4)}
+          <button
+            style={{ width: "195px", height: "56px" }}
+            className="btn btn-primary backOptionsExperience"
+            onClick={() => setFormComponent(true)}
+          >
+            <span style={{ fontSize: "20px" }}>Si, añadir</span>
+          </button>
+          <button
+            style={{ width: "195px", height: "56px" }}
+            className="btn btn-primary backOptionsExperience"
+            onClick={() => {  setValidateImgs([...validateImgs,"5"]);navigate("/perfiles/5")}}
+          >
+            <span style={{ fontSize: "20px" }}>No, Continuar</span>
+          </button>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "45px",
+          }}
         >
-          <span style={{fontSize:"20px"}}>
-          No, Continuar
-          </span>
-        </button>
+          <img style={{ width: "150px" }} alt="" src={logo} />
+        </div>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "45px",
-        }}
-      >
-        <img style={{ width: "150px" }} alt="" src={logo} />
-      </div>
-    </div>
     </>
   );
 };

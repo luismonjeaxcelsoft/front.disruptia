@@ -53,16 +53,16 @@ const InformationLenguajes = () => {
         </span>
       </div>
       <div>
-        <Card bodyStyle={{ background: "#310161", padding: "20px 20px 20px 240px" }}>
+        <Card bodyStyle={{ background: "#310161", padding: "20px 20px 20px 170px" }}>
           <div>
             {infoRadioIdiomas.map((idioma) => (
               <div style={{ display: "flex", width: "100%" }}>
                 <div style={{ width: "10%" }}>
                   <span>{idioma.idioma}</span>
                 </div>
-                <div>
+                <div>                
                   <div style={{ marginLeft: "150px",display:"flex" }}>
-                    {idioma.select.map((item: any) => (
+                    {idioma.select.map(() => (
                       <div style={{width:"50px"}}>
                         <Radio></Radio>
                       </div>

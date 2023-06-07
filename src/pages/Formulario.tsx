@@ -6,7 +6,7 @@ import { SeleccionPerfiles } from "../components/SeleccionPerfiles";
 import toga from "../assets/images/togasinFondo.png";
 import maletin from "../assets/images/maletinsinFondo.png";
 import rueda from "../assets/images/ruedasinFondo.png";
-import bombilla from "../assets/images/bombillasinFondo.png";
+import idiomas from "../assets/images/idiomasSinFono.png";
 import word from "../assets/images/wordsinFondo.png";
 import manoGris from "../assets/images/manosinFondo.png";
 import computador from "../assets/images/portatilsinFondo.png";
@@ -138,9 +138,9 @@ export const Formulario = () => {
                   <div>
                     {validateImgs[4] === "6" && (
                       <img
-                        alt="bombilla"
+                        alt="idiomas"
                         style={{ width: "50%" }}
-                        src={bombilla}
+                        src={idiomas}
                       />
                     )}
                   </div>

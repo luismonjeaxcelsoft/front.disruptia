@@ -1,47 +1,40 @@
+import { FC } from "react";
 import { Card, Radio } from "antd";
 import "../styles/InformationLenguajes.css";
-const InformationLenguajes = () => {
+import logo from "../assets/images/disruptialogo.png";
+import { useNavigate } from "react-router-dom";
+
+type InformationLenguajesProps = {
+  setValidateImgs: any;
+  validateImgs: any;
+};
+
+const InformationLenguajes: FC<InformationLenguajesProps> = ({
+  setValidateImgs,
+  validateImgs,
+}) => {
+  const navigate = useNavigate();
+  const niveles = ["Basico", "Intermedio", "Avanzado", "Nativo"];
   const infoRadioIdiomas = [
     {
       idioma: "Español",
-      select: [
-        {
-          nivel: 1,
-          label: "Basico",
-        },
-        {
-          nivel: 1,
-          label: "Intermedio",
-        },
-        {
-          nivel: 1,
-          label: "Avanzado",
-        },
-        {
-          nivel: 1,
-          label: "Nativo",
-        },
-      ],
+      select: [1, 2, 3, 4],
     },
     {
       idioma: "Ingles",
       select: [1, 2, 3, 4],
-      niveles: [],
     },
     {
       idioma: "Frances",
       select: [1, 2, 3, 4],
-      niveles: [],
     },
     {
       idioma: "Portugués",
       select: [1, 2, 3, 4],
-      niveles: [],
     },
     {
       idioma: "Italiano",
       select: [1, 2, 3, 4],
-      niveles: [],
     },
   ];
   return (
@@ -53,17 +46,30 @@ const InformationLenguajes = () => {
         </span>
       </div>
       <div>
-        <Card bodyStyle={{ background: "#310161", padding: "20px 20px 20px 170px" }}>
-          <div>
+        <Card
+          bodyStyle={{
+            background: "#310161",
+            padding: "35px 20px 20px 47px",
+            borderRadius: "25px",
+          }}
+        >
+          <div className="containerLevels">
+            {niveles.map((item) => (
+              <div style={{ marginRight: "10px" }}>
+                <span className="textItem">{item}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: "15px" }}>
             {infoRadioIdiomas.map((idioma) => (
-              <div style={{ display: "flex", width: "100%" }}>
+              <div className="containerIdiomaText">
                 <div style={{ width: "10%" }}>
-                  <span>{idioma.idioma}</span>
+                  <span className="idiomaText">{idioma.idioma}</span>
                 </div>
-                <div>                
-                  <div style={{ marginLeft: "150px",display:"flex" }}>
+                <div>
+                  <div style={{ marginLeft: "300px", display: "flex" }}>
                     {idioma.select.map(() => (
-                      <div style={{width:"50px"}}>
+                      <div style={{ width: "60px" }}>
                         <Radio></Radio>
                       </div>
                     ))}
@@ -73,6 +79,21 @@ const InformationLenguajes = () => {
             ))}
           </div>
         </Card>
+      </div>
+      <div style={{ marginTop: "65px" }} className="containerSaveAction">
+        <button
+          onClick={() => {
+            setValidateImgs([...validateImgs, "7"]);
+            navigate("/perfiles/7");
+          }}
+          style={{ width: "165px", height: "47px", fontSize: "18px",fontFamily:"Montserrat-Bold" }}
+          className="SaveInfo btn btn-primary"
+        >
+          Guardar
+        </button>
+      </div>
+      <div className="containerExpContinue">
+        <img style={{ width: "100px" }} alt="" src={logo} />
       </div>
     </div>
   );

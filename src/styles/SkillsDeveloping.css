@@ -1,0 +1,61 @@
+.containerComponent {
+  width: 79rem;
+  height: 395px;
+  border: 1px solid white;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerSkillsDevelop {
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10%;
+  cursor: pointer;
+  width: 187px;
+  height: 40px;
+  border: 1px solid white;
+  align-items: center;
+}
+
+.titleSpan {
+  color: white;
+  font-size: 20px;
+  font-family: Avenir, Medium;
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.containerGridPosition {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.containerAgregate {
+  border: 1px solid rgb(112, 112, 112);
+  width: 345px;
+  height: 39px;
+  border-radius: 25px;
+  background: rgb(114, 82, 147);
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.spanAgregate {
+  color: white;
+  font-size: 25px;
+  font-family: Avenir, Heavy;
+  opacity: 0.37;
+  margin-left: 39px;
+
+}
+
+.iconFlecha {
+  scale: 0.5;
+  color: white;
+}

@@ -71,6 +71,7 @@ const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
               valuesFilter={valuesForm}
               values={valueForm}
               key={i}
+              
               id={i}
               setValidateViewB={setValidateViewB}
               valuesRes={valuesRes}

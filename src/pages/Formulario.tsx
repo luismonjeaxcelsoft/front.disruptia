@@ -13,12 +13,17 @@ import computador from "../assets/images/portatilsinFondo.png";
 import cubo from "../assets/images/cubosinFondo.png";
 import doctor from "../assets/images/doctorsinFondo.png";
 import credencial from "../assets/images/tablasinFondo.png";
+import bombilla from "../assets/images/bombillasinFondo.png"
 import FormInfoExperience from "../components/FormInfoExperience";
 import ValidateExpFather from "../components/ValidateExpFather";
 import { useParams } from "react-router-dom";
 import ComunityFather from "../components/ComunityFather";
 import FormValidateExp from "../components/FormValidateExp";
 import InformationLenguajes from "../components/InformationLenguajes";
+import OfficeTools from "../components/OfficeTools";
+import WorkingModality from "../components/WorkingModality";
+import DevelopedSkills from "../components/DevelopedSkills";
+import SkillsDeveloping from "../components/SkillsDeveloping";
 
 export const Formulario = () => {
   const { tab } = useParams();
@@ -139,7 +144,7 @@ export const Formulario = () => {
                     {validateImgs[4] === "6" && (
                       <img
                         alt="idiomas"
-                        style={{ width: "50%" }}
+                        style={{ width: "53px" }}
                         src={idiomas}
                       />
                     )}
@@ -148,62 +153,101 @@ export const Formulario = () => {
                 key: "6",
                 children: (
                   <div>
-                    <InformationLenguajes/>
+                    <InformationLenguajes
+                    setValidateImgs={setValidateImgs}
+                    validateImgs={validateImgs}
+                    />
                   </div>
                 ),
               },
               {
                 label: (
                   <div>
-                    {tab === "7" && (
-                      <img alt="word" style={{ width: "50%" }} src={word} />
+                    {validateImgs[5] === "7" && (
+                      <img alt="word" style={{ width: "53px" }} src={word} />
                     )}
                   </div>
                 ),
                 key: "7",
-                children: "Tab 7",
+                children: (
+                  <div>
+                    <OfficeTools
+                     setValidateImgs={setValidateImgs}
+                     validateImgs={validateImgs}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    {tab === "8" && (
+                    {validateImgs[6] === "8" && (
                       <img
                         alt="computador"
-                        style={{ width: "50%" }}
+                        style={{ width: "53px" }}
                         src={computador}
                       />
                     )}
                   </div>
                 ),
                 key: "8",
-                children: "Tab 8",
+                children: (
+                  <div>
+                    <WorkingModality
+                     setValidateImgs={setValidateImgs}
+                     validateImgs={validateImgs}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    {tab === "9" && (
-                      <img alt="cubo" style={{ width: "50%" }} src={cubo} />
+                    {validateImgs[7] === "9" && (
+                      <img alt="bombilla" style={{ width: "53px" }} src={bombilla} />
                     )}
                   </div>
                 ),
                 key: "9",
-                children: "Tab 9",
+                children: (
+                  <div>
+                    <DevelopedSkills
+                       setValidateImgs={setValidateImgs}
+                       validateImgs={validateImgs}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    {tab === "10" && (
-                      <img alt="doctor" style={{ width: "50%" }} src={doctor} />
+                    {validateImgs[8] === "10" && (
+                      <img alt="cubo" style={{ width: "53px" }} src={cubo} />
                     )}
                   </div>
                 ),
                 key: "10",
-                children: "Tab 10",
+                children: (
+                  <div>
+                    <SkillsDeveloping/>
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
                     {tab === "11" && (
+                      <img alt="doctor" style={{ width: "53px" }} src={doctor} />
+                    )}
+                  </div>
+                ),
+                key: "11",
+                children: "Tab 11",
+              },
+              {
+                label: (
+                  <div>
+                    {tab === "12" && (
                       <img
                         alt="credencial"
                         style={{ width: "50%" }}
@@ -212,8 +256,8 @@ export const Formulario = () => {
                     )}
                   </div>
                 ),
-                key: "11",
-                children: "Tab 11",
+                key: "12",
+                children: "Tab 12",
               },
             ]}
           />

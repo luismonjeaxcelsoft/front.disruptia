@@ -1,0 +1,25 @@
+.containerSkills {
+    width: 257px;
+    height: 46px;
+    border: 1px solid rgb(113, 2, 224);
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(113, 2, 224);
+    margin-top: 15px;
+}
+
+.labelContainer {
+    color: white;
+    opacity: 0.6;
+    font-size: 20px;
+    margin: 0px;
+    font-family: Avenir, Heavy;
+}
+
+.skillText {
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-family: Montserrat-Bold;
+}

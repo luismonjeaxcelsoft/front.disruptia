@@ -6,7 +6,7 @@
 .spanStudy {
   font-family: Avenir, Heavy;
   color: #f3cf46;
-  font-size: 18px;
+  font-size: 25px;
 }
 .containerStudies {
   display: flex;
@@ -104,7 +104,7 @@
   color: white;
   position: absolute;
   left: 89%;
-  top: 145px;
+  top: 156px;
 }
 .countInputIns {
   color: white;

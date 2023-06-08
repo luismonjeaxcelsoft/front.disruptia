@@ -44,14 +44,14 @@ const NotExperience:FC <NotExperienceProps> = ({setFormComponent, setValidateImg
             className="btn btn-primary backOptionsExperience"
             onClick={() => setFormComponent(true)}
           >
-            <span style={{ fontSize: "20px" }}>Si, añadir</span>
+            <span style={{ fontSize: "20px" }}>Sí, añadir</span>
           </button>
           <button
             style={{ width: "195px", height: "56px" }}
             className="btn btn-primary backOptionsExperience"
             onClick={() => {  setValidateImgs([...validateImgs,"5"]);navigate("/perfiles/5")}}
           >
-            <span style={{ fontSize: "20px" }}>No, Continuar</span>
+            <span style={{ fontSize: "20px" }}>No, continuar</span>
           </button>
         </div>
         <div

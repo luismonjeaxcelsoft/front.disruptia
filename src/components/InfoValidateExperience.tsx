@@ -188,7 +188,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             />
                             <span
                               className="countInputIns"
-                              style={{ top: "249px" }}
+                              style={{ top: "262px" }}
                             >
                               {countKeysIns.length}/20
                             </span>
@@ -360,7 +360,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             <span
                               className="countInputIns"
                               style={{
-                                top: type === "experience" ? "555px" : "450px",
+                                top: type === "experience" ? "555px" : "460px",
                               }}
                             >
                               {countKeysLogrosObtenidos.length}/50

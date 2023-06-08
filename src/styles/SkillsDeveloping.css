@@ -1,6 +1,6 @@
 .containerComponent {
   width: 79rem;
-  height: 395px;
+  height: 495px;
   border: 1px solid white;
   border-radius: 25px;
   display: flex;
@@ -36,26 +36,21 @@
 
 .containerAgregate {
   border: 1px solid rgb(112, 112, 112);
-  width: 345px;
+  width: 300px;
   height: 39px;
   border-radius: 25px;
   background: rgb(114, 82, 147);
-  display: flex;
-  align-items: center;
-  margin-top: 40px;
+  margin-top: 25px;
   cursor: pointer;
-}
-
-.spanAgregate {
-  color: white;
-  font-size: 25px;
-  font-family: Avenir, Heavy;
-  opacity: 0.37;
-  margin-left: 39px;
+  color: white !important;
 
 }
 
 .iconFlecha {
   scale: 0.5;
   color: white;
+  position: absolute;
+  top: 21px;
+  left: 252px;
+  z-index: 9999;
 }

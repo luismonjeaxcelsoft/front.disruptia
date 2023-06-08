@@ -45,9 +45,13 @@
 }
 .inputBorderNone {
   background: #4f2678;
-  color: white;
+  color: white !important;
   border: none;
   height: 57px;
+}
+.ant-input::placeholder{
+  color:white !important;
+  opacity: 0.5;
 }
 .containerButtonContinue {
   display: flex;

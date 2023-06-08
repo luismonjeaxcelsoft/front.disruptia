@@ -26,8 +26,7 @@ import DevelopedSkills from "../components/DevelopedSkills";
 import SkillsDeveloping from "../components/SkillsDeveloping";
 
 export const Formulario = () => {
-  const { tab } = useParams();
-  
+  const { tab } = useParams();  
   const [validateImgs, setValidateImgs] = useState<any>([]);
   return (
     <div>

@@ -41,7 +41,7 @@
 .containerExpContinue {
     display: flex;
     justify-content: center;
-    margin-top: 15%;
+    margin-top: 5%;
 }
 
 /* :where(.css-dev-only-do-not-override-15rg2km).ant-card {
@@ -51,3 +51,23 @@
   border: 1px solid #f0f0f0;
   border-radius: 25px;
 }
+
+.ContainerDisabled {
+  width: 165px;
+  height: 47px;
+  font-size: 18px;
+  font-family: Montserrat-Bold;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background:#310161;
+  border: 1px solid #f7c947;
+  width: 227px;
+}
+.textDisabled{
+  color:#AE7F51;
+  margin: 0;
+}
+

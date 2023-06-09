@@ -21,7 +21,7 @@ const INITIAL_VALUES_FORM = {
   paisId: "",
   ciudadId: "",
 };
-const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
+const FormInfoExperience= ({setValidateImgs,validateImgs,setActiveTab}:any) => {
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false)
@@ -104,6 +104,7 @@ const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
             onClick={() => {
               navigate("/perfiles/3");
               setValidateImgs([...validateImgs,"3"])
+              setActiveTab("3")
             }}
           >
           

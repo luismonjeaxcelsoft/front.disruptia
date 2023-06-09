@@ -24,16 +24,23 @@ import OfficeTools from "../components/OfficeTools";
 import WorkingModality from "../components/WorkingModality";
 import DevelopedSkills from "../components/DevelopedSkills";
 import SkillsDeveloping from "../components/SkillsDeveloping";
+import Perfil from "../components/Perfil";
+import PreviewHv from "../components/PreviewHv";
 
 export const Formulario = () => {
-  const { tab } = useParams();  
+  const { tab } = useParams();
+  const [activeTab, setActiveTab] = useState<any>(tab);
   const [validateImgs, setValidateImgs] = useState<any>([]);
+  const handleTabClick = (tabKey:any) => {
+    setActiveTab(tabKey);
+  };
   return (
     <div>
       <div className="formulario">
         <div className="tabs">
           <Tabs
-            activeKey={tab}
+          onTabClick={handleTabClick}
+            activeKey={activeTab}
             className="tabs-2"
             defaultActiveKey="1"
             centered
@@ -55,6 +62,7 @@ export const Formulario = () => {
                     <SeleccionPerfiles
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -73,6 +81,7 @@ export const Formulario = () => {
                     <FormInfoExperience
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -95,6 +104,7 @@ export const Formulario = () => {
                     <ValidateExpFather
                      setValidateImgs={setValidateImgs}
                      validateImgs={validateImgs}
+                     setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -117,6 +127,8 @@ export const Formulario = () => {
                     <ComunityFather
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
+                   setActiveTab={setActiveTab}
+
                     />
                   </div>
                 ),
@@ -134,7 +146,10 @@ export const Formulario = () => {
                   <FormValidateExp
                    setValidateImgs={setValidateImgs}
                    validateImgs={validateImgs}
-                  type={"additionalCurse"}/>
+                  type={"additionalCurse"}
+                  setActiveTab={setActiveTab}
+                  
+                  />
                 </div>),
               },
               {
@@ -155,6 +170,7 @@ export const Formulario = () => {
                     <InformationLenguajes
                     setValidateImgs={setValidateImgs}
                     validateImgs={validateImgs}
+                    setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -173,6 +189,7 @@ export const Formulario = () => {
                     <OfficeTools
                      setValidateImgs={setValidateImgs}
                      validateImgs={validateImgs}
+                     setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -195,6 +212,7 @@ export const Formulario = () => {
                     <WorkingModality
                      setValidateImgs={setValidateImgs}
                      validateImgs={validateImgs}
+                     setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -213,6 +231,7 @@ export const Formulario = () => {
                     <DevelopedSkills
                        setValidateImgs={setValidateImgs}
                        validateImgs={validateImgs}
+                       setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -228,35 +247,51 @@ export const Formulario = () => {
                 key: "10",
                 children: (
                   <div>
-                    <SkillsDeveloping/>
+                    <SkillsDeveloping
+                     setValidateImgs={setValidateImgs}
+                     validateImgs={validateImgs}
+                     setActiveTab={setActiveTab}
+                    />
                   </div>
                 ),
               },
               {
                 label: (
                   <div>
-                    {tab === "11" && (
+                    {validateImgs[9] === "11" && (
                       <img alt="doctor" style={{ width: "53px" }} src={doctor} />
                     )}
                   </div>
                 ),
                 key: "11",
-                children: "Tab 11",
+                children: ( <div>
+                <Perfil
+                  setValidateImgs={setValidateImgs}
+                  validateImgs={validateImgs}
+                  setActiveTab={setActiveTab}
+                />
+              </div>),
               },
               {
                 label: (
                   <div>
-                    {tab === "12" && (
+                    {validateImgs[10] === "12" && (
                       <img
                         alt="credencial"
-                        style={{ width: "50%" }}
+                        style={{ width: "53px" }}
                         src={credencial}
                       />
                     )}
                   </div>
                 ),
                 key: "12",
-                children: "Tab 12",
+                children: (
+                  <div>
+                    <PreviewHv
+                    setActiveTab={setActiveTab}
+                    />
+                  </div>
+                ),
               },
             ]}
           />

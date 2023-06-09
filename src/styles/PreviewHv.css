@@ -1,0 +1,51 @@
+.containerTitlePreview {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.textTtilePreview {
+  font-size: 25px;
+  font-family: Montserrat, Bold;
+  color: rgb(243, 207, 70);
+}
+
+.containerInfoHv {
+  width: 631px;
+
+  background: white;
+  border-radius: 25px;
+  padding: 70px;
+}
+
+.containerItemOne {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerItems {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.titleItem {
+  font-size: 18px;
+  font-family: Montserrat, Bold;
+  color: rgb(0, 0, 0);
+}
+.itemSpan {
+  font-size: 12px;
+  font-family: Montserrat-Medium;
+  color: rgb(0, 0, 0);
+}
+
+.iconEdit {
+  scale: 0.4;
+}
+.containerEdit {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

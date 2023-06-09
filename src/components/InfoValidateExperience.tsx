@@ -150,8 +150,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         </label>
 
                         <div>
-                          <Input
-                            type="text"
+                          <Input.TextArea
                             className="inputBorderNone"
                             id="nombreCurso"
                             name="nombreCurso"
@@ -175,8 +174,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           </label>
 
                           <div>
-                            <Input
-                              type="text"
+                            <Input.TextArea
                               className="inputBorderNone"
                               id="cargo"
                               name="cargo"
@@ -347,8 +345,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                               : "Institución"}
                           </label>
                           <div>
-                            <Input
-                              type="text"
+                            <Input.TextArea
                               className="inputBorderNone"
                               id="nombreInstitucion"
                               name="nombreInstitucion"

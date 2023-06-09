@@ -1,0 +1,78 @@
+.titlePerfil {
+  color: white;
+  font-size: 21px;
+  font-family: Montserrat, Medium;
+  opacity: 0.95;
+}
+
+.containerTextPerfil {
+  width: 695px;
+  height: 213px;
+  border-radius: 25px;
+  background: rgb(97, 60, 134);
+  display: flex;
+}
+
+.buttonGpt {
+  width: 275px;
+  height: 40px;
+  border-radius: 25px;
+  display: flex;
+  background: rgb(49, 1, 97);
+  border: 1px solid white;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.buttonGpt:hover {
+  width: 275px;
+  height: 40px;
+  border-radius: 25px;
+  display: flex;
+  background: #f7c947;
+  border: 1px solid white;
+  justify-content: center;
+  align-items: center;
+  color: #310161;
+}
+.buttonGptValidation {
+  width: 218px;
+  height: 40px;
+  border-radius: 25px;
+  display: flex;
+  background: rgb(49, 1, 97);
+  border: 1px solid white;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.buttonGptValidation:hover {
+  width: 218px;
+  height: 40px;
+  border-radius: 25px;
+  display: flex;
+  background: #f7c947;
+  border: 1px solid white;
+  justify-content: center;
+  align-items: center;
+  color: #310161;
+}
+
+.textButtonGpt {
+  font-size: 20px;
+  font-family: Montserrat, Bold;
+}
+.textButtonGpt:hover {
+  font-size: 20px;
+  font-family: Montserrat, Bold;
+}
+
+.textButtonGptValidation {
+  font-size: 15px;
+  font-family: Montserrat, Bold;
+}
+
+.textButtonGptValidation:hover {
+  font-size: 15px;
+  font-family: Montserrat, Bold;
+}

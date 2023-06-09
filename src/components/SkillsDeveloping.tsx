@@ -6,7 +6,8 @@ import { Input } from "antd";
 import LevelCompetition from "./LevelCompetition";
 import { Sidebar } from "./Sidebar";
 
-const SkillsDeveloping = () => {
+const SkillsDeveloping = ({ setValidateImgs,
+  validateImgs,setActiveTab}:any) => {
   let skillInformation = [
     {
       id: 0,
@@ -87,7 +88,12 @@ const SkillsDeveloping = () => {
         />
       </div>
       {validateComponent ? (
-        <LevelCompetition skills={skills} />
+        <LevelCompetition 
+        setValidateImgs={setValidateImgs}
+        validateImgs={validateImgs}
+        skills={skills} 
+        setActiveTab={setActiveTab}
+        />
       ) : (
         <div>
           <div className="containerComponent">

@@ -8,9 +8,10 @@ type NotExperienceProps ={
   setFormComponent: React.Dispatch<boolean>;
   setValidateImgs:any,
   validateImgs:any
+  setActiveTab:any
 }
 const NotExperience:FC <NotExperienceProps> = ({setFormComponent, setValidateImgs,
-  validateImgs}) => {
+  validateImgs,setActiveTab}) => {
   const navigate = useNavigate();
   return (
     <>
@@ -49,7 +50,7 @@ const NotExperience:FC <NotExperienceProps> = ({setFormComponent, setValidateImg
           <button
             style={{ width: "195px", height: "56px" }}
             className="btn btn-primary backOptionsExperience"
-            onClick={() => {  setValidateImgs([...validateImgs,"5"]);navigate("/perfiles/5")}}
+            onClick={() => {  setValidateImgs([...validateImgs,"5"]);navigate("/perfiles/5");setActiveTab("5")}}
           >
             <span style={{ fontSize: "20px" }}>No, continuar</span>
           </button>

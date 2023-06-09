@@ -8,11 +8,13 @@ import { Sidebar } from "./Sidebar";
 type InformationLenguajesProps = {
   setValidateImgs: any;
   validateImgs: any;
+  setActiveTab:any
 };
 
 const InformationLenguajes: FC<InformationLenguajesProps> = ({
   setValidateImgs,
   validateImgs,
+  setActiveTab
 }) => {
   const navigate = useNavigate();
   const [valuesRadioSelect, setValuesRadioSelect] = useState<number>(0);
@@ -125,6 +127,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
           onClick={() => {
             setValidateImgs([...validateImgs, "7"]);
             navigate("/perfiles/7");
+            setActiveTab("7")
           }}
           disabled={!validateContinue ? true : false}
         >

@@ -13,7 +13,7 @@ interface Perfiles {
   name: string;
 }
 
-export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
+export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setActiveTab}:any) => {
   const navigate = useNavigate();
   const [data, setData] = useState<Perfiles[]>([]);
   const [sendData, setSendData] = useState<any[]>([]);
@@ -119,6 +119,7 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
               idPerfilSelect();
               setValidateImgs([...validateImgs,"2"])
               navigate("/perfiles/2");
+              setActiveTab("2")
             }}
           >
             <p className="textSiguienteSelect">Continuar</p>

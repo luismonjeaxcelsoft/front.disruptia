@@ -193,8 +193,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         Nombre del Curso
                       </label>
                       <div>
-                        <Input
-                          type="text"
+                        <Input.TextArea
                           className="inputBorderNone"
                           id="nombreCurso"
                           name="nombreCurso"
@@ -355,8 +354,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         Institución Educativa
                       </label>
                       <div>
-                        <Input
-                          type="text"
+                        <Input.TextArea                       
                           className="inputBorderNone"
                           id="nombreInstitucion"
                           name="nombreInstitucion"

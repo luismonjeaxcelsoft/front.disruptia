@@ -20,12 +20,14 @@ type FormValidateExpProps = {
   type: string;
   validateImgs?: any;
   setValidateImgs?: any;
+  setActiveTab?:any
 };
 
 const FormValidateExp: FC<FormValidateExpProps> = ({
   type,
   setValidateImgs,
   validateImgs,
+  setActiveTab
 }) => {
   const navigate = useNavigate();
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
@@ -59,18 +61,22 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
   // useEffect(() => {
   //   getFormStudies();
   // }, []);
-const validateNavigation= ()=>{
-  if (type === "experience") {
-    setValidateImgs([...validateImgs, "4"]);
-    navigate("/perfiles/4");
-  } else if (type === "additionalActivity") {
-    setValidateImgs([...validateImgs, "5"]);
-    navigate("/perfiles/5");
-  } else if (type === "additionalCurse") {
-    setValidateImgs([...validateImgs, "6"]);
-    navigate("/perfiles/6");
-  }
-}
+  const validateNavigation = () => {
+    if (type === "experience") {
+      setValidateImgs([...validateImgs, "4"]);
+      navigate("/perfiles/4");
+      setActiveTab("4")
+    } else if (type === "additionalActivity") {
+      setValidateImgs([...validateImgs, "5"]);
+      navigate("/perfiles/5");
+      setActiveTab("5")
+    } else if (type === "additionalCurse") {
+      setValidateImgs([...validateImgs, "6"]);
+      navigate("/perfiles/6");
+      setActiveTab("6")
+
+    }
+  };
   return (
     <div>
       <div>
@@ -97,7 +103,11 @@ const validateNavigation= ()=>{
             }}
             className="btn btn-primary hoverAgregar"
           >
-            Agregar estudio +
+            {type === "experience"
+              ? "Agregar Experiencia +"
+              : type === "additionalActivity"
+              ? "Agregar Actividad +"
+              : type === "additionalCurse" ? "Agregar Curso +" : ""}
           </button>
         </div>
       )}
@@ -106,7 +116,7 @@ const validateNavigation= ()=>{
         <div className="containerSelect">
           <button
             onClick={() => {
-              validateNavigation()
+              validateNavigation();
             }}
             className="buttonContinueSelect"
           >

@@ -8,11 +8,13 @@ import { Sidebar } from "./Sidebar";
 type OfficeToolsProps = {
   setValidateImgs: any;
   validateImgs: any;
+  setActiveTab:any
 };
 
 const OfficeTools: FC<OfficeToolsProps> = ({
   setValidateImgs,
   validateImgs,
+  setActiveTab
 }) => {
   const navigate = useNavigate();
   const niveles = ["Basico", "Intermedio", "Avanzado"];
@@ -178,6 +180,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
           onClick={() => {
             setValidateImgs([...validateImgs, "8"]);
             navigate("/perfiles/8");
+            setActiveTab("8")
           }}
           disabled={!validateContinue ? true : false}
         >

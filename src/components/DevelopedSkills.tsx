@@ -8,11 +8,13 @@ import { Sidebar } from "./Sidebar";
 type DevelopedSkillsProps = {
   setValidateImgs: any;
   validateImgs: any;
+  setActiveTab:any
 };
 
 const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   setValidateImgs,
   validateImgs,
+  setActiveTab
 }) => {
   let options = [
     {
@@ -74,15 +76,13 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
     }
   };
 const validationDisabled = ()=>{
-if(habilitysValues.length > 2){
+if(habilitysValues.length >= 2){
   setValidate(false)
 } else {
   window.alert("Debe agregar como minimo 3 habilidades para poder continuar")
 }
 }
-useEffect(() => {
-  validationDisabled()
-}, [habilitysValues])
+
 
   return (
     <>
@@ -156,6 +156,7 @@ useEffect(() => {
               }}
               className="SaveInfo btn btn-primary"
               onClick={() => {
+                validationDisabled()
                 setValidateContinue(true);
                 setCountId(countId + 1);
                 agregateHability();
@@ -175,6 +176,7 @@ useEffect(() => {
             onClick={() => {
               navigate("/perfiles/10");
               setValidateImgs([...validateImgs, "10"]);
+              setActiveTab("10")
             }}
             disabled={validate}
           >

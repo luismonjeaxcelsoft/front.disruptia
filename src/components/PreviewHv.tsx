@@ -1,7 +1,14 @@
+import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import "../styles/PreviewHv.css";
 import { EditOutlined } from "@ant-design/icons";
-const PreviewHv = ({setActiveTab}:any) => {
+import { Modal } from "antd";
+const PreviewHv = ({ setActiveTab }: any) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e);
+    setIsModalOpen(false);
+  };
   return (
     <>
       <div>
@@ -22,15 +29,21 @@ const PreviewHv = ({setActiveTab}:any) => {
           <div className="containerItemOne">
             <div className="containerEdit">
               <span className="titleItem">Manejo de Idiomas</span>
-              <EditOutlined onClick={()=>setActiveTab("6")} className="iconEdit"/>
+              <EditOutlined
+                onClick={() => setActiveTab("6")}
+                className="iconEdit"
+              />
             </div>
             <span className="itemSpan">Ingles - Intermedio</span>
             <span className="itemSpan">Frances - Intermedio</span>
           </div>
           <div className="containerItems">
-          <div className="containerEdit">
+            <div className="containerEdit">
               <span className="titleItem">Herramientas ofimáticas</span>
-              <EditOutlined onClick={()=>setActiveTab("7")} className="iconEdit"/>
+              <EditOutlined
+                onClick={() => setActiveTab("7")}
+                className="iconEdit"
+              />
             </div>
             <span className="itemSpan">Word - Experto</span>
             <span className="itemSpan">Canva - Experto</span>
@@ -42,9 +55,12 @@ const PreviewHv = ({setActiveTab}:any) => {
               marginTop: "10px",
             }}
           >
-             <div className="containerEdit">
+            <div className="containerEdit">
               <span className="titleItem">Modelo de trabajo:</span>
-              <EditOutlined onClick={()=>setActiveTab("8")} className="iconEdit"/>
+              <EditOutlined
+                onClick={() => setActiveTab("8")}
+                className="iconEdit"
+              />
             </div>
             <span
               style={{
@@ -57,18 +73,26 @@ const PreviewHv = ({setActiveTab}:any) => {
             </span>
           </div>
           <div className="containerItems">
-          <div className="containerEdit">
-              <span className="titleItem">Habilidades en Desarrollo de Software</span>
-              <EditOutlined onClick={()=>setActiveTab("9")} className="iconEdit"/>
+            <div className="containerEdit">
+              <span className="titleItem">
+                Habilidades en Desarrollo de Software
+              </span>
+              <EditOutlined
+                onClick={() => setActiveTab("9")}
+                className="iconEdit"
+              />
             </div>
             <span className="itemSpan">JAVA (competente)</span>
             <span className="itemSpan">Rest (competente)</span>
             <span className="itemSpan">Angular (competente)</span>
           </div>
           <div className="containerItems">
-          <div className="containerEdit">
+            <div className="containerEdit">
               <span className="titleItem">Perfil</span>
-              <EditOutlined onClick={()=>setActiveTab("11")} className="iconEdit"/>
+              <EditOutlined
+                onClick={() => setActiveTab("11")}
+                className="iconEdit"
+              />
             </div>
             <span className="itemSpan">
               Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
@@ -77,6 +101,53 @@ const PreviewHv = ({setActiveTab}:any) => {
               Donec quam felis, ultricies nec, pellentesque eu,
             </span>
           </div>
+        </div>
+        <div style={{ marginTop: "35px" }} className="containerSaveAction">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            style={{
+              width: "165px",
+              height: "47px",
+              fontSize: "18px",
+              fontFamily: "Montserrat-Bold",
+            }}
+            className="SaveInfo btn btn-primary"
+          >
+            Finalizar
+          </button>
+        </div>
+        <div>
+          <Modal
+            centered
+            open={isModalOpen}
+            width="1073px"
+            bodyStyle={{ padding: "40px", height: "542px" }}
+            footer={null}
+            onCancel={handleCancel}
+          >
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <span className="textModal">Andrés, has finalizado</span>
+                <span className="textModal">con éxito tu Hoja de vida.</span>
+                <span className="textModal">
+                  ¡Ahora estás listo para conectarte
+                </span>
+                <span className="textModal">con una oferta de empleo</span>
+                <span className="textModal">Disruptiva!</span>
+                <button
+                onClick={() => setIsModalOpen(false)}
+                className="containerButtomModal">
+                  <span style={{ fontSize:"25px",color:"#E0A21E",fontFamily:" Montserrat-Bold"}}>Descargar PDF</span>
+                </button>
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     </>

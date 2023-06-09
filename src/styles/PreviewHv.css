@@ -49,3 +49,30 @@
   justify-content: space-between;
   align-items: center;
 }
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-modal .ant-modal-content {
+  background: #e0a202;
+  border-radius: 25px;
+}
+
+.textModal {
+  font-size: 40px;
+  color: rgb(70, 0, 135);
+  font-family: Montserrat-Bold;
+}
+
+.containerButtomModal {
+  width: 358px;
+  height: 64px;
+  border-radius: 25px;
+  background: #310161;
+  border: 1px solid #460087;
+  margin-top: 35px;
+}
+
+.ant-modal-close {
+  scale: 1.8;
+  color: #4f0094 !important;
+  margin-top: 30px;
+  margin-right: 37px;
+}

@@ -92,9 +92,10 @@
   margin: 0 0 0 10px !important;
 }
 .ant-tabs-tab-active {
-  width: 100px !important;
+  width: 53px !important;
 }
 
 .ant-tabs-ink-bar {
-  background-color:#F7C947 !important; /* Cambia el color a rojo */
+  background-color:#F7C947 !important; 
+  display: none !important;
 }

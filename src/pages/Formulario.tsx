@@ -4,16 +4,27 @@ import iconotab1 from "../assets/images/Iconos.png";
 import "../styles/formulario.css";
 import { SeleccionPerfiles } from "../components/SeleccionPerfiles";
 import toga from "../assets/images/togasinFondo.png";
+import togaGris from "../assets/images/togaSinFondoGris.png";
 import maletin from "../assets/images/maletinsinFondo.png";
+import maletinGris from "../assets/images/maletinGris.png";
 import rueda from "../assets/images/ruedasinFondo.png";
+import ruedGris from "../assets/images/ruedGris.png";
 import idiomas from "../assets/images/idiomasSinFono.png";
+import idiomasGris from "../assets/images/idiomasGris.png";
 import word from "../assets/images/wordsinFondo.png";
+import wordGris from "../assets/images/wordGris.png";
 import manoGris from "../assets/images/manosinFondo.png";
+import manoGrisFondo from "../assets/images/manoGrisFondo.png";
 import computador from "../assets/images/portatilsinFondo.png";
+import compuGris from "../assets/images/compuGris.png";
 import cubo from "../assets/images/cubosinFondo.png";
+import cuboGris from "../assets/images/cuboGris.png";
 import doctor from "../assets/images/doctorsinFondo.png";
+import docGris from "../assets/images/docGris.png";
 import credencial from "../assets/images/tablasinFondo.png";
-import bombilla from "../assets/images/bombillasinFondo.png"
+import credeGris from "../assets/images/credeGris.png";
+import bombilla from "../assets/images/bombillasinFondo.png";
+import bombillaGris from "../assets/images/bombillaGris.png";
 import FormInfoExperience from "../components/FormInfoExperience";
 import ValidateExpFather from "../components/ValidateExpFather";
 import { useParams } from "react-router-dom";
@@ -30,16 +41,22 @@ import PreviewHv from "../components/PreviewHv";
 export const Formulario = () => {
   const { tab } = useParams();
   const [activeTab, setActiveTab] = useState<any>(tab);
-  const [validateImgs, setValidateImgs] = useState<any>([]);
-  const handleTabClick = (tabKey:any) => {
-    setActiveTab(tabKey);
+  console.log("🚀 ~ file: Formulario.tsx:44 ~ Formulario ~ activeTab:", activeTab)
+  const [validateImgs, setValidateImgs] = useState<any>(["1"]);
+  console.log("🚀 ~ file: Formulario.tsx:46 ~ Formulario ~ validateImgs:", validateImgs)
+  const handleTabClick = (tabKey: any) => {
+    let value = validateImgs.some((item:any)=> item === tabKey)
+    if(value){
+      setActiveTab(tabKey);
+    }
+    
   };
   return (
     <div>
       <div className="formulario">
         <div className="tabs">
           <Tabs
-          onTabClick={handleTabClick}
+            onTabClick={handleTabClick}
             activeKey={activeTab}
             className="tabs-2"
             defaultActiveKey="1"
@@ -70,8 +87,14 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[0] === "2" && (
+                    {validateImgs[1] === "2" ? (
                       <img alt="toga" style={{ width: "53px" }} src={toga} />
+                    ) : (
+                      <img
+                        alt="toga"
+                        style={{ width: "53px" }}
+                        src={togaGris}
+                      />
                     )}
                   </div>
                 ),
@@ -89,11 +112,17 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[1] === "3" && (
+                    {validateImgs[2] === "3" ? (
                       <img
                         alt="maletin"
                         style={{ width: "53px" }}
                         src={maletin}
+                      />
+                    ) : (
+                      <img
+                        alt="maletin"
+                        style={{ width: "53px" }}
+                        src={maletinGris}
                       />
                     )}
                   </div>
@@ -102,9 +131,9 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <ValidateExpFather
-                     setValidateImgs={setValidateImgs}
-                     validateImgs={validateImgs}
-                     setActiveTab={setActiveTab}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -112,11 +141,17 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[2] === "4" && (
+                    {validateImgs[3] === "4" ? (
                       <img
                         alt="mano"
                         style={{ width: "53px" }}
                         src={manoGris}
+                      />
+                    ) : (
+                      <img
+                        alt="mano"
+                        style={{ width: "53px" }}
+                        src={manoGrisFondo}
                       />
                     )}
                   </div>
@@ -127,8 +162,7 @@ export const Formulario = () => {
                     <ComunityFather
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                   setActiveTab={setActiveTab}
-
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -136,30 +170,43 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[3] === "5" && (
+                    {validateImgs[4] === "5" ? (
                       <img alt="rueda" style={{ width: "53px" }} src={rueda} />
+                    ) : (
+                      <img
+                        alt="rueda"
+                        style={{ width: "53px" }}
+                        src={ruedGris}
+                      />
                     )}
                   </div>
                 ),
                 key: "5",
-                children: (<div>
-                  <FormValidateExp
-                   setValidateImgs={setValidateImgs}
-                   validateImgs={validateImgs}
-                  type={"additionalCurse"}
-                  setActiveTab={setActiveTab}
-                  
-                  />
-                </div>),
+                children: (
+                  <div>
+                    <FormValidateExp
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      type={"additionalCurse"}
+                      setActiveTab={setActiveTab}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    {validateImgs[4] === "6" && (
+                    {validateImgs[5] === "6" ? (
                       <img
                         alt="idiomas"
                         style={{ width: "53px" }}
                         src={idiomas}
+                      />
+                    ) : (
+                      <img
+                        alt="idiomas"
+                        style={{ width: "53px" }}
+                        src={idiomasGris}
                       />
                     )}
                   </div>
@@ -168,9 +215,9 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <InformationLenguajes
-                    setValidateImgs={setValidateImgs}
-                    validateImgs={validateImgs}
-                    setActiveTab={setActiveTab}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -178,8 +225,14 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[5] === "7" && (
+                    {validateImgs[6] === "7" ? (
                       <img alt="word" style={{ width: "53px" }} src={word} />
+                    ) : (
+                      <img
+                        alt="word"
+                        style={{ width: "53px" }}
+                        src={wordGris}
+                      />
                     )}
                   </div>
                 ),
@@ -187,9 +240,9 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <OfficeTools
-                     setValidateImgs={setValidateImgs}
-                     validateImgs={validateImgs}
-                     setActiveTab={setActiveTab}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -197,11 +250,17 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[6] === "8" && (
+                    {validateImgs[7] === "8" ? (
                       <img
                         alt="computador"
                         style={{ width: "53px" }}
                         src={computador}
+                      />
+                    ) : (
+                      <img
+                        alt="computador"
+                        style={{ width: "53px" }}
+                        src={compuGris}
                       />
                     )}
                   </div>
@@ -210,9 +269,9 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <WorkingModality
-                     setValidateImgs={setValidateImgs}
-                     validateImgs={validateImgs}
-                     setActiveTab={setActiveTab}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -220,8 +279,18 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[7] === "9" && (
-                      <img alt="bombilla" style={{ width: "53px" }} src={bombilla} />
+                    {validateImgs[8] === "9" ? (
+                      <img
+                        alt="bombilla"
+                        style={{ width: "53px" }}
+                        src={bombilla}
+                      />
+                    ) : (
+                      <img
+                        alt="bombilla"
+                        style={{ width: "53px" }}
+                        src={bombillaGris}
+                      />
                     )}
                   </div>
                 ),
@@ -229,9 +298,9 @@ export const Formulario = () => {
                 children: (
                   <div>
                     <DevelopedSkills
-                       setValidateImgs={setValidateImgs}
-                       validateImgs={validateImgs}
-                       setActiveTab={setActiveTab}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -239,18 +308,18 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[8] === "10" && (
+                    {validateImgs[9] === "10" ? (
                       <img alt="cubo" style={{ width: "53px" }} src={cubo} />
-                    )}
+                    ) :  <img alt="cubo" style={{ width: "53px" }} src={cuboGris} />}
                   </div>
                 ),
                 key: "10",
                 children: (
                   <div>
                     <SkillsDeveloping
-                     setValidateImgs={setValidateImgs}
-                     validateImgs={validateImgs}
-                     setActiveTab={setActiveTab}
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -258,38 +327,50 @@ export const Formulario = () => {
               {
                 label: (
                   <div>
-                    {validateImgs[9] === "11" && (
-                      <img alt="doctor" style={{ width: "53px" }} src={doctor} />
-                    )}
+                    {validateImgs[10] === "11" ? (
+                      <img
+                        alt="doctor"
+                        style={{ width: "53px" }}
+                        src={doctor}
+                      />
+                    ):      <img
+                    alt="doctor"
+                    style={{ width: "53px" }}
+                    src={docGris}
+                  />}
                   </div>
                 ),
                 key: "11",
-                children: ( <div>
-                <Perfil
-                  setValidateImgs={setValidateImgs}
-                  validateImgs={validateImgs}
-                  setActiveTab={setActiveTab}
-                />
-              </div>),
+                children: (
+                  <div>
+                    <Perfil
+                      setValidateImgs={setValidateImgs}
+                      validateImgs={validateImgs}
+                      setActiveTab={setActiveTab}
+                    />
+                  </div>
+                ),
               },
               {
                 label: (
                   <div>
-                    {validateImgs[10] === "12" && (
+                    {validateImgs[11] === "12" ? (
                       <img
                         alt="credencial"
                         style={{ width: "53px" }}
                         src={credencial}
                       />
-                    )}
+                    ) :   <img
+                    alt="credencial"
+                    style={{ width: "53px" }}
+                    src={credeGris}
+                  />}
                   </div>
                 ),
                 key: "12",
                 children: (
                   <div>
-                    <PreviewHv
-                    setActiveTab={setActiveTab}
-                    />
+                    <PreviewHv setActiveTab={setActiveTab} />
                   </div>
                 ),
               },

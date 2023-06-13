@@ -7,7 +7,7 @@ import LevelCompetition from "./LevelCompetition";
 import { Sidebar } from "./Sidebar";
 
 const SkillsDeveloping = ({ setValidateImgs,
-  validateImgs,setActiveTab}:any) => {
+  validateImgs}:any) => {
   let skillInformation = [
     {
       id: 0,
@@ -92,7 +92,6 @@ const SkillsDeveloping = ({ setValidateImgs,
         setValidateImgs={setValidateImgs}
         validateImgs={validateImgs}
         skills={skills} 
-        setActiveTab={setActiveTab}
         />
       ) : (
         <div>

@@ -8,18 +8,17 @@ import { Sidebar } from "./Sidebar";
 type OfficeToolsProps = {
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab:any
 };
 
 const OfficeTools: FC<OfficeToolsProps> = ({
   setValidateImgs,
   validateImgs,
-  setActiveTab
 }) => {
   const navigate = useNavigate();
+  const [selectedOptions, setSelectedOptions] = useState<any>([]);
+
   const niveles = ["Basico", "Intermedio", "Avanzado"];
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  const [valuesRadioSelect, setValuesRadioSelect] = useState<number>(0);
   const infoRadioIdiomas = [
     {
       programa: "Microsoft Word ",
@@ -61,12 +60,27 @@ const OfficeTools: FC<OfficeToolsProps> = ({
       select: [19, 20, 21],
     },
   ];
-  const ValdationRadio = (e: any) => {
-    setValuesRadioSelect(e.target.value);
+  const ValdationRadio = (idioma: any, selectId: any) => {
+    const updatedOptions = [...selectedOptions];
+
+    const index = updatedOptions.findIndex(
+      (option) => option.idioma === idioma
+    );
+    if (index === -1) {
+      updatedOptions.push({ idioma, selectId });
+    } else {
+      if (updatedOptions[index].selectId === selectId) {
+        updatedOptions[index].selectId = null;
+      } else {
+        updatedOptions[index].selectId = selectId;
+      }
+    }
+
+    setSelectedOptions(updatedOptions);
     setValidateContinue(false);
   };
   return (
-   <>
+    <>
       <div>
         <Sidebar
           subTitle=""
@@ -76,129 +90,133 @@ const OfficeTools: FC<OfficeToolsProps> = ({
           video={false}
         />
       </div>
-    <div style={{ width: "79rem" }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-          marginBottom: "50px",
-        }}
-      >
-        <span className="textTitleComponent">Herramientas Ofimáticas</span>
-      </div>
-      <div>
-        <Card
-          bodyStyle={{
-            background: "#310161",
-            padding: "35px 20px 20px 47px",
-            borderRadius: "25px",
+      <div style={{ width: "79rem" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: "50px",
           }}
         >
-          <div>
-            <span
+          <span className="textTitleComponent">Herramientas Ofimáticas</span>
+        </div>
+        <div>
+          <Card
+            bodyStyle={{
+              background: "#310161",
+              padding: "35px 20px 20px 47px",
+              borderRadius: "25px",
+            }}
+          >
+            <div>
+              <span
+                style={{
+                  color: "white",
+                  fontFamily: "Avenir, Medium",
+                  fontSize: "20px",
+                }}
+              >
+                Selecciona en qué nivel te encuentras de las siguientes
+                herramientas
+              </span>
+            </div>
+            <div
               style={{
-                color: "white",
-                fontFamily: "Avenir, Medium",
-                fontSize: "20px",
+                display: "flex",
+                justifyContent: "center",
+                width: "171%",
+                marginTop: "20px",
               }}
             >
-              Selecciona en qué nivel te encuentras de las siguientes
-              herramientas
-            </span>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              width: "171%",
-              marginTop: "20px",
-            }}
-          >
-            {niveles.map((item) => (
-              <div style={{ marginRight: "10px" }}>
-                <span className="textItem">{item}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ marginTop: "15px" }}>
-            {infoRadioIdiomas.map((idioma) => (
-              <div className="containerIdiomaText">
-                <div style={{ width: "100%" }}>
-                  <span className="idiomaText">{idioma.programa}</span>
-                  <span
-                    style={{ opacity: "0.8", fontSize: "15px" }}
-                    className="idiomaText"
-                  >
-                    {idioma.label}
-                  </span>
+              {niveles.map((item) => (
+                <div style={{ marginRight: "10px" }}>
+                  <span className="textItem">{item}</span>
                 </div>
-                <div>
-                  <div style={{ marginLeft: "10px", display: "flex" }}>
-                    {idioma.select.map((item) => (
-                      <div style={{ width: "60px" }}>
-                        <Radio.Group
-                          onChange={(e) => ValdationRadio(e)}
-                          value={valuesRadioSelect}
-                        >
-                          <Radio value={item}></Radio>
-                        </Radio.Group>
-                      </div>
-                    ))}
+              ))}
+            </div>
+            <div style={{ marginTop: "15px" }}>
+              {infoRadioIdiomas.map((idioma: any) => (
+                <div className="containerIdiomaText">
+                  <div style={{ width: "100%" }}>
+                    <span className="idiomaText">{idioma.programa}</span>
+                    <span
+                      style={{ opacity: "0.8", fontSize: "15px" }}
+                      className="idiomaText"
+                    >
+                      {idioma.label}
+                    </span>
+                  </div>
+                  <div>
+                    <div style={{ marginLeft: "10px", display: "flex" }}>
+                      {idioma.select.map((selectId: any) => (
+                        <div style={{ width: "60px" }}>
+                          <Radio
+                            key={selectId}
+                            checked={selectedOptions.some(
+                              (option: any) =>
+                                option.idioma === idioma.programa &&
+                                option.selectId === selectId
+                            )}
+                            onChange={() => {
+                              ValdationRadio(idioma.programa, selectId);
+                            }}
+                          ></Radio>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          </Card>
+        </div>
+        {!validateContinue && (
+          <div style={{ marginTop: "35px" }} className="containerSaveAction">
+            <button
+              onClick={() => {
+                setValidateContinue(true);
+              }}
+              style={{
+                width: "165px",
+                height: "47px",
+                fontSize: "18px",
+                fontFamily: "Montserrat-Bold",
+              }}
+              // disabled={valuesRadioSelect !== 0 ? false : true}
+              className="SaveInfo btn btn-primary"
+            >
+              Guardar
+            </button>
           </div>
-        </Card>
-      </div>
-      {!validateContinue && (
-        <div style={{ marginTop: "35px" }} className="containerSaveAction">
+        )}
+        <div className="containerSelect">
           <button
+            className={
+              validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
+            }
             onClick={() => {
-              setValidateContinue(true);
+              setValidateImgs([...validateImgs, "8"]);
+              navigate("/perfiles/8");
             }}
-            style={{
-              width: "165px",
-              height: "47px",
-              fontSize: "18px",
-              fontFamily: "Montserrat-Bold",
-            }}
-            disabled={valuesRadioSelect !== 0 ? false : true}
-            className="SaveInfo btn btn-primary"
+            disabled={!validateContinue ? true : false}
           >
-            Guardar
+            <p
+              className={
+                !validateContinue ? "textDisabled" : "textSiguienteSelect"
+              }
+            >
+              Siguiente
+            </p>
           </button>
         </div>
-      )}
-      <div className="containerSelect">
-        <button
-          className={
-            validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
-          }
-          onClick={() => {
-            setValidateImgs([...validateImgs, "8"]);
-            navigate("/perfiles/8");
-            setActiveTab("8")
-          }}
-          disabled={!validateContinue ? true : false}
-        >
-          <p
-            className={
-              !validateContinue ? "textDisabled" : "textSiguienteSelect"
-            }
-          >
-            Siguiente
-          </p>
-        </button>
-      </div>
 
-      <div style={{ marginTop: "30px" }} className="containerExpContinue">
-        <img style={{ width: "100px" }} alt="" src={logo} />
+        <div style={{ marginTop: "30px" }} className="containerExpContinue">
+          <img style={{ width: "100px" }} alt="" src={logo} />
+        </div>
       </div>
-    </div>
-   </>
+    </>
   );
 };
 

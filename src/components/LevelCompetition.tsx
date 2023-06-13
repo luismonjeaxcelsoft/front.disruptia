@@ -3,7 +3,7 @@ import { Radio } from "antd";
 import { useNavigate } from "react-router-dom";
 
 const LevelCompetition = ({ skills,setValidateImgs,
-  validateImgs,setActiveTab }: any) => {
+  validateImgs }: any) => {
   const navigate = useNavigate();
   const [_valueRadio, setValueRadio] = useState<number>(0);
   const [filterValues, setFilterValues] = useState<any>([]);
@@ -26,7 +26,6 @@ const LevelCompetition = ({ skills,setValidateImgs,
     } else if (currentIndex === filterValues.length - 1){
         navigate("/perfiles/11");
         setValidateImgs([...validateImgs, "11"]);
-        setActiveTab("11")
     }
   };
   useEffect(() => {

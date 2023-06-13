@@ -1,0 +1,93 @@
+.textTitleReference {
+  font-size: 25px;
+  color: #f3cf46;
+  font-family: Avenir, Heavy;
+}
+.optionsReferencesContainer {
+  width: 270px;
+  height: 45px;
+  background: #ffffff;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.typeReference {
+  font-size: 20px;
+  color: #4f0094;
+  font-family: Avenir, Heavy;
+  z-index: 9;
+  margin-left: 6px;
+}
+.containerTextReference {
+  margin-top: 50px;
+  margin-left: 14px;
+  display: flex;
+  background: #310161;
+  width: 235px;
+  border-radius: 25px;
+  height: 38px;
+  cursor: pointer;
+}
+.containerTextReferenceOne {
+  margin-top: 3px;
+  margin-left: 14px;
+  display: flex;
+  margin-bottom: 20px;
+  background: #310161;
+  width: 235px;
+  border-radius: 25px;
+  height: 38px;
+  cursor: pointer;
+}
+
+.typeReferenceOption {
+  font-size: 20px;
+  color: white;
+  font-family: Avenir, Heavy;
+  z-index: 9;
+  margin-left: 10px;
+  margin-top: 3px;
+}
+
+.referencesType {
+  display: flex;
+  flex-direction: column;
+  background: white;
+  width: 270px;
+  border-radius: 25px;
+  margin-top: -39px;
+  opacity: 0.77;
+}
+.referenceNoSelect {
+  font-size: 20px;
+  font-family: Avenir, Heavy;
+  z-index: 9;
+  margin-left: 25px;
+  margin-top: 5px;
+  color: #4f0094;
+  opacity: 0.68;
+  display: flex;
+  margin-top: 48px;
+  cursor: pointer;
+}
+.referenceNoSelectOne {
+  font-size: 20px;
+  font-family: Avenir, Heavy;
+  z-index: 9;
+  margin-left: 25px;
+  margin-top: 5px;
+  color: #4f0094;
+  opacity: 0.68;
+  display: flex;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.labelRefenrences {
+  font-size: 20px;
+  color: #ffffff;
+  font-family: Avenir-Medium;
+}

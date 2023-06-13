@@ -1,4 +1,4 @@
-import { FC, useState,useEffect } from "react";
+import { FC, useState } from "react";
 import { Select } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import "../styles/DevelopedSkills.css";
@@ -8,13 +8,11 @@ import { Sidebar } from "./Sidebar";
 type DevelopedSkillsProps = {
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab:any
 };
 
 const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   setValidateImgs,
   validateImgs,
-  setActiveTab
 }) => {
   let options = [
     {
@@ -176,7 +174,6 @@ if(habilitysValues.length >= 2){
             onClick={() => {
               navigate("/perfiles/10");
               setValidateImgs([...validateImgs, "10"]);
-              setActiveTab("10")
             }}
             disabled={validate}
           >

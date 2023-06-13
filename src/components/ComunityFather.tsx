@@ -5,13 +5,11 @@ import FormValidateExp from "./FormValidateExp";
 type ComunityFatherProps = {
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab:any
 };
 
 const ComunityFather: FC<ComunityFatherProps> = ({
   setValidateImgs,
   validateImgs,
-  setActiveTab
 }) => {
   const [formComponent, setFormComponent] = useState(false);
 
@@ -22,7 +20,6 @@ const ComunityFather: FC<ComunityFatherProps> = ({
           setValidateImgs={setValidateImgs}
           validateImgs={validateImgs}
           setFormComponent={setFormComponent}
-          setActiveTab={setActiveTab}
 
         />
       ) : (
@@ -30,7 +27,6 @@ const ComunityFather: FC<ComunityFatherProps> = ({
           setValidateImgs={setValidateImgs}
           validateImgs={validateImgs}
           type={"additionalActivity"}
-          setActiveTab={setActiveTab}
 
         />
       )}

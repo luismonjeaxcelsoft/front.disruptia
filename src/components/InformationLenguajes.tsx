@@ -8,17 +8,14 @@ import { Sidebar } from "./Sidebar";
 type InformationLenguajesProps = {
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab: any;
 };
 
 const InformationLenguajes: FC<InformationLenguajesProps> = ({
   setValidateImgs,
   validateImgs,
-  setActiveTab,
 }) => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<any>([]);
-  console.log("🚀 ~ file: InformationLenguajes.tsx:21 ~ selectedOptions:", selectedOptions)
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const niveles = ["Basico", "Intermedio", "Avanzado", "Nativo"];
   const infoRadioIdiomas = [
@@ -112,16 +109,10 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
                                 option.idioma === info.idioma &&
                                 option.selectId === selectId
                             )}
-                            // onClick={()=>{
-                            //   handleOptionChange(info.idioma, selectId);
-                            // }}
                             onChange={() => {
-                             
                               handleOptionChange(info.idioma, selectId);
                             }}
-                          >
-                            
-                          </Radio>
+                          ></Radio>
                         </div>
                       ))}
                     </div>
@@ -141,7 +132,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
                 fontFamily: "Montserrat-Bold",
               }}
               className="SaveInfo btn btn-primary"
-              // disabled={valuesRadioSelect !== 0 ? false : true}
+              disabled={selectedOptions.length > 0 ? false : true}
               onClick={() => setValidateContinue(true)}
             >
               Guardar
@@ -156,7 +147,6 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
             onClick={() => {
               setValidateImgs([...validateImgs, "7"]);
               navigate("/perfiles/7");
-              setActiveTab("7");
             }}
             disabled={!validateContinue ? true : false}
           >

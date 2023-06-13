@@ -20,14 +20,12 @@ type FormValidateExpProps = {
   type: string;
   validateImgs?: any;
   setValidateImgs?: any;
-  setActiveTab?:any
 };
 
 const FormValidateExp: FC<FormValidateExpProps> = ({
   type,
   setValidateImgs,
   validateImgs,
-  setActiveTab
 }) => {
   const navigate = useNavigate();
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
@@ -65,15 +63,12 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
     if (type === "experience") {
       setValidateImgs([...validateImgs, "4"]);
       navigate("/perfiles/4");
-      setActiveTab("4")
     } else if (type === "additionalActivity") {
       setValidateImgs([...validateImgs, "5"]);
       navigate("/perfiles/5");
-      setActiveTab("5")
     } else if (type === "additionalCurse") {
       setValidateImgs([...validateImgs, "6"]);
       navigate("/perfiles/6");
-      setActiveTab("6")
 
     }
   };

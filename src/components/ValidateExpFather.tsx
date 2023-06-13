@@ -5,13 +5,12 @@ import FormValidateExp from "./FormValidateExp";
 type ValidateExpFatherProps = {
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab: any;
+
 };
 
 const ValidateExpFather: FC<ValidateExpFatherProps> = ({
   setValidateImgs,
   validateImgs,
-  setActiveTab,
 }) => {
   const [validateComponent, setValidateComponent] = useState<number>(1);
 
@@ -22,7 +21,6 @@ const ValidateExpFather: FC<ValidateExpFatherProps> = ({
           setValidateImgs={setValidateImgs}
           validateImgs={validateImgs}
           validadorComponente={setValidateComponent}
-          setActiveTab={setActiveTab}
         />
       ) : validateComponent === 2 ? (
         <div>
@@ -30,7 +28,6 @@ const ValidateExpFather: FC<ValidateExpFatherProps> = ({
             validateImgs={validateImgs}
             setValidateImgs={setValidateImgs}
             type={"experience"}
-            setActiveTab={setActiveTab}
           />
         </div>
       ) : (

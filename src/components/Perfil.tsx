@@ -5,7 +5,7 @@ import { Input } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
 
-const Perfil = ({ setValidateImgs, validateImgs,setActiveTab }: any) => {
+const Perfil = ({ setValidateImgs, validateImgs }: any) => {
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [validationGpt, setValidationGpt] = useState(false);
   const navigate = useNavigate();
@@ -118,7 +118,6 @@ const Perfil = ({ setValidateImgs, validateImgs,setActiveTab }: any) => {
             onClick={() => {
               setValidateImgs([...validateImgs, "12"]);
               navigate("/perfiles/12");
-              setActiveTab("12")
             }}
             disabled={!validateContinue ? true : false}
           >

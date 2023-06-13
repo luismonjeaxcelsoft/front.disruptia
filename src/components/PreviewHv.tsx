@@ -3,7 +3,10 @@ import { Sidebar } from "./Sidebar";
 import "../styles/PreviewHv.css";
 import { EditOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
-const PreviewHv = ({ setActiveTab }: any) => {
+import { useNavigate } from "react-router-dom";
+
+const PreviewHv = () => {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
     console.log(e);
@@ -30,7 +33,9 @@ const PreviewHv = ({ setActiveTab }: any) => {
             <div className="containerEdit">
               <span className="titleItem">Manejo de Idiomas</span>
               <EditOutlined
-                onClick={() => setActiveTab("6")}
+                onClick={() => {
+                  navigate("/perfiles/6");
+                }}
                 className="iconEdit"
               />
             </div>
@@ -41,7 +46,9 @@ const PreviewHv = ({ setActiveTab }: any) => {
             <div className="containerEdit">
               <span className="titleItem">Herramientas ofimáticas</span>
               <EditOutlined
-                onClick={() => setActiveTab("7")}
+                onClick={() => {
+                  navigate("/perfiles/7");
+                }}
                 className="iconEdit"
               />
             </div>
@@ -58,7 +65,9 @@ const PreviewHv = ({ setActiveTab }: any) => {
             <div className="containerEdit">
               <span className="titleItem">Modelo de trabajo:</span>
               <EditOutlined
-                onClick={() => setActiveTab("8")}
+                onClick={() => {
+                  navigate("/perfiles/8");
+                }}
                 className="iconEdit"
               />
             </div>
@@ -78,7 +87,9 @@ const PreviewHv = ({ setActiveTab }: any) => {
                 Habilidades en Desarrollo de Software
               </span>
               <EditOutlined
-                onClick={() => setActiveTab("9")}
+                onClick={() => {
+                  navigate("/perfiles/9");
+                }}
                 className="iconEdit"
               />
             </div>
@@ -90,7 +101,9 @@ const PreviewHv = ({ setActiveTab }: any) => {
             <div className="containerEdit">
               <span className="titleItem">Perfil</span>
               <EditOutlined
-                onClick={() => setActiveTab("11")}
+                onClick={() => {
+                  navigate("/perfiles/11");
+                }}
                 className="iconEdit"
               />
             </div>
@@ -141,9 +154,18 @@ const PreviewHv = ({ setActiveTab }: any) => {
                 <span className="textModal">con una oferta de empleo</span>
                 <span className="textModal">Disruptiva!</span>
                 <button
-                onClick={() => setIsModalOpen(false)}
-                className="containerButtomModal">
-                  <span style={{ fontSize:"25px",color:"#E0A21E",fontFamily:" Montserrat-Bold"}}>Descargar PDF</span>
+                  onClick={() => setIsModalOpen(false)}
+                  className="containerButtomModal"
+                >
+                  <span
+                    style={{
+                      fontSize: "25px",
+                      color: "#E0A21E",
+                      fontFamily: " Montserrat-Bold",
+                    }}
+                  >
+                    Descargar PDF
+                  </span>
                 </button>
               </div>
             </div>

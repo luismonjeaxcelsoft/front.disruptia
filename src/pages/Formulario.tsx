@@ -9,6 +9,8 @@ import maletin from "../assets/images/maletinsinFondo.png";
 import maletinGris from "../assets/images/maletinGris.png";
 import rueda from "../assets/images/ruedasinFondo.png";
 import ruedGris from "../assets/images/ruedGris.png";
+import referenciaGris from "../assets/images/referenciaGris.png";
+import referenciaNaranja from "../assets/images/referenciaNaranja.png";
 import idiomas from "../assets/images/idiomasSinFono.png";
 import idiomasGris from "../assets/images/idiomasGris.png";
 import word from "../assets/images/wordsinFondo.png";
@@ -37,19 +39,20 @@ import DevelopedSkills from "../components/DevelopedSkills";
 import SkillsDeveloping from "../components/SkillsDeveloping";
 import Perfil from "../components/Perfil";
 import PreviewHv from "../components/PreviewHv";
+import { useNavigate } from "react-router-dom";
+import PersonalReferences from "../components/PersonalReferences";
+
 
 export const Formulario = () => {
   const { tab } = useParams();
-  const [activeTab, setActiveTab] = useState<any>(tab);
-  console.log("🚀 ~ file: Formulario.tsx:44 ~ Formulario ~ activeTab:", activeTab)
+  const navigate = useNavigate();
   const [validateImgs, setValidateImgs] = useState<any>(["1"]);
-  console.log("🚀 ~ file: Formulario.tsx:46 ~ Formulario ~ validateImgs:", validateImgs)
+
   const handleTabClick = (tabKey: any) => {
-    let value = validateImgs.some((item:any)=> item === tabKey)
-    if(value){
-      setActiveTab(tabKey);
+    let value = validateImgs.some((item: any) => item === tabKey);
+    if (value) {
+      navigate(`/perfiles/${tabKey}`)
     }
-    
   };
   return (
     <div>
@@ -57,7 +60,7 @@ export const Formulario = () => {
         <div className="tabs">
           <Tabs
             onTabClick={handleTabClick}
-            activeKey={activeTab}
+            activeKey={tab}
             className="tabs-2"
             defaultActiveKey="1"
             centered
@@ -79,7 +82,6 @@ export const Formulario = () => {
                     <SeleccionPerfiles
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -104,7 +106,7 @@ export const Formulario = () => {
                     <FormInfoExperience
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
+                    
                     />
                   </div>
                 ),
@@ -133,7 +135,6 @@ export const Formulario = () => {
                     <ValidateExpFather
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -162,7 +163,6 @@ export const Formulario = () => {
                     <ComunityFather
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -188,7 +188,7 @@ export const Formulario = () => {
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
                       type={"additionalCurse"}
-                      setActiveTab={setActiveTab}
+                      
                     />
                   </div>
                 ),
@@ -217,7 +217,7 @@ export const Formulario = () => {
                     <InformationLenguajes
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
+                      
                     />
                   </div>
                 ),
@@ -242,7 +242,6 @@ export const Formulario = () => {
                     <OfficeTools
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -271,7 +270,6 @@ export const Formulario = () => {
                     <WorkingModality
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -300,7 +298,7 @@ export const Formulario = () => {
                     <DevelopedSkills
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
+                     
                     />
                   </div>
                 ),
@@ -310,7 +308,13 @@ export const Formulario = () => {
                   <div>
                     {validateImgs[9] === "10" ? (
                       <img alt="cubo" style={{ width: "53px" }} src={cubo} />
-                    ) :  <img alt="cubo" style={{ width: "53px" }} src={cuboGris} />}
+                    ) : (
+                      <img
+                        alt="cubo"
+                        style={{ width: "53px" }}
+                        src={cuboGris}
+                      />
+                    )}
                   </div>
                 ),
                 key: "10",
@@ -319,7 +323,7 @@ export const Formulario = () => {
                     <SkillsDeveloping
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
+                     
                     />
                   </div>
                 ),
@@ -333,11 +337,13 @@ export const Formulario = () => {
                         style={{ width: "53px" }}
                         src={doctor}
                       />
-                    ):      <img
-                    alt="doctor"
-                    style={{ width: "53px" }}
-                    src={docGris}
-                  />}
+                    ) : (
+                      <img
+                        alt="doctor"
+                        style={{ width: "53px" }}
+                        src={docGris}
+                      />
+                    )}
                   </div>
                 ),
                 key: "11",
@@ -346,7 +352,6 @@ export const Formulario = () => {
                     <Perfil
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
-                      setActiveTab={setActiveTab}
                     />
                   </div>
                 ),
@@ -358,19 +363,49 @@ export const Formulario = () => {
                       <img
                         alt="credencial"
                         style={{ width: "53px" }}
-                        src={credencial}
+                        src={referenciaNaranja}
                       />
-                    ) :   <img
-                    alt="credencial"
-                    style={{ width: "53px" }}
-                    src={credeGris}
-                  />}
+                    ) : (
+                      <img
+                        alt="credencial"
+                        style={{ width: "53px" }}
+                        src={referenciaGris}
+                      />
+                    )}
                   </div>
                 ),
                 key: "12",
                 children: (
                   <div>
-                    <PreviewHv setActiveTab={setActiveTab} />
+                    <PersonalReferences 
+                     setValidateImgs={setValidateImgs}
+                     validateImgs={validateImgs}
+                    />
+                  </div>
+                ),
+              },
+              {
+                label: (
+                  <div>
+                    {validateImgs[12] === "13" ? (
+                      <img
+                        alt="credencial"
+                        style={{ width: "53px" }}
+                        src={credencial}
+                      />
+                    ) : (
+                      <img
+                        alt="credencial"
+                        style={{ width: "53px" }}
+                        src={credeGris}
+                      />
+                    )}
+                  </div>
+                ),
+                key: "13",
+                children: (
+                  <div>
+                    <PreviewHv />
                   </div>
                 ),
               },

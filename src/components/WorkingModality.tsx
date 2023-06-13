@@ -7,13 +7,11 @@ import { Sidebar } from "./Sidebar";
 type WorkingModalityProps = {
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab:any
 };
 
 const WorkingModality: FC<WorkingModalityProps> = ({
   setValidateImgs,
   validateImgs,
-  setActiveTab
 }) => {
   const navigate = useNavigate();
   const [valuesRadioSelect, setValuesRadioSelect] = useState<number>(0);
@@ -111,7 +109,6 @@ const WorkingModality: FC<WorkingModalityProps> = ({
             onClick={() => {
               setValidateImgs([...validateImgs, "9"]);
               navigate("/perfiles/9");
-              setActiveTab("9")
             }}
             disabled={!validateContinue ? true : false}
           >

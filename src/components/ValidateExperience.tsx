@@ -8,14 +8,12 @@ type ValidateExperienceProps = {
   validadorComponente: React.Dispatch<number>;
   setValidateImgs: any;
   validateImgs: any;
-  setActiveTab:any
 };
 
 const ValidateExperience: FC<ValidateExperienceProps> = ({
   validadorComponente,
   setValidateImgs,
   validateImgs,
-  setActiveTab
 }) => {
   const navigate = useNavigate();
   return (
@@ -56,7 +54,6 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
               validadorComponente(3);
               setValidateImgs([...validateImgs, "4"]);
               navigate("/perfiles/4");
-              setActiveTab("4")
             }}
             style={{ width: "265px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"

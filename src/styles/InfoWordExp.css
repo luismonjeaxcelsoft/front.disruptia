@@ -1,10 +1,10 @@
 .spanFormationAcademy {
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Bold;
   font-size: 25px;
   color: #f3cf46;
 }
 .spanStudy {
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Light;
   color: #f3cf46;
   font-size: 25px;
 }
@@ -40,8 +40,9 @@
 .labelsInsputs {
   color: #ffffff;
   opacity: 0.6;
-  font-family: Avenir, Heavy;
-  font-size: 20px !important;
+  font-family: Montserrat-Light;
+  font-size: 17px !important;
+  letter-spacing: 1px;
 }
 .inputBorderNone {
   background: #4f2678;
@@ -49,17 +50,23 @@
   border: none;
   height: 57px;
 }
-.ant-input::placeholder{
-  color:white !important;
+.ant-input::placeholder {
+  color: white !important;
   opacity: 0.5;
-  font-family: Avenir, Heavy !important;
-  font-size: 25px !important;
+  font-family: Montserrat-Light !important;
+  font-size: 18px !important;
 }
 .containerButtonContinue {
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  margin-left: 100px;
+  margin-left: 90px;
+}
+.containerButtonContinueWord {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 60px;
 }
 .containerDate {
   display: flex;
@@ -70,14 +77,16 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .hoverAgregar {
-  margin-right: 87px;
+  margin-right: 135px;
   background: transparent !important;
   border-radius: 20px !important;
   border: none !important;
-  width: 217px;
+  width: 163px;
+  margin-top: 60px;
 }
 
 .hoverAgregar:hover {
@@ -109,21 +118,55 @@
 .countInput {
   color: white;
   position: absolute;
-  left: 89%;
-  top: 156px;
+  left: 87%;
+  top: 162px;
+  font-size: 15px;
+  font-family: Montserrat-Light;
+  opacity: 0.35;
 }
 .countInputIns {
   color: white;
   position: absolute;
-  left: 89%;
-  top: 377px;
+  left: 87%;
+  top: 383px;
+  font-size: 15px;
+  font-family: Montserrat-Light;
+  opacity: 0.35;
 }
 
-.ant-radio-inner{
-  background:transparent !important;
-  boRder-color:#F7C947 !important
+.ant-radio-inner {
+  background: transparent !important;
+  border-color: #f7c947 !important;
 }
 
 .ant-radio-inner::after {
-  background: #F7C947 !important;
+  background: #f7c947 !important;
+}
+
+.spanTypeVoluntary {
+  color: white;
+  font-size: 20px;
+  font-family: Avenir, Heavy;
+  opacity: 0.9;
+}
+textarea:where(.css-dev-only-do-not-override-15rg2km).ant-input {
+  font-size: 13px !important;
+  font-family: Montserrat-Light !important;
+  opacity: 0.8 !important;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-switch.ant-switch-checked
+  .ant-switch-inner
+  .ant-switch-inner-checked {
+  font-size: 19px !important;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-switch
+  .ant-switch-inner
+  .ant-switch-inner-checked {
+  font-size: 19px !important;
+
+}
+.ant-switch-inner-unchecked {
+  font-size: 19px !important;
+
 }

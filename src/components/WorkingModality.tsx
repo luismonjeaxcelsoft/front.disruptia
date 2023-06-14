@@ -33,11 +33,11 @@ const WorkingModality: FC<WorkingModalityProps> = ({
       </div>
       <div style={{ width: "79rem", marginTop: "50px" }}>
         <div>
-          <span style={{ color: "#F3CF46", fontSize: "25px" }}>
+          <span style={{ color: "#F3CF46", fontSize: "25px",fontFamily:"Montserrat-Bold" }}>
             ¿Qué modelo de trabajo prefieres?
           </span>
         </div>
-        <div>
+        <div style={{marginTop:"25px"}}>
           <Radio.Group
             onChange={(e) => ValdationRadio(e)}
             value={valuesRadioSelect}
@@ -52,7 +52,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
                 style={{
                   color: "white",
                   fontSize: "20px",
-                  fontFamily: "Avenir, Medium",
+                  fontFamily: "Montserrat-Light",
                 }}
               >
                 Remoto
@@ -63,7 +63,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
                 style={{
                   color: "white",
                   fontSize: "20px",
-                  fontFamily: "Avenir, Medium",
+                  fontFamily: "Montserrat-Light",
                 }}
               >
                 Hibrido
@@ -74,7 +74,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
                 style={{
                   color: "white",
                   fontSize: "20px",
-                  fontFamily: "Avenir, Medium",
+                  fontFamily: "Montserrat-Light",
                 }}
               >
                 Presencial
@@ -121,8 +121,8 @@ const WorkingModality: FC<WorkingModalityProps> = ({
             </p>
           </button>
         </div>
-        <div style={{ marginTop: "120px" }} className="containerExpContinue">
-          <img style={{ width: "100px" }} alt="" src={logo} />
+        <div style={{ marginTop: "240px" }} className="containerExpContinue">
+          <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
         </div>
       </div>
     </>

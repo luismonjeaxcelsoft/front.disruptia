@@ -1,6 +1,5 @@
 .containerVideo {
     width: 768px;
-    height: 391px;
     border-radius: 15px 
 }
 .contentTextSpan {
@@ -13,5 +12,7 @@
 .textContent {
     color:#F3CF46;
     font-size:35px;
+    font-family: Montserrat-Bold;
+    line-height:35px
   
 }

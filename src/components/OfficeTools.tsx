@@ -97,36 +97,41 @@ const OfficeTools: FC<OfficeToolsProps> = ({
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            marginBottom: "50px",
+            marginBottom: "5px",
           }}
         >
           <span className="textTitleComponent">Herramientas Ofimáticas</span>
         </div>
         <div>
+          <div
+            style={{
+              marginBottom: "10px",
+            }}
+          >
+            <span
+              style={{
+                color: "white",
+                fontFamily: "Montserrat-Light",
+                fontSize: "20px",
+              }}
+            >
+              Selecciona en qué nivel te encuentras de las siguientes
+              herramientas
+            </span>
+          </div>
           <Card
             bodyStyle={{
               background: "#310161",
-              padding: "35px 20px 20px 47px",
+              padding: "15px 20px 20px 47px",
               borderRadius: "25px",
+              
             }}
           >
-            <div>
-              <span
-                style={{
-                  color: "white",
-                  fontFamily: "Avenir, Medium",
-                  fontSize: "20px",
-                }}
-              >
-                Selecciona en qué nivel te encuentras de las siguientes
-                herramientas
-              </span>
-            </div>
             <div
               style={{
                 display: "flex",
                 justifyContent: "center",
-                width: "171%",
+                width: "162%",
                 marginTop: "20px",
               }}
             >
@@ -149,9 +154,9 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                     </span>
                   </div>
                   <div>
-                    <div style={{ marginLeft: "10px", display: "flex" }}>
+                    <div style={{ marginLeft: "5px", display: "flex" }}>
                       {idioma.select.map((selectId: any) => (
-                        <div style={{ width: "60px" }}>
+                        <div style={{ width: "80px" }}>
                           <Radio
                             key={selectId}
                             checked={selectedOptions.some(
@@ -213,7 +218,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
         </div>
 
         <div style={{ marginTop: "30px" }} className="containerExpContinue">
-          <img style={{ width: "100px" }} alt="" src={logo} />
+          <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
         </div>
       </div>
     </>

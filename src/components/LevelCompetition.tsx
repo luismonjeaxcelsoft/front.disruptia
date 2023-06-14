@@ -37,7 +37,7 @@ const LevelCompetition = ({ skills,setValidateImgs,
       <div className="containerComponent">
         <div style={{ marginLeft: "95px", marginTop: "50px" }}>
           <span
-            style={{ color: "white", fontSize: "20px", fontFamily: "Avenir" }}
+            style={{ color: "white", fontSize: "20px", fontFamily: "Montserrat-Light" }}
           >
             Tu nivel de competencia en {filterValues[currentIndex]?.label} es:
           </span>
@@ -57,7 +57,7 @@ const LevelCompetition = ({ skills,setValidateImgs,
                   style={{
                     color: "white",
                     fontSize: "20px",
-                    fontFamily: "Avenir-Medium",
+                    fontFamily: "Montserrat-Light",
                   }}
                 >
                   {item.label}

@@ -24,17 +24,17 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
           marginLeft: "-5%",
         }}
       >
-        <img style={{ width: "800px" }} src={Experiencia} />
+        <img style={{ width: "896px",height:"662px" }} src={Experiencia} />
       </div>
       <div className="containerBodyExperience">
         <div>
           <span
-            style={{ fontSize: "60px", color: "white", marginLeft: "120px",fontFamily:"Montserrat-Bold" }}
+            style={{ fontSize: "70px", color: "white", marginLeft: "120px",fontFamily:"Montserrat-Bold" }}
           >
             ¿Has tenido
           </span>
           <p />
-          <span style={{ fontSize: "60px", color: "white",fontFamily:"Montserrat-Bold" }}>
+          <span style={{ fontSize: "70px", color: "white",fontFamily:"Montserrat-Bold" }}>
             experiencia laboral?
           </span>
         </div>
@@ -71,7 +71,7 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
 
           }}
         >
-          <img style={{ width: "100px" }} alt="" src={logo} />
+          <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
         </div>
       </div>
     </div>

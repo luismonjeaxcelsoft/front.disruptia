@@ -1,7 +1,6 @@
 import { Card, Checkbox, Form, Input, Select } from "antd";
 import { FC, useEffect, useState } from "react";
 import ".././styles/InfoWordExp.css";
-import caneca from "../assets/images/canecasinFondo.png";
 import CardPlegada from "./CardPlegada";
 import years from "../components/yearsData";
 import {
@@ -11,6 +10,7 @@ import {
   GetMunicipality,
 } from "../services/EstudiesService";
 import { Sidebar } from "./Sidebar";
+import Delete from "../assets/images/Delete.png"
 interface InfoWordExperienceProps {
   setValues: any;
   values: any;
@@ -169,20 +169,22 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
               padding: "20px",
               borderRadius: "25px",
               marginTop: "10px",
+             
             }}
           >
             <div>
               <div className="imgCaneca">
                 <span className="spanStudy">Estudio {id + 1}</span>
                 <img
-                  style={{
-                    width: "24px",
-                    cursor: "pointer",
-                    display: valuesFilter.length === 1 ? "none" : "",
-                  }}
-                  alt="eliminar"
-                  src={caneca}
-                  onClick={EliminateForm}
+                 style={{
+                  width:"50px",
+                  cursor: "pointer",
+                  display: valuesFilter.length === 1 ? "none" : "",
+                  color:"white",
+                  opacity:"0.75"
+                }}
+                src={Delete}
+                onClick={EliminateForm}
                 />
               </div>
               <div>
@@ -340,7 +342,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           color: "#FFFFFF",
                           opacity: "0.6",
                           marginLeft: "10px",
-                          fontFamily: "Montserrat, Medium",
+                          fontFamily: "Montserrat-Light",
+                          fontSize:"18px"
                         }}
                       >
                         Cursando Actualmente
@@ -489,13 +492,13 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
         {!cardValidate && (
           <div className="containerSaveAction">
             <button
-              style={{ width: "168px" }}
+              style={{ width: "165px",height:"47px" }}
               onClick={() => {
                 validateForm();
               }}
               className="SaveInfo btn btn-primary"
             >
-              Guardar
+              <span style={{fontSize: "18px",fontFamily:"Montserrat-Bold",color:"#F7C947"}}>Guardar</span>
             </button>
           </div>
         )}

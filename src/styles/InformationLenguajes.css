@@ -1,14 +1,14 @@
 .textTitleComponent {
   font-size: 25px;
   color: #f3cf46;
-  font-family: Avenir, Heavy;
-  margin-top: 15px;
+  font-family: Montserrat-Bold;
+  margin-top: 35px;
 }
 
 .textSubtitleComponent {
   font-size: 20px;
   color: #ffffff;
-  font-family: Avenir-Medium;
+  font-family: Montserrat-Light;
   margin-top: 15px;
   margin-bottom: 15px;
 }
@@ -19,13 +19,14 @@
 .containerLevels {
   display: flex;
   justify-content: center;
-  width: 132%;
+  width: 139%;
 }
 
 .textItem {
-  font-size: 12px;
+  font-size: 14px;
   color: #f3cf46;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Light;
+  letter-spacing: 1px;
 }
 .containerIdiomaText {
   display: flex;
@@ -34,7 +35,7 @@
 }
 .idiomaText {
   color: white;
-  font-family: Avenir-Medium;
+  font-family: Montserrat-Light;
   font-size: 20px;
 }
 
@@ -48,23 +49,23 @@
   background: #310161 !important;
 } */
 :where(.css-dev-only-do-not-override-15rg2km).ant-card-bordered {
-  border: 1px solid #f0f0f0;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important ;
   border-radius: 25px;
 }
 
 .ContainerDisabled {
-  width: 165px;
-  height: 47px;
+  width: 169px;
+  height: 59px;
   font-size: 18px;
   font-family: Montserrat-Bold;
-  border-radius: 25px;
+  border-radius: 17px;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 50px;
   background:#310161;
   border: 1px solid #f7c947;
-  width: 227px;
+
 }
 .textDisabled{
   color:#AE7F51;

@@ -25,7 +25,7 @@ const NotExperience: FC<NotExperienceProps> = ({
         />
       </div>
       <div style={{ width: "75rem" }}>
-        <div style={{ marginTop: "25px" }}>
+        <div style={{ marginTop: "25px",width:"768px"}}>
           <iframe
             width="100%"
             height="315"
@@ -39,25 +39,53 @@ const NotExperience: FC<NotExperienceProps> = ({
           <span className="textContent">o trabajo comunitario?</span>
         </div>
         <div
-          style={{ marginTop: "23px" }}
+          style={{ marginTop: "50px" }}
           className="containerOptionsExperience"
         >
           <button
-            style={{ width: "195px", height: "56px" }}
+            style={{
+              width: "195px",
+              height: "56px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             className="btn btn-primary backOptionsExperience"
             onClick={() => setFormComponent(true)}
           >
-            <span style={{ fontSize: "20px" }}>Sí, añadir</span>
+            <span
+              style={{
+                fontSize: "20px",
+                fontFamily: "Montserrat-Bold",
+                opacity: "0.87",
+              }}
+            >
+              Sí, añadir
+            </span>
           </button>
           <button
-            style={{ width: "195px", height: "56px" }}
+            style={{
+              width: "195px",
+              height: "56px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             className="btn btn-primary backOptionsExperience"
             onClick={() => {
               setValidateImgs([...validateImgs, "5"]);
               navigate("/perfiles/5");
             }}
           >
-            <span style={{ fontSize: "20px" }}>No, continuar</span>
+            <span
+              style={{
+                fontSize: "20px",
+                fontFamily: "Montserrat-Bold",
+                opacity: "0.87",
+              }}
+            >
+              No, continuar
+            </span>
           </button>
         </div>
         <div

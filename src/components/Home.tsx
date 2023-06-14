@@ -19,7 +19,7 @@ export const Home = () => {
             <h1 style={{width:"450px",fontFamily:"Montserrat-Bold",marginTop: "0"}}>hoja de vida Disruptiva</h1>
           </div>
           <Link to={"/perfiles/1"}>
-            <button className="button2">¡EMPECEMOS!</button>
+            <button className="button2">¡Empecemos!</button>
           </Link>
         </div>
       </div>

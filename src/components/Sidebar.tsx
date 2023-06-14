@@ -31,13 +31,28 @@ export const Sidebar: FC<Sidebar> = ({
       <div className={isOpen ? "sidebar-open" : "sidebar"}>
         <div>
           {!isOpen && (
-            <div style={{display:"flex",flexDirection: "column"}}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <img
                 onClick={() => setIsOpen(!isOpen)}
-                style={{ width: "50px", cursor: "pointer" }}
+                style={{ width: "60px", cursor: "pointer" }}
                 src={Deslizar}
               />
-              <span style={{fontSize:"8px",color:"white",fontFamily:"Montserrat, Bold"}}>Despliega aquí</span>
+              <span
+                style={{
+                  fontSize: "10px",
+                  color: "white",
+                  fontFamily: "Montserrat-Bold",
+                }}
+              >
+                Despliega aquí
+              </span>
             </div>
           )}
           {isOpen && (

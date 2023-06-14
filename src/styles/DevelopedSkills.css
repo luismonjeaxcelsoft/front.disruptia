@@ -1,35 +1,51 @@
 .containerSkills {
-    width: 257px;
-    height: 46px;
-    border: 1px solid rgb(113, 2, 224);
-    border-radius: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgb(113, 2, 224);
-    margin-top: 15px;
+  width: 228px;
+  height: 46px;
+  border: 1px solid rgb(113, 2, 224);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(113, 2, 224);
+  margin-top: 15px;
 }
 
 .labelContainer {
-    color: white;
-    opacity: 0.6;
-    font-size: 20px;
-    margin: 0px;
-    font-family: Avenir, Heavy;
+  color: white;
+  opacity: 0.6;
+  font-size: 20px;
+  margin: 0px;
+  font-family: Montserrat-Light
 }
 
 .skillText {
-    color: rgb(255, 255, 255);
-    font-size: 20px;
-    font-family: Montserrat-Bold;
+  color: rgb(255, 255, 255);
+  font-size: 20px;
+  font-family: Montserrat-Bold;
 }
 
 .textDisableds {
-    color:#AE7F51;
-    margin: 0;
-    font-size: 18px;
-    font-family: Montserrat-Bold;
+  color: #ae7f51;
+  margin: 0;
+  font-size: 18px;
+  font-family: Montserrat-Bold;
 }
 
+.selectCotainer {
+  width: 702px;
+}
+.ant-select-selection-placeholder {
+  color: white !important;
+  font-size: 25px;
+  font-family: Avenir, Heavy;
+  opacity: 0.4;
+}
 
-
+.containerOptionsSelect {
+  display: flex;
+  
+}
+.containerOptionsSelect:hover {
+    background:rgb(79, 38, 120);
+    color:white
+}

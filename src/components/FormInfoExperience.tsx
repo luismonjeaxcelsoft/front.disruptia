@@ -5,7 +5,6 @@ import logo from "../assets/images/disruptialogo.png";
 import { GetStudiesId } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
 
-
 const INITIAL_VALUES_FORM = {
   disrupterId: 1,
   estudioId: 1,
@@ -16,45 +15,45 @@ const INITIAL_VALUES_FORM = {
   fechaFin: "",
   cursando: "",
   nombreInstitucion: "",
-  modalidad:"",
+  modalidad: "",
   tipoEstudio: "",
   paisId: "",
   ciudadId: "",
 };
-const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
+const FormInfoExperience = ({ setValidateImgs, validateImgs }: any) => {
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const navigate = useNavigate();
-  const [validateViewB, setValidateViewB] = useState<boolean>(false)
-  const [valuesRes, setValuesRes] = useState<any>(false)
+  const [validateViewB, setValidateViewB] = useState<boolean>(false);
+  const [valuesRes, setValuesRes] = useState<any>(false);
   const getFormStudies = async () => {
-   try {
-    const res = await GetStudiesId(1);
-    if (res && res.length > 0) {
-      setValuesRes(true)
-      let infoMap = res.map((item: any) => {
-        return {
-          disrupterId: 1,
-          estudioId: item.estudioId,
-          nombreCurso: item.nombreCurso,
-          dateInit: item.dateInit,
-          fechaInicio: item.fechaInicio,
-          dateEnd: item.dateEnd,
-          fechaFin: item.fechaFin,
-          cursando: item.cursando,
-          nombreInstitucion: item.nombreInstitucion,
-          tipoEstudio: item.tipoEstudio,
-          paisId: item.paisId,
-          ciudadId: item.ciudadId,
-        };
-      });
-      const nuevoArray = infoMap.reduce((accumulator: any, currentValue) => {
-        return [...accumulator, currentValue];
-      }, []);
-      setValuesForm(nuevoArray);
+    try {
+      const res = await GetStudiesId(1);
+      if (res && res.length > 0) {
+        setValuesRes(true);
+        let infoMap = res.map((item: any) => {
+          return {
+            disrupterId: 1,
+            estudioId: item.estudioId,
+            nombreCurso: item.nombreCurso,
+            dateInit: item.dateInit,
+            fechaInicio: item.fechaInicio,
+            dateEnd: item.dateEnd,
+            fechaFin: item.fechaFin,
+            cursando: item.cursando,
+            nombreInstitucion: item.nombreInstitucion,
+            tipoEstudio: item.tipoEstudio,
+            paisId: item.paisId,
+            ciudadId: item.ciudadId,
+          };
+        });
+        const nuevoArray = infoMap.reduce((accumulator: any, currentValue) => {
+          return [...accumulator, currentValue];
+        }, []);
+        setValuesForm(nuevoArray);
+      }
+    } catch (error) {
+      setValuesRes(false);
     }
-   } catch (error) {
-    setValuesRes(false)
-   }
   };
 
   useEffect(() => {
@@ -71,7 +70,6 @@ const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
               valuesFilter={valuesForm}
               values={valueForm}
               key={i}
-              
               id={i}
               setValidateViewB={setValidateViewB}
               valuesRes={valuesRes}
@@ -84,15 +82,22 @@ const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
         <div className="containerButtonContinue">
           <button
             onClick={() => {
-              setValuesRes(false)
+              setValuesRes(false);
               setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
-              setValidateViewB(false)
-          
-
+              setValidateViewB(false);
             }}
             className="btn btn-primary hoverAgregar"
           >
-            Agregar estudio +
+            <span
+              style={{
+                fontSize: "20px",
+                fontFamily: "Montserrat-Light",
+                opacity: "0.7",
+              }}
+            >
+              {" "}
+              Agregar estudio +
+            </span>
           </button>
         </div>
       )}
@@ -103,19 +108,17 @@ const FormInfoExperience= ({setValidateImgs,validateImgs}:any) => {
             className="buttonContinueSelect"
             onClick={() => {
               navigate("/perfiles/3");
-              setValidateImgs([...validateImgs,"3"])
-            
+              setValidateImgs([...validateImgs, "3"]);
             }}
           >
-          
             <p className="textSiguienteSelect">Siguiente</p>
           </button>
         </div>
       )}
       <div
-        style={{ display: "flex", justifyContent: "center", marginTop: "10%" }}
+        style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}
       >
-        <img style={{ width: "100px" }} alt="" src={logo} />
+        <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
       </div>
     </div>
   );

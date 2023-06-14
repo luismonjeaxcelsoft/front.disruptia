@@ -17,27 +17,27 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<any>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  const niveles = ["Basico", "Intermedio", "Avanzado", "Nativo"];
+  const niveles = ["Ninguno","Basico", "Intermedio", "Avanzado", "Nativo"];
   const infoRadioIdiomas = [
     {
       idioma: "Español",
-      select: [1, 2, 3, 4],
+      select: [1, 2, 3, 4,5],
     },
     {
       idioma: "Ingles",
-      select: [5, 6, 7, 8],
+      select: [6, 7, 8, 9,10],
     },
     {
       idioma: "Frances",
-      select: [9, 10, 11, 12],
+      select: [11, 12, 13, 14,15],
     },
     {
       idioma: "Portugués",
-      select: [13, 14, 15, 16],
+      select: [16, 17, 18, 19,20],
     },
     {
       idioma: "Italiano",
-      select: [17, 18, 19, 20],
+      select: [21, 22, 23, 24,25],
     },
   ];
   const handleOptionChange = (idioma: any, selectId: any) => {
@@ -70,7 +70,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
           video={false}
         />
       </div>
-      <div style={{ width: "79rem" }}>
+      <div style={{width: "750px"}}>
         <div className="containerTextComponent">
           <span className="textTitleComponent">Manejo de Idiomas</span>
           <span className="textSubtitleComponent">
@@ -83,11 +83,12 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
               background: "#310161",
               padding: "35px 20px 20px 47px",
               borderRadius: "25px",
+              
             }}
           >
             <div className="containerLevels">
               {niveles.map((item) => (
-                <div style={{ marginRight: "10px" }}>
+                <div style={{ marginRight: "15px" }}>
                   <span className="textItem">{item}</span>
                 </div>
               ))}
@@ -95,13 +96,13 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
             <div style={{ marginTop: "15px" }}>
               {infoRadioIdiomas.map((info) => (
                 <div className="containerIdiomaText">
-                  <div style={{ width: "10%" }}>
+                  <div style={{ width: "1%" }}>
                     <span className="idiomaText">{info.idioma}</span>
                   </div>
                   <div>
                     <div style={{ marginLeft: "300px", display: "flex" }}>
                       {info.select.map((selectId: any) => (
-                        <div style={{ width: "60px" }}>
+                        <div style={{ width: "85px" }}>
                           <Radio
                             key={selectId}
                             checked={selectedOptions.some(
@@ -160,7 +161,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
           </button>
         </div>
         <div className="containerExpContinue">
-          <img style={{ width: "100px" }} alt="" src={logo} />
+          <img style={{ width: "153px",height:"41px" }} alt="" src={logo} />
         </div>
       </div>
     </>

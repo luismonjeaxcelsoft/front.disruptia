@@ -6,8 +6,7 @@ import { Input } from "antd";
 import LevelCompetition from "./LevelCompetition";
 import { Sidebar } from "./Sidebar";
 
-const SkillsDeveloping = ({ setValidateImgs,
-  validateImgs}:any) => {
+const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
   let skillInformation = [
     {
       id: 0,
@@ -88,24 +87,24 @@ const SkillsDeveloping = ({ setValidateImgs,
         />
       </div>
       {validateComponent ? (
-        <LevelCompetition 
-        setValidateImgs={setValidateImgs}
-        validateImgs={validateImgs}
-        skills={skills} 
+        <LevelCompetition
+          setValidateImgs={setValidateImgs}
+          validateImgs={validateImgs}
+          skills={skills}
         />
       ) : (
         <div>
+          <span className="titleSpan">
+            Selecciona las habilidades en desarrollo de Software que tengas
+          </span>
           <div className="containerComponent">
             <div className="containerGridPosition">
-              <span className="titleSpan">
-                Selecciona las habilidades en desarrollo de Software que tengas
-              </span>
               <div
                 style={{
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr 1fr",
                   gap: "10px",
-                  marginTop: "30px",
+                  marginTop: "85px",
                 }}
               >
                 {skills.map((item: any) => {
@@ -119,7 +118,8 @@ const SkillsDeveloping = ({ setValidateImgs,
                     >
                       <span
                         style={{
-                          fontFamily: "Montserrat-Bold;",
+                          fontFamily: "Montserrat-Bold",
+                          fontSize:"20px"
                         }}
                         className="perfilName"
                       >

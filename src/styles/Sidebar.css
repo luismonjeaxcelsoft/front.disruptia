@@ -98,25 +98,26 @@ h3 {
 }
 
 .titulo3 {
-  font-size: 30pt;
+  font-size: 30px;
   color: #ffffff;
-  font-family: Avenir, Heavy;
-  line-height: 1;
+  font-family:Montserrat-Regular;
+  line-height: 40px;
   margin-top: 5%;
+  
 }
 
 .titulo4 {
-  font-size: 15pt;
+  font-size: 20px;
   color: #ffffff;
-  font-family:  Avenir-Medium;
-  line-height: 1;
+  font-family:  Montserrat-Bold;
+  line-height: 28px;
   margin-top: 50px;
 }
 
 .subtitle_sidebar {
   color: #f3cf46;
   font-size: 20px;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-ExtraLight;
 }
 
 .container_title2_sidebar {

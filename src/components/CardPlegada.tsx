@@ -1,7 +1,6 @@
 import { FC } from "react";
 import "../../src/styles/CardPlegada.css";
-
-import { DownOutlined } from "@ant-design/icons";
+import Aroow from "../assets/images/Aroow-46.png"
 
 type CardPlegadaProps = {
   valuesFilter: any;
@@ -29,12 +28,9 @@ const CardPlegada: FC<CardPlegadaProps> = ({
   return (
     <div className="containerElement">
       <div className="containerText">
-        <span className="textSpanInfo"> {valuesInput()}</span>
-        <div>
-          <DownOutlined
-            className="iconDropDown"
-            onClick={() => setCardValidate(false)}
-          />
+        <span className={type === "laboral" ? "textSpanInfoLaboral" : "textSpanInfo"}> {valuesInput()}</span>
+        <div style={{cursor:"pointer"}} onClick={() => setCardValidate(false)}>
+         <img style={{width:"60px"}} alt="flecha_abajo" src={Aroow}/>
         </div>
       </div>
     </div>

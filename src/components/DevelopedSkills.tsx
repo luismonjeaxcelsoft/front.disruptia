@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Select } from "antd";
+import { Input } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import "../styles/DevelopedSkills.css";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +14,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   setValidateImgs,
   validateImgs,
 }) => {
+  const [validateSelect, setValidateSelect] = useState(false);
   let options = [
     {
       id: 1,
@@ -58,8 +59,8 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [countId, setCountId] = useState<number>(0);
   const [valueHab, setValueHab] = useState<any>("");
-  const [validate, setValidate] = useState(true)
-  console.log("🚀 ~ file: DevelopedSkills.tsx:62 ~ validate:", validate)
+  const [validate, setValidate] = useState(true);
+  console.log("🚀 ~ file: DevelopedSkills.tsx:62 ~ validate:", validate);
 
   const agregateHability = () => {
     if (valueHab !== "") {
@@ -73,14 +74,15 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
       ]);
     }
   };
-const validationDisabled = ()=>{
-if(habilitysValues.length >= 2){
-  setValidate(false)
-} else {
-  window.alert("Debe agregar como minimo 3 habilidades para poder continuar")
-}
-}
-
+  const validationDisabled = () => {
+    if (habilitysValues.length >= 2) {
+      setValidate(false);
+    } else {
+      window.alert(
+        "Debe agregar como minimo 3 habilidades para poder continuar"
+      );
+    }
+  };
 
   return (
     <>
@@ -95,7 +97,13 @@ if(habilitysValues.length >= 2){
       </div>
       <div style={{ width: "70rem", marginTop: "50px" }}>
         <div>
-          <span style={{ color: "#F3CF46", fontSize: "25px" }}>
+          <span
+            style={{
+              color: "#F3CF46",
+              fontSize: "25px",
+              fontFamily: "Montserrat-Bold",
+            }}
+          >
             Habilidades Desarrolladas
           </span>
         </div>
@@ -107,24 +115,65 @@ if(habilitysValues.length >= 2){
           }}
         >
           <label className="labelContainer">Habilidades Desarrolladas</label>
-          <Select
-            placeholder="Ejm: Orientación al logro"
+          <div
             style={{
-              borderRadius: "5px",
+              width: "702px",
+              height: "57px",
+              borderRadius: "17px",
               background: "#4F2678",
-              border: "none",
-              color: "white",
-              width: "113%",
+              display: "flex",
             }}
-            options={options.map((item: any) => ({
-              label: item.label,
-              value: item.label,
-            }))}
-            onChange={(e) => {
-              setValueHab(e);
-              setValidateContinue(false);
-            }}
-          />
+          >
+            <Input
+              onClick={(e: any) => {
+                setValueHab(e.target.value);
+                setValidateSelect(!validateSelect);
+              }}
+              style={{
+                background: "#4F2678",
+                color: "white",
+                border: "none",
+                fontFamily: "Montserrat-Light",
+                fontSize:"20px"
+              }}
+              onChange={(e) => {
+                setValidateContinue(false);
+                setValueHab(e.target.value);
+              }}
+              value={valueHab}
+            />
+          </div>
+          {validateSelect && (
+            <div
+              style={{
+                width: "702px",
+                borderRadius: "17px",
+                background: "rgba(255, 255, 255, 0.4)",
+              }}
+            >
+              {options.map((item) => (
+                <div
+                  className="containerOptionsSelect"
+                  onClick={() => {
+                    setValueHab(item.label);
+                    setValidateSelect(false);
+                    setValidateContinue(false);
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "20px",
+                      fontFamily: "Montserrat-Light",
+                      marginLeft: "20px",
+                      color: "white",
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <div
           style={{
@@ -143,7 +192,7 @@ if(habilitysValues.length >= 2){
             </div>
           ))}
         </div>
-        {!validateContinue  && (
+        {!validateContinue && (
           <div style={{ marginTop: "55px" }} className="containerSaveAction">
             <button
               style={{
@@ -154,7 +203,7 @@ if(habilitysValues.length >= 2){
               }}
               className="SaveInfo btn btn-primary"
               onClick={() => {
-                validationDisabled()
+                validationDisabled();
                 setValidateContinue(true);
                 setCountId(countId + 1);
                 agregateHability();
@@ -168,20 +217,14 @@ if(habilitysValues.length >= 2){
         )}
         <div className="containerSelect">
           <button
-            className={
-              validate ? "buttonContinueSelect" : "ContainerDisabled"
-            }
+            className={validate ? "buttonContinueSelect" : "ContainerDisabled"}
             onClick={() => {
               navigate("/perfiles/10");
               setValidateImgs([...validateImgs, "10"]);
             }}
             disabled={validate}
           >
-            <p
-              className={
-                validate ? "textDisableds" : "textSiguienteSelect"
-              }
-            >
+            <p className={validate ? "textDisableds" : "textSiguienteSelect"}>
               Siguiente
             </p>
           </button>

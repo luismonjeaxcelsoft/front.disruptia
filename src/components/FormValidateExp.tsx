@@ -69,7 +69,6 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
     } else if (type === "additionalCurse") {
       setValidateImgs([...validateImgs, "6"]);
       navigate("/perfiles/6");
-
     }
   };
   return (
@@ -90,7 +89,7 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
       </div>
 
       {validateViewB && (
-        <div className="containerButtonContinue">
+        <div  className="containerButtonContinueWord">
           <button
             onClick={() => {
               setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
@@ -98,11 +97,21 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
             }}
             className="btn btn-primary hoverAgregar"
           >
-            {type === "experience"
-              ? "Agregar Experiencia +"
-              : type === "additionalActivity"
-              ? "Agregar Actividad +"
-              : type === "additionalCurse" ? "Agregar Curso +" : ""}
+            <span
+              style={{
+                fontSize: "18px",
+                fontFamily: "Monsarrat, Medium",
+                opacity: "0.7",
+              }}
+            >
+              {type === "experience"
+                ? "Agregar Experiencia +"
+                : type === "additionalActivity"
+                ? "Agregar Actividad +"
+                : type === "additionalCurse"
+                ? "Agregar Curso +"
+                : ""}
+            </span>
           </button>
         </div>
       )}
@@ -126,7 +135,7 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
           marginTop: "10%",
         }}
       >
-        <img style={{ width: "100px" }} alt="" src={logo} />
+        <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
       </div>
     </div>
   );

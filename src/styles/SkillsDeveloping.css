@@ -1,6 +1,6 @@
 .containerComponent {
   width: 79rem;
-  height: 495px;
+  height: 320px;
   border: 1px solid white;
   border-radius: 25px;
   display: flex;
@@ -22,10 +22,11 @@
 .titleSpan {
   color: white;
   font-size: 20px;
-  font-family: Avenir, Medium;
+  font-family: Montserrat-Light;
   display: flex;
-  justify-content: center;
+  justify-content: start;
   margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 .containerGridPosition {
@@ -36,19 +37,21 @@
 
 .containerAgregate {
   border: 1px solid rgb(112, 112, 112);
-  width: 300px;
+  width: 250px;
   height: 39px;
   border-radius: 25px;
   background: rgb(114, 82, 147);
   margin-top: 25px;
   cursor: pointer;
   color: white !important;
+  font-size: 20px;
+  font-family: Montserrat-Bold;
 
 }
 
 .iconFlecha {
   scale: 0.5;
-  color: white;
+  color: #F7C947;
   position: absolute;
   top: 21px;
   left: 252px;

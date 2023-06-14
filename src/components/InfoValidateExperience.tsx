@@ -326,7 +326,8 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             color: "#FFFFFF",
                             opacity: "0.6",
                             marginLeft: "10px",
-                            fontFamily: "Montserrat, Medium",
+                            fontFamily: "Montserrat-Medium",
+                            fontSize: "18px",
                           }}
                         >
                           {type === "experience"
@@ -372,7 +373,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           style={{
                             color: "white",
                             fontSize: "18px",
-                            fontFamily: "Montserrat, Medium",
+                            fontFamily: "Montserrat-Medium",
                             opacity: "0.7",
                           }}
                         >
@@ -383,6 +384,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             checkedChildren="SI"
                             unCheckedChildren="NO"
                             defaultChecked
+                            style={{width:"60px"}}
                           />
                         </div>
                       </div>
@@ -390,25 +392,27 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                     {type === "additionalActivity" && (
                       <div style={{ display: "flex", flexDirection: "column" }}>
                         <Radio>
-                          <span style={{ color: "white" }}>Voluntariado</span>
+                          <span className="spanTypeVoluntary">
+                            Voluntariado
+                          </span>
                         </Radio>
                         <Radio>
-                          <span style={{ color: "white" }}>
+                          <span className="spanTypeVoluntary">
                             Actividad extracurricular
                           </span>
                         </Radio>
                         <Radio>
-                          <span style={{ color: "white" }}>
+                          <span className="spanTypeVoluntary">
                             Actividad Comunitaria
                           </span>
                         </Radio>
                         <Radio>
-                          <span style={{ color: "white" }}>
+                          <span className="spanTypeVoluntary">
                             Servicio Social
                           </span>
                         </Radio>
                         <Radio>
-                          <span style={{ color: "white" }}>
+                          <span className="spanTypeVoluntary">
                             Otra_______________________
                           </span>
                         </Radio>

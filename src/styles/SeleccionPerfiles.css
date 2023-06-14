@@ -55,11 +55,11 @@
 }
 
 .buttonContinueSelect {
-  border-radius: 50px;
+  border-radius: 17px;
   border: 1px solid #f3cf46;
   background: #310161;
-  width: 227px;
-  height: 49px;
+  width: 169px;
+  height: 59px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -71,8 +71,8 @@
   color: #310161;
 }
 .textSiguienteSelect {
-  color: yellow;
-  font-size: 25px;
+  color: rgb(247, 201, 71);
+  font-size: 20px;
   margin: 0;
   margin-top: 5%;
   margin-bottom: 5%;
@@ -80,7 +80,7 @@
 }
 .textSiguienteSelect:hover {
   color: #310161;
-  font-size: 25px;
+  font-size: 20px;
   font-family: "Montserrat-Bold";
 }
 

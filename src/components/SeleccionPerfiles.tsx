@@ -99,7 +99,7 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
                 >
                   <span
                     style={{
-                      fontFamily:"Montserrat-Bold;",
+                      // fontFamily:"Montserrat-Bold;",
                       fontWeight: validate ? "bold" : "",
                       opacity: validate ? "" : "0.5",
                     }}

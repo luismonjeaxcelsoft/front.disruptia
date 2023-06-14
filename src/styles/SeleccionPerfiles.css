@@ -45,6 +45,7 @@
   margin: 0%;
   padding: 10px;
   color: white;
+  font-family: "Montserrat-Bold";
 }
 
 .containerSelect {
@@ -60,6 +61,9 @@
   width: 227px;
   height: 49px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .buttonContinueSelect:hover {
   background: #f3cf46;
@@ -68,15 +72,16 @@
 }
 .textSiguienteSelect {
   color: yellow;
-  font-size: 20px;
+  font-size: 25px;
   margin: 0;
   margin-top: 5%;
   margin-bottom: 5%;
-  font-family: Avenir, Heavy;
+  font-family: "Montserrat-Bold";
 }
 .textSiguienteSelect:hover {
   color: #310161;
-  font-family: Avenir, Heavy;
+  font-size: 25px;
+  font-family: "Montserrat-Bold";
 }
 
 .ant-tabs-nav {
@@ -96,6 +101,6 @@
 }
 
 .ant-tabs-ink-bar {
-  background-color:#F7C947 !important; 
+  background-color: #f7c947 !important;
   display: none !important;
 }

@@ -41,7 +41,7 @@
   color: #ffffff;
   opacity: 0.6;
   font-family: Avenir, Heavy;
-  font-size: 18px !important;
+  font-size: 20px !important;
 }
 .inputBorderNone {
   background: #4f2678;
@@ -52,7 +52,8 @@
 .ant-input::placeholder{
   color:white !important;
   opacity: 0.5;
-  
+  font-family: Avenir, Heavy !important;
+  font-size: 25px !important;
 }
 .containerButtonContinue {
   display: flex;

@@ -16,7 +16,7 @@ export const Home = () => {
           <img style={{marginBottom:"30px"}} src="/src/assets/images/disruptialogo.png" alt="" />
           <div style={{ color: "white" }}>
             <h1 style={{margin:"0",fontFamily:"Montserrat-Bold"}}>Vamos a crear una</h1>
-            <h1 style={{width:"350px",fontFamily:"Montserrat-Bold",marginTop: "0"}}>hoja de vida Disruptiva</h1>
+            <h1 style={{width:"450px",fontFamily:"Montserrat-Bold",marginTop: "0"}}>hoja de vida Disruptiva</h1>
           </div>
           <Link to={"/perfiles/1"}>
             <button className="button2">¡EMPECEMOS!</button>

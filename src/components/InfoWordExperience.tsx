@@ -220,7 +220,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         <label className="labelsInsputs" htmlFor="dateInit">
                           Fecha de inicio
                         </label>
-                        <div>
+                        <div >
                           <Select
                             style={{
                               background: "#4F2678",

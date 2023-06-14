@@ -95,12 +95,12 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
               setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
               setValidateViewB(false);
             }}
-            className="btn btn-primary hoverAgregar"
+            className="btn btn-primary hoverAgregarEx"
           >
             <span
               style={{
                 fontSize: "18px",
-                fontFamily: "Monsarrat, Medium",
+                fontFamily: "Montserrat-Light",
                 opacity: "0.7",
               }}
             >

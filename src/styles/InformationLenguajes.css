@@ -19,7 +19,7 @@
 .containerLevels {
   display: flex;
   justify-content: center;
-  width: 139%;
+  width: 143%;
 }
 
 .textItem {
@@ -45,9 +45,7 @@
     margin-top: 5%;
 }
 
-/* :where(.css-dev-only-do-not-override-15rg2km).ant-card {
-  background: #310161 !important;
-} */
+
 :where(.css-dev-only-do-not-override-15rg2km).ant-card-bordered {
   border: 1px solid rgba(255, 255, 255, 0.4) !important ;
   border-radius: 25px;

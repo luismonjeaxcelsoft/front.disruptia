@@ -81,11 +81,19 @@
 }
 
 .hoverAgregar {
-  margin-right: 135px;
+  margin-right: 88px;
   background: transparent !important;
   border-radius: 20px !important;
   border: none !important;
-  width: 163px;
+  width: 210px;
+  margin-top: 60px;
+}
+.hoverAgregarEx {
+  margin-right: 62px;
+  background: transparent !important;
+  border-radius: 20px !important;
+  border: none !important;
+  width: 210px;
   margin-top: 60px;
 }
 

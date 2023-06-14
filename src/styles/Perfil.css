@@ -1,7 +1,7 @@
 .titlePerfil {
   color: white;
   font-size: 21px;
-  font-family: Montserrat, Medium;
+  font-family: Montserrat-Light;
   opacity: 0.95;
 }
 
@@ -60,7 +60,7 @@
 
 .textButtonGpt {
   font-size: 20px;
-  font-family: Montserrat, Bold;
+  font-family: Montserrat-Bold;
 }
 .textButtonGpt:hover {
   font-size: 20px;
@@ -69,10 +69,10 @@
 
 .textButtonGptValidation {
   font-size: 15px;
-  font-family: Montserrat, Bold;
+  font-family: Montserrat-Bold;
 }
 
 .textButtonGptValidation:hover {
   font-size: 15px;
-  font-family: Montserrat, Bold;
+  font-family: Montserrat-Bold;
 }

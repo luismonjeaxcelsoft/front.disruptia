@@ -111,7 +111,7 @@ const PersonalReferences = ({
               style={{
                 display: "flex",
                 flexDirection: "column",
-                marginTop: "60px",
+                marginTop: "30px",
               }}
             >
               <label className="labelRefenrences">
@@ -141,7 +141,7 @@ const PersonalReferences = ({
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  marginTop: "60px",
+                  marginTop: "30px",
                 }}
               >
                 <label className="labelRefenrences">
@@ -165,7 +165,7 @@ const PersonalReferences = ({
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    marginTop: "60px",
+                    marginTop: "30px",
                     marginLeft: optionReference === 1 ? "85px" : "",
                   }}
                 >
@@ -191,7 +191,7 @@ const PersonalReferences = ({
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    marginTop: "60px",
+                    marginTop: "30px",
                     marginRight:"50px"
                   }}
                 >
@@ -214,7 +214,7 @@ const PersonalReferences = ({
                 style={{
                   display: "flex",
                   flexDirection: "column",
-                  marginTop: "60px",
+                  marginTop: "30px",
                 }}
               >
                 <label className="labelRefenrences">

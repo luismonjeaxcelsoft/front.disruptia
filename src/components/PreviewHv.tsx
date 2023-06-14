@@ -74,7 +74,7 @@ const PreviewHv = () => {
             <span
               style={{
                 fontSize: "12px",
-                fontFamily: "Montserrat-Medium",
+                fontFamily: "Montserrat-Light",
                 color: "#000000",
               }}
             >

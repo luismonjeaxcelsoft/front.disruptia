@@ -83,7 +83,6 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
               background: "#310161",
               padding: "35px 20px 20px 47px",
               borderRadius: "25px",
-              
             }}
           >
             <div className="containerLevels">

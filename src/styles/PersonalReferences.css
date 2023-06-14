@@ -1,7 +1,7 @@
 .textTitleReference {
   font-size: 25px;
   color: #f3cf46;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Bold
 }
 .optionsReferencesContainer {
   width: 270px;
@@ -16,7 +16,7 @@
 .typeReference {
   font-size: 20px;
   color: #4f0094;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Bold;
   z-index: 9;
   margin-left: 6px;
 }
@@ -45,7 +45,7 @@
 .typeReferenceOption {
   font-size: 20px;
   color: white;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Light;
   z-index: 9;
   margin-left: 10px;
   margin-top: 3px;
@@ -62,7 +62,7 @@
 }
 .referenceNoSelect {
   font-size: 20px;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Light;
   z-index: 9;
   margin-left: 25px;
   margin-top: 5px;
@@ -74,7 +74,7 @@
 }
 .referenceNoSelectOne {
   font-size: 20px;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Light;
   z-index: 9;
   margin-left: 25px;
   margin-top: 5px;
@@ -89,5 +89,6 @@
 .labelRefenrences {
   font-size: 20px;
   color: #ffffff;
-  font-family: Avenir-Medium;
+  font-family: Montserrat-Light;
 }
+

@@ -204,7 +204,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           <label className="labelsInsputs" htmlFor="dateInit">
                             Fecha de inicio
                           </label>
-                          <div>
+                          <div style={{display:"flex"}}>
                             <Select
                               style={{
                                 background: "#4F2678",

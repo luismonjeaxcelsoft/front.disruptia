@@ -58,7 +58,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
                   color: "white",
                   opacity: "0.75",
                   fontSize: "20px",
-                  fontFamily: "Montserrat, Medium",
+                  fontFamily: "Montserrat-Light",
                   borderRadius: "25px",
                   border: "none",
                 }}
@@ -132,7 +132,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
         </div>
 
         <div style={{ marginTop: "30px" }} className="containerExpContinue">
-          <img style={{ width: "100px" }} alt="" src={logo} />
+          <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
         </div>
       </div>
     </>

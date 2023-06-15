@@ -14,15 +14,15 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
     <>
       <div>
         <Sidebar
-          title="Hola Andrea"
+          title=""
           smallTitle="Crear Hoja de vida"
-          subTitle="Si quieres que ChatGPT te ayude a redactar tu perfil, da clic en “Validar con ChatGPT”"
+          subTitle=""
           backColor={false}
           img={false}
-          video={false}
+          video={true}
         />
       </div>
-      <div style={{ marginBottom: "15px" }}>
+      <div style={{ marginBottom: "15px",marginTop:"40px" }}>
         <span className="titlePerfil">Cuéntanos ¿Cuál es tu perfil?</span>
       </div>
       <div>

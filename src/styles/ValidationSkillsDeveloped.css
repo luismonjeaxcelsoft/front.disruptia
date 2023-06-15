@@ -1,0 +1,20 @@
+.spanTitleSkillsVlidate {
+    font-family: Montserrat-Bold;
+    font-size: 40px;
+    color: white;
+}
+
+.buttonSelectSkillsDevelop {
+    background: transparent !important;
+    border: 5px solid #f7c947 !important;
+    border-radius: 35px !important;
+    color: #f7c947 !important;
+    width: 161px !important;
+    height: 70px !important;
+}
+
+.spanButtomResp {
+    font-size:30px;
+    font-family: Montserrat-Bold;
+    color:"#F3CF46"
+}

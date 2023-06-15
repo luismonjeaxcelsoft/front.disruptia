@@ -20,7 +20,7 @@ const INITIAL_VALUES_FORM = {
   paisId: "",
   ciudadId: "",
 };
-const FormInfoExperience = ({ setValidateImgs, validateImgs }: any) => {
+const FormInfoExperience = ({ setValidateImgs, validateImgs,valuesIdPerfiles,valuesInputsPerfiles}: any) => {
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
@@ -73,6 +73,8 @@ const FormInfoExperience = ({ setValidateImgs, validateImgs }: any) => {
               id={i}
               setValidateViewB={setValidateViewB}
               valuesRes={valuesRes}
+              valuesIdPerfiles={valuesIdPerfiles}
+              valuesInputsPerfiles={valuesInputsPerfiles}
             />
           );
         })}

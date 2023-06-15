@@ -16,9 +16,11 @@ const PreviewHv = () => {
     <>
       <div>
         <Sidebar
-          title="Hola Andrea"
+          title=""
           smallTitle="Crear Hoja de vida"
-          subTitle="Aqui puedes editar cada item de tu hoja de vida"
+          subTitle="Llegó el momento, aquí tienes tu hoja de vida, por favor verifica que toda la información que tienes está completa y que sea cierta.
+          Si necesitas modificar puedes dar click a la derecha donde aparecen los íconos de editar, esto te permitirá modificar y mejorar cada sección. Una vez sientas que está listo, dale FINALIZAR.
+          "
           backColor={false}
           img={false}
           video={false}

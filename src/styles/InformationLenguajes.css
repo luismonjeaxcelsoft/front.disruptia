@@ -2,7 +2,7 @@
   font-size: 25px;
   color: #f3cf46;
   font-family: Montserrat-Bold;
-  margin-top: 35px;
+  margin-top: 40px;
 }
 
 .textSubtitleComponent {
@@ -46,9 +46,12 @@
 }
 
 
-:where(.css-dev-only-do-not-override-15rg2km).ant-card-bordered {
+.ant-card-bordered {
   border: 1px solid rgba(255, 255, 255, 0.4) !important ;
   border-radius: 25px;
+}
+.ant-card {
+  background: none !important;
 }
 
 .ContainerDisabled {

@@ -18,6 +18,8 @@ interface InfoWordExperienceProps {
   valuesFilter: Array<object>;
   setValidateViewB: React.Dispatch<boolean>;
   valuesRes: any;
+  valuesInputsPerfiles:any;
+  valuesIdPerfiles:any
 }
 type VALUESCOUNTRIES = {
   codigoPais: number;
@@ -38,6 +40,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   valuesFilter,
   setValidateViewB,
   valuesRes,
+  valuesIdPerfiles,
+  valuesInputsPerfiles
 }) => {
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valuesAcademy, setValuesAcademy] = useState<any>([]);
@@ -145,9 +149,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     <div>
       <div>
         <Sidebar
-          subTitle="Aquí encontrarás las instrucciones para diligenciar los campos requeridos"
+          subTitle="En esta sección registra tu educación formal, relacionado con:"
           backColor={false}
           img={true}
+          data={valuesInputsPerfiles}
+          sendData={valuesIdPerfiles}
         />
       </div>
       <div className="containerTitle">

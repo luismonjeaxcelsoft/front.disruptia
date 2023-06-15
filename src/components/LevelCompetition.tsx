@@ -35,7 +35,7 @@ const LevelCompetition = ({ skills,setValidateImgs,
   return (
     <div>
       <div className="containerComponent">
-        <div style={{ marginLeft: "95px", marginTop: "50px" }}>
+        <div style={{ marginLeft: "95px", marginTop: "10px" }}>
           <span
             style={{ color: "white", fontSize: "20px", fontFamily: "Montserrat-Light" }}
           >
@@ -49,6 +49,7 @@ const LevelCompetition = ({ skills,setValidateImgs,
               display: "flex",
               flexDirection: "column",
               marginLeft: "115px",
+              marginBottom:"15px"
             }}
           >
             {radioInfo.map((item: any) => (

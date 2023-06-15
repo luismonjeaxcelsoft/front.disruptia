@@ -1,5 +1,5 @@
 import "../styles/Sidebar.css";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { CloseOutlined } from "@ant-design/icons";
 import anotacion from "../assets/images/infoSinFondo.png";
 import Deslizar from "../assets/images/Deslizar.png";
@@ -10,8 +10,10 @@ interface Sidebar {
   subText?: string;
   titleTwo?: string;
   backColor: boolean;
-  img: boolean;
+  img?: boolean;
   video?: boolean;
+  data?: any;
+  sendData?: any;
 }
 
 export const Sidebar: FC<Sidebar> = ({
@@ -23,9 +25,22 @@ export const Sidebar: FC<Sidebar> = ({
   backColor,
   img,
   video,
+  data,
+  sendData,
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
 
+  const [isOpen, setIsOpen] = useState(true);
+  const [matchingNames, setMatchingNames] = useState([]);
+  console.log("🚀 ~ file: Sidebar.tsx:33 ~ matchingNames:", matchingNames);
+  useEffect(() => {
+    if (data?.length > 0 && sendData?.length > 0) {
+      const names = data
+        ?.filter((option: any) => sendData?.includes(option.id))
+        .map((option: any) => option.name);
+
+      setMatchingNames(names);
+    }
+  }, [sendData]);
   return (
     <div>
       <div className={isOpen ? "sidebar-open" : "sidebar"}>
@@ -82,12 +97,35 @@ export const Sidebar: FC<Sidebar> = ({
                   <p className="titulo4">{subText}</p>
                   {video && (
                     <div className="videoContainer">
+                      <span
+                        style={{
+                          fontSize: "20px",
+                          color: "white",
+                          fontFamily: "Montserrat-Light",
+                        }}
+                      >Sigue estas instrucciones en video</span>
                       <iframe
                         width="100%"
                         height="315"
                         src="https://www.youtube.com/embed/SSyRzzuJpEs"
                         style={{ borderRadius: "10px", border: "none" }}
                       ></iframe>
+                    </div>
+                  )}
+                  {data?.length > 0 && (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+                      {matchingNames.map((name, index) => (
+                        <span
+                          key={index}
+                          style={{
+                            fontSize: "20px",
+                            fontFamily: "Montserrat-Light",
+                            color: "white",
+                          }}
+                        >
+                          {name}
+                        </span>
+                      ))}
                     </div>
                   )}
                 </div>

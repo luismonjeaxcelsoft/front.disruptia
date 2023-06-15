@@ -24,7 +24,11 @@ const WorkingModality: FC<WorkingModalityProps> = ({
     <>
       <div>
         <Sidebar
-          subTitle=""
+          subTitle="Definiciones que debes conocer.
+          Trabajo Remoto: Realizar tareas laborales desde cualquier lugar.
+          Trabajo Presencial: Realizar tareas laborales en un lugar de trabajo específico.
+          Trabajo Híbrido: Combinación de trabajo remoto y presencial.
+          "
           smallTitle="Crear Hoja de vida"
           backColor={false}
           img={false}
@@ -33,11 +37,17 @@ const WorkingModality: FC<WorkingModalityProps> = ({
       </div>
       <div style={{ width: "79rem", marginTop: "50px" }}>
         <div>
-          <span style={{ color: "#F3CF46", fontSize: "25px",fontFamily:"Montserrat-Bold" }}>
+          <span
+            style={{
+              color: "#F3CF46",
+              fontSize: "25px",
+              fontFamily: "Montserrat-Bold",
+            }}
+          >
             ¿Qué modelo de trabajo prefieres?
           </span>
         </div>
-        <div style={{marginTop:"25px"}}>
+        <div style={{ marginTop: "25px" }}>
           <Radio.Group
             onChange={(e) => ValdationRadio(e)}
             value={valuesRadioSelect}
@@ -122,7 +132,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
           </button>
         </div>
         <div style={{ marginTop: "240px" }} className="containerExpContinue">
-          <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
+          <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
         </div>
       </div>
     </>

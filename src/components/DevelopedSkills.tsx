@@ -4,6 +4,7 @@ import logo from "../assets/images/disruptialogo.png";
 import "../styles/DevelopedSkills.css";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
+import { CloseOutlined } from "@ant-design/icons";
 
 type DevelopedSkillsProps = {
   setValidateImgs: any;
@@ -60,7 +61,6 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   const [countId, setCountId] = useState<number>(0);
   const [valueHab, setValueHab] = useState<any>("");
   const [validate, setValidate] = useState(true);
-  console.log("🚀 ~ file: DevelopedSkills.tsx:62 ~ validate:", validate);
 
   const agregateHability = () => {
     if (valueHab !== "") {
@@ -83,19 +83,24 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
       );
     }
   };
+  const handleEliminarClick = (index: any) => {
+    setHabilitysValues((prevOptions: any) => {
+      return prevOptions.filter((_: any, i: any) => i !== index);
+    });
+  };
 
   return (
     <>
       <div>
         <Sidebar
-          subTitle=""
+          subTitle="Piensa en las habilidades que has obtenido a través de diferentes experiencias y que estén relacionadas con el cargo que aplicas. Por ejemplo: para un rol de ventas, requieres habilidades como la comunicación."
           smallTitle="Crear Hoja de vida"
           backColor={false}
           img={false}
           video={false}
         />
       </div>
-      <div style={{ width: "70rem", marginTop: "50px" }}>
+      <div style={{ width: "70rem", marginTop: "40px" }}>
         <div>
           <span
             style={{
@@ -134,7 +139,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                 color: "white",
                 border: "none",
                 fontFamily: "Montserrat-Light",
-                fontSize:"20px"
+                fontSize: "20px",
               }}
               onChange={(e) => {
                 setValidateContinue(false);
@@ -180,15 +185,24 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
             gap: "2px",
+            justifyContent: "center",
           }}
         >
-          {habilitysValues.map((item: any) => (
-            <div style={{ marginRight: "10px" }} className="containerSkills">
+          {habilitysValues.map((item: any, index: any) => (
+            <div
+              key={item.id}
+              style={{ marginRight: "10px" }}
+              className="containerSkills"
+            >
               <span className="skillText">
                 {item.label.length > 1
                   ? `${item.label[0]} ${item.label[1]}...`
                   : item.label[0]}
               </span>
+              <CloseOutlined
+                onClick={() => handleEliminarClick(index)}
+                className="iconStylesClose"
+              />
             </div>
           ))}
         </div>
@@ -230,7 +244,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
           </button>
         </div>
         <div style={{ marginTop: "80px" }} className="containerExpContinue">
-          <img style={{ width: "100px" }} alt="" src={logo} />
+          <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
         </div>
       </div>
     </>

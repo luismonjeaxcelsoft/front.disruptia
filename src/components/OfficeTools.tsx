@@ -83,7 +83,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
     <>
       <div>
         <Sidebar
-          subTitle=""
+          subTitle="¿Sabías que el 82% de las empresas considera el dominio de herramientas ofimáticas como un requisito fundamental al contratar nuevos empleados? Esto puede marcar la diferencia al buscar oportunidades laborales. No solo aumentarás tu eficiencia en el trabajo, sino que también demostrarás una capacidad para adaptarte al entorno laboral actual. "
           smallTitle="Crear Hoja de vida"
           backColor={false}
           img={false}
@@ -124,7 +124,6 @@ const OfficeTools: FC<OfficeToolsProps> = ({
               background: "#310161",
               padding: "15px 20px 20px 47px",
               borderRadius: "25px",
-              
             }}
           >
             <div

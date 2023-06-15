@@ -1,10 +1,10 @@
 .containerSkills {
-  width: 228px;
+  width: 265px;
   height: 46px;
   border: 1px solid rgb(113, 2, 224);
   border-radius: 25px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   background: rgb(113, 2, 224);
   margin-top: 15px;
@@ -22,6 +22,7 @@
   color: rgb(255, 255, 255);
   font-size: 20px;
   font-family: Montserrat-Bold;
+  margin-left: 12px;
 }
 
 .textDisableds {
@@ -48,4 +49,10 @@
 .containerOptionsSelect:hover {
     background:rgb(79, 38, 120);
     color:white
+}
+
+.iconStylesClose {
+  scale:0.3;
+  color:white;
+  cursor:pointer
 }

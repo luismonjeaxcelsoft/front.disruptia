@@ -81,15 +81,23 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     <>
       <div>
         <Sidebar
-          subTitle=""
+          subTitle={
+            type === "additionalCurse"
+              ? "En esta sección registra tu formación complementaria como: talleres, seminarios, diplomados, cursos, entre otros."
+              : ""
+          }
           smallTitle="Crear Hoja de vida"
           backColor={false}
           img={false}
-          video={true}
+          video={
+            type === "experience" || type === "additionalActivity"
+              ? true
+              : false
+          }
         />
       </div>
       <div style={{ width: "75rem" }}>
-        <div>
+        <div style={{ marginTop: "40px" }}>
           <p className="spanFormationAcademy">
             {id === 0 && type === "experience"
               ? "Experiencia Laboral"
@@ -204,7 +212,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           <label className="labelsInsputs" htmlFor="dateInit">
                             Fecha de inicio
                           </label>
-                          <div style={{display:"flex"}}>
+                          <div style={{ display: "flex" }}>
                             <Select
                               style={{
                                 background: "#4F2678",
@@ -358,7 +366,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             <span
                               className="countInputIns"
                               style={{
-                                top: type === "experience" ? "555px" : "460px",
+                                top: type === "experience" ? "480px" : "460px",
                               }}
                             >
                               {countKeysLogrosObtenidos.length}/50
@@ -384,7 +392,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             checkedChildren="SI"
                             unCheckedChildren="NO"
                             defaultChecked
-                            style={{width:"60px"}}
+                            style={{ width: "60px" }}
                           />
                         </div>
                       </div>
@@ -413,6 +421,16 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         </Radio>
                         <Radio>
                           <span className="spanTypeVoluntary">
+                            Emprendimiento
+                          </span>
+                        </Radio>
+                        <Radio>
+                          <span className="spanTypeVoluntary">
+                            Experiencia Informal
+                          </span>
+                        </Radio>
+                        <Radio>
+                          <span className="spanTypeVoluntary">
                             Otra_______________________
                           </span>
                         </Radio>
@@ -428,7 +446,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
         {!cardValidate && (
           <div className="containerSaveAction">
             <button
-              style={{ width: "168px" }}
+              style={{ width: "165px", height: "47px" }}
               onClick={() => {
                 setValidateViewB(true);
                 activeCard();
@@ -436,7 +454,15 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
               }}
               className="SaveInfo btn btn-primary"
             >
-              Guardar
+              <span
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Montserrat-Bold",
+                  color: "rgb(247, 201, 71)",
+                }}
+              >
+                Guardar
+              </span>
             </button>
           </div>
         )}

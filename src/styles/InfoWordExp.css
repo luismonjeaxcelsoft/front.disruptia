@@ -116,7 +116,7 @@
 }
 
 .containerTitle {
-  margin-top: 20px;
+  margin-top: 40px;
   margin-bottom: 20px;
 }
 :where(.css-dev-only-do-not-override-15rg2km).ant-switch .ant-switch-inner {
@@ -154,7 +154,7 @@
 .spanTypeVoluntary {
   color: white;
   font-size: 20px;
-  font-family: Avenir, Heavy;
+  font-family: Montserrat-Light;
   opacity: 0.9;
 }
 textarea:where(.css-dev-only-do-not-override-15rg2km).ant-input {

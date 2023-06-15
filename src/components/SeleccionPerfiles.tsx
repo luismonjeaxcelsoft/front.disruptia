@@ -13,7 +13,7 @@ interface Perfiles {
   name: string;
 }
 
-export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
+export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setValuesIdPerfiles,setvaluesInputsPerfiles}:any) => {
   const navigate = useNavigate();
   const [data, setData] = useState<Perfiles[]>([]);
   const [sendData, setSendData] = useState<any[]>([]);
@@ -30,6 +30,9 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
   };
   const idPerfilSelect = async () => {
     await perfilesSelect(1, sendData);
+    setValuesIdPerfiles(sendData)
+
+
   };
 
   const getPerfiles = async () => {
@@ -47,6 +50,7 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
       try {
         const apiData = await PerfilesService();
         setData(apiData);
+        setvaluesInputsPerfiles(apiData)
       } catch (error) {
         // Maneja el error de alguna manera apropiada (por ejemplo, mostrando un mensaje de error)
         console.error(error);
@@ -72,6 +76,9 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs}:any) => {
           <h1 style={{ fontSize: "40px", color: "white",fontFamily:"Montserrat-Bold" }}>
             ¿En qué te gustaría trabajar?
           </h1>
+          <span style={{ fontSize: "20px", color: "white",fontFamily:"Montserrat-Bold" }}>
+           Puedes seleccionar mas de uno.
+          </span>
         </div>
         <div className="gripPositionTab">
           {data.map((perfil, key) => {

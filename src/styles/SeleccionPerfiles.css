@@ -32,6 +32,8 @@
   justify-content: center;
   margin-top: 3%;
   margin-bottom: 8%;
+  flex-direction: column;
+  align-items: center;
 }
 .img_disruptiaTab_one {
   display: flex;
@@ -84,10 +86,6 @@
   font-family: "Montserrat-Bold";
 }
 
-.ant-tabs-nav {
-  width: 70%;
-}
-
 .ant-tabs {
   align-items: center;
 }
@@ -101,6 +99,13 @@
 }
 
 .ant-tabs-ink-bar {
-  background-color: #f7c947 !important;
+  /* background-color: #f7c947 !important; */
   display: none !important;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-tabs-top
+  > .ant-tabs-nav::before,
+:where(.css-dev-only-do-not-override-15rg2km).ant-tabs-top
+  > div
+  > .ant-tabs-nav::before {
+  border-bottom: none !important;
 }

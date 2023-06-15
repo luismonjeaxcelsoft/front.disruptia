@@ -1,4 +1,3 @@
-import { FrownOutlined, SmileOutlined } from "@ant-design/icons";
 import Experiencia from "../assets/images/Experiencia.png";
 import "../styles/ValidateExperience.css";
 import { FC } from "react";
@@ -24,18 +23,44 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
           marginLeft: "-5%",
         }}
       >
-        <img style={{ width: "896px",height:"662px" }} src={Experiencia} />
+        <img style={{ width: "896px", height: "662px" }} src={Experiencia} />
       </div>
       <div className="containerBodyExperience">
-        <div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <span
-            style={{ fontSize: "70px", color: "white", marginLeft: "120px",fontFamily:"Montserrat-Bold" }}
+            style={{
+              fontSize: "70px",
+              color: "white",
+              fontFamily: "Montserrat-Bold",
+            }}
           >
             ¿Has tenido
           </span>
           <p />
-          <span style={{ fontSize: "70px", color: "white",fontFamily:"Montserrat-Bold" }}>
+          <span
+            style={{
+              fontSize: "70px",
+              color: "white",
+              fontFamily: "Montserrat-Bold",
+            }}
+          >
             experiencia laboral?
+          </span>
+          <span
+            style={{
+              fontSize: "20px",
+              color: "white",
+              fontFamily: "Montserrat-Light",
+            }}
+          >
+            (contrato laboral y/o prestación de servicios)
           </span>
         </div>
         <div className="containerOptionsExperience">
@@ -47,7 +72,6 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             className="btn btn-primary backOptionsExperience"
           >
             ¡Sí!
-            <SmileOutlined className="iconFaceDown" />
           </button>
           <button
             onClick={() => {
@@ -58,8 +82,7 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             style={{ width: "265px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"
           >
-            No, nunca
-            <FrownOutlined className="iconFaceDown" />
+            Aun,no
           </button>
         </div>
         <div
@@ -67,11 +90,10 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             display: "flex",
             justifyContent: "center",
             marginTop: "135px",
-            marginLeft:"-102%",
-
+            marginLeft: "-102%",
           }}
         >
-          <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
+          <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
         </div>
       </div>
     </div>

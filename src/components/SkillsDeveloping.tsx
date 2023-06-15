@@ -41,7 +41,7 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
   ];
   const [skills, setSkills] = useState<any>(skillInformation);
   const [valueInput, setValueInput] = useState<string>("");
-  const [idValue, setIdValue] = useState(5);
+  const [idValue, setIdValue] = useState<any>(6);
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [validateComponent, setValidateComponent] = useState<boolean>(false);
   const handleClick = (id: any) => {
@@ -79,7 +79,7 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
     <>
       <div>
         <Sidebar
-          subTitle=""
+          subTitle="Para esta sección ten en cuenta los proyectos y productos tecnológicos que hayas desarrollado, ya sea en experiencia laboral, estudiando y personales."
           smallTitle="Crear Hoja de vida"
           backColor={false}
           img={false}
@@ -119,7 +119,7 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
                       <span
                         style={{
                           fontFamily: "Montserrat-Bold",
-                          fontSize:"20px"
+                          fontSize: "20px",
                         }}
                         className="perfilName"
                       >
@@ -191,7 +191,7 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
             </button>
           </div>
           <div style={{ marginTop: "30px" }} className="containerExpContinue">
-            <img style={{ width: "100px" }} alt="" src={logo} />
+            <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
           </div>
         </div>
       )}

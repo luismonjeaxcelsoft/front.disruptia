@@ -19,13 +19,31 @@ const NotExperience: FC<NotExperienceProps> = ({
     <>
       <div>
         <Sidebar
-          subTitle="Aquí encontrarás las instrucciones para diligenciar los campos requeridos"
+          subTitle="¿Has realizado alguna actividad extracurricular?"
           backColor={false}
           img={true}
         />
       </div>
       <div style={{ width: "75rem" }}>
-        <div style={{ marginTop: "25px",width:"768px"}}>
+        <div
+          style={{
+            marginTop: "20px",
+            width: "768px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "20px",
+              color: "white",
+              fontFamily: "Montserrat-Light",
+            }}
+          >
+            Después de ver el video, elige tu respuesta.
+          </span>
           <iframe
             width="100%"
             height="315"

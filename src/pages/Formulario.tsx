@@ -36,18 +36,19 @@ import InformationLenguajes from "../components/InformationLenguajes";
 import OfficeTools from "../components/OfficeTools";
 import WorkingModality from "../components/WorkingModality";
 import DevelopedSkills from "../components/DevelopedSkills";
-import SkillsDeveloping from "../components/SkillsDeveloping";
 import Perfil from "../components/Perfil";
 import PreviewHv from "../components/PreviewHv";
 import { useNavigate } from "react-router-dom";
 import PersonalReferences from "../components/PersonalReferences";
+import ValidationSkillsDeveloped from "../components/ValidationSkillsDeveloped";
 
 
 export const Formulario = () => {
   const { tab } = useParams();
   const navigate = useNavigate();
   const [validateImgs, setValidateImgs] = useState<any>(["1"]);
-
+const [valuesInputsPerfiles, setvaluesInputsPerfiles] = useState<any>([])
+const [valuesIdPerfiles, setValuesIdPerfiles] = useState<any>([])
   const handleTabClick = (tabKey: any) => {
     let value = validateImgs.some((item: any) => item === tabKey);
     if (value) {
@@ -64,7 +65,7 @@ export const Formulario = () => {
             className="tabs-2"
             defaultActiveKey="1"
             centered
-            tabBarStyle={{ width: "934px" }}
+            tabBarStyle={{ width: "820px" }}
             items={[
               {
                 label: (
@@ -82,6 +83,8 @@ export const Formulario = () => {
                     <SeleccionPerfiles
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
+                      setvaluesInputsPerfiles={setvaluesInputsPerfiles}
+                      setValuesIdPerfiles={setValuesIdPerfiles}
                     />
                   </div>
                 ),
@@ -106,6 +109,8 @@ export const Formulario = () => {
                     <FormInfoExperience
                       setValidateImgs={setValidateImgs}
                       validateImgs={validateImgs}
+                      valuesInputsPerfiles={valuesInputsPerfiles}
+                      valuesIdPerfiles={valuesIdPerfiles}
                     
                     />
                   </div>
@@ -320,10 +325,9 @@ export const Formulario = () => {
                 key: "10",
                 children: (
                   <div>
-                    <SkillsDeveloping
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                     
+                    <ValidationSkillsDeveloped
+                       setValidateImgs={setValidateImgs}
+                       validateImgs={validateImgs}
                     />
                   </div>
                 ),

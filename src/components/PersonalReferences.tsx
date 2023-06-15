@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { Sidebar } from "./Sidebar";
 import "../styles/PersonalReferences.css";
-import { DownOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { useNavigate } from "react-router-dom";
+import Aroow from "../assets/images/Aroow-46.png";
 
-const PersonalReferences = ({
-    setValidateImgs,
-    validateImgs
-}:any) => {
+const PersonalReferences = ({ setValidateImgs, validateImgs }: any) => {
   const [typeReference, setTypeReference] = useState<boolean>(false);
   const [optionReference, setOptionReference] = useState<number>(0);
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
@@ -17,16 +14,24 @@ const PersonalReferences = ({
     <>
       <div>
         <Sidebar
-          subTitle=""
+          subTitle="En esta sección te recomendamos incluir de dos a cuatro referencias personales o familiares. Llena los espacios a continuación. 
+          Si no tienes estas referencias puedes pasar siguiente, ya que no es un campo obligatorio."
           smallTitle="Crear Hoja de vida"
           backColor={false}
           img={false}
           video={false}
         />
       </div>
-      <div style={{ width: "66rem" }}>
+      <div style={{ width: "66rem", marginTop: "40px" }}>
         <div>
-          <span className="textTitleReference">Referencias Personales</span>
+          <span className="textTitleReference">
+            Referencias{" "}
+            {optionReference === 1
+              ? "Familiares"
+              : optionReference === 2
+              ? "Personales"
+              : "..."}
+          </span>
         </div>
         <div>
           <div
@@ -43,17 +48,7 @@ const PersonalReferences = ({
                 ? "Personal"
                 : "Tipo de Referencia"}
             </span>
-            <DownOutlined
-              onClick={() => {
-                setTypeReference(!typeReference);
-              }}
-              style={{
-                scale: "0.4",
-                color: "#F7C947",
-                marginTop: "8px",
-                zIndex: "9",
-              }}
-            />
+            <img style={{ width: "60px" }} alt="flecha_abajo" src={Aroow} />
           </div>
           {typeReference && (
             <>
@@ -185,14 +180,14 @@ const PersonalReferences = ({
                 </div>
               )}
             </div>
-            <div style={optionReference === 2 ? {display:"flex"}: {}}>
+            <div style={optionReference === 2 ? { display: "flex" } : {}}>
               {optionReference === 2 && (
                 <div
                   style={{
                     display: "flex",
                     flexDirection: "column",
                     marginTop: "30px",
-                    marginRight:"50px"
+                    marginRight: "50px",
                   }}
                 >
                   <label className="labelRefenrences">Empresa</label>
@@ -230,16 +225,20 @@ const PersonalReferences = ({
                     border: "none",
                     color: "white",
                   }}
-                  placeholder={optionReference === 1 ? "+57 300 2456738" : "Director/a General"}
+                  placeholder={
+                    optionReference === 1
+                      ? "+57 300 2456738"
+                      : "Director/a General"
+                  }
                 />
               </div>
             </div>
           </div>
         )}
-         {
-           !validateContinue &&  <div style={{ marginTop: "35px" }} className="containerSaveAction">
+        {!validateContinue && (
+          <div style={{ marginTop: "35px" }} className="containerSaveAction">
             <button
-               onClick={() => {
+              onClick={() => {
                 setValidateContinue(true);
               }}
               style={{
@@ -254,16 +253,16 @@ const PersonalReferences = ({
               Guardar
             </button>
           </div>
-         }
-          <div className="containerSelect">
+        )}
+        <div className="containerSelect">
           <button
             className={
               validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
             }
             onClick={() => {
-                setValidateImgs([...validateImgs, "13"]);
-                navigate("/perfiles/13");
-              }}
+              setValidateImgs([...validateImgs, "13"]);
+              navigate("/perfiles/13");
+            }}
             disabled={!validateContinue ? true : false}
           >
             <p

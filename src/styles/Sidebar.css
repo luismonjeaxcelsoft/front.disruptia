@@ -22,14 +22,13 @@
   flex-direction: column;
   background: linear-gradient(to top, #310161, #4f0094, #5802ad, #7102e0);
   transition: width 0.3s ease;
-  /* align-items:flex-start; */
   justify-content: top;
   height: 100%;
   padding: 30px;
   position: fixed;
   left: 0px;
   top: 0px;
-  width: 38%;
+  width: 40%;
   z-index: 9;
 }
 

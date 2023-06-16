@@ -140,7 +140,7 @@ const PersonalReferences = ({ setValidateImgs, validateImgs }: any) => {
                 }}
               >
                 <label className="labelRefenrences">
-                  {optionReference === 1 ? "Parentezco" : "Relación"}
+                  {optionReference === 1 ? "Parentesco" : "Relación"}
                 </label>
                 <Input
                   type="text"

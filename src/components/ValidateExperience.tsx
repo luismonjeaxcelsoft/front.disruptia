@@ -82,7 +82,7 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             style={{ width: "265px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"
           >
-            Aun,no
+            Aún no
           </button>
         </div>
         <div

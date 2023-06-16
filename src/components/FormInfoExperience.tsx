@@ -20,7 +20,12 @@ const INITIAL_VALUES_FORM = {
   paisId: "",
   ciudadId: "",
 };
-const FormInfoExperience = ({ setValidateImgs, validateImgs,valuesIdPerfiles,valuesInputsPerfiles}: any) => {
+const FormInfoExperience = ({
+  setValidateImgs,
+  validateImgs,
+  valuesIdPerfiles,
+  valuesInputsPerfiles,
+}: any) => {
   const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
@@ -44,6 +49,7 @@ const FormInfoExperience = ({ setValidateImgs, validateImgs,valuesIdPerfiles,val
             tipoEstudio: item.tipoEstudio,
             paisId: item.paisId,
             ciudadId: item.ciudadId,
+            modalidad: item.modalidad,
           };
         });
         const nuevoArray = infoMap.reduce((accumulator: any, currentValue) => {

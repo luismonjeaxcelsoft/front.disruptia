@@ -7,10 +7,11 @@ import {
   CreateStudy,
   FormationAcademy,
   GetCountries,
+  GetModalidad,
   GetMunicipality,
 } from "../services/EstudiesService";
 import { Sidebar } from "./Sidebar";
-import Delete from "../assets/images/Delete.png"
+import Delete from "../assets/images/Delete.png";
 interface InfoWordExperienceProps {
   setValues: any;
   values: any;
@@ -18,8 +19,8 @@ interface InfoWordExperienceProps {
   valuesFilter: Array<object>;
   setValidateViewB: React.Dispatch<boolean>;
   valuesRes: any;
-  valuesInputsPerfiles:any;
-  valuesIdPerfiles:any
+  valuesInputsPerfiles: any;
+  valuesIdPerfiles: any;
 }
 type VALUESCOUNTRIES = {
   codigoPais: number;
@@ -41,13 +42,14 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   setValidateViewB,
   valuesRes,
   valuesIdPerfiles,
-  valuesInputsPerfiles
+  valuesInputsPerfiles,
 }) => {
   const [cardValidate, setCardValidate] = useState<boolean>(false);
-  const [valuesAcademy, setValuesAcademy] = useState<any>([]);
+  const [valuesAcademy, setValuesAcademy] = useState<string[]>([]);
+  const [modalidades, setModalidades] = useState<string[]>([]);
   const [countries, setCountries] = useState<Array<VALUESCOUNTRIES>>([]);
   const [municipality, setMunicipality] = useState<Array<MUNICIPALITYINFO>>([]);
-  const [valueCheck, setValueCheck] = useState<boolean>(false);
+  const [valueCheck, setValueCheck] = useState<boolean>(values.cursando);
   const [countPalabras, setCountPalabras] = useState<string>("");
   const [countKeysIns, setCountKeysIns] = useState<string>("");
   const maxWords = 20;
@@ -96,7 +98,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     if (valuesRes) {
       setCardValidate(true);
       return;
-    } setValidateViewB(false)
+    }
+    setValidateViewB(false);
   };
 
   const createStudies = async () => {
@@ -111,9 +114,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   };
   const getInfoAcademy = async () => {
     const res = await FormationAcademy();
+    const getModalidades = await GetModalidad();
     const resCountries = await GetCountries();
     const getMunicipalities = await GetMunicipality();
     setValuesAcademy(res);
+    setModalidades(getModalidades);
     setCountries(resCountries);
     setMunicipality(getMunicipalities);
   };
@@ -175,22 +180,21 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
               padding: "20px",
               borderRadius: "25px",
               marginTop: "10px",
-             
             }}
           >
             <div>
               <div className="imgCaneca">
                 <span className="spanStudy">Estudio {id + 1}</span>
                 <img
-                 style={{
-                  width:"50px",
-                  cursor: "pointer",
-                  display: valuesFilter.length === 1 ? "none" : "",
-                  color:"white",
-                  opacity:"0.75"
-                }}
-                src={Delete}
-                onClick={EliminateForm}
+                  style={{
+                    width: "50px",
+                    cursor: "pointer",
+                    display: valuesFilter.length === 1 ? "none" : "",
+                    color: "white",
+                    opacity: "0.75",
+                  }}
+                  src={Delete}
+                  onClick={EliminateForm}
                 />
               </div>
               <div>
@@ -226,7 +230,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         <label className="labelsInsputs" htmlFor="dateInit">
                           Fecha de inicio
                         </label>
-                        <div >
+                        <div>
                           <Select
                             style={{
                               background: "#4F2678",
@@ -342,6 +346,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                     <div style={{ marginBottom: "15px" }}>
                       <Checkbox
                         onChange={(e) => setValueCheck(e.target.checked)}
+                        defaultChecked={valueCheck}
                       />
                       <label
                         style={{
@@ -349,7 +354,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           opacity: "0.6",
                           marginLeft: "10px",
                           fontFamily: "Montserrat-Light",
-                          fontSize:"18px"
+                          fontSize: "18px",
                         }}
                       >
                         Cursando Actualmente
@@ -363,7 +368,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         Institución Educativa
                       </label>
                       <div>
-                        <Input.TextArea                       
+                        <Input.TextArea
                           className="inputBorderNone"
                           id="nombreInstitucion"
                           name="nombreInstitucion"
@@ -400,8 +405,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           <Select
                             id="tipoEstudio"
                             options={valuesAcademy.map((item: any) => ({
-                              label: item,
-                              value: item,
+                              label: decodeURIComponent(escape(item)),
+                              value: decodeURIComponent(escape(item)),
                             }))}
                             onChange={(e) => changeValuesForm("tipoEstudio", e)}
                             value={values.tipoEstudio}
@@ -414,17 +419,12 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           </label>
                           <Select
                             id="modalidad"
-                            options={[
-                              {
-                                value: "1",
-                                label: "virtual",
-                              },
-                              {
-                                value: "2",
-                                label: "Presencial",
-                              },
-                            ]}
+                            options={modalidades.map((item: string) => ({
+                              label: item,
+                              value: item,
+                            }))}
                             onChange={(e) => changeValuesForm("modalidad", e)}
+                            value={values.modalidad}
                             style={{ width: "325px" }}
                           />
                         </div>
@@ -498,13 +498,21 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
         {!cardValidate && (
           <div className="containerSaveAction">
             <button
-              style={{ width: "165px",height:"47px" }}
+              style={{ width: "165px", height: "47px" }}
               onClick={() => {
                 validateForm();
               }}
               className="SaveInfo btn btn-primary"
             >
-              <span style={{fontSize: "18px",fontFamily:"Montserrat-Bold",color:"#F7C947"}}>Guardar</span>
+              <span
+                style={{
+                  fontSize: "18px",
+                  fontFamily: "Montserrat-Bold",
+                  color: "#F7C947",
+                }}
+              >
+                Guardar
+              </span>
             </button>
           </div>
         )}

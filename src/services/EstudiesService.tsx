@@ -21,11 +21,12 @@ type ESTUDIES = {
   nombreCurso: string;
   fechaInicio: string;
   fechaFin: string;
-  cursando: false;
+  cursando: boolean;
   nombreInstitucion: string;
   tipoEstudio: string;
   paisId: number;
   ciudadId: number;
+  modalidad: string;
 };
 
 export const FormationAcademy = async () => {
@@ -38,6 +39,17 @@ export const FormationAcademy = async () => {
     throw new Error("Error al obtener las formaciones");
   }
 };
+
+export const GetModalidad = async () => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/formacionacademica/modalidad`
+    );
+    return response.data;
+  }  catch (error) {
+    throw new Error("Error al obtener las modalidades");
+  }
+}
 
 export const GetCountries = async (): Promise<COUNTRIES[]> => {
   try {
@@ -62,7 +74,7 @@ export const GetMunicipality = async (): Promise<MUNICIPALITY[]> => {
 export const CreateStudy = async (values: any) => {
   try {
     const response = await axios.post(
-      `${API_URL}/formacionacademica/estudios`,
+      `${API_URL}/formacionacademica`,
       values
     );
     return response.data;

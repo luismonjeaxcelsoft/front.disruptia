@@ -15,7 +15,7 @@ const CardPlegada: FC<CardPlegadaProps> = ({
 }) => {
 
   const valuesInput = ()=>{
-    if(type === "estudios" || type === "laboral"){
+    if(type === "estudios" || type === "additionalCurse"){
       const palabras = valuesFilter.nombreCurso.trim().split(/\s+/);
       if(palabras.length > 3){
         return `${palabras[0]} ${palabras[1]} ${palabras[2]}...`
@@ -23,7 +23,21 @@ const CardPlegada: FC<CardPlegadaProps> = ({
         return valuesFilter.nombreCurso
       }
       
-    } 
+    } else if(type === "experience") {
+      const palabras = valuesFilter.nombreEmpresa.trim().split(/\s+/);
+      if(palabras.length > 3){
+        return `${palabras[0]} ${palabras[1]} ${palabras[2]}...`
+      }else {
+        return valuesFilter.nombreEmpresa
+      }
+    } else if (type === "additionalActivity") {
+      const palabras = valuesFilter.nombreActividad.trim().split(/\s+/);
+      if(palabras.length > 3){
+        return `${palabras[0]} ${palabras[1]} ${palabras[2]}...`
+      }else {
+        return valuesFilter.nombreActividad
+      }
+    }
   }
   return (
     <div className="containerElement">

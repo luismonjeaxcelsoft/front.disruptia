@@ -1,8 +1,9 @@
 import Experiencia from "../assets/images/Experiencia.png";
 import "../styles/ValidateExperience.css";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/disruptialogo.png";
+import { GetExperienceDisrupterId } from "../services/ExperienceService";
 type ValidateExperienceProps = {
   validadorComponente: React.Dispatch<number>;
   setValidateImgs: any;
@@ -15,6 +16,20 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
   validateImgs,
 }) => {
   const navigate = useNavigate();
+
+  const getExperience = async () => {
+
+    const res = await GetExperienceDisrupterId(1);
+
+    if (res !== "No se encontro experiencia") {
+      validadorComponente(2);
+    }
+  }
+
+  useEffect(() => {
+    getExperience();
+  }, [])
+
   return (
     <div className="containerValidateExperience">
       <div

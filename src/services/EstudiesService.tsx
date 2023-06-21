@@ -17,7 +17,6 @@ type MUNICIPALITY = {
 type ESTUDIES = {
   id: number;
   disrupterId: number;
-  estudioId: number;
   nombreCurso: string;
   fechaInicio: string;
   fechaFin: string;
@@ -42,14 +41,12 @@ export const FormationAcademy = async () => {
 
 export const GetModalidad = async () => {
   try {
-    const response = await axios.get(
-      `${API_URL}/formacionacademica/modalidad`
-    );
+    const response = await axios.get(`${API_URL}/formacionacademica/modalidad`);
     return response.data;
-  }  catch (error) {
+  } catch (error) {
     throw new Error("Error al obtener las modalidades");
   }
-}
+};
 
 export const GetCountries = async (): Promise<COUNTRIES[]> => {
   try {
@@ -73,17 +70,14 @@ export const GetMunicipality = async (): Promise<MUNICIPALITY[]> => {
 
 export const CreateStudy = async (values: any) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/formacionacademica`,
-      values
-    );
+    const response = await axios.post(`${API_URL}/formacionacademica`, values);
     return response.data;
   } catch (error) {
     throw new Error("Error al crear los estudios");
   }
 };
 
-export const GetStudiesId = async (id:number): Promise<ESTUDIES[]> => {
+export const GetStudiesId = async (id: number): Promise<ESTUDIES[]> => {
   try {
     const response = await axios.get(
       `${API_URL}/formacionacademica/estudios/${id}`
@@ -91,5 +85,16 @@ export const GetStudiesId = async (id:number): Promise<ESTUDIES[]> => {
     return response.data as ESTUDIES[];
   } catch (error) {
     throw new Error("Error al obtener los estudios");
+  }
+};
+
+export const DeleteStudie = async (values: any) => {
+  try {
+    const response = await axios.delete(`${API_URL}/formacionacademica`, {
+      data: values,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Error al eliminar el estudios");
   }
 };

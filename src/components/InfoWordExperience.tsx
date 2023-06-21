@@ -5,6 +5,7 @@ import CardPlegada from "./CardPlegada";
 import years from "../components/yearsData";
 import {
   CreateStudy,
+  DeleteStudie,
   FormationAcademy,
   GetCountries,
   GetModalidad,
@@ -21,6 +22,7 @@ interface InfoWordExperienceProps {
   valuesRes: any;
   valuesInputsPerfiles: any;
   valuesIdPerfiles: any;
+  getFormStudies: any;
 }
 type VALUESCOUNTRIES = {
   codigoPais: number;
@@ -43,6 +45,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   valuesRes,
   valuesIdPerfiles,
   valuesInputsPerfiles,
+  getFormStudies,
 }) => {
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valuesAcademy, setValuesAcademy] = useState<string[]>([]);
@@ -77,11 +80,18 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       return newValues;
     });
   };
-  const EliminateForm = () => {
+  const EliminateForm = async () => {
     setValues((prevValues: any) => {
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
+    const deleteDto = {
+      disrupterId : values.disrupterId,
+      itemId : values.id,
+    }
+    console.log(deleteDto)
+    const res = await DeleteStudie(deleteDto);
+    console.log(res);
   };
 
   const activeCard = () => {
@@ -104,12 +114,17 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
 
   const createStudies = async () => {
     delete values.dateInit, delete values.dateEnd;
-    values["estudioId"] = id + 1;
+    if (values.id === "") {
+      values["id"] = null;
+    }
     values["cursando"] = valueCheck;
+    console.log(values);
+    
 
     const res = await CreateStudy(values);
     if (res === "Estudio guardado") {
       setValidateViewB(true);
+      getFormStudies();
     }
   };
   const getInfoAcademy = async () => {
@@ -136,10 +151,12 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       fechaInicio !== "" &&
       nombreInstitucion !== "" &&
       modalidad !== "" &&
-      tipoEstudio !== ""
+      tipoEstudio !== ""      
     ) {
-      createStudies();
-      activeCard();
+      
+        createStudies();
+        activeCard();
+      // }
     } else {
       window.alert("Por favor diligencie todos los campos");
     }
@@ -148,6 +165,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   useEffect(() => {
     getInfoAcademy();
     activeCardInit();
+    setValueCheck(values.cursando)
   }, [valuesRes]);
 
   return (
@@ -429,7 +447,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           />
                         </div>
                       </div>
-                      {values.modalidad === "2" && (
+                      {values.modalidad === "Presencial" && (
                         <div
                           style={{
                             display: "grid",

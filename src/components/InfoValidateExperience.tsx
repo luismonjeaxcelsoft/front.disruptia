@@ -5,7 +5,15 @@ import { Form } from "react-router-dom";
 import years from "../components/yearsData";
 import CardPlegada from "./CardPlegada";
 import { Sidebar } from "./Sidebar";
-import { DeleteExperience, SaveExperience } from "../services/ExperienceService";
+import {
+  DeleteExperience,
+  SaveExperience,
+} from "../services/ExperienceService";
+import { CreateActivity, DeleteActivity } from "../services/ActivityService";
+import {
+  DeleteComplemento,
+  SaveComplemento,
+} from "../services/ComplementService";
 type InfoValidateExperienceProps = {
   id: number;
   valuesFilter: any;
@@ -32,22 +40,33 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   const [valueCheck, setValueCheck] = useState<boolean>(values.cursando);
   const [countPalabras, setCountPalabras] = useState<string>("");
   const [countKeysIns, setCountKeysIns] = useState<string>("");
+  const [tipoActividadState, setTipoActividadState] = useState<string>("");
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [countKeysLogrosObtenidos, setCountKeysLogrosObtenidos] =
     useState<string>("");
+  const [valueSwitch, setValueSwitch] = useState<boolean>(
+    values.certificacion || false
+  );
 
   const EliminateForm = async () => {
     setValues((prevValues: any) => {
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
+    console.log(values.id);
     const deleteDto = {
-      disrupterId : values.disrupterId,
-      itemId : values.id,
+      disrupterId: values.disrupterId,
+      itemId: values.id,
+    };
+    if (values.id !== undefined) {
+      if (type === "experience") {
+        await DeleteExperience(deleteDto);
+      } else if (type === "additionalActivity") {
+        await DeleteActivity(deleteDto);
+      } else {
+        await DeleteComplemento(deleteDto);
+      }
     }
-    console.log(deleteDto)
-    const res = await DeleteExperience(deleteDto);
-    console.log(res);
   };
   const changeValuesForm = (name: string, value: string) => {
     setValues((prevValues: any) => {
@@ -64,7 +83,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       e.target?.id === "nombreActividad"
     ) {
       setCountPalabras(palabras);
-    } else if (e.target?.id === "cargo") {
+    } else if (e.target?.id === "cargo" || e.target?.id === "organizacion") {
       setCountKeysIns(palabras);
     }
     if (e.target?.id !== "nombreInstitucion" && palabras.length > maxWords) {
@@ -122,8 +141,10 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   };
 
   const validateFormExtracurricular = () => {
+    values["tipoActividad"] = tipoActividadState;
     const { nombreActividad, organizacion, fechaInicio, tipoActividad } =
       values;
+    console.log(values);
 
     if (
       nombreActividad !== "" &&
@@ -131,6 +152,20 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       organizacion !== "" &&
       tipoActividad !== ""
     ) {
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } else {
+      window.alert("Por favor diligencie todos los campos");
+    }
+  };
+
+  const validateFormComplementaria = () => {
+    const { nombreCurso, nombreInstitucion, fechaInicio } = values;
+
+    values["certificacion"] = valueSwitch;
+    console.log(values);
+    if (nombreCurso !== "" && fechaInicio !== "" && nombreInstitucion !== "") {
       saveForm();
       activeCard();
       setValidateViewB(true);
@@ -152,14 +187,34 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       if (res === "Experiencia guardada") {
         setValidateViewB(true);
       }
+    } else if (type === "additionalActivity") {
+      const res = await CreateActivity(values);
+      if (res === "Actividad guardada") {
+        setValidateViewB(true);
+      }
+    } else {
+      const res = await SaveComplemento(values);
+      if (res === "Informacion complementaria guardada") {
+        setValidateViewB(true);
+      }
     }
 
     getForms();
   };
 
+  const handleRadioChange = (e) => {
+    setTipoActividadState(e.target.value);
+  };
+
   useEffect(() => {
     activeCardInit();
     setValueCheck(values.cursando);
+    if (type === "additionalActivity") {
+      setTipoActividadState(values.tipoActividad);
+    }
+    if (type === "additionalCurse") {
+      setValueSwitch(values.certificacion);
+    }
   }, [valuesRes]);
 
   return (
@@ -196,7 +251,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
         <div>
           {cardValidate ? (
             <CardPlegada
-              type={"experience"}
+              type={type}
               setCardValidate={setCardValidate}
               valuesFilter={values}
             />
@@ -290,11 +345,17 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                               id={
                                 type === "experience" ? "cargo" : "organizacion"
                               }
-                              name="cargo"
+                              name={
+                                type === "experience" ? "cargo" : "organizacion"
+                              }
                               autoComplete="off"
                               placeholder="Ej: Project Manager"
                               onChange={onChangeValues}
-                              value={values.cargo}
+                              value={
+                                type === "experience"
+                                  ? values.cargo
+                                  : values.organizacion
+                              }
                               style={{ height: "57px" }}
                             />
                             <span
@@ -507,9 +568,10 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         </label>
                         <div>
                           <Switch
+                            onChange={setValueSwitch}
                             checkedChildren="SI"
                             unCheckedChildren="NO"
-                            defaultChecked
+                            defaultChecked={valueSwitch}
                             style={{ width: "60px" }}
                           />
                         </div>
@@ -517,41 +579,46 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                     )}
                     {type === "additionalActivity" && (
                       <div style={{ display: "flex", flexDirection: "column" }}>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Voluntariado
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Actividad extracurricular
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Actividad Comunitaria
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Servicio Social
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Emprendimiento
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Experiencia Informal
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Otra _______________________
-                          </span>
-                        </Radio>
+                        <Radio.Group
+                          onChange={handleRadioChange}
+                          value={tipoActividadState}
+                        >
+                          <Radio value="Voluntariado">
+                            <span className="spanTypeVoluntary">
+                              Voluntariado
+                            </span>
+                          </Radio>
+                          <Radio value="Actividad extracurricular">
+                            <span className="spanTypeVoluntary">
+                              Actividad extracurricular
+                            </span>
+                          </Radio>
+                          <Radio value="Actividad Comunitaria">
+                            <span className="spanTypeVoluntary">
+                              Actividad Comunitaria
+                            </span>
+                          </Radio>
+                          <Radio value="Servicio Social">
+                            <span className="spanTypeVoluntary">
+                              Servicio Social
+                            </span>
+                          </Radio>
+                          <Radio value="Emprendimiento">
+                            <span className="spanTypeVoluntary">
+                              Emprendimiento
+                            </span>
+                          </Radio>
+                          <Radio value="Experiencia Informal">
+                            <span className="spanTypeVoluntary">
+                              Experiencia Informal
+                            </span>
+                          </Radio>
+                          <Radio value="Otra">
+                            <span className="spanTypeVoluntary">
+                              Otra _______________________
+                            </span>
+                          </Radio>
+                        </Radio.Group>
                       </div>
                     )}
                   </Form>
@@ -568,8 +635,10 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
               onClick={() => {
                 if (type === "experience") {
                   validateFormExperience();
-                } else if (type === "") {
+                } else if (type === "additionalActivity") {
                   validateFormExtracurricular();
+                } else {
+                  validateFormComplementaria();
                 }
               }}
               className="SaveInfo btn btn-primary"

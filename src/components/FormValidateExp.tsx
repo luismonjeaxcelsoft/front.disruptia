@@ -116,7 +116,7 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
         <div className="containerButtonContinueWord">
           <button
             onClick={() => {
-              setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
+              setValuesForm([...valuesForm, initialValue]);
               setValidateViewB(false);
               setValuesRes(false);
             }}

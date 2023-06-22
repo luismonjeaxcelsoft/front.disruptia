@@ -1,8 +1,9 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import "../styles/NotExperience.css";
 import { Sidebar } from "./Sidebar";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
+import { GetActivitiesId } from "../services/ActivityService";
 
 type NotExperienceProps = {
   setFormComponent: React.Dispatch<boolean>;
@@ -15,6 +16,19 @@ const NotExperience: FC<NotExperienceProps> = ({
   validateImgs,
 }) => {
   const navigate = useNavigate();
+
+  const getActivity = async () => {
+    const res = await GetActivitiesId(1);
+
+    if (res !== "No se encontraron actividades") {
+      setFormComponent(true);
+    }
+  };
+
+  useEffect(() => {
+    getActivity();
+  }, []);
+
   return (
     <>
       <div>

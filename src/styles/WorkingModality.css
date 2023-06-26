@@ -1,0 +1,7 @@
+.checkbox-redondo .ant-checkbox-inner {
+    border-radius: 50% !important;
+  }
+  
+  .checkbox-redondo .ant-checkbox-inner::after {
+    border-radius: 50% !important;
+  }

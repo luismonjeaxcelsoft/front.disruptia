@@ -1,13 +1,19 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { Card, Radio } from "antd";
 import "../styles/InformationLenguajes.css";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
+import { GetHerramientas, GetHerramientasDisrupterId, SaveHerramientas } from "../services/HerramientasService";
 
 type OfficeToolsProps = {
   setValidateImgs: any;
   validateImgs: any;
+};
+
+type HERRRAMIENTA = {
+  herramienta: string;
+  nivel: number;
 };
 
 const OfficeTools: FC<OfficeToolsProps> = ({
@@ -15,70 +21,66 @@ const OfficeTools: FC<OfficeToolsProps> = ({
   validateImgs,
 }) => {
   const navigate = useNavigate();
-  const [selectedOptions, setSelectedOptions] = useState<any>([]);
+  const [selectedOptions, setSelectedOptions] = useState<HERRRAMIENTA[]>([]);
+  const [validateContinue, setValidateContinue] = useState<boolean>(
+    selectedOptions.length === 8 ? false : true
+  );
+  const [herramientas, setHerramientas] = useState<any>([]);
 
   const niveles = ["Basico", "Intermedio", "Avanzado"];
-  const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  // const infoRadioIdiomas = [
-  //   {
-  //     programa: "Microsoft Word ",
-  //     label: "(Google Docs)",
-  //     select: [1, 2, 3],
-  //   },
-  //   {
-  //     programa: "Microsoft Excel ",
-  //     label: "(Google Sheets)",
-  //     select: [22, 23, 24],
-  //   },
-  //   {
-  //     programa: "Microsoft PowerPoint ",
-  //     label: "(Google Slides)",
-  //     select: [4, 5, 6],
-  //   },
-  //   {
-  //     programa: "Correo electrónico ",
-  //     label: "(Microsoft Outlook, Gmail, etc)",
-  //     select: [7, 8, 9],
-  //   },
-  //   {
-  //     programa: "Gestión de proyectos ",
-  //     label: "(Trello, Asana, Jira, etc)",
-  //     select: [10, 11, 12],
-  //   },
-  //   {
-  //     programa: "Videoconferencia ",
-  //     label: "(Zoom, Meet, Teams)",
-  //     select: [13, 14, 15],
-  //   },
-  //   {
-  //     programa: "Imágenes y gráficos ",
-  //     label: "(Photoshop, Canva, etc)",
-  //     select: [16, 17, 18],
-  //   },
-  //   {
-  //     programa: "Chat GPT",
-  //     select: [19, 20, 21],
-  //   },
-  // ];
-  const ValdationRadio = (idioma: any, selectId: any) => {
-    const updatedOptions = [...selectedOptions];
+  const nivel = [1, 2, 3];
 
-    const index = updatedOptions.findIndex(
-      (option) => option.idioma === idioma
-    );
-    if (index === -1) {
-      updatedOptions.push({ idioma, selectId });
+  const infoRadioHerramientas = async () => {
+    const res = await GetHerramientas();
+    setHerramientas(res);
+  };
+
+  const infoRadioHerramientasBD = async () => {
+    const res = await GetHerramientasDisrupterId(1);
+    if (res !== "No se encontraron herramientas para este disrupter") {
+      setSelectedOptions(res.herramientas);
+    }
+  };
+
+  const handleRadioChange = (herramienta: string, nivel: number) => {
+    setValidateContinue(false);
+
+    const updateArray = [...selectedOptions];
+
+    const exist = updateArray.findIndex((item: any) => item.herramienta === herramienta);
+
+    if (exist !== -1) {
+      updateArray[exist].nivel = nivel;
     } else {
-      if (updatedOptions[index].selectId === selectId) {
-        updatedOptions[index].selectId = null;
-      } else {
-        updatedOptions[index].selectId = selectId;
-      }
+      const newItem = {
+        herramienta: herramienta,
+        nivel: nivel,
+      };
+      updateArray.push(newItem);
     }
 
-    setSelectedOptions(updatedOptions);
-    setValidateContinue(false);
+    setSelectedOptions(updateArray);
   };
+
+  const saveHerramientas = async () => {
+    const payload = {
+      disrupterId: 1,
+      herramientas: selectedOptions,
+    };
+
+    const res = await SaveHerramientas(payload);
+
+    if (res === "Herramientas ofimaticas guardadas") {
+      setValidateContinue(true);
+    }
+  };
+
+  useEffect(() => {
+    infoRadioHerramientas();
+    infoRadioHerramientasBD();
+  }, [])
+  
+
   return (
     <>
       <div>
@@ -135,40 +137,47 @@ const OfficeTools: FC<OfficeToolsProps> = ({
               }}
             >
               {niveles.map((item) => (
-                <div style={{ marginRight: "10px" }}>
+                <div style={{ marginRight: "5px" }} key={item}>
                   <span className="textItem">{item}</span>
                 </div>
               ))}
             </div>
             <div style={{ marginTop: "15px" }}>
-              {infoRadioIdiomas.map((idioma: any) => (
-                <div className="containerIdiomaText">
+              {herramientas.map((herramienta: any) => (
+                <div className="containerIdiomaText" key={herramienta.nombre}>
                   <div style={{ width: "100%" }}>
-                    <span className="idiomaText">{idioma.programa}</span>
+                    <span className="idiomaText">{decodeURIComponent(escape(herramienta.nombre))}</span>
                     <span
                       style={{ opacity: "0.8", fontSize: "15px" }}
                       className="idiomaText"
                     >
-                      {idioma.label}
+                      {herramienta.alternativa}
                     </span>
                   </div>
                   <div>
                     <div style={{ marginLeft: "5px", display: "flex" }}>
-                      {idioma.select.map((selectId: any) => (
-                        <div style={{ width: "80px" }}>
-                          <Radio
-                            key={selectId}
-                            checked={selectedOptions.some(
-                              (option: any) =>
-                                option.idioma === idioma.programa &&
-                                option.selectId === selectId
-                            )}
-                            onChange={() => {
-                              ValdationRadio(idioma.programa, selectId);
-                            }}
-                          ></Radio>
+                      <Radio.Group
+                        onChange={(e) =>
+                          handleRadioChange(
+                            decodeURIComponent(escape(herramienta.nombre)),
+                            e.target.value
+                          )
+                        }
+                        value={
+                          selectedOptions.find(
+                            (item: any) =>
+                              item.herramienta === decodeURIComponent(escape(herramienta.nombre))
+                          )?.nivel || null
+                        }
+                      >
+                        <div style={{ display: "flex" }}>
+                          {nivel.map((item: number) => (
+                            <div style={{ width: "80px" }} key={item}>
+                              <Radio key={item} value={item}></Radio>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                      </Radio.Group>
                     </div>
                   </div>
                 </div>
@@ -180,7 +189,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
           <div style={{ marginTop: "35px" }} className="containerSaveAction">
             <button
               onClick={() => {
-                setValidateContinue(true);
+                saveHerramientas();
               }}
               style={{
                 width: "165px",
@@ -188,7 +197,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                 fontSize: "18px",
                 fontFamily: "Montserrat-Bold",
               }}
-              // disabled={valuesRadioSelect !== 0 ? false : true}
+              disabled={selectedOptions.length === 8 ? false : true}
               className="SaveInfo btn btn-primary"
             >
               Guardar

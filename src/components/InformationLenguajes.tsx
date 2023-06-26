@@ -1,13 +1,23 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Card, Radio } from "antd";
 import "../styles/InformationLenguajes.css";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
+import {
+  GetIdiomas,
+  GetIdiomasDisrupterId,
+  SaveIdiomas,
+} from "../services/IdiomasService";
 
 type InformationLenguajesProps = {
   setValidateImgs: any;
   validateImgs: any;
+};
+
+type IDIOMA = {
+  idioma: string;
+  nivel: number;
 };
 
 const InformationLenguajes: FC<InformationLenguajesProps> = ({
@@ -15,49 +25,64 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
   validateImgs,
 }) => {
   const navigate = useNavigate();
-  const [selectedOptions, setSelectedOptions] = useState<any>([]);
-  const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  const niveles = ["Ninguno", "Basico", "Intermedio", "Avanzado", "Nativo"];
-  const infoRadioIdiomas = [
-    {
-      idioma: "Español",
-      select: [1, 2, 3, 4, 5],
-    },
-    {
-      idioma: "Ingles",
-      select: [6, 7, 8, 9, 10],
-    },
-    {
-      idioma: "Frances",
-      select: [11, 12, 13, 14, 15],
-    },
-    {
-      idioma: "Portugués",
-      select: [16, 17, 18, 19, 20],
-    },
-    {
-      idioma: "Italiano",
-      select: [21, 22, 23, 24, 25],
-    },
-  ];
-  const handleOptionChange = (idioma: any, selectId: any) => {
-    const updatedOptions = [...selectedOptions];
-    const index = updatedOptions.findIndex(
-      (option) => option.idioma === idioma
-    );
+  const [selectedOptions, setSelectedOptions] = useState<IDIOMA[]>([]);
+  const [validateContinue, setValidateContinue] = useState<boolean>(
+    selectedOptions.length === 5 ? false : true
+  );
+  const [idiomas, setIdiomas] = useState<string[]>([]);
 
-    if (index === -1) {
-      updatedOptions.push({ idioma, selectId });
+  const niveles = ["Ninguno", "Basico", "Intermedio", "Avanzado", "Nativo"];
+  const nivel = [1, 2, 3, 4, 5];
+
+  const infoRadioIdiomas = async () => {
+    const res = await GetIdiomas();
+    setIdiomas(res);
+  };
+
+  const infoRadioIdiomasBD = async () => {
+    const res = await GetIdiomasDisrupterId(1);
+    if (res !== "No se encontraron idiomas para este disrupter") {
+      setSelectedOptions(res.idiomas);
+    }
+  };
+
+  const handleRadioChange = (idioma: string, nivel: number) => {
+    setValidateContinue(false);
+
+    const updateArray = [...selectedOptions];
+
+    const exist = updateArray.findIndex((item: any) => item.idioma === idioma);
+
+    if (exist !== -1) {
+      updateArray[exist].nivel = nivel;
     } else {
-      if (updatedOptions[index].selectId === selectId) {
-        updatedOptions[index].selectId = null;
-      } else {
-        updatedOptions[index].selectId = selectId;
-      }
+      const newItem = {
+        idioma: idioma,
+        nivel: nivel,
+      };
+      updateArray.push(newItem);
     }
 
-    setSelectedOptions(updatedOptions);
+    setSelectedOptions(updateArray);
   };
+
+  const saveIdiomas = async () => {
+    const payload = {
+      disrupterId: 1,
+      idiomas: selectedOptions,
+    };
+
+    const res = await SaveIdiomas(payload);
+
+    if (res === "Idiomas guardados") {
+      setValidateContinue(true);
+    }
+  };
+
+  useEffect(() => {
+    infoRadioIdiomas();
+    infoRadioIdiomasBD();
+  }, []);
 
   return (
     <>
@@ -87,34 +112,43 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
         >
           <div className="containerLevels">
             {niveles.map((item) => (
-              <div style={{ marginRight: "15px" }}>
+              <div style={{ marginRight: "15px" }} key={item}>
                 <span className="textItem">{item}</span>
               </div>
             ))}
           </div>
           <div style={{ marginTop: "15px" }}>
-            {infoRadioIdiomas.map((info) => (
-              <div className="containerIdiomaText">
+            {idiomas.map((info) => (
+              <div className="containerIdiomaText" key={info}>
                 <div style={{ width: "1%" }}>
-                  <span className="idiomaText">{info.idioma}</span>
+                  <span className="idiomaText">
+                    {decodeURIComponent(escape(info))}
+                  </span>
                 </div>
                 <div>
                   <div style={{ marginLeft: "300px", display: "flex" }}>
-                    {info.select.map((selectId: any) => (
-                      <div style={{ width: "85px" }}>
-                        <Radio
-                          key={selectId}
-                          checked={selectedOptions.some(
-                            (option: any) =>
-                              option.idioma === info.idioma &&
-                              option.selectId === selectId
-                          )}
-                          onChange={() => {
-                            handleOptionChange(info.idioma, selectId);
-                          }}
-                        ></Radio>
+                    <Radio.Group
+                      onChange={(e) =>
+                        handleRadioChange(
+                          decodeURIComponent(escape(info)),
+                          e.target.value
+                        )
+                      }
+                      value={
+                        selectedOptions.find(
+                          (item) =>
+                            item.idioma === decodeURIComponent(escape(info))
+                        )?.nivel || null
+                      }
+                    >
+                      <div style={{ display: "flex" }}>
+                        {nivel.map((item: number) => (
+                          <div style={{ width: "85px" }} key={item}>
+                            <Radio key={item} value={item}></Radio>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                    </Radio.Group>
                   </div>
                 </div>
               </div>
@@ -132,8 +166,8 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
                 fontFamily: "Montserrat-Bold",
               }}
               className="SaveInfo btn btn-primary"
-              disabled={selectedOptions.length > 0 ? false : true}
-              onClick={() => setValidateContinue(true)}
+              disabled={selectedOptions.length === 5 ? false : true}
+              onClick={() => saveIdiomas()}
             >
               Guardar
             </button>

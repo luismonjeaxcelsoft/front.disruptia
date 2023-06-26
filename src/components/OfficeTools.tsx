@@ -19,47 +19,47 @@ const OfficeTools: FC<OfficeToolsProps> = ({
 
   const niveles = ["Basico", "Intermedio", "Avanzado"];
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  const infoRadioIdiomas = [
-    {
-      programa: "Microsoft Word ",
-      label: "(Google Docs)",
-      select: [1, 2, 3],
-    },
-    {
-      programa: "Microsoft Excel ",
-      label: "(Google Sheets)",
-      select: [22, 23, 24],
-    },
-    {
-      programa: "Microsoft PowerPoint ",
-      label: "(Google Slides)",
-      select: [4, 5, 6],
-    },
-    {
-      programa: "Correo electrónico ",
-      label: "(Microsoft Outlook, Gmail, etc)",
-      select: [7, 8, 9],
-    },
-    {
-      programa: "Gestión de proyectos ",
-      label: "(Trello, Asana, Jira, etc)",
-      select: [10, 11, 12],
-    },
-    {
-      programa: "Videoconferencia ",
-      label: "(Zoom, Meet, Teams)",
-      select: [13, 14, 15],
-    },
-    {
-      programa: "Imágenes y gráficos ",
-      label: "(Photoshop, Canva, etc)",
-      select: [16, 17, 18],
-    },
-    {
-      programa: "Chat GPT",
-      select: [19, 20, 21],
-    },
-  ];
+  // const infoRadioIdiomas = [
+  //   {
+  //     programa: "Microsoft Word ",
+  //     label: "(Google Docs)",
+  //     select: [1, 2, 3],
+  //   },
+  //   {
+  //     programa: "Microsoft Excel ",
+  //     label: "(Google Sheets)",
+  //     select: [22, 23, 24],
+  //   },
+  //   {
+  //     programa: "Microsoft PowerPoint ",
+  //     label: "(Google Slides)",
+  //     select: [4, 5, 6],
+  //   },
+  //   {
+  //     programa: "Correo electrónico ",
+  //     label: "(Microsoft Outlook, Gmail, etc)",
+  //     select: [7, 8, 9],
+  //   },
+  //   {
+  //     programa: "Gestión de proyectos ",
+  //     label: "(Trello, Asana, Jira, etc)",
+  //     select: [10, 11, 12],
+  //   },
+  //   {
+  //     programa: "Videoconferencia ",
+  //     label: "(Zoom, Meet, Teams)",
+  //     select: [13, 14, 15],
+  //   },
+  //   {
+  //     programa: "Imágenes y gráficos ",
+  //     label: "(Photoshop, Canva, etc)",
+  //     select: [16, 17, 18],
+  //   },
+  //   {
+  //     programa: "Chat GPT",
+  //     select: [19, 20, 21],
+  //   },
+  // ];
   const ValdationRadio = (idioma: any, selectId: any) => {
     const updatedOptions = [...selectedOptions];
 

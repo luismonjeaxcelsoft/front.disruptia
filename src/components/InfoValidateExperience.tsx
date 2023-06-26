@@ -583,41 +583,45 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           onChange={handleRadioChange}
                           value={tipoActividadState}
                         >
-                          <Radio value="Voluntariado">
-                            <span className="spanTypeVoluntary">
-                              Voluntariado
-                            </span>
-                          </Radio>
-                          <Radio value="Actividad extracurricular">
-                            <span className="spanTypeVoluntary">
-                              Actividad extracurricular
-                            </span>
-                          </Radio>
-                          <Radio value="Actividad Comunitaria">
-                            <span className="spanTypeVoluntary">
-                              Actividad Comunitaria
-                            </span>
-                          </Radio>
-                          <Radio value="Servicio Social">
-                            <span className="spanTypeVoluntary">
-                              Servicio Social
-                            </span>
-                          </Radio>
-                          <Radio value="Emprendimiento">
-                            <span className="spanTypeVoluntary">
-                              Emprendimiento
-                            </span>
-                          </Radio>
-                          <Radio value="Experiencia Informal">
-                            <span className="spanTypeVoluntary">
-                              Experiencia Informal
-                            </span>
-                          </Radio>
-                          <Radio value="Otra">
-                            <span className="spanTypeVoluntary">
-                              Otra _______________________
-                            </span>
-                          </Radio>
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Radio value="Voluntariado">
+                              <span className="spanTypeVoluntary">
+                                Voluntariado
+                              </span>
+                            </Radio>
+                            <Radio value="Actividad extracurricular">
+                              <span className="spanTypeVoluntary">
+                                Actividad extracurricular
+                              </span>
+                            </Radio>
+                            <Radio value="Actividad Comunitaria">
+                              <span className="spanTypeVoluntary">
+                                Actividad Comunitaria
+                              </span>
+                            </Radio>
+                            <Radio value="Servicio Social">
+                              <span className="spanTypeVoluntary">
+                                Servicio Social
+                              </span>
+                            </Radio>
+                            <Radio value="Emprendimiento">
+                              <span className="spanTypeVoluntary">
+                                Emprendimiento
+                              </span>
+                            </Radio>
+                            <Radio value="Experiencia Informal">
+                              <span className="spanTypeVoluntary">
+                                Experiencia Informal
+                              </span>
+                            </Radio>
+                            <Radio value="Otra">
+                              <span className="spanTypeVoluntary">
+                                Otra _______________________
+                              </span>
+                            </Radio>
+                          </div>
                         </Radio.Group>
                       </div>
                     )}

@@ -158,7 +158,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
         activeCard();
       // }
     } else {
-      window.alert("Por favor diligencie todos los campos");
+      window.alert("Por favor diligencie todos los campo Nombre Institucion");
     }
   };
 

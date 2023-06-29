@@ -27,8 +27,8 @@ const OfficeTools: FC<OfficeToolsProps> = ({
   );
   const [herramientas, setHerramientas] = useState<any>([]);
 
-  const niveles = ["Basico", "Intermedio", "Avanzado"];
-  const nivel = [1, 2, 3];
+  const niveles = ["Ninguno","Básico", "Intermedio", "Avanzado"];
+  const nivel = [1, 2, 3,4];
 
   const infoRadioHerramientas = async () => {
     const res = await GetHerramientas();
@@ -92,7 +92,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
           video={false}
         />
       </div>
-      <div style={{ width: "79rem" }}>
+      <div style={{ width: "90rem" }}>
         <div
           style={{
             display: "flex",
@@ -124,20 +124,20 @@ const OfficeTools: FC<OfficeToolsProps> = ({
           <Card
             bodyStyle={{
               background: "#310161",
-              padding: "15px 20px 20px 47px",
+              padding: "15px 47px 20px 47px",
               borderRadius: "25px",
             }}
           >
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
-                width: "162%",
+                justifyContent: "right",
+                width: "100%",
                 marginTop: "20px",
               }}
             >
               {niveles.map((item) => (
-                <div style={{ marginRight: "5px" }} key={item}>
+                <div style={{ marginRight: "0px", width: "92px", display: "flex", justifyContent: "center"}} key={item}>
                   <span className="textItem">{item}</span>
                 </div>
               ))}
@@ -146,10 +146,10 @@ const OfficeTools: FC<OfficeToolsProps> = ({
               {herramientas.map((herramienta: any) => (
                 <div className="containerIdiomaText" key={herramienta.nombre}>
                   <div style={{ width: "100%" }}>
-                    <span className="idiomaText">{decodeURIComponent(escape(herramienta.nombre))}</span>
+                    <span className="herramientaText">{decodeURIComponent(escape(herramienta.nombre) + " ")}</span>
                     <span
                       style={{ opacity: "0.8", fontSize: "15px" }}
-                      className="idiomaText"
+                      className="herramientaText"
                     >
                       {herramienta.alternativa}
                     </span>
@@ -172,7 +172,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                       >
                         <div style={{ display: "flex" }}>
                           {nivel.map((item: number) => (
-                            <div style={{ width: "80px" }} key={item}>
+                            <div style={{ width: "92px", display: "flex", justifyContent: "center" }} key={item}>
                               <Radio key={item} value={item}></Radio>
                             </div>
                           ))}

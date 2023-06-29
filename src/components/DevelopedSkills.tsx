@@ -1,10 +1,11 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Input } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import "../styles/DevelopedSkills.css";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { CloseOutlined } from "@ant-design/icons";
+import { GetHabilidadDesarrolladaDisrupterId, GetHabilidadesDesarrolladas, SaveHabilidadDesarrollada } from "../services/HabilidadDesarrolladaService";
 
 type DevelopedSkillsProps = {
   setValidateImgs: any;
@@ -16,79 +17,82 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   validateImgs,
 }) => {
   const [validateSelect, setValidateSelect] = useState(false);
-  let options = [
-    {
-      id: 1,
-      label: "Habilidades socio emocionales",
-    },
-    {
-      id: 2,
-      label: "Saber vender",
-    },
-    {
-      id: 3,
-      label: "Orientación al cliente (servicio)",
-    },
-    {
-      id: 4,
-      label: "Resolución de problemas",
-    },
-    {
-      id: 5,
-      label: "Orientación a resultados",
-    },
-    {
-      id: 6,
-      label: "Comunicación",
-    },
-    {
-      id: 7,
-      label: "Trabajo en equipo",
-    },
-    {
-      id: 8,
-      label: "Gestión del tiempo",
-    },
-    {
-      id: 9,
-      label: "Flexibilidad y adaptabilidad",
-    },
-  ];
 
   const navigate = useNavigate();
-  const [habilitysValues, setHabilitysValues] = useState<any>([]);
-  const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  const [countId, setCountId] = useState<number>(0);
+  const [habilitysValues, setHabilitysValues] = useState<string[]>([]);
+  const [habilidades, setHabilidades] = useState<string[]>([]);
+  const [habilitysOptions, setHabilitysOptions] = useState<string[]>([]);
+  const [validateContinue, setValidateContinue] = useState<boolean>(
+    habilitysValues.length !== 0 ? false : true
+  );
   const [valueHab, setValueHab] = useState<any>("");
-  const [validate, setValidate] = useState(true);
 
-  const agregateHability = () => {
-    if (valueHab !== "") {
-      const palabras = valueHab.trim().split(/\s+/);
-      setHabilitysValues([
-        ...habilitysValues,
-        {
-          id: countId,
-          label: palabras,
-        },
-      ]);
-    }
-  };
-  const validationDisabled = () => {
-    if (habilitysValues.length >= 2) {
-      setValidate(false);
-    } else {
-      window.alert(
-        "Debe agregar como minimo 3 habilidades para poder continuar"
-      );
-    }
-  };
+  
   const handleEliminarClick = (index: any) => {
+    setValidateContinue(false);
     setHabilitysValues((prevOptions: any) => {
-      return prevOptions.filter((_: any, i: any) => i !== index);
+      return prevOptions.filter((i: any) => i !== index);
     });
   };
 
+  const handleSetHabilidades = (index: string) => {
+    if (habilitysValues.length !== 10) {
+      if (!habilitysValues.includes(index)){
+        if (index !== "") {
+          setHabilitysValues([...habilitysValues, index]);
+        } 
+        } else {
+          window.alert(
+            "La habilidad ya esta agregada"
+          );
+      }
+      
+    } else {
+      window.alert(
+        "No puedes agregar mas de 10 habilidades"
+      );
+    }
+    
+  };
+
+  const onChangeFilter = (value: string) => {
+    setValidateSelect(true);
+    const filter = habilidades.filter((item: string) => item.includes(value));
+    setHabilitysOptions(filter);
+  }
+
+  const saveHabilidades = async() => {
+
+    const payload = {
+      disrupterId: 1,
+      habilidades: habilitysValues,
+    }; 
+
+    const res = await SaveHabilidadDesarrollada(payload);
+
+    if (res === "Habilidades desarrolladas guardadas") {
+      setValidateContinue(true);
+    }
+
+  }
+
+  const getHabilidadessBD = async () => {
+    const res = await GetHabilidadDesarrolladaDisrupterId(1);
+    if (res !== "No se encontraron habilidades desarrolladas") {
+      setHabilitysValues(res.habilidades);
+    }
+  };
+
+  const infoHabilidades = async () => {
+    const res = await GetHabilidadesDesarrolladas();
+    setHabilidades(res);
+    setHabilitysOptions(res);
+  };
+
+  useEffect(() => {
+    infoHabilidades();
+    getHabilidadessBD();
+  }, []);
   return (
     <>
       <div>
@@ -130,6 +134,11 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
             }}
           >
             <Input
+              onPressEnter={(e: any) => {
+                handleSetHabilidades(e.target.value);
+                setValueHab("");
+                setValidateSelect(false);
+              }}
               onClick={(e: any) => {
                 setValueHab(e.target.value);
                 setValidateSelect(!validateSelect);
@@ -144,6 +153,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
               onChange={(e) => {
                 setValidateContinue(false);
                 setValueHab(e.target.value);
+                onChangeFilter(e.target.value);
               }}
               value={valueHab}
             />
@@ -156,11 +166,12 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                 background: "rgba(255, 255, 255, 0.4)",
               }}
             >
-              {options.map((item) => (
+              {habilitysOptions.map((item: string) => (
                 <div
+                  key={item}
                   className="containerOptionsSelect"
                   onClick={() => {
-                    setValueHab(item.label);
+                    handleSetHabilidades(decodeURIComponent(escape(item)));
                     setValidateSelect(false);
                     setValidateContinue(false);
                   }}
@@ -171,9 +182,10 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                       fontFamily: "Montserrat-Light",
                       marginLeft: "20px",
                       color: "white",
+                      cursor: "pointer"
                     }}
                   >
-                    {item.label}
+                    {decodeURIComponent(escape(item))}
                   </span>
                 </div>
               ))}
@@ -188,19 +200,17 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
             justifyContent: "center",
           }}
         >
-          {habilitysValues.map((item: any, index: any) => (
+          {habilitysValues.map((item: any) => (
             <div
-              key={item.id}
+              key={item}
               style={{ marginRight: "10px" }}
               className="containerSkills"
             >
               <span className="skillText">
-                {item.label.length > 1
-                  ? `${item.label[0]} ${item.label[1]}...`
-                  : item.label[0]}
+                {item.length >14 ? `${item.substring(0,14)}... ` : item }
               </span>
               <CloseOutlined
-                onClick={() => handleEliminarClick(index)}
+                onClick={() => handleEliminarClick(item)}
                 className="iconStylesClose"
               />
             </div>
@@ -217,13 +227,9 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
               }}
               className="SaveInfo btn btn-primary"
               onClick={() => {
-                validationDisabled();
-                setValidateContinue(true);
-                setCountId(countId + 1);
-                agregateHability();
-                setValueHab("");
+                saveHabilidades();
               }}
-              disabled={valueHab === "" ? true : false}
+              disabled={habilitysValues.length >= 3   ? false : true}
             >
               Guardar
             </button>
@@ -231,14 +237,14 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
         )}
         <div className="containerSelect">
           <button
-            className={validate ? "buttonContinueSelect" : "ContainerDisabled"}
+            className={validateContinue ? "buttonContinueSelect" : "ContainerDisabled"}
             onClick={() => {
               navigate("/perfiles/10");
               setValidateImgs([...validateImgs, "10"]);
             }}
-            disabled={validate}
+            disabled={!validateContinue}
           >
-            <p className={validate ? "textDisableds" : "textSiguienteSelect"}>
+            <p className={!validateContinue ? "textDisableds" : "textSiguienteSelect"}>
               Siguiente
             </p>
           </button>

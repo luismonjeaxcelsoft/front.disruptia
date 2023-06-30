@@ -37,6 +37,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
               borderRadius: "25px",
               border: "none",
             }}
+            placeholder="\n\nLa capital del Huila es Neiva."
           ></Input.TextArea>
         </div>
         <div

@@ -5,13 +5,17 @@ import Aroow from "../assets/images/Aroow-46.png"
 type CardPlegadaProps = {
   valuesFilter: any;
   setCardValidate: any;
-  type:string
+  type:string;
+  setValidateContinue?: any;
+  setValidateSiguiente?: any;
 };
 
 const CardPlegada: FC<CardPlegadaProps> = ({
   valuesFilter,
   setCardValidate,
-  type
+  type,
+  setValidateContinue,
+  setValidateSiguiente
 }) => {
 
   const valuesInput = ()=>{
@@ -37,13 +41,30 @@ const CardPlegada: FC<CardPlegadaProps> = ({
       }else {
         return valuesFilter.nombreActividad
       }
+    } else if (type === "reference") {
+      const palabras = valuesFilter.nombreCompleto.trim().split(/\s+/);
+      if(palabras.length > 3){
+        return `${palabras[0]} ${palabras[1]} ${palabras[2]}...`
+      }else {
+        return valuesFilter.nombreCompleto
+      }
+      
     }
   }
+
+  const handlerOnClick = () => {
+    setCardValidate(false);
+    if (type === "reference"){
+      setValidateContinue(false);
+      setValidateSiguiente(false);
+    }
+  }
+
   return (
     <div className="containerElement">
       <div className="containerText">
         <span className={type === "laboral" ? "textSpanInfoLaboral" : "textSpanInfo"}> {valuesInput()}</span>
-        <div style={{cursor:"pointer"}} onClick={() => setCardValidate(false)}>
+        <div style={{cursor:"pointer"}} onClick={handlerOnClick}>
          <img style={{width:"60px"}} alt="flecha_abajo" src={Aroow}/>
         </div>
       </div>

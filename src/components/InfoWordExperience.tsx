@@ -220,7 +220,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                   <div>
                     <div style={{ marginBottom: "15px" }}>
                       <label className="labelsInsputs " htmlFor="nombreCurso">
-                        Nombre del Curso
+                        Titulo academico
                       </label>
                       <div>
                         <Input.TextArea

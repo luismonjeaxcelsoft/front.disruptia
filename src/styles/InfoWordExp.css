@@ -50,6 +50,12 @@
   border: none;
   height: 57px;
 }
+.inputBorderNoneError {
+  background: #4f2678;
+  color: white !important;
+  border: 1px solid #F7C947 !important;
+  height: 57px;
+}
 .ant-input::placeholder {
   color: white !important;
   opacity: 0.5;
@@ -136,7 +142,7 @@
   color: white;
   position: absolute;
   left: 87%;
-  top: 383px;
+  top: 413px;
   font-size: 15px;
   font-family: Montserrat-Light;
   opacity: 0.35;
@@ -177,4 +183,10 @@ textarea:where(.css-dev-only-do-not-override-15rg2km).ant-input {
 .ant-switch-inner-unchecked {
   font-size: 19px !important;
 
+}
+
+.ant-form-item-explain-error {
+  color:#F3CF46 !important;
+  font-family: Montserrat-Bold !important;
+  font-size: 15px !important;
 }

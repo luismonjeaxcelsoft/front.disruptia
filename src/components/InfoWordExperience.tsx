@@ -1,5 +1,5 @@
 import { Card, Checkbox, Form, Input, Select } from "antd";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import ".././styles/InfoWordExp.css";
 import CardPlegada from "./CardPlegada";
 import years from "../components/yearsData";
@@ -47,6 +47,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   valuesInputsPerfiles,
   getFormStudies,
 }) => {
+  const [form] = Form.useForm();
+  const formRef: any = useRef(null);
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [valuesAcademy, setValuesAcademy] = useState<string[]>([]);
   const [modalidades, setModalidades] = useState<string[]>([]);
@@ -86,10 +88,10 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       return newValues;
     });
     const deleteDto = {
-      disrupterId : values.disrupterId,
-      itemId : values.id,
-    }
-    console.log(deleteDto)
+      disrupterId: values.disrupterId,
+      itemId: values.id,
+    };
+    console.log(deleteDto);
     const res = await DeleteStudie(deleteDto);
     console.log(res);
   };
@@ -119,7 +121,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     }
     values["cursando"] = valueCheck;
     console.log(values);
-    
 
     const res = await CreateStudy(values);
     if (res === "Estudio guardado") {
@@ -137,35 +138,16 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     setCountries(resCountries);
     setMunicipality(getMunicipalities);
   };
-  const validateForm = () => {
-    const {
-      nombreCurso,
-      fechaInicio,
-      nombreInstitucion,
-      modalidad,
-      tipoEstudio,
-    } = values;
-
-    if (
-      nombreCurso !== "" &&
-      fechaInicio !== "" &&
-      nombreInstitucion !== "" &&
-      modalidad !== "" &&
-      tipoEstudio !== ""      
-    ) {
-      
-        createStudies();
-        activeCard();
-      // }
-    } else {
-      window.alert("Por favor diligencie todos los campo Nombre Institucion");
-    }
+  const validateForm = async () => {
+    await form.validateFields();
+    await createStudies();
+    activeCard();
   };
 
   useEffect(() => {
     getInfoAcademy();
     activeCardInit();
-    setValueCheck(values.cursando)
+    setValueCheck(values.cursando);
   }, [valuesRes]);
 
   return (
@@ -190,6 +172,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
             setCardValidate={setCardValidate}
             valuesFilter={values}
             type={"estudios"}
+            setValidateViewB={setValidateViewB}
           />
         ) : (
           <Card
@@ -216,22 +199,32 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                 />
               </div>
               <div>
-                <Form>
+                <Form form={form} ref={formRef}>
                   <div>
                     <div style={{ marginBottom: "15px" }}>
                       <label className="labelsInsputs " htmlFor="nombreCurso">
                         Titulo academico
                       </label>
                       <div>
-                        <Input.TextArea
-                          className="inputBorderNone"
-                          id="nombreCurso"
+                        <Form.Item
                           name="nombreCurso"
-                          autoComplete="off"
-                          placeholder="Ej: Técnico en servicio al cliente y ventas"
-                          onChange={onChangeValues}
-                          value={values.nombreCurso}
-                        />
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
+                        >
+                          <Input.TextArea
+                            className="inputBorderNone"
+                            id="nombreCurso"
+                            name="nombreCurso"
+                            autoComplete="off"
+                            placeholder="Ej: Técnico en servicio al cliente y ventas"
+                            onChange={onChangeValues}
+                            value={values.nombreCurso}
+                          />
+                        </Form.Item>
                         <span className="countInput">
                           {countPalabras.length}/20
                         </span>
@@ -249,62 +242,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           Fecha de inicio
                         </label>
                         <div>
-                          <Select
-                            style={{
-                              background: "#4F2678",
-                              color: "white",
-                              width: "210px",
-                              marginRight: "10px",
-                            }}
-                            options={[
-                              { value: "01", label: "Enero" },
-                              { value: "02", label: "Febrero" },
-                              { value: "03", label: "Marzo" },
-                              { value: "04", label: "Abril" },
-                              { value: "05", label: "Mayo" },
-                              { value: "06", label: "Junio" },
-                              { value: "07", label: "Julio" },
-                              { value: "08", label: "Agosto" },
-                              { value: "09", label: "Septiembre" },
-                              { value: "10", label: "Octubre" },
-                              { value: "11", label: "Noviembre" },
-                              { value: "12", label: "Diciembre" },
+                          <Form.Item
+                            name="fechaInicio"
+                            rules={[
+                              {
+                                required: false,
+                                message: "*Campo requerido",
+                              },
                             ]}
-                            onChange={(e) => changeValuesForm("dateInit", e)}
-                            id="dateInit"
-                            value={
-                              values.fechaInicio !== ""
-                                ? values.fechaInicio.split("-")[0]
-                                : values.dateInit
-                            }
-                          />
-                          <Select
-                            style={{
-                              background: "#4F2678",
-                              color: "white",
-                              width: "102px",
-                            }}
-                            options={years.map((item: any) => ({
-                              label: item.label,
-                              value: item.value,
-                            }))}
-                            id="fechaInicio"
-                            onChange={(e) =>
-                              changeValuesForm(
-                                "fechaInicio",
-                                `${values.dateInit}-${e}`
-                              )
-                            }
-                            value={values.fechaInicio.split("-")[1]}
-                          />
-                        </div>
-                      </div>
-                      {!valueCheck && (
-                        <div style={{ marginBottom: "15px" }}>
-                          <label className="labelsInsputs" htmlFor="dateEnd">
-                            Fecha de finalización
-                          </label>
-                          <div>
+                          >
                             <Select
                               style={{
                                 background: "#4F2678",
@@ -326,14 +272,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 { value: "11", label: "Noviembre" },
                                 { value: "12", label: "Diciembre" },
                               ]}
-                              id="dateEnd"
-                              onChange={(e) => changeValuesForm("dateEnd", e)}
-                              value={
-                                values.fechaFin !== ""
-                                  ? values?.fechaFin?.split("-")[0]
-                                  : values?.dateEnd
+                              onChange={(e) => changeValuesForm("dateInit", e)}
+                              id="dateInit"
+                              defaultValue={
+                                values.fechaInicio !== ""
+                                  ? values.fechaInicio.split("-")[0]
+                                  : values.dateInit
                               }
                             />
+
                             <Select
                               style={{
                                 background: "#4F2678",
@@ -344,19 +291,86 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 label: item.label,
                                 value: item.value,
                               }))}
-                              id="fechaFin"
+                              id="fechaInicio"
                               onChange={(e) =>
                                 changeValuesForm(
-                                  "fechaFin",
-                                  `${values.dateEnd}-${e}`
+                                  "fechaInicio",
+                                  `${values.dateInit}-${e}`
                                 )
                               }
-                              value={
-                                values.fechaFin !== ""
-                                  ? values?.fechaFin?.split("-")[1]
-                                  : values.dateEnd
-                              }
+                              value={values.fechaInicio.split("-")[1]}
                             />
+                          </Form.Item>
+                        </div>
+                      </div>
+                      {!valueCheck && (
+                        <div style={{ marginBottom: "15px" }}>
+                          <label className="labelsInsputs" htmlFor="dateEnd">
+                            Fecha de finalización
+                          </label>
+                          <div>
+                            <Form.Item
+                              name="fechaFin"
+                              rules={[
+                                {
+                                  required: !valueCheck ? true : false,
+                                  message: "*Campo requerido",
+                                },
+                              ]}
+                            >
+                              <Select
+                                style={{
+                                  background: "#4F2678",
+                                  color: "white",
+                                  width: "210px",
+                                  marginRight: "10px",
+                                }}
+                                options={[
+                                  { value: "01", label: "Enero" },
+                                  { value: "02", label: "Febrero" },
+                                  { value: "03", label: "Marzo" },
+                                  { value: "04", label: "Abril" },
+                                  { value: "05", label: "Mayo" },
+                                  { value: "06", label: "Junio" },
+                                  { value: "07", label: "Julio" },
+                                  { value: "08", label: "Agosto" },
+                                  { value: "09", label: "Septiembre" },
+                                  { value: "10", label: "Octubre" },
+                                  { value: "11", label: "Noviembre" },
+                                  { value: "12", label: "Diciembre" },
+                                ]}
+                                id="dateEnd"
+                                onChange={(e) => changeValuesForm("dateEnd", e)}
+                                value={
+                                  values.fechaFin !== ""
+                                    ? values?.fechaFin?.split("-")[0]
+                                    : values?.dateEnd
+                                }
+                              />
+                              <Select
+                                style={{
+                                  background: "#4F2678",
+                                  color: "white",
+                                  width: "102px",
+                                }}
+                                options={years.map((item: any) => ({
+                                  label: item.label,
+                                  value: item.value,
+                                }))}
+                                id="fechaFin"
+                                onChange={(e) =>
+                                  changeValuesForm(
+                                    "fechaFin",
+                                    `${values.dateEnd}-${e}`
+                                  )
+                                }
+                                value={
+                                  values.fechaFin !== ""
+                                    ? values?.fechaFin?.split("-")[1]
+                                    : values.dateEnd
+                                }
+                              />
+                            </Form.Item>
                           </div>
                         </div>
                       )}
@@ -386,15 +400,26 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         Institución Educativa
                       </label>
                       <div>
-                        <Input.TextArea
-                          className="inputBorderNone"
-                          id="nombreInstitucion"
+                        <Form.Item
                           name="nombreInstitucion"
-                          autoComplete="off"
-                          placeholder="Ej: Sena"
-                          onChange={onChangeValues}
-                          value={values.nombreInstitucion}
-                        />
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
+                        >
+                          <Input.TextArea
+                            className="inputBorderNone"
+                            id="nombreInstitucion"
+                            name="nombreInstitucion"
+                            autoComplete="off"
+                            placeholder="Ej: Sena"
+                            onChange={onChangeValues}
+                            value={values.nombreInstitucion}
+                          />
+                        </Form.Item>
+
                         <span className="countInputIns">
                           {countKeysIns.length}/20
                         </span>

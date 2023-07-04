@@ -22,7 +22,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
           video={true}
         />
       </div>
-      <div style={{ marginBottom: "15px",marginTop:"40px" }}>
+      <div style={{ marginBottom: "15px", marginTop: "40px" }}>
         <span className="titlePerfil">Cuéntanos ¿Cuál es tu perfil?</span>
       </div>
       <div>
@@ -37,7 +37,10 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
               borderRadius: "25px",
               border: "none",
             }}
-          ></Input.TextArea>
+          />
+          <span className="countInputIns" style={{ top: "280px" }}>
+            {10}/20
+          </span>
         </div>
         <div
           style={{ display: "flex", marginTop: "15px", justifyContent: "end" }}
@@ -132,7 +135,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
         </div>
 
         <div style={{ marginTop: "30px" }} className="containerExpContinue">
-          <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
+          <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
         </div>
       </div>
     </>

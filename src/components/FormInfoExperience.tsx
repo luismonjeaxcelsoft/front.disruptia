@@ -6,8 +6,8 @@ import { GetStudiesId } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
 
 const INITIAL_VALUES_FORM = {
+  id: "",
   disrupterId: 1,
-  estudioId: 1,
   nombreCurso: "",
   dateInit: "",
   fechaInicio: "",
@@ -37,8 +37,8 @@ const FormInfoExperience = ({
         setValuesRes(true);
         let infoMap = res.map((item: any) => {
           return {
+            id: item.id,
             disrupterId: 1,
-            estudioId: item.estudioId,
             nombreCurso: item.nombreCurso,
             dateInit: item.dateInit,
             fechaInicio: item.fechaInicio,
@@ -81,6 +81,7 @@ const FormInfoExperience = ({
               valuesRes={valuesRes}
               valuesIdPerfiles={valuesIdPerfiles}
               valuesInputsPerfiles={valuesInputsPerfiles}
+              getFormStudies={getFormStudies}
             />
           );
         })}

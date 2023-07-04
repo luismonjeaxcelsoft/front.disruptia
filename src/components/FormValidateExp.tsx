@@ -1,19 +1,39 @@
-import { useState, FC } from "react";
+import { useState, FC, useEffect } from "react";
 import logo from "../assets/images/disruptialogo.png";
 import InfoValidateExperience from "./InfoValidateExperience";
 import { useNavigate } from "react-router-dom";
+import { GetExperienceDisrupterId } from "../services/ExperienceService";
+import { GetActivitiesId } from "../services/ActivityService";
+import { GetComplementoDisrupterId } from "../services/ComplementService";
 
-const INITIAL_VALUES_FORM = {
+const INITIAL_VALUES_FORM_EXPERIENCE = {
   disrupterId: 1,
-  estudioId: 1,
-  nombreCurso: "",
+  nombreEmpresa: "",
   cargo: "",
-  dateInit: "",
   fechaInicio: "",
-  dateEnd: "",
+  fechaFin: "",
+  cursando: "",
+  logros: "",
+};
+
+const INITIAL_VALUES_FORM_ACTIVIDAD = {
+  disrupterId: 1,
+  nombreActividad: "",
+  organizacion: "",
+  fechaInicio: "",
+  fechaFin: "",
+  cursando: "",
+  tipoActividad: "",
+};
+
+const INITIAL_VALUES_FORM_COMPLEMENTARIO = {
+  disrupterId: 1,
+  nombreCurso: "",
+  fechaInicio: "",
   fechaFin: "",
   cursando: "",
   nombreInstitucion: "",
+  certificacion: "",
 };
 
 type FormValidateExpProps = {
@@ -27,38 +47,38 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
   setValidateImgs,
   validateImgs,
 }) => {
-  const navigate = useNavigate();
-  const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
-  const [validateViewB, setValidateViewB] = useState<boolean>(false);
-  // const getFormStudies = async () => {
-  //   const res = await GetStudiesId(1);
-  //   if (res.length > 0) {
-  //     let infoMap = res.map((item: any) => {
-  //       return {
-  //         disrupterId: 1,
-  //         estudioId: item.estudioId,
-  //         nombreCurso: item.nombreCurso,
-  //         dateInit: item.dateInit,
-  //         fechaInicio: item.fechaInicio,
-  //         dateEnd: item.dateEnd,
-  //         fechaFin: item.fechaFin,
-  //         cursando: item.cursando,
-  //         nombreInstitucion: item.nombreInstitucion,
-  //         tipoEstudio: item.tipoEstudio,
-  //         paisId: item.paisId,
-  //         ciudadId: item.ciudadId,
-  //       };
-  //     });
-  //     const nuevoArray = infoMap.reduce((accumulator: any, currentValue) => {
-  //       return [...accumulator, currentValue];
-  //     }, []);
-  //     setValuesForm(nuevoArray);
-  //   }
-  // };
+  const initialValue =
+    type === "experience"
+      ? INITIAL_VALUES_FORM_EXPERIENCE
+      : type === "additionalActivity"
+      ? INITIAL_VALUES_FORM_ACTIVIDAD
+      : INITIAL_VALUES_FORM_COMPLEMENTARIO;
 
-  // useEffect(() => {
-  //   getFormStudies();
-  // }, []);
+  const navigate = useNavigate();
+  const [valuesForm, setValuesForm] = useState<any>([initialValue]);
+  const [validateViewB, setValidateViewB] = useState<boolean>(false);
+  const [valuesRes, setValuesRes] = useState<any>(false);
+
+  const getForms = async () => {
+    const res =
+      type === "experience"
+        ? await GetExperienceDisrupterId(1)
+        : type === "additionalActivity"
+        ? await GetActivitiesId(1)
+        : await GetComplementoDisrupterId(1);  
+    
+    if (res && res.length > 0) {
+      setValuesRes(true);
+      const nuevoArray = res.reduce((accumulator: any, currentValue) => {
+        return [...accumulator, currentValue];
+      }, []);
+      setValuesForm(nuevoArray);
+    }
+  };
+
+  useEffect(() => {
+    getForms();
+  }, []);
   const validateNavigation = () => {
     if (type === "experience") {
       setValidateImgs([...validateImgs, "4"]);
@@ -71,29 +91,34 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
       navigate("/perfiles/6");
     }
   };
+
   return (
     <div>
       <div>
         {valuesForm.map((valueForm: any, i: any) => {
           return (
             <InfoValidateExperience
+              key={i}
               valuesFilter={valuesForm}
               id={i}
               setValues={setValuesForm}
               values={valueForm}
               setValidateViewB={setValidateViewB}
               type={type}
+              valuesRes={valuesRes}
+              getForms={getForms}
             />
           );
         })}
       </div>
 
       {validateViewB && (
-        <div  className="containerButtonContinueWord">
+        <div className="containerButtonContinueWord">
           <button
             onClick={() => {
-              setValuesForm([...valuesForm, INITIAL_VALUES_FORM]);
+              setValuesForm([...valuesForm, initialValue]);
               setValidateViewB(false);
+              setValuesRes(false);
             }}
             className="btn btn-primary hoverAgregarEx"
           >
@@ -135,7 +160,7 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
           marginTop: "10%",
         }}
       >
-        <img style={{ width: "153px",height: "41px"}} alt="" src={logo} />
+        <img style={{ width: "153px", height: "41px" }} alt="" src={logo} />
       </div>
     </div>
   );

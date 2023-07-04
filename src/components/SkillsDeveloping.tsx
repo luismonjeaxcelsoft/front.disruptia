@@ -5,50 +5,35 @@ import logo from "../assets/images/disruptialogo.png";
 import { Input } from "antd";
 import LevelCompetition from "./LevelCompetition";
 import { Sidebar } from "./Sidebar";
+import {
+  GetHabilidadesSoftware,
+  SaveHabilidadSoftware,
+} from "../services/HabilidadSoftwareService";
 
-const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
-  let skillInformation = [
-    {
-      id: 0,
-      label: "Python",
-      back: false,
-    },
-    {
-      id: 1,
-      label: "JAVA",
-      back: false,
-    },
-    {
-      id: 2,
-      label: "Go",
-      back: true,
-    },
-    {
-      id: 3,
-      label: "Rest",
-      back: false,
-    },
-    {
-      id: 4,
-      label: "JavaScript",
-      back: false,
-    },
-    {
-      id: 5,
-      label: "Angular",
-      back: false,
-    },
-  ];
-  const [skills, setSkills] = useState<any>(skillInformation);
+const SkillsDeveloping = ({
+  setValidateImgs,
+  validateImgs,
+  habilidadesDisrupter,
+}: any) => {
+  type SKILL = {
+    skill: string;
+    back: boolean;
+  };
+
+  const disrupterId = 1;
+
+  const [skills, setSkills] = useState<SKILL[]>([]);
+  const [habilidades, setHabilidadesSave] = useState<any>([]);
   const [valueInput, setValueInput] = useState<string>("");
-  const [idValue, setIdValue] = useState<any>(6);
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [validateComponent, setValidateComponent] = useState<boolean>(false);
-  const handleClick = (id: any) => {
+  const [disableButton, setDisableButton] = useState<boolean>(true);
+  const handleClick = (item: any) => {
+    setDisableButton(false);
     setValidateContinue(false);
     setSkills((prevSkills: any) => {
       return prevSkills.map((skill: any) => {
-        if (skill.id === id) {
+        if (skill.skill === item) {
           return { ...skill, back: !skill.back };
         }
         return skill;
@@ -56,23 +41,94 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
     });
   };
   const agregateHability = () => {
-    if (skills.length < 10) {
-      setSkills([
-        ...skills,
-        {
-          id: idValue,
-          label: valueInput,
-          back: true,
-        },
-      ]);
+    setDisableButton(false);
+    if (valueInput !== "") {
+      const exist = skills.some((item) => item.skill === valueInput);
+
+      if (!exist) {
+        if (skills.length < 10) {
+          setSkills([
+            ...skills,
+            {
+              skill: valueInput,
+              back: true,
+            },
+          ]);
+        } else {
+          window.alert(
+            "No se puede agregar mas de 10 habilidades en desarrollo"
+          );
+        }
+      } else {
+        window.alert("Ya has agregado esta habilidad");
+      }
+    }
+    setValueInput("");
+  };
+
+  const saveHabilidadesSeleccionadas = async () => {
+    const values = skills.filter((item) => item.back == true);
+
+    const habilidades = [];
+
+    for (const value of values) {
+      habilidades.push({
+        habilidad: value.skill,
+        nivel: habilidadesDisrupter.find((item: any) => item.habilidad === value.skill)?.nivel || "",
+      });
+    }
+    setHabilidadesSave(habilidades);
+
+    const payload = {
+      disrupterId: disrupterId,
+      habilidades: habilidades,
+    };
+
+    const res = await SaveHabilidadSoftware(payload);
+
+    if (res === "Habilidades de software guardadas") {
+      setValidateContinue(true);
+    }
+  };
+
+  const getHabilidadesSofware = async () => {
+    const res = await GetHabilidadesSoftware();
+    setHabilidadesSave(habilidadesDisrupter)
+
+    if (habilidadesDisrupter.length === 0) {
+      const skillsDefault = res.map((item: string) => ({
+        skill: item,
+        back: false,
+      }));
+      setSkills(skillsDefault);
     } else {
-      window.alert("No se puede agregar mas de 10 habilidades en desarrollo");
+      setValidateContinue(true);
+      const skillsDefault = res.map((item: string) => {
+        return {
+          skill: item,
+          back: habilidadesDisrupter.some(
+            (item2: any) => item2.habilidad === item
+          ),
+        };
+      });
+
+      const nuevo = habilidadesDisrupter.filter(
+        (item: any) => !res.includes(item.habilidad)
+      );
+
+      const skillsDef = nuevo.map((item: any) => ({
+        skill: item.habilidad,
+        back: true,
+      }));
+
+      const updatedSkillsDefault = [...skillsDefault, ...skillsDef];
+
+      setSkills(updatedSkillsDefault);
     }
   };
 
   useEffect(() => {
-    const hasBackTrue = skills.some((skill: any) => skill.back === true);
-    setValidateContinue(hasBackTrue);
+    getHabilidadesSofware();
   }, []);
 
   return (
@@ -90,7 +146,7 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
         <LevelCompetition
           setValidateImgs={setValidateImgs}
           validateImgs={validateImgs}
-          skills={skills}
+          skills={habilidades}
         />
       ) : (
         <div>
@@ -110,10 +166,11 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
                 {skills.map((item: any) => {
                   return (
                     <div
+                      key={item.skill}
                       className="containerSkillsDevelop"
                       style={{ background: item.back ? "#591FFA" : "#310161" }}
                       onClick={() => {
-                        handleClick(item.id);
+                        handleClick(item.skill);
                       }}
                     >
                       <span
@@ -123,7 +180,7 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
                         }}
                         className="perfilName"
                       >
-                        {item.label}
+                        {item.skill}
                       </span>
                     </div>
                   );
@@ -131,10 +188,9 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
               </div>
               <div style={{ display: "flex" }}>
                 <div
-                  style={{ position: "relative" }}
+                  style={{ position: "relative", cursor: "pointer" }}
                   onClick={() => {
                     agregateHability();
-                    setIdValue(idValue + 1);
                     setValueInput("");
                   }}
                 >
@@ -144,6 +200,11 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
                   className="containerAgregate"
                   type="text"
                   placeholder="Añadir una nueva +"
+                  onPressEnter={(e: any) => {
+                    setValueInput(e.target.value);
+                    setValidateContinue(false);
+                    agregateHability();
+                  }}
                   onChange={(e) => {
                     setValueInput(e.target.value);
                     setValidateContinue(false);
@@ -164,8 +225,9 @@ const SkillsDeveloping = ({ setValidateImgs, validateImgs }: any) => {
                 }}
                 className="SaveInfo btn btn-primary"
                 onClick={() => {
-                  setValidateContinue(true);
+                  saveHabilidadesSeleccionadas();
                 }}
+                disabled={disableButton || !skills.some((item) => item.back === true)}
               >
                 Guardar
               </button>

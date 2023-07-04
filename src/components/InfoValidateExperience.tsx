@@ -1,11 +1,19 @@
-import { Card, Checkbox, Input, Select, Switch } from "antd";
-import { FC, useState } from "react";
+import { Card, Checkbox, Input, Select, Switch, Radio } from "antd";
+import { FC, useEffect, useState } from "react";
 import caneca from "../assets/images/canecasinFondo.png";
 import { Form } from "react-router-dom";
 import years from "../components/yearsData";
 import CardPlegada from "./CardPlegada";
 import { Sidebar } from "./Sidebar";
-import { Radio } from "antd";
+import {
+  DeleteExperience,
+  SaveExperience,
+} from "../services/ExperienceService";
+import { CreateActivity, DeleteActivity } from "../services/ActivityService";
+import {
+  DeleteComplemento,
+  SaveComplemento,
+} from "../services/ComplementService";
 type InfoValidateExperienceProps = {
   id: number;
   valuesFilter: any;
@@ -13,6 +21,8 @@ type InfoValidateExperienceProps = {
   values: any;
   setValidateViewB: any;
   type: string;
+  valuesRes: any;
+  getForms: any;
 };
 
 const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
@@ -22,21 +32,41 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   values,
   setValidateViewB,
   type,
+  valuesRes,
+  getForms,
 }) => {
   const maxWords = 20;
   const maxWordsIns = 50;
-  const [cardValidate, setCardValidate] = useState<boolean>(false);
-  const [valueCheck, setValueCheck] = useState<boolean>(false);
+  const [valueCheck, setValueCheck] = useState<boolean>(values.cursando);
   const [countPalabras, setCountPalabras] = useState<string>("");
   const [countKeysIns, setCountKeysIns] = useState<string>("");
+  const [tipoActividadState, setTipoActividadState] = useState<string>("");
+  const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [countKeysLogrosObtenidos, setCountKeysLogrosObtenidos] =
     useState<string>("");
+  const [valueSwitch, setValueSwitch] = useState<boolean>(
+    values.certificacion || false
+  );
 
-  const EliminateForm = () => {
+  const EliminateForm = async () => {
     setValues((prevValues: any) => {
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
+    console.log(values.id);
+    const deleteDto = {
+      disrupterId: values.disrupterId,
+      itemId: values.id,
+    };
+    if (values.id !== undefined) {
+      if (type === "experience") {
+        await DeleteExperience(deleteDto);
+      } else if (type === "additionalActivity") {
+        await DeleteActivity(deleteDto);
+      } else {
+        await DeleteComplemento(deleteDto);
+      }
+    }
   };
   const changeValuesForm = (name: string, value: string) => {
     setValues((prevValues: any) => {
@@ -47,9 +77,13 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   };
   const onChangeValues = (e: any) => {
     const palabras = e.target.value.trim().split(/\s+/);
-    if (e.target?.id === "nombreCurso") {
+    if (
+      e.target?.id === "nombreCurso" ||
+      e.target?.id === "nombreEmpresa" ||
+      e.target?.id === "nombreActividad"
+    ) {
       setCountPalabras(palabras);
-    } else if (e.target?.id === "cargo") {
+    } else if (e.target?.id === "cargo" || e.target?.id === "organizacion") {
       setCountKeysIns(palabras);
     }
     if (e.target?.id !== "nombreInstitucion" && palabras.length > maxWords) {
@@ -57,7 +91,10 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
         "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
       );
       return;
-    } else if (e.target?.id === "nombreInstitucion") {
+    } else if (
+      e.target?.id === "nombreInstitucion" ||
+      e.target?.id === "logros"
+    ) {
       setCountKeysLogrosObtenidos(palabras);
       if (palabras.length > maxWordsIns) {
         window.alert(
@@ -77,6 +114,109 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       return;
     }
   };
+  const activeCardInit = () => {
+    setValidateViewB(true);
+    if (valuesRes) {
+      setCardValidate(true);
+      return;
+    }
+    setValidateViewB(false);
+  };
+
+  const validateFormExperience = () => {
+    const { nombreEmpresa, cargo, fechaInicio, logros } = values;
+
+    if (
+      nombreEmpresa !== "" &&
+      fechaInicio !== "" &&
+      cargo !== "" &&
+      logros !== ""
+    ) {
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } else {
+      window.alert("Por favor diligencie todos los campos");
+    }
+  };
+
+  const validateFormExtracurricular = () => {
+    values["tipoActividad"] = tipoActividadState;
+    const { nombreActividad, organizacion, fechaInicio, tipoActividad } =
+      values;
+    console.log(values);
+
+    if (
+      nombreActividad !== "" &&
+      fechaInicio !== "" &&
+      organizacion !== "" &&
+      tipoActividad !== ""
+    ) {
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } else {
+      window.alert("Por favor diligencie todos los campos");
+    }
+  };
+
+  const validateFormComplementaria = () => {
+    const { nombreCurso, nombreInstitucion, fechaInicio } = values;
+
+    values["certificacion"] = valueSwitch;
+    console.log(values);
+    if (nombreCurso !== "" && fechaInicio !== "" && nombreInstitucion !== "") {
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } else {
+      window.alert("Por favor diligencie todos los campos");
+    }
+  };
+
+  const saveForm = async () => {
+    delete values.dateInit, delete values.dateEnd;
+    if (values.id === "") {
+      values["id"] = null;
+    }
+    values["cursando"] = valueCheck;
+    console.log(values);
+
+    if (type === "experience") {
+      const res = await SaveExperience(values);
+      if (res === "Experiencia guardada") {
+        setValidateViewB(true);
+      }
+    } else if (type === "additionalActivity") {
+      const res = await CreateActivity(values);
+      if (res === "Actividad guardada") {
+        setValidateViewB(true);
+      }
+    } else {
+      const res = await SaveComplemento(values);
+      if (res === "Informacion complementaria guardada") {
+        setValidateViewB(true);
+      }
+    }
+
+    getForms();
+  };
+
+  const handleRadioChange = (e) => {
+    setTipoActividadState(e.target.value);
+  };
+
+  useEffect(() => {
+    activeCardInit();
+    setValueCheck(values.cursando);
+    if (type === "additionalActivity") {
+      setTipoActividadState(values.tipoActividad);
+    }
+    if (type === "additionalCurse") {
+      setValueSwitch(values.certificacion);
+    }
+  }, [valuesRes]);
+
   return (
     <>
       <div>
@@ -111,7 +251,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
         <div>
           {cardValidate ? (
             <CardPlegada
-              type={"laboral"}
+              type={type}
               setCardValidate={setCardValidate}
               valuesFilter={values}
             />
@@ -160,12 +300,30 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         <div>
                           <Input.TextArea
                             className="inputBorderNone"
-                            id="nombreCurso"
-                            name="nombreCurso"
+                            id={
+                              type === "experience"
+                                ? "nombreEmpresa"
+                                : type === "additionalCurse"
+                                ? "nombreCurso"
+                                : "nombreActividad"
+                            }
+                            name={
+                              type === "experience"
+                                ? "nombreEmpresa"
+                                : type === "additionalCurse"
+                                ? "nombreCurso"
+                                : "nombreActividad"
+                            }
                             autoComplete="off"
                             placeholder="Ej: Disruptia"
                             onChange={onChangeValues}
-                            value={values.nombreCurso}
+                            value={
+                              type === "experience"
+                                ? values.nombreEmpresa
+                                : type === "additionalCurse"
+                                ? values.nombreCurso
+                                : values.nombreActividad
+                            }
                             style={{ height: "57px" }}
                           />
                           <span className="countInput">
@@ -184,12 +342,20 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           <div>
                             <Input.TextArea
                               className="inputBorderNone"
-                              id="cargo"
-                              name="cargo"
+                              id={
+                                type === "experience" ? "cargo" : "organizacion"
+                              }
+                              name={
+                                type === "experience" ? "cargo" : "organizacion"
+                              }
                               autoComplete="off"
                               placeholder="Ej: Project Manager"
                               onChange={onChangeValues}
-                              value={values.cargo}
+                              value={
+                                type === "experience"
+                                  ? values.cargo
+                                  : values.organizacion
+                              }
                               style={{ height: "57px" }}
                             />
                             <span
@@ -328,6 +494,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                       <div style={{ marginBottom: "15px" }}>
                         <Checkbox
                           onChange={(e) => setValueCheck(e.target.checked)}
+                          defaultChecked={valueCheck}
                         />
                         <label
                           style={{
@@ -356,11 +523,23 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           <div>
                             <Input.TextArea
                               className="inputBorderNone"
-                              id="nombreInstitucion"
-                              name="nombreInstitucion"
+                              id={
+                                type === "experience"
+                                  ? "logros"
+                                  : "nombreInstitucion"
+                              }
+                              name={
+                                type === "experience"
+                                  ? "logros"
+                                  : "nombreInstitucion"
+                              }
                               autoComplete="off"
                               onChange={onChangeValues}
-                              value={values.nombreInstitucion}
+                              value={
+                                type === "experience"
+                                  ? values.logros
+                                  : values.nombreInstitucion
+                              }
                               style={{ height: "120px" }}
                             />
                             <span
@@ -389,9 +568,10 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         </label>
                         <div>
                           <Switch
+                            onChange={setValueSwitch}
                             checkedChildren="SI"
                             unCheckedChildren="NO"
-                            defaultChecked
+                            defaultChecked={valueSwitch}
                             style={{ width: "60px" }}
                           />
                         </div>
@@ -399,41 +579,50 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                     )}
                     {type === "additionalActivity" && (
                       <div style={{ display: "flex", flexDirection: "column" }}>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Voluntariado
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Actividad extracurricular
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Actividad Comunitaria
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Servicio Social
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Emprendimiento
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Experiencia Informal
-                          </span>
-                        </Radio>
-                        <Radio>
-                          <span className="spanTypeVoluntary">
-                            Otra_______________________
-                          </span>
-                        </Radio>
+                        <Radio.Group
+                          onChange={handleRadioChange}
+                          value={tipoActividadState}
+                        >
+                          <div
+                            style={{ display: "flex", flexDirection: "column" }}
+                          >
+                            <Radio value="Voluntariado">
+                              <span className="spanTypeVoluntary">
+                                Voluntariado
+                              </span>
+                            </Radio>
+                            <Radio value="Actividad extracurricular">
+                              <span className="spanTypeVoluntary">
+                                Actividad extracurricular
+                              </span>
+                            </Radio>
+                            <Radio value="Actividad Comunitaria">
+                              <span className="spanTypeVoluntary">
+                                Actividad Comunitaria
+                              </span>
+                            </Radio>
+                            <Radio value="Servicio Social">
+                              <span className="spanTypeVoluntary">
+                                Servicio Social
+                              </span>
+                            </Radio>
+                            <Radio value="Emprendimiento">
+                              <span className="spanTypeVoluntary">
+                                Emprendimiento
+                              </span>
+                            </Radio>
+                            <Radio value="Experiencia Informal">
+                              <span className="spanTypeVoluntary">
+                                Experiencia Informal
+                              </span>
+                            </Radio>
+                            <Radio value="Otra">
+                              <span className="spanTypeVoluntary">
+                                Otra _______________________
+                              </span>
+                            </Radio>
+                          </div>
+                        </Radio.Group>
                       </div>
                     )}
                   </Form>
@@ -448,9 +637,13 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
             <button
               style={{ width: "165px", height: "47px" }}
               onClick={() => {
-                setValidateViewB(true);
-                activeCard();
-                // createStudies();
+                if (type === "experience") {
+                  validateFormExperience();
+                } else if (type === "additionalActivity") {
+                  validateFormExtracurricular();
+                } else {
+                  validateFormComplementaria();
+                }
               }}
               className="SaveInfo btn btn-primary"
             >

@@ -38,6 +38,11 @@
   font-family: Montserrat-Light;
   font-size: 20px;
 }
+.herramientaText {
+  color: white;
+  font-family: Montserrat-Light;
+  font-size: 20px;
+}
 
 .containerExpContinue {
     display: flex;

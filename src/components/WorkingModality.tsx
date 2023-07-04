@@ -1,12 +1,23 @@
-import { FC, useState } from "react";
-import { Radio } from "antd";
+import { FC, useState, useEffect } from "react";
+import { Checkbox } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
+import "../styles/WorkingModality.css";
+import {
+  GetModelosTrabajo,
+  GetModelosTrabajoDisrupterId,
+  SaveModeloTrabajo,
+} from "../services/ModeloTrabajoService";
 
 type WorkingModalityProps = {
   setValidateImgs: any;
   validateImgs: any;
+};
+
+type MODELOTRABAJO = {
+  disrupterId: number;
+  modelos: string[];
 };
 
 const WorkingModality: FC<WorkingModalityProps> = ({
@@ -14,12 +25,51 @@ const WorkingModality: FC<WorkingModalityProps> = ({
   validateImgs,
 }) => {
   const navigate = useNavigate();
-  const [valuesRadioSelect, setValuesRadioSelect] = useState<number>(0);
-  const [validateContinue, setValidateContinue] = useState<boolean>(false);
-  const ValdationRadio = (e: any) => {
-    setValuesRadioSelect(e.target.value);
+  const [selectedOptions, setSelectedOptions] = useState<MODELOTRABAJO[]>([]);
+  const [validateContinue, setValidateContinue] = useState<boolean>(
+    selectedOptions.length !== 0 ? false : true
+  );
+  const [modelos, setModelos] = useState<string[]>([]);
+
+  const handleCheckboxChange = (option: any) => {
     setValidateContinue(false);
+    const isSelected = selectedOptions.includes(option);
+    if (isSelected) {
+      setSelectedOptions(selectedOptions.filter((item) => item !== option));
+    } else {
+      setSelectedOptions([...selectedOptions, option]);
+    }
   };
+
+  const saveModelos = async () => {
+    const payload = {
+      disrupterId: 1,
+      modelos: selectedOptions,
+    };
+
+    const res = await SaveModeloTrabajo(payload);
+    if (res === "Modelo de trabajo guardado") {
+      setValidateContinue(true);
+    }
+  };
+
+  const getModelosBD = async () => {
+    const res = await GetModelosTrabajoDisrupterId(1);
+    if (res !== "No se encontraron idiomas para este disrupter") {
+      setSelectedOptions(res.modelos);
+    }
+  };
+
+  const getModelos = async () => {
+    const res = await GetModelosTrabajo();
+    setModelos(res);
+  };
+
+  useEffect(() => {
+    getModelos();
+    getModelosBD();
+  }, []);
+
   return (
     <>
       <div>
@@ -48,55 +98,36 @@ const WorkingModality: FC<WorkingModalityProps> = ({
           </span>
         </div>
         <div style={{ marginTop: "25px" }}>
-          <Radio.Group
-            onChange={(e) => ValdationRadio(e)}
-            value={valuesRadioSelect}
+          <div
             style={{
               display: "flex",
               flexDirection: "column",
               marginLeft: "31px",
+              justifyContent: "center",
             }}
           >
-            <Radio value="1">
-              <span
+            {modelos.map((modelo: string) => (
+              <Checkbox
+                key={modelo}
+                className="checkbox-redondo"
+                checked={selectedOptions.includes(modelo)}
+                onChange={() => handleCheckboxChange(modelo)}
                 style={{
                   color: "white",
                   fontSize: "20px",
                   fontFamily: "Montserrat-Light",
                 }}
               >
-                Remoto
-              </span>
-            </Radio>
-            <Radio value="2">
-              <span
-                style={{
-                  color: "white",
-                  fontSize: "20px",
-                  fontFamily: "Montserrat-Light",
-                }}
-              >
-                Hibrido
-              </span>
-            </Radio>
-            <Radio value="3">
-              <span
-                style={{
-                  color: "white",
-                  fontSize: "20px",
-                  fontFamily: "Montserrat-Light",
-                }}
-              >
-                Presencial
-              </span>
-            </Radio>
-          </Radio.Group>
+                {modelo}
+              </Checkbox>
+            ))}
+          </div>
         </div>
         {!validateContinue && (
           <div style={{ marginTop: "90px" }} className="containerSaveAction">
             <button
               onClick={() => {
-                setValidateContinue(true);
+                saveModelos();
               }}
               style={{
                 width: "165px",
@@ -105,7 +136,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
                 fontFamily: "Montserrat-Bold",
               }}
               className="SaveInfo btn btn-primary"
-              disabled={valuesRadioSelect !== 0 ? false : true}
+              disabled={selectedOptions.length !== 0 ? false : true}
             >
               Guardar
             </button>

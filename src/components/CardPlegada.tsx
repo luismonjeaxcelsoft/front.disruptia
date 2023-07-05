@@ -8,6 +8,7 @@ type CardPlegadaProps = {
   type:string;
   setValidateContinue?: any;
   setValidateSiguiente?: any;
+  setValidateViewB?:any
 };
 
 const CardPlegada: FC<CardPlegadaProps> = ({
@@ -15,7 +16,8 @@ const CardPlegada: FC<CardPlegadaProps> = ({
   setCardValidate,
   type,
   setValidateContinue,
-  setValidateSiguiente
+  setValidateSiguiente,
+  setValidateViewB
 }) => {
 
   const valuesInput = ()=>{
@@ -54,6 +56,7 @@ const CardPlegada: FC<CardPlegadaProps> = ({
 
   const handlerOnClick = () => {
     setCardValidate(false);
+    setValidateViewB(false)
     if (type === "reference"){
       setValidateContinue(false);
       setValidateSiguiente(false);

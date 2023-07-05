@@ -10,7 +10,7 @@ type HERRAMIENTA = {
 
 type SUBHERRAMIENTA = {
     herramienta: string,
-    nivel: number,
+    nivel: string,
 }
 
 export const SaveHerramientas = async (values: any) => {

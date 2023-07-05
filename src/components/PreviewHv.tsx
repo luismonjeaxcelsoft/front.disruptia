@@ -8,10 +8,15 @@ import { useNavigate } from "react-router-dom";
 const PreviewHv = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [preview, setPreview] = useState<any>("")
+
   const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
     console.log(e);
     setIsModalOpen(false);
   };
+
+
+
   return (
     <>
       <div>

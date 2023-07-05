@@ -13,7 +13,7 @@ type OfficeToolsProps = {
 
 type HERRRAMIENTA = {
   herramienta: string;
-  nivel: number;
+  nivel: string;
 };
 
 const OfficeTools: FC<OfficeToolsProps> = ({
@@ -28,7 +28,6 @@ const OfficeTools: FC<OfficeToolsProps> = ({
   const [herramientas, setHerramientas] = useState<any>([]);
 
   const niveles = ["Ninguno","Básico", "Intermedio", "Avanzado"];
-  const nivel = [1, 2, 3,4];
 
   const infoRadioHerramientas = async () => {
     const res = await GetHerramientas();
@@ -171,7 +170,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                         }
                       >
                         <div style={{ display: "flex" }}>
-                          {nivel.map((item: number) => (
+                          {niveles.map((item: string) => (
                             <div style={{ width: "92px", display: "flex", justifyContent: "center" }} key={item}>
                               <Radio key={item} value={item}></Radio>
                             </div>

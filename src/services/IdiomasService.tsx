@@ -10,7 +10,7 @@ type IDIOMAS = {
 
 type SUBIDIOMA = {
     idioma: string,
-    nivel: number,
+    nivel: string,
 }
 
 export const SaveIdiomas = async (values: any) => {

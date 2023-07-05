@@ -120,7 +120,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       values["id"] = null;
     }
     values["cursando"] = valueCheck;
-    console.log(values);
 
     const res = await CreateStudy(values);
     if (res === "Estudio guardado") {
@@ -139,6 +138,13 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     setMunicipality(getMunicipalities);
   };
   const validateForm = async () => {
+    form.setFieldsValue({ nombreCurso: values.nombreCurso });
+    form.setFieldsValue({ fechaInicio: values.fechaInicio });
+    form.setFieldsValue({ fechaFin: values.fechaFin });
+    form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
+    form.setFieldsValue({ tipoEstudio: values.tipoEstudio });
+    form.setFieldsValue({ modalidad: values.modalidad });
+    form.setFieldsValue({ paisId: values.paisId });
     await form.validateFields();
     await createStudies();
     activeCard();
@@ -222,7 +228,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             autoComplete="off"
                             placeholder="Ej: Técnico en servicio al cliente y ventas"
                             onChange={onChangeValues}
-                            value={values.nombreCurso}
+                            defaultValue={values.nombreCurso}
                           />
                         </Form.Item>
                         <span className="countInput">
@@ -246,7 +252,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             name="fechaInicio"
                             rules={[
                               {
-                                required: false,
+                                required: true,
                                 message: "*Campo requerido",
                               },
                             ]}
@@ -298,7 +304,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                   `${values.dateInit}-${e}`
                                 )
                               }
-                              value={values.fechaInicio.split("-")[1]}
+                              defaultValue={values.fechaInicio.split("-")[1]}
                             />
                           </Form.Item>
                         </div>
@@ -416,7 +422,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             autoComplete="off"
                             placeholder="Ej: Sena"
                             onChange={onChangeValues}
-                            value={values.nombreInstitucion}
+                            defaultValue={values.nombreInstitucion}
                           />
                         </Form.Item>
 
@@ -445,31 +451,53 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           >
                             Tipo de estudio
                           </label>
-                          <Select
-                            id="tipoEstudio"
-                            options={valuesAcademy.map((item: any) => ({
-                              label: decodeURIComponent(escape(item)),
-                              value: decodeURIComponent(escape(item)),
-                            }))}
-                            onChange={(e) => changeValuesForm("tipoEstudio", e)}
-                            value={values.tipoEstudio}
-                            style={{ width: "325px" }}
-                          />
+                          <Form.Item
+                            name="tipoEstudio"
+                            rules={[
+                              {
+                                required: true,
+                                message: "*Campo requerido",
+                              },
+                            ]}
+                          >
+                            <Select
+                              id="tipoEstudio"
+                              options={valuesAcademy.map((item: any) => ({
+                                label: decodeURIComponent(escape(item)),
+                                value: decodeURIComponent(escape(item)),
+                              }))}
+                              onChange={(e) =>
+                                changeValuesForm("tipoEstudio", e)
+                              }
+                              defaultValue={values.tipoEstudio}
+                              style={{ width: "325px" }}
+                            />
+                          </Form.Item>
                         </div>
                         <div className="containerStudies">
                           <label className="labelsInsputs" htmlFor="modalidad">
                             Modalidad
                           </label>
-                          <Select
-                            id="modalidad"
-                            options={modalidades.map((item: string) => ({
-                              label: item,
-                              value: item,
-                            }))}
-                            onChange={(e) => changeValuesForm("modalidad", e)}
-                            value={values.modalidad}
-                            style={{ width: "325px" }}
-                          />
+                          <Form.Item
+                            name="modalidad"
+                            rules={[
+                              {
+                                required: true,
+                                message: "*Campo requerido",
+                              },
+                            ]}
+                          >
+                            <Select
+                              id="modalidad"
+                              options={modalidades.map((item: string) => ({
+                                label: item,
+                                value: item,
+                              }))}
+                              onChange={(e) => changeValuesForm("modalidad", e)}
+                              defaultValue={values.modalidad}
+                              style={{ width: "325px" }}
+                            />
+                          </Form.Item>
                         </div>
                       </div>
                       {values.modalidad === "Presencial" && (
@@ -490,43 +518,62 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             <label className="labelsInsputs" htmlFor="paisId">
                               País y Ciudad donde curso
                             </label>
-
-                            <Select
-                              style={{
-                                background: "#4F2678",
-                                color: "white",
-                                width: "324px",
-                              }}
-                              id="ciudadId"
-                              options={countries.map((item: any) => ({
-                                label: item.nombrePais,
-                                value: item.codigoPais,
-                              }))}
-                              onChange={(e) => {
-                                changeValuesForm("paisId", e);
-                              }}
-                              value={values.paisId}
-                            />
-                          </div>
-                          <div>
-                            {values.paisId === 169 && (
+                            <Form.Item
+                              name="paisId"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "*Campo requerido",
+                                },
+                              ]}
+                            >
                               <Select
                                 style={{
                                   background: "#4F2678",
                                   color: "white",
-                                  width: "325px",
-                                  marginTop: "48px",
+                                  width: "324px",
                                 }}
                                 id="ciudadId"
-                                options={municipality.map((item: any) => ({
-                                  label: item.municipioDepartamento,
-                                  value: item.municipioId,
+                                options={countries.map((item: any) => ({
+                                  label: item.nombrePais,
+                                  value: item.codigoPais,
                                 }))}
-                                onChange={(e) =>
-                                  changeValuesForm("ciudadId", e)
-                                }
-                                value={values.ciudadId}
+                                onChange={(e) => {
+                                  changeValuesForm("paisId", e);
+                                }}
+                                defaultValue={values.paisId}
                               />
+                            </Form.Item>
+                          </div>
+                          <div>
+                            {values.paisId === 169 && (
+                              <Form.Item
+                                name="ciudadId"
+                                rules={[
+                                  {
+                                    required: true,
+                                    message: "*Campo requerido",
+                                  },
+                                ]}
+                              >
+                                <Select
+                                  style={{
+                                    background: "#4F2678",
+                                    color: "white",
+                                    width: "325px",
+                                    marginTop: "48px",
+                                  }}
+                                  id="ciudadId"
+                                  options={municipality.map((item: any) => ({
+                                    label: item.municipioDepartamento,
+                                    value: item.municipioId,
+                                  }))}
+                                  onChange={(e) =>
+                                    changeValuesForm("ciudadId", e)
+                                  }
+                                  defaultValue={values.ciudadId}
+                                />
+                              </Form.Item>
                             )}
                           </div>
                         </div>

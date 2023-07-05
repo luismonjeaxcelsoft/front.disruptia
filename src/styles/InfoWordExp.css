@@ -47,7 +47,7 @@
 .inputBorderNone {
   background: #4f2678;
   color: white !important;
-  border: none;
+  border: 1px solid transparent;
   height: 57px;
 }
 .inputBorderNoneError {
@@ -189,4 +189,10 @@ textarea:where(.css-dev-only-do-not-override-15rg2km).ant-input {
   color:#F3CF46 !important;
   font-family: Montserrat-Bold !important;
   font-size: 15px !important;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-select-status-error:not(.ant-select-disabled):not(.ant-select-customize-input):not(.ant-pagination-size-changer) .ant-select-selector {
+  border-color: #F3CF46 !important;
+}
+:where(.css-dev-only-do-not-override-15rg2km).ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
+  border-color: #F3CF46 !important;
 }

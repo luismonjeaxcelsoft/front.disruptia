@@ -34,6 +34,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   valuesRes,
   getForms,
 }) => {
+  console.log("🚀 ~ file: InfoValidateExperience.tsx:37 ~ values:", values);
   const [form] = Form.useForm();
   const formRef: any = useRef(null);
   const maxWords = 20;
@@ -125,44 +126,41 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   };
 
   const validateFormExperience = async () => {
+    form.setFieldsValue({ nombreEmpresa: values.nombreEmpresa });
+    form.setFieldsValue({ cargo: values.cargo });
+    form.setFieldsValue({ fechaInicio: values.fechaInicio });
+    form.setFieldsValue({ fechaFin: values.fechaFin });
+    form.setFieldsValue({ logros: values.logros });
     await form.validateFields();
     saveForm();
     activeCard();
     setValidateViewB(true);
   };
 
-  const validateFormExtracurricular = () => {
+  const validateFormExtracurricular = async () => {
     values["tipoActividad"] = tipoActividadState;
-    const { nombreActividad, organizacion, fechaInicio, tipoActividad } =
-      values;
-    console.log(values);
-
-    if (
-      nombreActividad !== "" &&
-      fechaInicio !== "" &&
-      organizacion !== "" &&
-      tipoActividad !== ""
-    ) {
-      saveForm();
-      activeCard();
-      setValidateViewB(true);
-    } else {
-      window.alert("Por favor diligencie todos los campos");
-    }
+    form.setFieldsValue({ nombreActividad: values.nombreActividad });
+    form.setFieldsValue({ fechaInicio: values.fechaInicio });
+    form.setFieldsValue({ fechaFin: values.fechaFin });
+    form.setFieldsValue({ organizacion: values.organizacion });
+    form.setFieldsValue({ tipoActividad: values.tipoActividad });
+    await form.validateFields();
+    saveForm();
+    activeCard();
+    setValidateViewB(true);
   };
 
-  const validateFormComplementaria = () => {
-    const { nombreCurso, nombreInstitucion, fechaInicio } = values;
-
+  const validateFormComplementaria = async () => {
     values["certificacion"] = valueSwitch;
-    console.log(values);
-    if (nombreCurso !== "" && fechaInicio !== "" && nombreInstitucion !== "") {
-      saveForm();
-      activeCard();
-      setValidateViewB(true);
-    } else {
-      window.alert("Por favor diligencie todos los campos");
-    }
+    form.setFieldsValue({ nombreCurso: values.nombreCurso });
+    form.setFieldsValue({ fechaInicio: values.fechaInicio });
+    form.setFieldsValue({ fechaFin: values.fechaFin });
+    form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
+    form.setFieldsValue({ certificacion: values.certificacion });
+    await form.validateFields();
+    saveForm();
+    activeCard();
+    setValidateViewB(true);
   };
 
   const saveForm = async () => {
@@ -347,27 +345,43 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           </label>
 
                           <div>
-                            <Input.TextArea
-                              className="inputBorderNone"
-                              id={
-                                type === "experience" ? "cargo" : "organizacion"
-                              }
+                            <Form.Item
                               name={
                                 type === "experience" ? "cargo" : "organizacion"
                               }
-                              autoComplete="off"
-                              placeholder="Ej: Project Manager"
-                              onChange={onChangeValues}
-                              value={
-                                type === "experience"
-                                  ? values.cargo
-                                  : values.organizacion
-                              }
-                              style={{ height: "57px" }}
-                            />
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "*Campo requerido",
+                                },
+                              ]}
+                            >
+                              <Input.TextArea
+                                className="inputBorderNone"
+                                id={
+                                  type === "experience"
+                                    ? "cargo"
+                                    : "organizacion"
+                                }
+                                name={
+                                  type === "experience"
+                                    ? "cargo"
+                                    : "organizacion"
+                                }
+                                autoComplete="off"
+                                placeholder="Ej: Project Manager"
+                                onChange={onChangeValues}
+                                defaultValue={
+                                  type === "experience"
+                                    ? values.cargo
+                                    : values.organizacion
+                                }
+                                style={{ height: "57px" }}
+                              />
+                            </Form.Item>
                             <span
                               className="countInputIns"
-                              style={{ top: "262px" }}
+                              style={{ top: "270px" }}
                             >
                               {countKeysIns.length}/20
                             </span>
@@ -386,62 +400,15 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             Fecha de inicio
                           </label>
                           <div style={{ display: "flex" }}>
-                            <Select
-                              style={{
-                                background: "#4F2678",
-                                color: "white",
-                                width: "210px",
-                                marginRight: "10px",
-                              }}
-                              options={[
-                                { value: "01", label: "Enero" },
-                                { value: "02", label: "Febrero" },
-                                { value: "03", label: "Marzo" },
-                                { value: "04", label: "Abril" },
-                                { value: "05", label: "Mayo" },
-                                { value: "06", label: "Junio" },
-                                { value: "07", label: "Julio" },
-                                { value: "08", label: "Agosto" },
-                                { value: "09", label: "Septiembre" },
-                                { value: "10", label: "Octubre" },
-                                { value: "11", label: "Noviembre" },
-                                { value: "12", label: "Diciembre" },
+                            <Form.Item
+                              name="fechaInicio"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "*Campo requerido",
+                                },
                               ]}
-                              onChange={(e) => changeValuesForm("dateInit", e)}
-                              id="dateInit"
-                              value={
-                                values.fechaInicio !== ""
-                                  ? values.fechaInicio.split("-")[0]
-                                  : values.dateInit
-                              }
-                            />
-                            <Select
-                              style={{
-                                background: "#4F2678",
-                                color: "white",
-                                width: "102px",
-                              }}
-                              options={years.map((item: any) => ({
-                                label: item.label,
-                                value: item.value,
-                              }))}
-                              id="fechaInicio"
-                              onChange={(e) =>
-                                changeValuesForm(
-                                  "fechaInicio",
-                                  `${values.dateInit}-${e}`
-                                )
-                              }
-                              value={values.fechaInicio.split("-")[1]}
-                            />
-                          </div>
-                        </div>
-                        {!valueCheck && (
-                          <div style={{ marginBottom: "15px" }}>
-                            <label className="labelsInsputs" htmlFor="dateEnd">
-                              Fecha de finalización
-                            </label>
-                            <div>
+                            >
                               <Select
                                 style={{
                                   background: "#4F2678",
@@ -463,12 +430,14 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                                   { value: "11", label: "Noviembre" },
                                   { value: "12", label: "Diciembre" },
                                 ]}
-                                id="dateEnd"
-                                onChange={(e) => changeValuesForm("dateEnd", e)}
+                                onChange={(e) =>
+                                  changeValuesForm("dateInit", e)
+                                }
+                                id="dateInit"
                                 value={
-                                  values.fechaFin !== ""
-                                    ? values?.fechaFin?.split("-")[0]
-                                    : values?.dateEnd
+                                  values.fechaInicio !== ""
+                                    ? values.fechaInicio.split("-")[0]
+                                    : values.dateInit
                                 }
                               />
                               <Select
@@ -481,19 +450,88 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                                   label: item.label,
                                   value: item.value,
                                 }))}
-                                id="fechaFin"
+                                id="fechaInicio"
                                 onChange={(e) =>
                                   changeValuesForm(
-                                    "fechaFin",
-                                    `${values.dateEnd}-${e}`
+                                    "fechaInicio",
+                                    `${values.dateInit}-${e}`
                                   )
                                 }
-                                value={
-                                  values.fechaFin !== ""
-                                    ? values?.fechaFin?.split("-")[1]
-                                    : values.dateEnd
-                                }
+                                value={values.fechaInicio.split("-")[1]}
                               />
+                            </Form.Item>
+                          </div>
+                        </div>
+                        {!valueCheck && (
+                          <div style={{ marginBottom: "15px" }}>
+                            <label className="labelsInsputs" htmlFor="dateEnd">
+                              Fecha de finalización
+                            </label>
+                            <div>
+                              <Form.Item
+                                name="fechaFin"
+                                rules={[
+                                  {
+                                    required: valueCheck ? false : true,
+                                    message: "*Campo requerido",
+                                  },
+                                ]}
+                              >
+                                <Select
+                                  style={{
+                                    background: "#4F2678",
+                                    color: "white",
+                                    width: "210px",
+                                    marginRight: "10px",
+                                  }}
+                                  options={[
+                                    { value: "01", label: "Enero" },
+                                    { value: "02", label: "Febrero" },
+                                    { value: "03", label: "Marzo" },
+                                    { value: "04", label: "Abril" },
+                                    { value: "05", label: "Mayo" },
+                                    { value: "06", label: "Junio" },
+                                    { value: "07", label: "Julio" },
+                                    { value: "08", label: "Agosto" },
+                                    { value: "09", label: "Septiembre" },
+                                    { value: "10", label: "Octubre" },
+                                    { value: "11", label: "Noviembre" },
+                                    { value: "12", label: "Diciembre" },
+                                  ]}
+                                  id="dateEnd"
+                                  onChange={(e) =>
+                                    changeValuesForm("dateEnd", e)
+                                  }
+                                  value={
+                                    values.fechaFin !== ""
+                                      ? values?.fechaFin?.split("-")[0]
+                                      : values?.dateEnd
+                                  }
+                                />
+                                <Select
+                                  style={{
+                                    background: "#4F2678",
+                                    color: "white",
+                                    width: "102px",
+                                  }}
+                                  options={years.map((item: any) => ({
+                                    label: item.label,
+                                    value: item.value,
+                                  }))}
+                                  id="fechaFin"
+                                  onChange={(e) =>
+                                    changeValuesForm(
+                                      "fechaFin",
+                                      `${values.dateEnd}-${e}`
+                                    )
+                                  }
+                                  value={
+                                    values.fechaFin !== ""
+                                      ? values?.fechaFin?.split("-")[1]
+                                      : values.dateEnd
+                                  }
+                                />
+                              </Form.Item>
                             </div>
                           </div>
                         )}
@@ -528,31 +566,46 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                               : "Institución"}
                           </label>
                           <div>
-                            <Input.TextArea
-                              className="inputBorderNone"
-                              id={
-                                type === "experience"
-                                  ? "logros"
-                                  : "nombreInstitucion"
-                              }
+                            <Form.Item
                               name={
                                 type === "experience"
                                   ? "logros"
                                   : "nombreInstitucion"
                               }
-                              autoComplete="off"
-                              onChange={onChangeValues}
-                              value={
-                                type === "experience"
-                                  ? values.logros
-                                  : values.nombreInstitucion
-                              }
-                              style={{ height: "120px" }}
-                            />
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "*Campo requerido",
+                                },
+                              ]}
+                            >
+                              <Input.TextArea
+                                className="inputBorderNone"
+                                id={
+                                  type === "experience"
+                                    ? "logros"
+                                    : "nombreInstitucion"
+                                }
+                                name={
+                                  type === "experience"
+                                    ? "logros"
+                                    : "nombreInstitucion"
+                                }
+                                autoComplete="off"
+                                onChange={onChangeValues}
+                                defaultValue={
+                                  type === "experience"
+                                    ? values.logros
+                                    : values.nombreInstitucion
+                                }
+                                style={{ height: "120px" }}
+                              />
+                            </Form.Item>
+
                             <span
                               className="countInputIns"
                               style={{
-                                top: type === "experience" ? "480px" : "460px",
+                                top: type === "experience" ? "600px" : "490px",
                               }}
                             >
                               {countKeysLogrosObtenidos.length}/50
@@ -573,63 +626,89 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         >
                           ¿Cuento con certificación del curso?
                         </label>
+
                         <div>
-                          <Switch
-                            onChange={setValueSwitch}
-                            checkedChildren="SI"
-                            unCheckedChildren="NO"
-                            defaultChecked={valueSwitch}
-                            style={{ width: "60px" }}
-                          />
+                          <Form.Item
+                            name="certificacion"
+                            rules={[
+                              {
+                                required: true,
+                                message: "*Campo requerido",
+                              },
+                            ]}
+                          >
+                            <Switch
+                              onChange={setValueSwitch}
+                              checkedChildren="SI"
+                              unCheckedChildren="NO"
+                              defaultChecked={valueSwitch}
+                              style={{ width: "60px" }}
+                            />
+                          </Form.Item>
                         </div>
                       </div>
                     )}
                     {type === "additionalActivity" && (
                       <div style={{ display: "flex", flexDirection: "column" }}>
-                        <Radio.Group
-                          onChange={handleRadioChange}
-                          value={tipoActividadState}
+                        <Form.Item
+                          name="tipoActividad"
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
                         >
-                          <div
-                            style={{ display: "flex", flexDirection: "column" }}
+                          <Radio.Group
+                            onChange={handleRadioChange}
+                            value={tipoActividadState}
                           >
-                            <Radio value="Voluntariado">
-                              <span className="spanTypeVoluntary">
-                                Voluntariado
-                              </span>
-                            </Radio>
-                            <Radio value="Actividad extracurricular">
-                              <span className="spanTypeVoluntary">
-                                Actividad extracurricular
-                              </span>
-                            </Radio>
-                            <Radio value="Actividad Comunitaria">
-                              <span className="spanTypeVoluntary">
-                                Actividad Comunitaria
-                              </span>
-                            </Radio>
-                            <Radio value="Servicio Social">
-                              <span className="spanTypeVoluntary">
-                                Servicio Social
-                              </span>
-                            </Radio>
-                            <Radio value="Emprendimiento">
-                              <span className="spanTypeVoluntary">
-                                Emprendimiento
-                              </span>
-                            </Radio>
-                            <Radio value="Experiencia Informal">
-                              <span className="spanTypeVoluntary">
-                                Experiencia Informal
-                              </span>
-                            </Radio>
-                            <Radio value="Otra">
-                              <span className="spanTypeVoluntary">
-                                Otra _______________________
-                              </span>
-                            </Radio>
-                          </div>
-                        </Radio.Group>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <Radio value="Voluntariado">
+                                <span className="spanTypeVoluntary">
+                                  Voluntariado
+                                </span>
+                              </Radio>
+                              <Radio value="Actividad extracurricular">
+                                <span className="spanTypeVoluntary">
+                                  Actividad extracurricular
+                                </span>
+                              </Radio>
+                              <Radio value="Actividad Comunitaria">
+                                <span className="spanTypeVoluntary">
+                                  Actividad Comunitaria
+                                </span>
+                              </Radio>
+                              <Radio value="Servicio Social">
+                                <span className="spanTypeVoluntary">
+                                  Servicio Social
+                                </span>
+                              </Radio>
+                              <Radio value="Emprendimiento">
+                                <span className="spanTypeVoluntary">
+                                  Emprendimiento
+                                </span>
+                              </Radio>
+                              <Radio value="Experiencia Informal">
+                                <span className="spanTypeVoluntary">
+                                  Experiencia Informal
+                                </span>
+                              </Radio>
+                              <Radio value="Otra">
+                                <span style={{display:tipoActividadState === "Otra" ?"flex" : ""}}  className="spanTypeVoluntary">
+                                  Otra {
+                                    tipoActividadState === "Otra" ? <Input style={{marginLeft:"5px",background:"rgb(49,1,97)",color:"white"}}/> : "_______________________"
+                                  }
+                                </span>
+                              </Radio>
+                            </div>
+                          </Radio.Group>
+                        </Form.Item>
                       </div>
                     )}
                   </Form>

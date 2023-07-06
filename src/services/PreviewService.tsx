@@ -16,7 +16,7 @@ export type PREVIEW = {
   referencias: REFERENCIA[];
 };
 
-type FORMACION = {
+export type FORMACION = {
   titulo: string;
   institucion: string;
   fechaInicio: string;
@@ -28,7 +28,7 @@ type FORMACION = {
   tipoFormacion: string;
 };
 
-type EXPERIENCIA = {
+export type EXPERIENCIA = {
   cargo: string;
   empresa: string;
   fechaInicio: string;
@@ -37,7 +37,7 @@ type EXPERIENCIA = {
   logro: string;
 };
 
-type ACTIVIDAD = {
+export type ACTIVIDAD = {
   actividad: string;
   organizacion: string;
   fechaInicio: string;
@@ -46,7 +46,7 @@ type ACTIVIDAD = {
   tipoActividad: string;
 };
 
-type COMPLEMENTARIA = {
+export type COMPLEMENTARIA = {
   nombreCurso: string;
   fechaInicio: string;
   fechaFin: string;
@@ -54,30 +54,30 @@ type COMPLEMENTARIA = {
   cursando: boolean;
 };
 
-type IDIOMA = {
+export type IDIOMA = {
   idioma: string;
   nivel: string;
 };
 
-type HERRAMIENTAOFIMATICA = {
+export type HERRAMIENTAOFIMATICA = {
   herramienta: string;
   nivel: string;
 };
 
-type MODELOTRABAJO = {
+export type MODELOTRABAJO = {
   modeloTrabajo: string;
 };
 
-type HABILIDADDESARROLLADA = {
+export type HABILIDADDESARROLLADA = {
   habilidad: string;
 };
 
-type HABILIDADSOFTWARE = {
+export type HABILIDADSOFTWARE = {
   habilidad: string;
   nivel: string;
 };
 
-type REFERENCIA = {
+export type REFERENCIA = {
   tipoReferencia: string;
   nombreCompleto: string;
   relacion: string;
@@ -87,14 +87,13 @@ type REFERENCIA = {
   cargo: string;
 };
 
-export const GetPreview = async (id: number): Promise<REFERENCE[] | string> => {
+export const GetPreview = async (id: number): Promise<PREVIEW | string> => {
   try {
     const response = await axios.get(
-      `${API_URL}/referencias/disrupterId/${id}`
+      `${API_URL}/preview/${id}`
     );
     return response.data;
-  } catch (error) {
-    return "No se encontraron referencias para este disrupter";
-    //  throw new Error("Error al obtener las referencias");
+  } catch (error: any) {
+    return error.response.data;
   }
 };

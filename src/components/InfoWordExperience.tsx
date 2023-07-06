@@ -144,7 +144,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
     form.setFieldsValue({ tipoEstudio: values.tipoEstudio });
     form.setFieldsValue({ modalidad: values.modalidad });
-    form.setFieldsValue({ paisId: values.paisId });
+    form.setFieldsValue({ pais: values.pais });
     await form.validateFields();
     await createStudies();
     activeCard();
@@ -231,7 +231,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             defaultValue={values.nombreCurso}
                           />
                         </Form.Item>
-                        <span className="countInput">
+                        <span className="countInputTitulo">
                           {countPalabras.length}/20
                         </span>
                       </div>
@@ -536,17 +536,17 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 id="ciudadId"
                                 options={countries.map((item: any) => ({
                                   label: item.nombrePais,
-                                  value: item.codigoPais,
+                                  value: item.nombrePais,
                                 }))}
                                 onChange={(e) => {
-                                  changeValuesForm("paisId", e);
+                                  changeValuesForm("pais", e);
                                 }}
                                 defaultValue={values.paisId}
                               />
                             </Form.Item>
                           </div>
                           <div>
-                            {values.paisId === 169 && (
+                            {values.pais === "Colombia" && (
                               <Form.Item
                                 name="ciudadId"
                                 rules={[
@@ -566,12 +566,12 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                   id="ciudadId"
                                   options={municipality.map((item: any) => ({
                                     label: item.municipioDepartamento,
-                                    value: item.municipioId,
+                                    value: item.municipioDepartamento,
                                   }))}
                                   onChange={(e) =>
-                                    changeValuesForm("ciudadId", e)
+                                    changeValuesForm("ciudad", e)
                                   }
-                                  defaultValue={values.ciudadId}
+                                  defaultValue={values.ciudad}
                                 />
                               </Form.Item>
                             )}

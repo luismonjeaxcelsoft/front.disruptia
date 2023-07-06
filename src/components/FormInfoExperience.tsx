@@ -17,8 +17,8 @@ const INITIAL_VALUES_FORM = {
   nombreInstitucion: "",
   modalidad: "",
   tipoEstudio: "",
-  paisId: "",
-  ciudadId: "",
+  pais: "",
+  ciudad: "",
 };
 const FormInfoExperience = ({
   setValidateImgs,
@@ -47,8 +47,8 @@ const FormInfoExperience = ({
             cursando: item.cursando,
             nombreInstitucion: item.nombreInstitucion,
             tipoEstudio: item.tipoEstudio,
-            paisId: item.paisId,
-            ciudadId: item.ciudadId,
+            pais: item.pais,
+            ciudad: item.ciudad,
             modalidad: item.modalidad,
           };
         });

@@ -1,7 +1,6 @@
-import { Card, Checkbox, Input, Select, Switch, Radio } from "antd";
-import { FC, useEffect, useState } from "react";
+import { Card, Checkbox, Input, Select, Switch, Radio, Form } from "antd";
+import { FC, useEffect, useState, useRef } from "react";
 import caneca from "../assets/images/canecasinFondo.png";
-import { Form } from "react-router-dom";
 import years from "../components/yearsData";
 import CardPlegada from "./CardPlegada";
 import { Sidebar } from "./Sidebar";
@@ -35,6 +34,8 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   valuesRes,
   getForms,
 }) => {
+  const [form] = Form.useForm();
+  const formRef: any = useRef(null);
   const maxWords = 20;
   const maxWordsIns = 50;
   const [valueCheck, setValueCheck] = useState<boolean>(values.cursando);
@@ -123,21 +124,11 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     setValidateViewB(false);
   };
 
-  const validateFormExperience = () => {
-    const { nombreEmpresa, cargo, fechaInicio, logros } = values;
-
-    if (
-      nombreEmpresa !== "" &&
-      fechaInicio !== "" &&
-      cargo !== "" &&
-      logros !== ""
-    ) {
-      saveForm();
-      activeCard();
-      setValidateViewB(true);
-    } else {
-      window.alert("Por favor diligencie todos los campos");
-    }
+  const validateFormExperience = async () => {
+    await form.validateFields();
+    saveForm();
+    activeCard();
+    setValidateViewB(true);
   };
 
   const validateFormExtracurricular = () => {
@@ -202,7 +193,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     getForms();
   };
 
-  const handleRadioChange = (e) => {
+  const handleRadioChange = (e: any) => {
     setTipoActividadState(e.target.value);
   };
 
@@ -286,7 +277,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                   />
                 </div>
                 <div>
-                  <Form>
+                  <Form form={form} ref={formRef}>
                     <div>
                       <div style={{ marginBottom: "15px" }}>
                         <label className="labelsInsputs" htmlFor="nameCurse">
@@ -298,15 +289,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         </label>
 
                         <div>
-                          <Input.TextArea
-                            className="inputBorderNone"
-                            id={
-                              type === "experience"
-                                ? "nombreEmpresa"
-                                : type === "additionalCurse"
-                                ? "nombreCurso"
-                                : "nombreActividad"
-                            }
+                          <Form.Item
                             name={
                               type === "experience"
                                 ? "nombreEmpresa"
@@ -314,18 +297,42 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                                 ? "nombreCurso"
                                 : "nombreActividad"
                             }
-                            autoComplete="off"
-                            placeholder="Ej: Disruptia"
-                            onChange={onChangeValues}
-                            value={
-                              type === "experience"
-                                ? values.nombreEmpresa
-                                : type === "additionalCurse"
-                                ? values.nombreCurso
-                                : values.nombreActividad
-                            }
-                            style={{ height: "57px" }}
-                          />
+                            rules={[
+                              {
+                                required: true,
+                                message: "*Campo requerido",
+                              },
+                            ]}
+                          >
+                            <Input.TextArea
+                              className="inputBorderNone"
+                              id={
+                                type === "experience"
+                                  ? "nombreEmpresa"
+                                  : type === "additionalCurse"
+                                  ? "nombreCurso"
+                                  : "nombreActividad"
+                              }
+                              name={
+                                type === "experience"
+                                  ? "nombreEmpresa"
+                                  : type === "additionalCurse"
+                                  ? "nombreCurso"
+                                  : "nombreActividad"
+                              }
+                              autoComplete="off"
+                              placeholder="Ej: Disruptia"
+                              onChange={onChangeValues}
+                              defaultValue={
+                                type === "experience"
+                                  ? values.nombreEmpresa
+                                  : type === "additionalCurse"
+                                  ? values.nombreCurso
+                                  : values.nombreActividad
+                              }
+                              style={{ height: "57px" }}
+                            />
+                          </Form.Item>
                           <span className="countInput">
                             {countPalabras.length}/20
                           </span>

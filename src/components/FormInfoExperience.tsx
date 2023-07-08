@@ -29,7 +29,7 @@ const FormInfoExperience = ({
   const [valuesForm, setValuesForm] = useState<ESTUDIES[]>([INITIAL_VALUES_FORM]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
-  const [valuesRes, setValuesRes] = useState<any>(false);
+  const [valuesRes, setValuesRes] = useState<boolean>(false);
   const getFormStudies = async () => {
     try {
       const res = await GetStudiesId(1);

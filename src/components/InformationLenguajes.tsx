@@ -121,7 +121,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
               <div className="containerIdiomaText" key={info}>
                 <div style={{ width: "1%" }}>
                   <span className="idiomaText">
-                    {decodeURIComponent(escape(info))}
+                    {info}
                   </span>
                 </div>
                 <div>
@@ -129,14 +129,14 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
                     <Radio.Group
                       onChange={(e) =>
                         handleRadioChange(
-                          decodeURIComponent(escape(info)),
+                          info,
                           e.target.value
                         )
                       }
                       value={
                         selectedOptions.find(
                           (item) =>
-                            item.idioma === decodeURIComponent(escape(info))
+                            item.idioma === info
                         )?.nivel || null
                       }
                     >

@@ -18,6 +18,7 @@ import {
   PREVIEW,
   REFERENCIA,
 } from "../services/PreviewService";
+import DocumentoPDF from "./DocumentoPDF";
 
 const FORMACION_INICIAL = {
   titulo: "",
@@ -68,11 +69,11 @@ const HERRAMIENTAOFIMATICA_INICIAL = {
 };
 
 const MODELOTRABAJO_INICIAL = {
-  modeloTrabajo: ""
+  modeloTrabajo: "",
 };
 
 const HABILIDADDESARROLLADA_INICIAL = {
-  habilidad: ""
+  habilidad: "",
 };
 
 const HABILIDADSOFTWARE_INICIAL = {
@@ -532,12 +533,12 @@ const PreviewHv = () => {
             className="iconEdit"
           />
         </div>
-        {(referenciasFamiliares?.length > 0 ) && (
+        {referenciasFamiliares?.length > 0 && (
           <>
             <span className="subTitleItem">Referencias Familiares</span>
             {referenciasFamiliares?.map((referencia: REFERENCIA) => (
               <div
-              key={referencia.nombreCompleto}
+                key={referencia.nombreCompleto}
                 style={{
                   display: "flex",
                   flexDirection: "column",
@@ -556,13 +557,16 @@ const PreviewHv = () => {
             <span className="subTitleItem">Referencias Personales</span>
             {referenciasPersonales?.map((referencia: REFERENCIA) => (
               <div
+                key={referencia.nombreCompleto}
                 style={{
                   display: "flex",
                   flexDirection: "column",
                 }}
               >
                 <span className="itemSpan">{referencia.nombreCompleto}</span>
-                <span className="itemSpan">{referencia.empresa + ", " + referencia.cargo}</span>
+                <span className="itemSpan">
+                  {referencia.empresa + ", " + referencia.cargo}
+                </span>
                 <span className="itemSpan">{referencia.relacion}</span>
                 <span className="itemSpan">{referencia.correo}</span>
                 <span className="itemSpan">{referencia.celular}</span>
@@ -570,33 +574,13 @@ const PreviewHv = () => {
             ))}
           </>
         )}
-
       </div>
     );
   };
 
-  useEffect(() => {
-    getPreview();
-  }, []);
-
-  return (
-    <>
-      <div>
-        <Sidebar
-          title=""
-          smallTitle="Crear Hoja de vida"
-          subTitle="Llegó el momento, aquí tienes tu hoja de vida, por favor verifica que toda la información que tienes está completa y que sea cierta.
-          Si necesitas modificar puedes dar click a la derecha donde aparecen los íconos de editar, esto te permitirá modificar y mejorar cada sección. Una vez sientas que está listo, dale FINALIZAR.
-          "
-          backColor={false}
-          img={false}
-          video={false}
-        />
-      </div>
-      <div>
-        <div className="containerTitlePreview">
-          <span className="textTtilePreview">Preview Hoja de vida</span>
-        </div>
+  const previewHtml = () => {
+    return (
+      <>
         <div
           className="containerInfoHv"
           style={{ overflow: "auto", height: "600px" }}
@@ -628,6 +612,33 @@ const PreviewHv = () => {
           {habilidadesSoftware()}
           {referencias()}
         </div>
+      </>
+    );
+  };
+
+  useEffect(() => {
+    getPreview();
+  }, []);
+
+  return (
+    <>
+      <div>
+        <Sidebar
+          title=""
+          smallTitle="Crear Hoja de vida"
+          subTitle="Llegó el momento, aquí tienes tu hoja de vida, por favor verifica que toda la información que tienes está completa y que sea cierta.
+          Si necesitas modificar puedes dar click a la derecha donde aparecen los íconos de editar, esto te permitirá modificar y mejorar cada sección. Una vez sientas que está listo, dale FINALIZAR.
+          "
+          backColor={false}
+          img={false}
+          video={false}
+        />
+      </div>
+      <div>
+        <div className="containerTitlePreview">
+          <span className="textTtilePreview">Preview Hoja de vida</span>
+        </div>
+        {previewHtml()}
         <div style={{ marginTop: "35px" }} className="containerSaveAction">
           <button
             onClick={() => setIsModalOpen(true)}
@@ -666,20 +677,12 @@ const PreviewHv = () => {
                 </span>
                 <span className="textModal">con una oferta de empleo</span>
                 <span className="textModal">Disruptiva!</span>
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="containerButtomModal"
-                >
-                  <span
-                    style={{
-                      fontSize: "25px",
-                      color: "#E0A21E",
-                      fontFamily: " Montserrat-Bold",
-                    }}
-                  >
-                    Descargar PDF
-                  </span>
-                </button>
+                <DocumentoPDF 
+                  preview={preview}
+                  setIsModalOpen={setIsModalOpen}
+                  convertirAMes={convertirAMes}
+                  convertirAAnno= {convertirAAnno}
+                />
               </div>
             </div>
           </Modal>

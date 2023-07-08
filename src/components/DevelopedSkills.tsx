@@ -171,7 +171,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                   key={item}
                   className="containerOptionsSelect"
                   onClick={() => {
-                    handleSetHabilidades(decodeURIComponent(escape(item)));
+                    handleSetHabilidades(item);
                     setValidateSelect(false);
                     setValidateContinue(false);
                   }}
@@ -185,7 +185,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                       cursor: "pointer"
                     }}
                   >
-                    {decodeURIComponent(escape(item))}
+                    {item}
                   </span>
                 </div>
               ))}

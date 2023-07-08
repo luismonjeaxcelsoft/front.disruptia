@@ -458,8 +458,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             <Select
                               id="tipoEstudio"
                               options={valuesAcademy.map((item: any) => ({
-                                label: decodeURIComponent(escape(item)),
-                                value: decodeURIComponent(escape(item)),
+                                label: item,
+                                value: item
                               }))}
                               onChange={(e) =>
                                 changeValuesForm("tipoEstudio", e)
@@ -514,7 +514,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               País y Ciudad donde curso
                             </label>
                             <Form.Item
-                              name="paisId"
+                              name="pais"
                               rules={[
                                 {
                                   required: true,
@@ -528,7 +528,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                   color: "white",
                                   width: "324px",
                                 }}
-                                id="ciudadId"
+                                id="pais"
                                 options={countries.map((item: any) => ({
                                   label: item.nombrePais,
                                   value: item.nombrePais,
@@ -536,14 +536,14 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 onChange={(e) => {
                                   changeValuesForm("pais", e);
                                 }}
-                                defaultValue={values.paisId}
+                                defaultValue={values.pais}
                               />
                             </Form.Item>
                           </div>
                           <div>
                             {values.pais === "Colombia" && (
                               <Form.Item
-                                name="ciudadId"
+                                name="ciudad"
                                 rules={[
                                   {
                                     required: true,
@@ -558,7 +558,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                     width: "325px",
                                     marginTop: "48px",
                                   }}
-                                  id="ciudadId"
+                                  id="ciudad"
                                   options={municipality.map((item: any) => ({
                                     label: item.municipioDepartamento,
                                     value: item.municipioDepartamento,

@@ -145,7 +145,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
               {herramientas.map((herramienta: any) => (
                 <div className="containerIdiomaText" key={herramienta.nombre}>
                   <div style={{ width: "100%" }}>
-                    <span className="herramientaText">{decodeURIComponent(escape(herramienta.nombre) + " ")}</span>
+                    <span className="herramientaText">{herramienta.nombre + " "}</span>
                     <span
                       style={{ opacity: "0.8", fontSize: "15px" }}
                       className="herramientaText"
@@ -158,14 +158,14 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                       <Radio.Group
                         onChange={(e) =>
                           handleRadioChange(
-                            decodeURIComponent(escape(herramienta.nombre)),
+                            herramienta.nombre,
                             e.target.value
                           )
                         }
                         value={
                           selectedOptions.find(
                             (item: any) =>
-                              item.herramienta === decodeURIComponent(escape(herramienta.nombre))
+                              item.herramienta === herramienta.nombre
                           )?.nivel || null
                         }
                       >

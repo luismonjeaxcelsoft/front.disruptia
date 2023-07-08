@@ -35,6 +35,12 @@
   font-family: Montserrat-Bold;
   color: rgb(0, 0, 0);
 }
+
+.subTitleItem {
+  font-size: 15px;
+  font-family: Montserrat-Bold;
+  color: rgb(0, 0, 0);
+}
 .itemSpan {
   font-size: 12px;
   font-family: Montserrat-Light;
@@ -48,6 +54,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 30px;
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-modal .ant-modal-content {

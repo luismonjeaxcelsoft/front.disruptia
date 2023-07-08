@@ -1,14 +1,108 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar } from "./Sidebar";
 import "../styles/Perfil.css";
-import { Input } from "antd";
+import { Input, Spin } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
+import {
+  GetPerfilDisrupterId,
+  SavePerfilRedactado,
+  ValidarPerfilRedactado,
+} from "../services/PerfilRedactadoService";
+import { LoadingOutlined } from "@ant-design/icons";
 
 const Perfil = ({ setValidateImgs, validateImgs }: any) => {
+  const disrupterId = 1;
+  const maxWords = 150;
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [validationGpt, setValidationGpt] = useState(false);
+  const [countPalabras, setCountPalabras] = useState<string[]>([]);
+  const [perfil, setPerfil] = useState<string>("");
+  const [perfilAjustado, setPerfilAjustado] = useState<string>("");
+  const [editarPerfilAjustado, setEditarPerfilAjustado] =
+    useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const onchangeValue = (e: any) => {
+    const palabras = e.target.value.trim().split(/\s+/);
+    setCountPalabras(palabras);
+    if (palabras.length > maxWords) {
+      window.alert(
+        `Se ha superado el límite de palabras permitidas... El campo no puede contener mas de ${maxWords} palabras`
+      );
+      return;
+    }
+    
+
+    const { name, value } = e.target;
+    if (value !== "") {
+      setValidateContinue(false)
+    }
+    if (name === "textoOriginal") {
+      setPerfil(value);
+    } else {
+      setPerfilAjustado(value);
+    }
+  };
+
+  const onClickEditar = () => {
+    setEditarPerfilAjustado(!editarPerfilAjustado);
+  };
+
+  const dejarTexto = () => {
+    setPerfil(perfilAjustado);
+    setValidationGpt(false);
+    setValidateContinue(false)
+    const palabras = perfilAjustado.trim().split(/\s+/);
+    setCountPalabras(palabras);
+  };
+
+  const savePerfil = async () => {
+    const payload = {
+      disrupterId: disrupterId,
+      perfil: perfil,
+    };
+    const res = await SavePerfilRedactado(payload);
+    if (res === "Perfil guardado") {
+      setValidateContinue(true);
+    }
+  };
+
+  const validarChatGPT = async () => {
+    setLoading(true);
+    const payload = {
+      disrupterId: disrupterId,
+      mensaje: perfil,
+      paso: 11,
+    };
+    const res = await ValidarPerfilRedactado(payload);
+
+    if (res !== "Has excedido los intentos") {
+      console.log(res);
+      setPerfilAjustado(res.choices[0].text);
+      setValidationGpt(true);
+      setLoading(false);
+      setValidateContinue(false);
+    } else {
+      alert(res);
+      setLoading(false);
+    }
+  };
+
+  const getPerfil = async () => {
+    const res = await GetPerfilDisrupterId(disrupterId);
+    console.log(res);
+    if (typeof res !== "string") {
+      setPerfil(res.perfil);
+      const palabras = res.perfil.trim().split(/\s+/);
+      setCountPalabras(palabras);
+    }
+  };
+
+  useEffect(() => {
+    getPerfil();
+  }, []);
 
   return (
     <>
@@ -26,26 +120,40 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
         <span className="titlePerfil">Cuéntanos ¿Cuál es tu perfil?</span>
       </div>
       <div>
-        <div className="containerTextPerfil">
-          <Input.TextArea
-            style={{
-              background: "#613C86",
-              color: "white",
-              opacity: "0.75",
-              fontSize: "20px",
-              fontFamily: "Montserrat, Medium",
-              borderRadius: "25px",
-              border: "none",
-            }}
-          />
-          <span className="countInputIns" style={{ top: "280px" }}>
-            {10}/20
-          </span>
-        </div>
+        <Spin
+          spinning={loading}
+          size="large"
+          tip={<span style={{ color: '#f7c947' }}>Validando con ChatGPT</span>}
+          indicator={<LoadingOutlined style={{ color: "#f7c947" }} />}
+        >
+          <div className="containerTextPerfil">
+            <Input.TextArea
+              style={{
+                background: "#613C86",
+                color: "white",
+                opacity: "0.75",
+                fontSize: "20px",
+                fontFamily: "Montserrat, Medium",
+                borderRadius: "25px",
+                border: "none",
+              }}
+              name="textoOriginal"
+              onChange={onchangeValue}
+              value={perfil}
+            />
+            <span className="countInput" style={{ top: "180px" }}>
+              {countPalabras.length}/{maxWords}
+            </span>
+          </div>
+        </Spin>
         <div
           style={{ display: "flex", marginTop: "15px", justifyContent: "end" }}
         >
-          <button onClick={() => setValidationGpt(true)} className="buttonGpt">
+          <button
+            onClick={() => validarChatGPT()}
+            className="buttonGpt"
+            disabled={perfil.length < 1}
+          >
             <span className="textButtonGpt">Validar con ChatGPT</span>
           </button>
         </div>
@@ -65,6 +173,10 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
                   borderRadius: "25px",
                   border: "none",
                 }}
+                name="textoAjustado"
+                onChange={onchangeValue}
+                disabled={editarPerfilAjustado}
+                value={perfilAjustado}
               ></Input.TextArea>
             </div>
             <div
@@ -74,12 +186,18 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
                 gridTemplateColumns: "1fr 1fr 1fr",
               }}
             >
-              <button className="buttonGptValidation">
+              <button
+                className="buttonGptValidation"
+                onClick={() => dejarTexto()}
+              >
                 <span className="textButtonGptValidation">
                   Dejar texto de ChatGPT
                 </span>
               </button>
-              <button className="buttonGptValidation">
+              <button
+                className="buttonGptValidation"
+                onClick={() => onClickEditar()}
+              >
                 <span className="textButtonGptValidation">
                   Editar texto de ChatGPT
                 </span>
@@ -99,7 +217,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
           <div style={{ marginTop: "35px" }} className="containerSaveAction">
             <button
               onClick={() => {
-                setValidateContinue(true);
+                savePerfil();
               }}
               style={{
                 width: "165px",
@@ -108,6 +226,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
                 fontFamily: "Montserrat-Bold",
               }}
               className="SaveInfo btn btn-primary"
+              disabled={perfil.length < 1 || validationGpt}
             >
               Guardar
             </button>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { type } from "os";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -10,7 +9,7 @@ type HERRAMIENTA = {
 
 type SUBHERRAMIENTA = {
     herramienta: string,
-    nivel: number,
+    nivel: string,
 }
 
 export const SaveHerramientas = async (values: any) => {
@@ -24,10 +23,10 @@ export const SaveHerramientas = async (values: any) => {
 
 export const GetHerramientasDisrupterId = async (
   disrupterId: number
-): Promise<HERRAMIENTA[] | string> => {
+): Promise<HERRAMIENTA | string> => {
   try {
     const response = await axios.get(`${API_URL}/ofimatica/disrupterId/${disrupterId}`);
-    return response.data as HERRAMIENTA[];
+    return response.data as HERRAMIENTA;
   } catch (error) {
     throw new Error("Error al obtener las herramientas del disrupter");
   }

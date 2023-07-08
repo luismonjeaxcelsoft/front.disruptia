@@ -17,7 +17,7 @@ type InformationLenguajesProps = {
 
 type IDIOMA = {
   idioma: string;
-  nivel: number;
+  nivel: string;
 };
 
 const InformationLenguajes: FC<InformationLenguajesProps> = ({
@@ -32,7 +32,6 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
   const [idiomas, setIdiomas] = useState<string[]>([]);
 
   const niveles = ["Ninguno", "Basico", "Intermedio", "Avanzado", "Nativo"];
-  const nivel = [1, 2, 3, 4, 5];
 
   const infoRadioIdiomas = async () => {
     const res = await GetIdiomas();
@@ -41,12 +40,12 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
 
   const infoRadioIdiomasBD = async () => {
     const res = await GetIdiomasDisrupterId(1);
-    if (res !== "No se encontraron idiomas para este disrupter") {
+    if (typeof res !== "string") {
       setSelectedOptions(res.idiomas);
     }
   };
 
-  const handleRadioChange = (idioma: string, nivel: number) => {
+  const handleRadioChange = (idioma: string, nivel: string) => {
     setValidateContinue(false);
 
     const updateArray = [...selectedOptions];
@@ -142,7 +141,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
                       }
                     >
                       <div style={{ display: "flex" }}>
-                        {nivel.map((item: number) => (
+                        {niveles.map((item: string) => (
                           <div style={{ width: "85px" }} key={item}>
                             <Radio key={item} value={item}></Radio>
                           </div>

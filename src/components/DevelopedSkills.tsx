@@ -78,7 +78,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
 
   const getHabilidadessBD = async () => {
     const res = await GetHabilidadDesarrolladaDisrupterId(1);
-    if (res !== "No se encontraron habilidades desarrolladas") {
+    if (typeof res !== "string") {
       setHabilitysValues(res.habilidades);
     }
   };

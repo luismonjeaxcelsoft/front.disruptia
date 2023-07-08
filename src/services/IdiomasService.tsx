@@ -1,5 +1,4 @@
 import axios from "axios";
-import { type } from "os";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -10,7 +9,7 @@ type IDIOMAS = {
 
 type SUBIDIOMA = {
     idioma: string,
-    nivel: number,
+    nivel: string,
 }
 
 export const SaveIdiomas = async (values: any) => {
@@ -24,10 +23,10 @@ export const SaveIdiomas = async (values: any) => {
 
 export const GetIdiomasDisrupterId = async (
   disrupterId: number
-): Promise<IDIOMAS[] | string> => {
+): Promise<IDIOMAS | string> => {
   try {
     const response = await axios.get(`${API_URL}/idiomas/disrupterId/${disrupterId}`);
-    return response.data as IDIOMAS[];
+    return response.data as IDIOMAS;
   } catch (error) {
     throw new Error("Error al obtener los idiomas del disrupter");
   }

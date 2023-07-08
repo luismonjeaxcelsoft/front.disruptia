@@ -15,17 +15,12 @@ type WorkingModalityProps = {
   validateImgs: any;
 };
 
-type MODELOTRABAJO = {
-  disrupterId: number;
-  modelos: string[];
-};
-
 const WorkingModality: FC<WorkingModalityProps> = ({
   setValidateImgs,
   validateImgs,
 }) => {
   const navigate = useNavigate();
-  const [selectedOptions, setSelectedOptions] = useState<MODELOTRABAJO[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(
     selectedOptions.length !== 0 ? false : true
   );
@@ -55,7 +50,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
 
   const getModelosBD = async () => {
     const res = await GetModelosTrabajoDisrupterId(1);
-    if (res !== "No se encontraron idiomas para este disrupter") {
+    if (typeof res !== "string") {
       setSelectedOptions(res.modelos);
     }
   };

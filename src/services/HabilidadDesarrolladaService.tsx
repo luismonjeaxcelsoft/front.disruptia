@@ -18,10 +18,10 @@ export const SaveHabilidadDesarrollada = async (values: HABILIDADDESARROLLADA) =
 
 export const GetHabilidadDesarrolladaDisrupterId = async (
   disrupterId: number
-): Promise<HABILIDADDESARROLLADA[] | string> => {
+): Promise<HABILIDADDESARROLLADA | string> => {
   try {
     const response = await axios.get(`${API_URL}/habilidades/disrupterId/${disrupterId}`);
-    return response.data as HABILIDADDESARROLLADA[];
+    return response.data as HABILIDADDESARROLLADA;
   } catch (error) {
     throw new Error("Error al obtener las habilidades del disrupter");
   }

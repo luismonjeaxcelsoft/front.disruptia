@@ -2,23 +2,23 @@ import { useState, useEffect } from "react";
 import InfoWordExperience from "./InfoWordExperience";
 import ".././styles/InfoWordExp.css";
 import logo from "../assets/images/disruptialogo.png";
-import { GetStudiesId } from "../services/EstudiesService";
+import { ESTUDIES, GetStudiesId } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
 
 const INITIAL_VALUES_FORM = {
-  id: "",
+  id: 0,
   disrupterId: 1,
   nombreCurso: "",
   dateInit: "",
   fechaInicio: "",
   dateEnd: "",
   fechaFin: "",
-  cursando: "",
+  cursando: false,
   nombreInstitucion: "",
   modalidad: "",
   tipoEstudio: "",
-  paisId: "",
-  ciudadId: "",
+  pais: "",
+  ciudad: "",
 };
 const FormInfoExperience = ({
   setValidateImgs,
@@ -26,7 +26,7 @@ const FormInfoExperience = ({
   valuesIdPerfiles,
   valuesInputsPerfiles,
 }: any) => {
-  const [valuesForm, setValuesForm] = useState<any>([INITIAL_VALUES_FORM]);
+  const [valuesForm, setValuesForm] = useState<ESTUDIES[]>([INITIAL_VALUES_FORM]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
   const [valuesRes, setValuesRes] = useState<any>(false);
@@ -35,7 +35,7 @@ const FormInfoExperience = ({
       const res = await GetStudiesId(1);
       if (res && res.length > 0) {
         setValuesRes(true);
-        let infoMap = res.map((item: any) => {
+        const infoMap = res.map((item: any) => {
           return {
             id: item.id,
             disrupterId: 1,
@@ -47,8 +47,8 @@ const FormInfoExperience = ({
             cursando: item.cursando,
             nombreInstitucion: item.nombreInstitucion,
             tipoEstudio: item.tipoEstudio,
-            paisId: item.paisId,
-            ciudadId: item.ciudadId,
+            pais: item.pais,
+            ciudad: item.ciudad,
             modalidad: item.modalidad,
           };
         });

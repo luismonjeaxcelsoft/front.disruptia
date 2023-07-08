@@ -40,7 +40,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
 
   const infoRadioIdiomasBD = async () => {
     const res = await GetIdiomasDisrupterId(1);
-    if (res !== "No se encontraron idiomas para este disrupter") {
+    if (typeof res !== "string") {
       setSelectedOptions(res.idiomas);
     }
   };

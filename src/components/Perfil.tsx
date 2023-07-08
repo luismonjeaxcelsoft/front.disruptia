@@ -16,7 +16,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
   const maxWords = 150;
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [validationGpt, setValidationGpt] = useState(false);
-  const [countPalabras, setCountPalabras] = useState<string>("");
+  const [countPalabras, setCountPalabras] = useState<string[]>([]);
   const [perfil, setPerfil] = useState<string>("");
   const [perfilAjustado, setPerfilAjustado] = useState<string>("");
   const [editarPerfilAjustado, setEditarPerfilAjustado] =
@@ -77,7 +77,6 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
       paso: 11,
     };
     const res = await ValidarPerfilRedactado(payload);
-    // console.log(res.response.data);
 
     if (res !== "Has excedido los intentos") {
       console.log(res);
@@ -94,7 +93,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
   const getPerfil = async () => {
     const res = await GetPerfilDisrupterId(disrupterId);
     console.log(res);
-    if (res !== "No se encontro perfil") {
+    if (typeof res !== "string") {
       setPerfil(res.perfil);
       const palabras = res.perfil.trim().split(/\s+/);
       setCountPalabras(palabras);

@@ -36,17 +36,17 @@ const OfficeTools: FC<OfficeToolsProps> = ({
 
   const infoRadioHerramientasBD = async () => {
     const res = await GetHerramientasDisrupterId(1);
-    if (res !== "No se encontraron herramientas para este disrupter") {
+    if (typeof res !== "string") {
       setSelectedOptions(res.herramientas);
     }
   };
 
-  const handleRadioChange = (herramienta: string, nivel: number) => {
+  const handleRadioChange = (herramienta: string, nivel: string) => {
     setValidateContinue(false);
 
     const updateArray = [...selectedOptions];
 
-    const exist = updateArray.findIndex((item: any) => item.herramienta === herramienta);
+    const exist = updateArray.findIndex((item: HERRRAMIENTA) => item.herramienta === herramienta);
 
     if (exist !== -1) {
       updateArray[exist].nivel = nivel;

@@ -1,6 +1,4 @@
 import axios from "axios";
-import { type } from "os";
-
 const API_URL = import.meta.env.VITE_API_URL;
 
 type MODELOTRABAJO = {
@@ -19,10 +17,10 @@ export const SaveModeloTrabajo = async (values: any) => {
 
 export const GetModelosTrabajoDisrupterId = async (
   disrupterId: number
-): Promise<MODELOTRABAJO[] | string> => {
+): Promise<MODELOTRABAJO | string> => {
   try {
     const response = await axios.get(`${API_URL}/modelotrabajo/disrupterId/${disrupterId}`);
-    return response.data as MODELOTRABAJO[];
+    return response.data as MODELOTRABAJO;
   } catch (error) {
     throw new Error("Error al obtener los modelos de trabajo del disrupter");
   }

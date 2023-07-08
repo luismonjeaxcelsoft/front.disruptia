@@ -1,9 +1,7 @@
 import axios from "axios";
-import { type } from "os";
-
 const API_URL = import.meta.env.VITE_API_URL;
 
-type EXPERIENCE = {
+export type EXPERIENCE = {
   id: number;
   disrupterId: number;
   nombreEmpresa: string;
@@ -15,12 +13,12 @@ type EXPERIENCE = {
   paso: number;
 };
 
-export const SaveExperience = async (values: any) => {
+export const SaveExperience = async (values: EXPERIENCE) => {
   try {
     const response = await axios.post(`${API_URL}/experiencia`, values);
     return response.data;
-  } catch (error) {
-    throw new Error("Error al guardar la experiencia");
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
@@ -30,18 +28,16 @@ export const GetExperienceDisrupterId = async (
   try {
     const response = await axios.get(`${API_URL}/experiencia/${disrupterId}`);
     return response.data as EXPERIENCE[];
-  } catch (error) {
-    throw new Error("Error al obtener la experiencia");
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
-export const DeleteExperience = async (values: any) => {
+export const DeleteExperience = async (id: number) => {
   try {
-    const response = await axios.delete(`${API_URL}/experiencia`, {
-      data: values,
-    });
+    const response = await axios.delete(`${API_URL}/experiencia/${id}`);
     return response.data;
-  } catch (error) {
-    throw new Error("Error al eliminar la experiencia");
+  } catch (error: any) {
+    return error.response.data;
   }
 };

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type COMPLEMENTARIA = {
+export type COMPLEMENTARIA = {
   id: number;
   disrupterId: number;
   nombreCurso: string;
@@ -13,12 +13,12 @@ type COMPLEMENTARIA = {
   paso: number;
 };
 
-export const SaveComplemento = async (values: any) => {
+export const SaveComplemento = async (values: COMPLEMENTARIA) => {
   try {
     const response = await axios.post(`${API_URL}/complementaria`, values);
     return response.data;
-  } catch (error) {
-    throw new Error("Error al guardar la informacion complementaria");
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
@@ -26,20 +26,20 @@ export const GetComplementoDisrupterId = async (
   disrupterId: number
 ): Promise<COMPLEMENTARIA[] | string> => {
   try {
-    const response = await axios.get(`${API_URL}/complementaria/${disrupterId}`);
+    const response = await axios.get(
+      `${API_URL}/complementaria/${disrupterId}`
+    );
     return response.data as COMPLEMENTARIA[];
-  } catch (error) {
-    throw new Error("Error al obtener la informacion complementaria");
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
-export const DeleteComplemento = async (values: any) => {
+export const DeleteComplemento = async (id: number) => {
   try {
-    const response = await axios.delete(`${API_URL}/complementaria`, {
-      data: values,
-    });
+    const response = await axios.delete(`${API_URL}/complementaria/${id}`);
     return response.data;
-  } catch (error) {
-    throw new Error("Error al eliminar la informacion complementaria");
+  } catch (error: any) {
+    return error.response.data;
   }
 };

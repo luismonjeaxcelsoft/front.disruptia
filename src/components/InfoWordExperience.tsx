@@ -77,7 +77,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   };
   const changeValuesForm = (name: string, value: string) => {
     setValues((prevValues: any) => {
-      let newValues = [...prevValues];
+      const newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
       return newValues;
     });
@@ -87,13 +87,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
-    const deleteDto = {
-      disrupterId: values.disrupterId,
-      itemId: values.id,
-    };
-    console.log(deleteDto);
-    const res = await DeleteStudie(deleteDto);
-    console.log(res);
+    await DeleteStudie(values.id);
   };
 
   const activeCard = () => {
@@ -120,6 +114,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       values["id"] = null;
     }
     values["cursando"] = valueCheck;
+    values["paso"] = 2;
 
     const res = await CreateStudy(values);
     if (res === "Estudio guardado") {

@@ -19,11 +19,96 @@ import {
   REFERENCIA,
 } from "../services/PreviewService";
 
+const FORMACION_INICIAL = {
+  titulo: "",
+  institucion: "",
+  fechaInicio: "",
+  fechaFin: "",
+  actualmente: false,
+  modalidad: "",
+  pais: "",
+  ciudad: "",
+  tipoFormacion: "",
+};
+
+const EXPERIENCIA_INICIAL = {
+  cargo: "",
+  empresa: "",
+  fechaInicio: "",
+  fechaFin: "",
+  actualmente: false,
+  logro: "",
+};
+
+const ACTIVIDAD_INICIAL = {
+  actividad: "",
+  organizacion: "",
+  fechaInicio: "",
+  fechaFin: "",
+  cursando: false,
+  tipoActividad: "",
+};
+
+const COMPLEMENTARIA_INICIAL = {
+  nombreCurso: "",
+  fechaInicio: "",
+  fechaFin: "",
+  institucion: "",
+  cursando: false,
+};
+
+const IDIOMA_INICIAL = {
+  idioma: "",
+  nivel: "",
+};
+
+const HERRAMIENTAOFIMATICA_INICIAL = {
+  herramienta: "",
+  nivel: "",
+};
+
+const MODELOTRABAJO_INICIAL = {
+  modeloTrabajo: ""
+};
+
+const HABILIDADDESARROLLADA_INICIAL = {
+  habilidad: ""
+};
+
+const HABILIDADSOFTWARE_INICIAL = {
+  habilidad: "",
+  nivel: "",
+};
+
+const REFERENCIA_INICIAL = {
+  tipoReferencia: "",
+  nombreCompleto: "",
+  relacion: "",
+  correo: "",
+  celular: "",
+  empresa: "",
+  cargo: "",
+};
+
+const PREVIEW_INICIAL = {
+  perfil: "",
+  formaciones: [FORMACION_INICIAL],
+  experiencias: [EXPERIENCIA_INICIAL],
+  actividadesExtracurriculares: [ACTIVIDAD_INICIAL],
+  informacionComplemtaria: [COMPLEMENTARIA_INICIAL],
+  idiomas: [IDIOMA_INICIAL],
+  herramientasOfimaticas: [HERRAMIENTAOFIMATICA_INICIAL],
+  modelosTrabajo: [MODELOTRABAJO_INICIAL],
+  habilidadesDesarrolladas: [HABILIDADDESARROLLADA_INICIAL],
+  habilidadesSoftware: [HABILIDADSOFTWARE_INICIAL],
+  referencias: [REFERENCIA_INICIAL],
+};
+
 const PreviewHv = () => {
   const disrupterId = 1;
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [preview, setPreview] = useState<PREVIEW>();
+  const [preview, setPreview] = useState<PREVIEW>(PREVIEW_INICIAL);
 
   const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
     console.log(e);
@@ -33,7 +118,7 @@ const PreviewHv = () => {
   const getPreview = async () => {
     const res = await GetPreview(disrupterId);
 
-    if (res !== "No hay preview para este disrupter") {
+    if (typeof res !== "string") {
       setPreview(res);
     }
   };
@@ -447,11 +532,12 @@ const PreviewHv = () => {
             className="iconEdit"
           />
         </div>
-        {referenciasFamiliares?.length > 0 && (
+        {(referenciasFamiliares?.length > 0 ) && (
           <>
             <span className="subTitleItem">Referencias Familiares</span>
             {referenciasFamiliares?.map((referencia: REFERENCIA) => (
               <div
+              key={referencia.nombreCompleto}
                 style={{
                   display: "flex",
                   flexDirection: "column",

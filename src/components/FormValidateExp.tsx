@@ -2,38 +2,48 @@ import { useState, FC, useEffect } from "react";
 import logo from "../assets/images/disruptialogo.png";
 import InfoValidateExperience from "./InfoValidateExperience";
 import { useNavigate } from "react-router-dom";
-import { GetExperienceDisrupterId } from "../services/ExperienceService";
+import {
+  GetExperienceDisrupterId,
+} from "../services/ExperienceService";
 import { GetActivitiesId } from "../services/ActivityService";
-import { GetComplementoDisrupterId } from "../services/ComplementService";
+import {
+    GetComplementoDisrupterId,
+} from "../services/ComplementService";
 
 const INITIAL_VALUES_FORM_EXPERIENCE = {
+  id: 0,
   disrupterId: 1,
   nombreEmpresa: "",
   cargo: "",
   fechaInicio: "",
   fechaFin: "",
-  cursando: "",
+  cursando: false,
   logros: "",
+  paso: 3,
 };
 
 const INITIAL_VALUES_FORM_ACTIVIDAD = {
+  id: 0,
   disrupterId: 1,
   nombreActividad: "",
   organizacion: "",
   fechaInicio: "",
   fechaFin: "",
-  cursando: "",
+  cursando: false,
   tipoActividad: "",
+  paso: 4,
 };
 
 const INITIAL_VALUES_FORM_COMPLEMENTARIO = {
+  id: 0,
   disrupterId: 1,
   nombreCurso: "",
   fechaInicio: "",
   fechaFin: "",
-  cursando: "",
+  cursando: false,
   nombreInstitucion: "",
-  certificacion: "",
+  certificacion: false,
+  paso: 5,
 };
 
 type FormValidateExpProps = {
@@ -47,37 +57,50 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
   setValidateImgs,
   validateImgs,
 }) => {
+  
   const initialValue =
     type === "experience"
       ? INITIAL_VALUES_FORM_EXPERIENCE
       : type === "additionalActivity"
       ? INITIAL_VALUES_FORM_ACTIVIDAD
       : INITIAL_VALUES_FORM_COMPLEMENTARIO;
-
-  const navigate = useNavigate();
+      
   const [valuesForm, setValuesForm] = useState<any>([initialValue]);
+  const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
   const [valuesRes, setValuesRes] = useState<any>(false);
 
   const getForms = async () => {
+
+    if (type === "experience") {
+      const res = await GetExperienceDisrupterId(1);
+
+      if (typeof res !== "string") {
+        setValuesForm(res);
+      }
+    }
+    
+
     const res =
       type === "experience"
         ? await GetExperienceDisrupterId(1)
         : type === "additionalActivity"
         ? await GetActivitiesId(1)
-        : await GetComplementoDisrupterId(1);  
-    
+        : await GetComplementoDisrupterId(1);
+
     if (res && res.length > 0) {
       setValuesRes(true);
-      const nuevoArray = res.reduce((accumulator: any, currentValue) => {
-        return [...accumulator, currentValue];
-      }, []);
-      setValuesForm(nuevoArray);
-    }
+
+      if (typeof res !== "string") {
+          setValuesForm(res);
+        }
+      }
+    
   };
 
   useEffect(() => {
     getForms();
+    console.log(valuesForm);
   }, []);
   const validateNavigation = () => {
     if (type === "experience") {

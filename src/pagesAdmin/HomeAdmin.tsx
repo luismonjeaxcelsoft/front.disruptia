@@ -13,18 +13,18 @@ const HomeAdmin = () => {
     },
     {
       id: 3,
-      label: "Revisar perfiles de vacantes creadas",
+      label: "Revisar perfiles de vacantes",
     },
   ];
   return (
     <>
       <Sidebar
-        smallTitle="Crear mi Hoja de Vida"
-        title="Hola Andrea"
-        subTitle="Disruptia y Chat GPT, te ayudan a crear tu hoja de vida a un clic"
-        subText=""
-        titleTwo="¡Es tu oportunidad!"
-        backColor={false}
+        smallTitle=""
+        title="Hola Nombre"
+        subTitle=""
+        subText="Para saber cómo funcionamos, a este lado vas a ver las instrucciones del paso a paso, te acompañamos con instrucciones. Unas veces tendrás instrucciones predeterminadas y otras con inteligencia artificial, personalizando tu experiencia"
+        titleTwo="Te damos la bienvenida a Disruptia"
+        backColor={true}
         img={false}
       />
       <div style={{ display: "flex", justifyContent: "center" }}>

@@ -7,6 +7,7 @@ import { Sidebar } from "./Sidebar";
 import {
   GetIdiomas,
   GetIdiomasDisrupterId,
+  IDIOMA,
   SaveIdiomas,
 } from "../services/IdiomasService";
 
@@ -15,15 +16,13 @@ type InformationLenguajesProps = {
   validateImgs: any;
 };
 
-type IDIOMA = {
-  idioma: string;
-  nivel: number;
-};
+
 
 const InformationLenguajes: FC<InformationLenguajesProps> = ({
   setValidateImgs,
   validateImgs,
 }) => {
+  const disrupterId= 1;
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<IDIOMA[]>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(
@@ -32,7 +31,6 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
   const [idiomas, setIdiomas] = useState<string[]>([]);
 
   const niveles = ["Ninguno", "Basico", "Intermedio", "Avanzado", "Nativo"];
-  const nivel = [1, 2, 3, 4, 5];
 
   const infoRadioIdiomas = async () => {
     const res = await GetIdiomas();
@@ -41,12 +39,12 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
 
   const infoRadioIdiomasBD = async () => {
     const res = await GetIdiomasDisrupterId(1);
-    if (res !== "No se encontraron idiomas para este disrupter") {
+    if (typeof res !== "string") {
       setSelectedOptions(res.idiomas);
     }
   };
 
-  const handleRadioChange = (idioma: string, nivel: number) => {
+  const handleRadioChange = (idioma: string, nivel: string, id: number) => {
     setValidateContinue(false);
 
     const updateArray = [...selectedOptions];
@@ -57,6 +55,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
       updateArray[exist].nivel = nivel;
     } else {
       const newItem = {
+        id : id,
         idioma: idioma,
         nivel: nivel,
       };
@@ -68,14 +67,16 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
 
   const saveIdiomas = async () => {
     const payload = {
-      disrupterId: 1,
+      disrupterId: disrupterId,
       idiomas: selectedOptions,
+      paso: 6
     };
 
     const res = await SaveIdiomas(payload);
 
-    if (res === "Idiomas guardados") {
+    if (res === "Idiomas Guardados") {
       setValidateContinue(true);
+      infoRadioIdiomasBD();
     }
   };
 
@@ -122,7 +123,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
               <div className="containerIdiomaText" key={info}>
                 <div style={{ width: "1%" }}>
                   <span className="idiomaText">
-                    {decodeURIComponent(escape(info))}
+                    {info}
                   </span>
                 </div>
                 <div>
@@ -130,19 +131,23 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
                     <Radio.Group
                       onChange={(e) =>
                         handleRadioChange(
-                          decodeURIComponent(escape(info)),
-                          e.target.value
+                          info,
+                          e.target.value,
+                          selectedOptions.find(
+                            (item) =>
+                              item.idioma === info
+                          )?.id || 0
                         )
                       }
                       value={
                         selectedOptions.find(
                           (item) =>
-                            item.idioma === decodeURIComponent(escape(info))
+                            item.idioma === info
                         )?.nivel || null
                       }
                     >
                       <div style={{ display: "flex" }}>
-                        {nivel.map((item: number) => (
+                        {niveles.map((item: string) => (
                           <div style={{ width: "85px" }} key={item}>
                             <Radio key={item} value={item}></Radio>
                           </div>

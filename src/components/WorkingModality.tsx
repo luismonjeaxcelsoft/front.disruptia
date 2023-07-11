@@ -15,20 +15,14 @@ type WorkingModalityProps = {
   validateImgs: any;
 };
 
-type MODELOTRABAJO = {
-  disrupterId: number;
-  modelos: string[];
-};
-
 const WorkingModality: FC<WorkingModalityProps> = ({
   setValidateImgs,
   validateImgs,
 }) => {
   const navigate = useNavigate();
-  const [selectedOptions, setSelectedOptions] = useState<MODELOTRABAJO[]>([]);
-  const [validateContinue, setValidateContinue] = useState<boolean>(
-    selectedOptions.length !== 0 ? false : true
-  );
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
+  const [idModelo, setIdModelo] = useState<number>(0);
+  const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [modelos, setModelos] = useState<string[]>([]);
 
   const handleCheckboxChange = (option: any) => {
@@ -43,20 +37,27 @@ const WorkingModality: FC<WorkingModalityProps> = ({
 
   const saveModelos = async () => {
     const payload = {
+      id: idModelo,
       disrupterId: 1,
       modelos: selectedOptions,
+      paso: 8,
     };
 
     const res = await SaveModeloTrabajo(payload);
     if (res === "Modelo de trabajo guardado") {
       setValidateContinue(true);
+      getModelosBD();
     }
   };
 
   const getModelosBD = async () => {
     const res = await GetModelosTrabajoDisrupterId(1);
-    if (res !== "No se encontraron idiomas para este disrupter") {
+    if (typeof res !== "string") {
       setSelectedOptions(res.modelos);
+      setIdModelo(res.id);
+      setValidateContinue(true);
+    } else {
+      setValidateContinue(false);
     }
   };
 

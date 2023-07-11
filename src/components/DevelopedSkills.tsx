@@ -20,6 +20,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
 
   const navigate = useNavigate();
   const [habilitysValues, setHabilitysValues] = useState<string[]>([]);
+  const [idHabilidad, setIdHabilidad] = useState<number>(0);
   const [habilidades, setHabilidades] = useState<string[]>([]);
   const [habilitysOptions, setHabilitysOptions] = useState<string[]>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(
@@ -64,22 +65,26 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   const saveHabilidades = async() => {
 
     const payload = {
+      id: idHabilidad,
       disrupterId: 1,
       habilidades: habilitysValues,
+      paso: 9,
     }; 
 
     const res = await SaveHabilidadDesarrollada(payload);
 
     if (res === "Habilidades desarrolladas guardadas") {
       setValidateContinue(true);
+      getHabilidadessBD();
     }
 
   }
 
   const getHabilidadessBD = async () => {
     const res = await GetHabilidadDesarrolladaDisrupterId(1);
-    if (res !== "No se encontraron habilidades desarrolladas") {
+    if (typeof res !== "string") {
       setHabilitysValues(res.habilidades);
+      setIdHabilidad(res.id);
     }
   };
 
@@ -171,7 +176,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                   key={item}
                   className="containerOptionsSelect"
                   onClick={() => {
-                    handleSetHabilidades(decodeURIComponent(escape(item)));
+                    handleSetHabilidades(item);
                     setValidateSelect(false);
                     setValidateContinue(false);
                   }}
@@ -185,7 +190,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                       cursor: "pointer"
                     }}
                   >
-                    {decodeURIComponent(escape(item))}
+                    {item}
                   </span>
                 </div>
               ))}

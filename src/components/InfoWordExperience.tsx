@@ -77,7 +77,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   };
   const changeValuesForm = (name: string, value: string) => {
     setValues((prevValues: any) => {
-      let newValues = [...prevValues];
+      const newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
       return newValues;
     });
@@ -87,13 +87,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
-    const deleteDto = {
-      disrupterId: values.disrupterId,
-      itemId: values.id,
-    };
-    console.log(deleteDto);
-    const res = await DeleteStudie(deleteDto);
-    console.log(res);
+    await DeleteStudie(values.id);
   };
 
   const activeCard = () => {
@@ -120,6 +114,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       values["id"] = null;
     }
     values["cursando"] = valueCheck;
+    values["paso"] = 2;
 
     const res = await CreateStudy(values);
     if (res === "Estudio guardado") {
@@ -144,7 +139,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
     form.setFieldsValue({ tipoEstudio: values.tipoEstudio });
     form.setFieldsValue({ modalidad: values.modalidad });
-    form.setFieldsValue({ paisId: values.paisId });
+    form.setFieldsValue({ pais: values.pais });
     await form.validateFields();
     await createStudies();
     activeCard();
@@ -231,10 +226,27 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             defaultValue={values.nombreCurso}
                           />
                         </Form.Item>
-                        <span className="countInput">
+                        <span className="countInputTitulo">
                           {countPalabras.length}/20
                         </span>
                       </div>
+                    </div>
+                    <div style={{ marginBottom: "15px" }}>
+                      <Checkbox
+                        onChange={(e) => setValueCheck(e.target.checked)}
+                        defaultChecked={valueCheck}
+                      />
+                      <label
+                        style={{
+                          color: "#FFFFFF",
+                          opacity: "0.6",
+                          marginLeft: "10px",
+                          fontFamily: "Montserrat-Light",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Cursando Actualmente
+                      </label>
                     </div>
                     <div className="containerDate">
                       <div
@@ -382,23 +394,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       )}
                     </div>
                     <div style={{ marginBottom: "15px" }}>
-                      <Checkbox
-                        onChange={(e) => setValueCheck(e.target.checked)}
-                        defaultChecked={valueCheck}
-                      />
-                      <label
-                        style={{
-                          color: "#FFFFFF",
-                          opacity: "0.6",
-                          marginLeft: "10px",
-                          fontFamily: "Montserrat-Light",
-                          fontSize: "18px",
-                        }}
-                      >
-                        Cursando Actualmente
-                      </label>
-                    </div>
-                    <div style={{ marginBottom: "15px" }}>
                       <label
                         className="labelsInsputs"
                         htmlFor="nombreInstitucion"
@@ -463,8 +458,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             <Select
                               id="tipoEstudio"
                               options={valuesAcademy.map((item: any) => ({
-                                label: decodeURIComponent(escape(item)),
-                                value: decodeURIComponent(escape(item)),
+                                label: item,
+                                value: item
                               }))}
                               onChange={(e) =>
                                 changeValuesForm("tipoEstudio", e)
@@ -519,7 +514,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               País y Ciudad donde curso
                             </label>
                             <Form.Item
-                              name="paisId"
+                              name="pais"
                               rules={[
                                 {
                                   required: true,
@@ -533,22 +528,22 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                   color: "white",
                                   width: "324px",
                                 }}
-                                id="ciudadId"
+                                id="pais"
                                 options={countries.map((item: any) => ({
                                   label: item.nombrePais,
-                                  value: item.codigoPais,
+                                  value: item.nombrePais,
                                 }))}
                                 onChange={(e) => {
-                                  changeValuesForm("paisId", e);
+                                  changeValuesForm("pais", e);
                                 }}
-                                defaultValue={values.paisId}
+                                defaultValue={values.pais}
                               />
                             </Form.Item>
                           </div>
                           <div>
-                            {values.paisId === 169 && (
+                            {values.pais === "Colombia" && (
                               <Form.Item
-                                name="ciudadId"
+                                name="ciudad"
                                 rules={[
                                   {
                                     required: true,
@@ -563,15 +558,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                     width: "325px",
                                     marginTop: "48px",
                                   }}
-                                  id="ciudadId"
+                                  id="ciudad"
                                   options={municipality.map((item: any) => ({
                                     label: item.municipioDepartamento,
-                                    value: item.municipioId,
+                                    value: item.municipioDepartamento,
                                   }))}
                                   onChange={(e) =>
-                                    changeValuesForm("ciudadId", e)
+                                    changeValuesForm("ciudad", e)
                                   }
-                                  defaultValue={values.ciudadId}
+                                  defaultValue={values.ciudad}
                                 />
                               </Form.Item>
                             )}

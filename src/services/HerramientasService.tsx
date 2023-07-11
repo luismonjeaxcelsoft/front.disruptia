@@ -1,44 +1,46 @@
 import axios from "axios";
-import { type } from "os";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type HERRAMIENTA = {
+export type HERRAMIENTAOFIMATICA = {
   disrupterId: number;
-  herramientas: SUBHERRAMIENTA[];
+  herramientas: HERRAMIENTA[];
+  paso: number;
 };
 
-type SUBHERRAMIENTA = {
-    herramienta: string,
-    nivel: number,
-}
+export type HERRAMIENTA = {
+  id: number;
+  herramienta: string;
+  nivel: string;
+};
 
-export const SaveHerramientas = async (values: any) => {
+export const SaveHerramientas = async (values: HERRAMIENTAOFIMATICA) => {
   try {
     const response = await axios.post(`${API_URL}/ofimatica`, values);
     return response.data;
-  } catch (error) {
-    throw new Error("Error al guardar las herramientas");
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
 export const GetHerramientasDisrupterId = async (
   disrupterId: number
-): Promise<HERRAMIENTA[] | string> => {
+): Promise<HERRAMIENTAOFIMATICA | string> => {
   try {
-    const response = await axios.get(`${API_URL}/ofimatica/disrupterId/${disrupterId}`);
-    return response.data as HERRAMIENTA[];
-  } catch (error) {
-    throw new Error("Error al obtener las herramientas del disrupter");
+    const response = await axios.get(
+      `${API_URL}/ofimatica/disrupterId/${disrupterId}`
+    );
+    return response.data as HERRAMIENTAOFIMATICA;
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
 export const GetHerramientas = async (): Promise<string[]> => {
-    try {
-      const response = await axios.get(`${API_URL}/ofimatica/list`);
-      return response.data;
-    } catch (error) {
-      throw new Error("Error al obtener las herramientas");
-    }
-  };
-
+  try {
+    const response = await axios.get(`${API_URL}/ofimatica/list`);
+    return response.data;
+  } catch (error: any) {
+    return error.response.data;
+  }
+};

@@ -86,7 +86,7 @@ const LevelCompetition = ({ skills, setValidateImgs, validateImgs }: any) => {
             value={valueRadio}
           >
             {niveles.map((item: any) => (
-              <Radio value={decodeURIComponent(escape(item))} key={item}>
+              <Radio value={item} key={item}>
                 <span
                   style={{
                     color: "white",
@@ -94,7 +94,7 @@ const LevelCompetition = ({ skills, setValidateImgs, validateImgs }: any) => {
                     fontFamily: "Montserrat-Light",
                   }}
                 >
-                  {decodeURIComponent(escape(item))}
+                  {item}
                 </span>
               </Radio>
             ))}

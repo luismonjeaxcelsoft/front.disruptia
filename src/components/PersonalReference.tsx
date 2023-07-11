@@ -43,7 +43,7 @@ const PersonalReference: FC<InfoReferences> = ({
     if (value.id !== 0) {
       setCardValidate(true);
       setOptionReference(value.tipoReferencia);
-    }
+    } 
   };
 
   const onChangeValues = (e: any) => {

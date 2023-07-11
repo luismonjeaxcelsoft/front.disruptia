@@ -41,7 +41,7 @@ const PersonalReferences = ({ setValidateImgs, validateImgs }: any) => {
 
   const getReferences = async () => {
     const res = await GetReferencesDisrupterId(disrupterId);
-    if (res !== "No se encontraron referencias para este disrupter") {
+    if (typeof res !== "string") {
       setValues(res);
       setValidateContinue(true);
       setValidateSiguiente(true);

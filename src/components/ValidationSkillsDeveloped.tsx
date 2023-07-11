@@ -21,7 +21,7 @@ const ValidationSkillsDeveloped = ({ setValidateImgs, validateImgs }: any) => {
   const getHabilidadesDisrupter = async () => {
     const res = await GetHabilidadDeSoftwareDisrupterId(disrupterId);
 
-    if (res !== "No se encontraron habilidades para este disrupter") {
+    if (typeof res !== "string") {
       setValidationComponent(true);
       setHabilidadesDisrupter(res.habilidades);
     } else {

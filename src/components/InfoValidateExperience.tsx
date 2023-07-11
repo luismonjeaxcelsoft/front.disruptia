@@ -55,24 +55,20 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
-    console.log(values.id);
-    const deleteDto = {
-      disrupterId: values.disrupterId,
-      itemId: values.id,
-    };
+    
     if (values.id !== undefined) {
       if (type === "experience") {
-        await DeleteExperience(deleteDto);
+        await DeleteExperience(values.id);
       } else if (type === "additionalActivity") {
-        await DeleteActivity(deleteDto);
+        await DeleteActivity(values.id);
       } else {
-        await DeleteComplemento(deleteDto);
+        await DeleteComplemento(values.id);
       }
     }
   };
   const changeValuesForm = (name: string, value: string) => {
     setValues((prevValues: any) => {
-      let newValues = [...prevValues];
+      const newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
       return newValues;
     });
@@ -118,7 +114,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   };
   const activeCardInit = () => {
     setValidateViewB(true);
-    if (valuesRes) {
+    if (values.id !== 0) {
       setCardValidate(true);
       return;
     }
@@ -169,26 +165,31 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       values["id"] = null;
     }
     values["cursando"] = valueCheck;
-    console.log(values);
+    
 
     if (type === "experience") {
+      values["paso"] = 3;
       const res = await SaveExperience(values);
       if (res === "Experiencia guardada") {
         setValidateViewB(true);
+        getForms();
       }
     } else if (type === "additionalActivity") {
+      values["paso"] = 4;
       const res = await CreateActivity(values);
       if (res === "Actividad guardada") {
         setValidateViewB(true);
+        getForms();
       }
     } else {
+      values["paso"] = 5;
       const res = await SaveComplemento(values);
-      if (res === "Informacion complementaria guardada") {
+      if (res === "Formacion complementaria guardada") {
         setValidateViewB(true);
+        getForms();
       }
     }
 
-    getForms();
   };
 
   const handleRadioChange = (e: any) => {
@@ -197,6 +198,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
 
   useEffect(() => {
     activeCardInit();
+    console.log(values);
     setValueCheck(values.cursando);
     if (type === "additionalActivity") {
       setTipoActividadState(values.tipoActividad);
@@ -231,7 +233,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
             {id === 0 && type === "experience"
               ? "Experiencia Laboral"
               : id === 0 && type === "additionalCurse"
-              ? "Información Complementaria"
+              ? "Formación Complementaria"
               : id === 0 && type === "additionalActivity"
               ? ""
               : ""}
@@ -388,6 +390,25 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           </div>
                         </div>
                       )}
+                      <div style={{ marginBottom: "15px" }}>
+                        <Checkbox
+                          onChange={(e) => setValueCheck(e.target.checked)}
+                          defaultChecked={valueCheck}
+                        />
+                        <label
+                          style={{
+                            color: "#FFFFFF",
+                            opacity: "0.6",
+                            marginLeft: "10px",
+                            fontFamily: "Montserrat-Medium",
+                            fontSize: "18px",
+                          }}
+                        >
+                          {type === "experience"
+                            ? "Actualmente"
+                            : "Cursando Actualmente"}
+                        </label>
+                      </div>
                       <div className="containerDate">
                         <div
                           style={{
@@ -535,25 +556,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             </div>
                           </div>
                         )}
-                      </div>
-                      <div style={{ marginBottom: "15px" }}>
-                        <Checkbox
-                          onChange={(e) => setValueCheck(e.target.checked)}
-                          defaultChecked={valueCheck}
-                        />
-                        <label
-                          style={{
-                            color: "#FFFFFF",
-                            opacity: "0.6",
-                            marginLeft: "10px",
-                            fontFamily: "Montserrat-Medium",
-                            fontSize: "18px",
-                          }}
-                        >
-                          {type === "experience"
-                            ? "Actualmente"
-                            : "Cursando Actualmente"}
-                        </label>
                       </div>
                       {type !== "additionalActivity" && (
                         <div style={{ marginBottom: "15px" }}>

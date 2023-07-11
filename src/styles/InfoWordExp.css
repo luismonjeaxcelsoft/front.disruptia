@@ -196,3 +196,13 @@ textarea:where(.css-dev-only-do-not-override-15rg2km).ant-input {
 :where(.css-dev-only-do-not-override-15rg2km).ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
   border-color: #F3CF46 !important;
 }
+
+.countInputTitulo {
+  color: white;
+  position: absolute;
+  left: 87%;
+  top: 150px;
+  font-size: 15px;
+  font-family: Montserrat-Light;
+  opacity: 0.35;
+}

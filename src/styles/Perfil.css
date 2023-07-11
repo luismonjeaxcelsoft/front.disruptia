@@ -76,3 +76,13 @@
   font-size: 15px;
   font-family: Montserrat-Bold;
 }
+
+.countInput {
+  color: white;
+  position: absolute;
+  left: 89%;
+  top: 383px;
+  font-size: 15px;
+  font-family: Montserrat-Light;
+  opacity: 0.35;
+}

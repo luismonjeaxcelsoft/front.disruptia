@@ -20,6 +20,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
 
   const navigate = useNavigate();
   const [habilitysValues, setHabilitysValues] = useState<string[]>([]);
+  const [idHabilidad, setIdHabilidad] = useState<number>(0);
   const [habilidades, setHabilidades] = useState<string[]>([]);
   const [habilitysOptions, setHabilitysOptions] = useState<string[]>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(
@@ -64,14 +65,17 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   const saveHabilidades = async() => {
 
     const payload = {
+      id: idHabilidad,
       disrupterId: 1,
       habilidades: habilitysValues,
+      paso: 9,
     }; 
 
     const res = await SaveHabilidadDesarrollada(payload);
 
     if (res === "Habilidades desarrolladas guardadas") {
       setValidateContinue(true);
+      getHabilidadessBD();
     }
 
   }
@@ -80,6 +84,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
     const res = await GetHabilidadDesarrolladaDisrupterId(1);
     if (typeof res !== "string") {
       setHabilitysValues(res.habilidades);
+      setIdHabilidad(res.id);
     }
   };
 

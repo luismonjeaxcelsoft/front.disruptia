@@ -4,16 +4,16 @@ import "../styles/InformationLenguajes.css";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { GetHerramientas, GetHerramientasDisrupterId, SaveHerramientas } from "../services/HerramientasService";
+import {
+  GetHerramientas,
+  GetHerramientasDisrupterId,
+  SaveHerramientas,
+  HERRAMIENTA,
+} from "../services/HerramientasService";
 
 type OfficeToolsProps = {
   setValidateImgs: any;
   validateImgs: any;
-};
-
-type HERRRAMIENTA = {
-  herramienta: string;
-  nivel: string;
 };
 
 const OfficeTools: FC<OfficeToolsProps> = ({
@@ -21,13 +21,13 @@ const OfficeTools: FC<OfficeToolsProps> = ({
   validateImgs,
 }) => {
   const navigate = useNavigate();
-  const [selectedOptions, setSelectedOptions] = useState<HERRRAMIENTA[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<HERRAMIENTA[]>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(
     selectedOptions.length === 8 ? false : true
   );
   const [herramientas, setHerramientas] = useState<any>([]);
 
-  const niveles = ["Ninguno","Básico", "Intermedio", "Avanzado"];
+  const niveles = ["Ninguno", "Básico", "Intermedio", "Avanzado"];
 
   const infoRadioHerramientas = async () => {
     const res = await GetHerramientas();
@@ -46,12 +46,20 @@ const OfficeTools: FC<OfficeToolsProps> = ({
 
     const updateArray = [...selectedOptions];
 
-    const exist = updateArray.findIndex((item: HERRRAMIENTA) => item.herramienta === herramienta);
+    const exist = updateArray.findIndex(
+      (item: HERRAMIENTA) => item.herramienta === herramienta
+    );
+
+    const id =
+    selectedOptions.find((item: HERRAMIENTA) => item.herramienta === herramienta)
+        ?.id || 0;
+        console.log(id)
 
     if (exist !== -1) {
       updateArray[exist].nivel = nivel;
     } else {
       const newItem = {
+        id: id,
         herramienta: herramienta,
         nivel: nivel,
       };
@@ -65,20 +73,21 @@ const OfficeTools: FC<OfficeToolsProps> = ({
     const payload = {
       disrupterId: 1,
       herramientas: selectedOptions,
+      paso: 7,
     };
 
     const res = await SaveHerramientas(payload);
 
     if (res === "Herramientas ofimaticas guardadas") {
       setValidateContinue(true);
+      infoRadioHerramientasBD();
     }
   };
 
   useEffect(() => {
     infoRadioHerramientas();
     infoRadioHerramientasBD();
-  }, [])
-  
+  }, []);
 
   return (
     <>
@@ -136,7 +145,15 @@ const OfficeTools: FC<OfficeToolsProps> = ({
               }}
             >
               {niveles.map((item) => (
-                <div style={{ marginRight: "0px", width: "92px", display: "flex", justifyContent: "center"}} key={item}>
+                <div
+                  style={{
+                    marginRight: "0px",
+                    width: "92px",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                  key={item}
+                >
                   <span className="textItem">{item}</span>
                 </div>
               ))}
@@ -145,7 +162,9 @@ const OfficeTools: FC<OfficeToolsProps> = ({
               {herramientas.map((herramienta: any) => (
                 <div className="containerIdiomaText" key={herramienta.nombre}>
                   <div style={{ width: "100%" }}>
-                    <span className="herramientaText">{herramienta.nombre + " "}</span>
+                    <span className="herramientaText">
+                      {herramienta.nombre + " "}
+                    </span>
                     <span
                       style={{ opacity: "0.8", fontSize: "15px" }}
                       className="herramientaText"
@@ -157,10 +176,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                     <div style={{ marginLeft: "5px", display: "flex" }}>
                       <Radio.Group
                         onChange={(e) =>
-                          handleRadioChange(
-                            herramienta.nombre,
-                            e.target.value
-                          )
+                          handleRadioChange(herramienta.nombre, e.target.value)
                         }
                         value={
                           selectedOptions.find(
@@ -171,7 +187,14 @@ const OfficeTools: FC<OfficeToolsProps> = ({
                       >
                         <div style={{ display: "flex" }}>
                           {niveles.map((item: string) => (
-                            <div style={{ width: "92px", display: "flex", justifyContent: "center" }} key={item}>
+                            <div
+                              style={{
+                                width: "92px",
+                                display: "flex",
+                                justifyContent: "center",
+                              }}
+                              key={item}
+                            >
                               <Radio key={item} value={item}></Radio>
                             </div>
                           ))}

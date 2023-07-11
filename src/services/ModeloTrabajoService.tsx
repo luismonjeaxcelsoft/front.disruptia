@@ -2,11 +2,12 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 
 type MODELOTRABAJO = {
+  id : number;
   disrupterId: number;
   modelos: string[];
 };
 
-export const SaveModeloTrabajo = async (values: any) => {
+export const SaveModeloTrabajo = async (values: MODELOTRABAJO) => {
   try {
     const response = await axios.post(`${API_URL}/modelotrabajo`, values);
     return response.data;

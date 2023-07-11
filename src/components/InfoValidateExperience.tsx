@@ -233,7 +233,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
             {id === 0 && type === "experience"
               ? "Experiencia Laboral"
               : id === 0 && type === "additionalCurse"
-              ? "Información Complementaria"
+              ? "Formación Complementaria"
               : id === 0 && type === "additionalActivity"
               ? ""
               : ""}
@@ -390,6 +390,25 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           </div>
                         </div>
                       )}
+                      <div style={{ marginBottom: "15px" }}>
+                        <Checkbox
+                          onChange={(e) => setValueCheck(e.target.checked)}
+                          defaultChecked={valueCheck}
+                        />
+                        <label
+                          style={{
+                            color: "#FFFFFF",
+                            opacity: "0.6",
+                            marginLeft: "10px",
+                            fontFamily: "Montserrat-Medium",
+                            fontSize: "18px",
+                          }}
+                        >
+                          {type === "experience"
+                            ? "Actualmente"
+                            : "Cursando Actualmente"}
+                        </label>
+                      </div>
                       <div className="containerDate">
                         <div
                           style={{
@@ -537,25 +556,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             </div>
                           </div>
                         )}
-                      </div>
-                      <div style={{ marginBottom: "15px" }}>
-                        <Checkbox
-                          onChange={(e) => setValueCheck(e.target.checked)}
-                          defaultChecked={valueCheck}
-                        />
-                        <label
-                          style={{
-                            color: "#FFFFFF",
-                            opacity: "0.6",
-                            marginLeft: "10px",
-                            fontFamily: "Montserrat-Medium",
-                            fontSize: "18px",
-                          }}
-                        >
-                          {type === "experience"
-                            ? "Actualmente"
-                            : "Cursando Actualmente"}
-                        </label>
                       </div>
                       {type !== "additionalActivity" && (
                         <div style={{ marginBottom: "15px" }}>

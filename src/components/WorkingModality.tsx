@@ -21,9 +21,8 @@ const WorkingModality: FC<WorkingModalityProps> = ({
 }) => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
-  const [validateContinue, setValidateContinue] = useState<boolean>(
-    selectedOptions.length !== 0 ? false : true
-  );
+  const [idModelo, setIdModelo] = useState<number>(0);
+  const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [modelos, setModelos] = useState<string[]>([]);
 
   const handleCheckboxChange = (option: any) => {
@@ -38,13 +37,16 @@ const WorkingModality: FC<WorkingModalityProps> = ({
 
   const saveModelos = async () => {
     const payload = {
+      id: idModelo,
       disrupterId: 1,
       modelos: selectedOptions,
+      paso: 8,
     };
 
     const res = await SaveModeloTrabajo(payload);
     if (res === "Modelo de trabajo guardado") {
       setValidateContinue(true);
+      getModelosBD();
     }
   };
 
@@ -52,6 +54,10 @@ const WorkingModality: FC<WorkingModalityProps> = ({
     const res = await GetModelosTrabajoDisrupterId(1);
     if (typeof res !== "string") {
       setSelectedOptions(res.modelos);
+      setIdModelo(res.id);
+      setValidateContinue(true);
+    } else {
+      setValidateContinue(false);
     }
   };
 

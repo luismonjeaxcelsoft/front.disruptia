@@ -231,6 +231,23 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                         </span>
                       </div>
                     </div>
+                    <div style={{ marginBottom: "15px" }}>
+                      <Checkbox
+                        onChange={(e) => setValueCheck(e.target.checked)}
+                        defaultChecked={valueCheck}
+                      />
+                      <label
+                        style={{
+                          color: "#FFFFFF",
+                          opacity: "0.6",
+                          marginLeft: "10px",
+                          fontFamily: "Montserrat-Light",
+                          fontSize: "18px",
+                        }}
+                      >
+                        Cursando Actualmente
+                      </label>
+                    </div>
                     <div className="containerDate">
                       <div
                         style={{
@@ -375,23 +392,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           </div>
                         </div>
                       )}
-                    </div>
-                    <div style={{ marginBottom: "15px" }}>
-                      <Checkbox
-                        onChange={(e) => setValueCheck(e.target.checked)}
-                        defaultChecked={valueCheck}
-                      />
-                      <label
-                        style={{
-                          color: "#FFFFFF",
-                          opacity: "0.6",
-                          marginLeft: "10px",
-                          fontFamily: "Montserrat-Light",
-                          fontSize: "18px",
-                        }}
-                      >
-                        Cursando Actualmente
-                      </label>
                     </div>
                     <div style={{ marginBottom: "15px" }}>
                       <label

@@ -239,7 +239,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             defaultValue={values.nombreCurso}
                           />
                         </Form.Item>
-                        <span className="countInputTitulo">
+                        <span style={{top:"160px"}} className="countInputTitulo">
                           {countPalabras.length}/20
                         </span>
                       </div>
@@ -455,7 +455,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           />
                         </Form.Item>
 
-                        <span className="countInputIns">
+                        <span style={{top:"420px"}} className="countInputIns">
                           {countKeysIns.length}/20
                         </span>
                       </div>

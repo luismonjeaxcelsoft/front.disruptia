@@ -18,6 +18,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
   const [validationGpt, setValidationGpt] = useState(false);
   const [countPalabras, setCountPalabras] = useState<string[]>([]);
   const [perfil, setPerfil] = useState<string>("");
+  const [idPerfil, setIdPerfil] = useState<number>(0);
   const [perfilAjustado, setPerfilAjustado] = useState<string>("");
   const [editarPerfilAjustado, setEditarPerfilAjustado] =
     useState<boolean>(true);
@@ -33,11 +34,10 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
       );
       return;
     }
-    
 
     const { name, value } = e.target;
     if (value !== "") {
-      setValidateContinue(false)
+      setValidateContinue(false);
     }
     if (name === "textoOriginal") {
       setPerfil(value);
@@ -53,19 +53,22 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
   const dejarTexto = () => {
     setPerfil(perfilAjustado);
     setValidationGpt(false);
-    setValidateContinue(false)
+    setValidateContinue(false);
     const palabras = perfilAjustado.trim().split(/\s+/);
     setCountPalabras(palabras);
   };
 
   const savePerfil = async () => {
     const payload = {
+      id: idPerfil,
       disrupterId: disrupterId,
       perfil: perfil,
+      paso: 11,
     };
     const res = await SavePerfilRedactado(payload);
     if (res === "Perfil guardado") {
       setValidateContinue(true);
+      getPerfil();
     }
   };
 
@@ -97,6 +100,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
       setPerfil(res.perfil);
       const palabras = res.perfil.trim().split(/\s+/);
       setCountPalabras(palabras);
+      setIdPerfil(res.id);
     }
   };
 
@@ -123,7 +127,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
         <Spin
           spinning={loading}
           size="large"
-          tip={<span style={{ color: '#f7c947' }}>Validando con ChatGPT</span>}
+          tip={<span style={{ color: "#f7c947" }}>Validando con ChatGPT</span>}
           indicator={<LoadingOutlined style={{ color: "#f7c947" }} />}
         >
           <div className="containerTextPerfil">

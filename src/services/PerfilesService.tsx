@@ -5,9 +5,10 @@ interface Perfiles {
   id: number;
   name: string;
 }
-interface perfilesSelect {
+export interface PerfilesSelect {
+  id: number;
   disrupterId: number;
-  perfilesId: Array<number>;
+  perfiles: number[];
 }
 
 export const PerfilesService = async (): Promise<Perfiles[]> => {
@@ -19,25 +20,19 @@ export const PerfilesService = async (): Promise<Perfiles[]> => {
   }
 };
 
-export const perfilesSelect = async (
-  disrupterId: number,
-  perfilesId: Array<number>
-): Promise<perfilesSelect[]> => {
+export const saveSelectPerfiles = async (data: PerfilesSelect)=> {
   try {
-    const response = await axios.post(`${API_URL}/seleccionperfil`, {
-      disrupterId: disrupterId,
-      perfilesId: perfilesId,
-    });
-    return response.data as perfilesSelect[];
+    const response = await axios.post(`${API_URL}/seleccionperfil`, data);
+    return response.data;
   } catch (error) {
     throw new Error("Error al cargar los perfiles");
   }
 };
 
-export const getPerfilesService = async (disrupterId:any): Promise<Perfiles[]> => {
+export const getPerfilesService = async (disrupterId:any): Promise<PerfilesSelect> => {
   try {
     const response = await axios.get(`${API_URL}/seleccionperfil/disrupter/${disrupterId}`,);
-    return response.data as Perfiles[];
+    return response.data as PerfilesSelect;
   } catch (error) {
     throw new Error("Error al obtener los perfiles");
   }

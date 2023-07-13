@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import {
+  PerfilesSelect,
   PerfilesService,
   getPerfilesService,
-  perfilesSelect,
+  saveSelectPerfiles,
 } from "../services/PerfilesService";
 import "../../src/styles/SeleccionPerfiles.css";
 import { Sidebar } from "./Sidebar";
@@ -13,11 +14,25 @@ interface Perfiles {
   name: string;
 }
 
-export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setValuesIdPerfiles,setvaluesInputsPerfiles}:any) => {
+const PerfilesSelect_initialValue = {
+  id: 0,
+  disrupterId: 1,
+  perfiles: [],
+  paso: 1,
+};
+
+export const SeleccionPerfiles = ({
+  setValidateImgs,
+  validateImgs,
+  setValuesIdPerfiles,
+  setvaluesInputsPerfiles,
+}: any) => {
   const navigate = useNavigate();
   const [data, setData] = useState<Perfiles[]>([]);
   const [sendData, setSendData] = useState<any[]>([]);
-  const [resGetPerfiles, setResGetPerfiles] = useState<Array<any>>([]);
+  const [resGetPerfiles, setResGetPerfiles] = useState<PerfilesSelect>(
+    PerfilesSelect_initialValue
+  );
   const [validateResGet, setValidateResGet] = useState<boolean>(false);
 
   const filterButtoms = (perfil: Perfiles) => {
@@ -29,18 +44,21 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setValuesIdPerfi
     setSendData([...sendData, perfil.id]);
   };
   const idPerfilSelect = async () => {
-    await perfilesSelect(1, sendData);
-    setValuesIdPerfiles(sendData)
-
-
+    const payload = {
+      id: resGetPerfiles.id,
+      disrupterId: resGetPerfiles.disrupterId,
+      perfiles: sendData,
+    };
+    await saveSelectPerfiles(payload);
+    setValuesIdPerfiles(sendData);
   };
 
   const getPerfiles = async () => {
     const res = await getPerfilesService(1);
     setResGetPerfiles(res);
     setValidateResGet(true);
-    if (res.length > 0) {
-      let infoValidatePer = resGetPerfiles.map((ids) => ids.perfilId);
+    if (res.perfiles.length > 0) {
+      const infoValidatePer = resGetPerfiles.perfiles;
       setSendData(infoValidatePer);
       setValidateResGet(true);
     }
@@ -50,7 +68,7 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setValuesIdPerfi
       try {
         const apiData = await PerfilesService();
         setData(apiData);
-        setvaluesInputsPerfiles(apiData)
+        setvaluesInputsPerfiles(apiData);
       } catch (error) {
         // Maneja el error de alguna manera apropiada (por ejemplo, mostrando un mensaje de error)
         console.error(error);
@@ -73,11 +91,23 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setValuesIdPerfi
       </div>
       <div>
         <div className="titleTabOne">
-          <h1 style={{ fontSize: "40px", color: "white",fontFamily:"Montserrat-Bold" }}>
+          <h1
+            style={{
+              fontSize: "40px",
+              color: "white",
+              fontFamily: "Montserrat-Bold",
+            }}
+          >
             ¿En qué te gustaría trabajar?
           </h1>
-          <span style={{ fontSize: "20px", color: "white",fontFamily:"Montserrat-Bold" }}>
-           Puedes seleccionar mas de uno.
+          <span
+            style={{
+              fontSize: "20px",
+              color: "white",
+              fontFamily: "Montserrat-Bold",
+            }}
+          >
+            Puedes seleccionar mas de uno.
           </span>
         </div>
         <div className="gripPositionTab">
@@ -124,9 +154,8 @@ export const SeleccionPerfiles = ({setValidateImgs,validateImgs,setValuesIdPerfi
             className="buttonContinueSelect"
             onClick={() => {
               idPerfilSelect();
-              setValidateImgs([...validateImgs,"2"])
+              setValidateImgs([...validateImgs, "2"]);
               navigate("/perfiles/2");
-             
             }}
           >
             <p className="textSiguienteSelect">Continuar</p>

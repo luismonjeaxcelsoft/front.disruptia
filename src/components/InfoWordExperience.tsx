@@ -57,8 +57,8 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
   const [valueCheck, setValueCheck] = useState<boolean>(values.cursando);
   const [countPalabras, setCountPalabras] = useState<string>("");
   const [countKeysIns, setCountKeysIns] = useState<string>("");
+  const [valueErrors, setValueErrors] = useState<any>([]);
   const maxWords = 20;
-
   const onChangeValues = (e: any) => {
     const palabras = e.target.value.trim().split(/\s+/);
     if (e.target?.id === "nombreCurso") {
@@ -133,16 +133,21 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
     setMunicipality(getMunicipalities);
   };
   const validateForm = async () => {
-    form.setFieldsValue({ nombreCurso: values.nombreCurso });
-    form.setFieldsValue({ fechaInicio: values.fechaInicio });
-    form.setFieldsValue({ fechaFin: values.fechaFin });
-    form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
-    form.setFieldsValue({ tipoEstudio: values.tipoEstudio });
-    form.setFieldsValue({ modalidad: values.modalidad });
-    form.setFieldsValue({ pais: values.pais });
-    await form.validateFields();
-    await createStudies();
-    activeCard();
+    try {
+      form.setFieldsValue({ nombreCurso: values.nombreCurso });
+      form.setFieldsValue({ fechaInicio: values.fechaInicio });
+      form.setFieldsValue({ fechaFin: values.fechaFin });
+      form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
+      form.setFieldsValue({ tipoEstudio: values.tipoEstudio });
+      form.setFieldsValue({ modalidad: values.modalidad });
+      form.setFieldsValue({ pais: values.pais });
+      await form.validateFields();
+      await createStudies();
+      activeCard();
+    } catch (error: any) {
+      const errores = error?.errorFields.flatMap((item: any) => item.name);
+      setValueErrors(errores);
+    }
   };
 
   useEffect(() => {
@@ -203,7 +208,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                 <Form form={form} ref={formRef}>
                   <div>
                     <div style={{ marginBottom: "15px" }}>
-                      <label className="labelsInsputs " htmlFor="nombreCurso">
+                      <label
+                        className="labelsInsputs "
+                        htmlFor="nombreCurso"
+                        style={
+                          valueErrors.includes("nombreCurso")
+                            ? { color: "#f7c947", opacity: "1" }
+                            : {}
+                        }
+                      >
                         Titulo academico
                       </label>
                       <div>
@@ -226,7 +239,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             defaultValue={values.nombreCurso}
                           />
                         </Form.Item>
-                        <span className="countInputTitulo">
+                        <span style={{top:"160px"}} className="countInputTitulo">
                           {countPalabras.length}/20
                         </span>
                       </div>
@@ -256,7 +269,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           flexDirection: "column",
                         }}
                       >
-                        <label className="labelsInsputs" htmlFor="dateInit">
+                        <label
+                          className="labelsInsputs"
+                          htmlFor="dateInit"
+                          style={
+                            valueErrors.includes("fechaInicio")
+                              ? { color: "#f7c947", opacity: "1" }
+                              : {}
+                          }
+                        >
                           Fecha de inicio
                         </label>
                         <div>
@@ -323,7 +344,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       </div>
                       {!valueCheck && (
                         <div style={{ marginBottom: "15px" }}>
-                          <label className="labelsInsputs" htmlFor="dateEnd">
+                          <label
+                            style={
+                              valueErrors.includes("fechaFin")
+                                ? { color: "#f7c947", opacity: "1" }
+                                : {}
+                            }
+                            className="labelsInsputs"
+                            htmlFor="dateEnd"
+                          >
                             Fecha de finalización
                           </label>
                           <div>
@@ -397,6 +426,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                       <label
                         className="labelsInsputs"
                         htmlFor="nombreInstitucion"
+                        style={
+                          valueErrors.includes("nombreInstitucion")
+                            ? { color: "#f7c947", opacity: "1" }
+                            : {}
+                        }
                       >
                         Institución Educativa
                       </label>
@@ -421,7 +455,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           />
                         </Form.Item>
 
-                        <span className="countInputIns">
+                        <span style={{top:"420px"}} className="countInputIns">
                           {countKeysIns.length}/20
                         </span>
                       </div>
@@ -443,6 +477,11 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           <label
                             className="labelsInsputs"
                             htmlFor="tipoEstudio"
+                            style={
+                              valueErrors.includes("tipoEstudio")
+                                ? { color: "#f7c947", opacity: "1" }
+                                : {}
+                            }
                           >
                             Tipo de estudio
                           </label>
@@ -459,7 +498,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               id="tipoEstudio"
                               options={valuesAcademy.map((item: any) => ({
                                 label: item,
-                                value: item
+                                value: item,
                               }))}
                               onChange={(e) =>
                                 changeValuesForm("tipoEstudio", e)
@@ -470,7 +509,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           </Form.Item>
                         </div>
                         <div className="containerStudies">
-                          <label className="labelsInsputs" htmlFor="modalidad">
+                          <label
+                            style={
+                              valueErrors.includes("modalidad")
+                                ? { color: "#f7c947", opacity: "1" }
+                                : {}
+                            }
+                            className="labelsInsputs"
+                            htmlFor="modalidad"
+                          >
                             Modalidad
                           </label>
                           <Form.Item
@@ -510,7 +557,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               marginTop: "15px",
                             }}
                           >
-                            <label className="labelsInsputs" htmlFor="paisId">
+                            <label
+                              style={
+                                valueErrors.includes("pais")
+                                  ? { color: "#f7c947", opacity: "1" }
+                                  : {}
+                              }
+                              className="labelsInsputs"
+                              htmlFor="paisId"
+                            >
                               País y Ciudad donde curso
                             </label>
                             <Form.Item

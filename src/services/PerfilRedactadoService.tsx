@@ -2,9 +2,11 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type PERFILREDACTADO = {
+export type PERFILREDACTADO = {
+  id: number;
   disrupterId: number;
-  perfil: string
+  perfil: string;
+  paso: number;
 }
 
 type VALIDARCONCHATGPT = {
@@ -17,8 +19,8 @@ export const SavePerfilRedactado = async (values: PERFILREDACTADO) => {
   try {
     const response = await axios.post(`${API_URL}/perfilgpt`, values);
     return response.data;
-  } catch (error) {
-    return error;
+  } catch (error: any) {
+    return error.response.data;
   }
 };
 
@@ -29,7 +31,7 @@ export const GetPerfilDisrupterId = async (id: number): Promise<PERFILREDACTADO 
     );
     return response.data;
    } catch (error: any) {
-    return error.response.data
+    throw new Error("Error al traer el perfil");
    }
 };
 

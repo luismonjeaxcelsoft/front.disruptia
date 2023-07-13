@@ -145,7 +145,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       await createStudies();
       activeCard();
     } catch (error: any) {
-      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      const errores = error?.errorFields.flatMap((item: any) => item.name);
       setValueErrors(errores);
     }
   };

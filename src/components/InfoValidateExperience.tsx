@@ -134,7 +134,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       activeCard();
       setValidateViewB(true);
     } catch (error: any) {
-      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      const errores = error?.errorFields.flatMap((item: any) => item.name);
       setValueErrors(errores);
     }
   };
@@ -152,7 +152,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       activeCard();
       setValidateViewB(true);
     } catch (error: any) {
-      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      const errores = error?.errorFields.flatMap((item: any) => item.name);
       setValueErrors(errores);
     }
   };
@@ -170,7 +170,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       activeCard();
       setValidateViewB(true);
     } catch (error: any) {
-      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      const errores = error?.errorFields.flatMap((item: any) => item.name);
       setValueErrors(errores);
     }
   };

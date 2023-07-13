@@ -34,7 +34,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   valuesRes,
   getForms,
 }) => {
-  console.log("🚀 ~ file: InfoValidateExperience.tsx:37 ~ values:", values);
   const [form] = Form.useForm();
   const formRef: any = useRef(null);
   const maxWords = 20;
@@ -44,6 +43,8 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   const [countKeysIns, setCountKeysIns] = useState<string>("");
   const [tipoActividadState, setTipoActividadState] = useState<string>("");
   const [cardValidate, setCardValidate] = useState<boolean>(false);
+  const [valueErrors, setValueErrors] = useState<string[]>([]);
+
   const [countKeysLogrosObtenidos, setCountKeysLogrosObtenidos] =
     useState<string>("");
   const [valueSwitch, setValueSwitch] = useState<boolean>(
@@ -55,7 +56,7 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       const newValues = prevValues.filter((_form: any, i: number) => i !== id);
       return newValues;
     });
-    
+
     if (values.id !== undefined) {
       if (type === "experience") {
         await DeleteExperience(values.id);
@@ -122,41 +123,56 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
   };
 
   const validateFormExperience = async () => {
-    form.setFieldsValue({ nombreEmpresa: values.nombreEmpresa });
-    form.setFieldsValue({ cargo: values.cargo });
-    form.setFieldsValue({ fechaInicio: values.fechaInicio });
-    form.setFieldsValue({ fechaFin: values.fechaFin });
-    form.setFieldsValue({ logros: values.logros });
-    await form.validateFields();
-    saveForm();
-    activeCard();
-    setValidateViewB(true);
+    try {
+      form.setFieldsValue({ nombreEmpresa: values.nombreEmpresa });
+      form.setFieldsValue({ cargo: values.cargo });
+      form.setFieldsValue({ fechaInicio: values.fechaInicio });
+      form.setFieldsValue({ fechaFin: values.fechaFin });
+      form.setFieldsValue({ logros: values.logros });
+      await form.validateFields();
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } catch (error: any) {
+      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      setValueErrors(errores);
+    }
   };
 
   const validateFormExtracurricular = async () => {
-    values["tipoActividad"] = tipoActividadState;
-    form.setFieldsValue({ nombreActividad: values.nombreActividad });
-    form.setFieldsValue({ fechaInicio: values.fechaInicio });
-    form.setFieldsValue({ fechaFin: values.fechaFin });
-    form.setFieldsValue({ organizacion: values.organizacion });
-    form.setFieldsValue({ tipoActividad: values.tipoActividad });
-    await form.validateFields();
-    saveForm();
-    activeCard();
-    setValidateViewB(true);
+    try {
+      values["tipoActividad"] = tipoActividadState;
+      form.setFieldsValue({ nombreActividad: values.nombreActividad });
+      form.setFieldsValue({ fechaInicio: values.fechaInicio });
+      form.setFieldsValue({ fechaFin: values.fechaFin });
+      form.setFieldsValue({ organizacion: values.organizacion });
+      form.setFieldsValue({ tipoActividad: values.tipoActividad });
+      await form.validateFields();
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } catch (error: any) {
+      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      setValueErrors(errores);
+    }
   };
 
   const validateFormComplementaria = async () => {
-    values["certificacion"] = valueSwitch;
-    form.setFieldsValue({ nombreCurso: values.nombreCurso });
-    form.setFieldsValue({ fechaInicio: values.fechaInicio });
-    form.setFieldsValue({ fechaFin: values.fechaFin });
-    form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
-    form.setFieldsValue({ certificacion: values.certificacion });
-    await form.validateFields();
-    saveForm();
-    activeCard();
-    setValidateViewB(true);
+    try {
+      values["certificacion"] = valueSwitch;
+      form.setFieldsValue({ nombreCurso: values.nombreCurso });
+      form.setFieldsValue({ fechaInicio: values.fechaInicio });
+      form.setFieldsValue({ fechaFin: values.fechaFin });
+      form.setFieldsValue({ nombreInstitucion: values.nombreInstitucion });
+      form.setFieldsValue({ certificacion: values.certificacion });
+      await form.validateFields();
+      saveForm();
+      activeCard();
+      setValidateViewB(true);
+    } catch (error: any) {
+      let errores = error?.errorFields.flatMap((item: any) => item.name);
+      setValueErrors(errores);
+    }
   };
 
   const saveForm = async () => {
@@ -165,7 +181,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
       values["id"] = null;
     }
     values["cursando"] = valueCheck;
-    
 
     if (type === "experience") {
       values["paso"] = 3;
@@ -189,7 +204,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
         getForms();
       }
     }
-
   };
 
   const handleRadioChange = (e: any) => {
@@ -198,7 +212,6 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
 
   useEffect(() => {
     activeCardInit();
-    console.log(values);
     setValueCheck(values.cursando);
     if (type === "additionalActivity") {
       setTipoActividadState(values.tipoActividad);
@@ -280,7 +293,21 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                   <Form form={form} ref={formRef}>
                     <div>
                       <div style={{ marginBottom: "15px" }}>
-                        <label className="labelsInsputs" htmlFor="nameCurse">
+                        <label
+                          style={
+                            valueErrors.some((item: any) =>
+                              [
+                                "nombreCurso",
+                                "nombreEmpresa",
+                                "nombreActividad",
+                              ].includes(item)
+                            )
+                              ? { color: "#f7c947", opacity: "1" }
+                              : {}
+                          }
+                          className="labelsInsputs"
+                          htmlFor="nameCurse"
+                        >
                           {type === "experience"
                             ? "Nombre de la empresa"
                             : type === "additionalCurse"
@@ -340,7 +367,17 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                       </div>
                       {type !== "additionalCurse" && (
                         <div style={{ marginBottom: "15px" }}>
-                          <label className="labelsInsputs" htmlFor="nameCurse">
+                          <label
+                            style={
+                              valueErrors.some((item: any) =>
+                                ["cargo", "organizacion"].includes(item)
+                              )
+                                ? { color: "#f7c947", opacity: "1" }
+                                : {}
+                            }
+                            className="labelsInsputs"
+                            htmlFor="nameCurse"
+                          >
                             {type === "experience"
                               ? "Cargo que desempeñaba"
                               : "Organización"}
@@ -417,7 +454,17 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                             flexDirection: "column",
                           }}
                         >
-                          <label className="labelsInsputs" htmlFor="dateInit">
+                          <label
+                            style={
+                              valueErrors.some((item: any) =>
+                                ["fechaInicio"].includes(item)
+                              )
+                                ? { color: "#f7c947", opacity: "1" }
+                                : {}
+                            }
+                            className="labelsInsputs"
+                            htmlFor="dateInit"
+                          >
                             Fecha de inicio
                           </label>
                           <div style={{ display: "flex" }}>
@@ -485,7 +532,17 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         </div>
                         {!valueCheck && (
                           <div style={{ marginBottom: "15px" }}>
-                            <label className="labelsInsputs" htmlFor="dateEnd">
+                            <label
+                              style={
+                                valueErrors.some((item: any) =>
+                                  ["fechaFin"].includes(item)
+                                )
+                                  ? { color: "#f7c947", opacity: "1" }
+                                  : {}
+                              }
+                              className="labelsInsputs"
+                              htmlFor="dateEnd"
+                            >
                               Fecha de finalización
                             </label>
                             <div>
@@ -562,6 +619,13 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                           <label
                             className="labelsInsputs"
                             htmlFor="nombreInstitucion"
+                            style={
+                              valueErrors.some((item: any) =>
+                                ["logros", "nombreInstitucion"].includes(item)
+                              )
+                                ? { color: "#f7c947", opacity: "1" }
+                                : {}
+                            }
                           >
                             {type === "experience"
                               ? "¿Cuáles fueron los logros obtenidos en esta experiencia?"
@@ -702,10 +766,27 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                                 </span>
                               </Radio>
                               <Radio value="Otra">
-                                <span style={{display:tipoActividadState === "Otra" ?"flex" : ""}}  className="spanTypeVoluntary">
-                                  Otra {
-                                    tipoActividadState === "Otra" ? <Input style={{marginLeft:"5px",background:"rgb(49,1,97)",color:"white"}}/> : "_______________________"
-                                  }
+                                <span
+                                  style={{
+                                    display:
+                                      tipoActividadState === "Otra"
+                                        ? "flex"
+                                        : "",
+                                  }}
+                                  className="spanTypeVoluntary"
+                                >
+                                  Otra{" "}
+                                  {tipoActividadState === "Otra" ? (
+                                    <Input
+                                      style={{
+                                        marginLeft: "5px",
+                                        background: "rgb(49,1,97)",
+                                        color: "white",
+                                      }}
+                                    />
+                                  ) : (
+                                    "_______________________"
+                                  )}
                                 </span>
                               </Radio>
                             </div>

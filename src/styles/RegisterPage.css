@@ -1,0 +1,52 @@
+
+.container-register-user {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20%;
+}
+.title-register {
+  font-family: Montserrat-Bold;
+  font-size: 40px;
+  color: #f3cf46;
+}
+.sub-title-register {
+  font-family: Montserrat;
+  font-size: 25px;
+  color: white;
+}
+
+.input-text-register {
+  background: #5a3481;
+  border: none;
+  height: 50px;
+  border-radius: 20px;
+  color: white;
+  width: 220px;
+}
+
+.label-register-form {
+  color: white;
+  font-family: Montserrat-Ligth;
+  margin-left: 15px;
+}
+
+.container-label-register {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.input-text-register-ege {
+    background: #5a3481;
+    border: none;
+    height: 50px;
+    border-radius: 20px;
+    color: white;
+    width: 80px;
+  }
+
+.button-register-submit {
+    width: 80%;
+    height: 40px;
+    border-radius: 12px;
+    background: #F3CF46
+} 

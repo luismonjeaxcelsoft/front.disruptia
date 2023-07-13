@@ -62,10 +62,10 @@ const [valuesIdPerfiles, setValuesIdPerfiles] = useState<any>([])
           <Tabs
             onTabClick={handleTabClick}
             activeKey={tab}
-            className="tabs-2"
+            className="customTabs tabs-2"
             defaultActiveKey="1"
             centered
-            tabBarStyle={{ width: "820px" }}
+            tabBarStyle={{ width: "820px",alignItems:"center" }}
             items={[
               {
                 label: (

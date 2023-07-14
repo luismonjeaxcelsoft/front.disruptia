@@ -4,13 +4,14 @@ import { Sidebar } from "../components/Sidebar";
 import "../styles/RegisterPage.css";
 import CustomSelect from "./CustomSelect";
 import { GetCountries, GetMunicipality } from "../services/EstudiesService";
-const RegisterPage = () => {
+import { useNavigate } from "react-router-dom";
+
+
+const RegisterForm = () => {
+  const navigate = useNavigate();
   const [valuesCountries, setvaluesCountries] = useState<any[]>([]);
   const [municipality, setMunicipality] = useState<any[]>([]);
-  console.log(
-    "🚀 ~ file: RegisterPage.tsx:10 ~ RegisterPage ~ municipality:",
-    municipality
-  );
+
   const optionsTypeDocument = [
     {
       label: "Cedula de Ciudadania",
@@ -116,7 +117,7 @@ const RegisterPage = () => {
                 <div className="container-label-register">
                   <label className="label-register-form">Contraseña</label>
                   <Input
-                    placeholder="Colombia"
+                    placeholder=""
                     className="input-text-register"
                   />
                 </div>
@@ -214,7 +215,7 @@ const RegisterPage = () => {
                     Confirmar Contraseña
                   </label>
                   <Input
-                    placeholder="Antioquia"
+                    placeholder=""
                     className="input-text-register"
                   />
                 </div>
@@ -227,7 +228,7 @@ const RegisterPage = () => {
                 marginTop: "20px",
               }}
             >
-              <button className="button-register-submit">
+              <button onClick={()=>navigate("/profileUser")}   className="button-register-submit">
                 <span
                   style={{
                     fontFamily: "Montserrat-Bold",
@@ -246,4 +247,4 @@ const RegisterPage = () => {
   );
 };
 
-export default RegisterPage;
+export default RegisterForm;

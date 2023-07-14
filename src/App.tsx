@@ -5,6 +5,7 @@ import { Formulario } from './pages/Formulario';
 import 'bootstrap/dist/css/bootstrap.css'
 import HomeAdmin from './pagesAdmin/HomeAdmin';
 import TabsLogin from './pagesRegisterLogin/TabsLogin';
+import PerfilLogin from './pagesRegisterLogin/PerfilLogin';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/registro",
     element: <TabsLogin />
+  },
+  {
+    path: "/profileUser",
+    element: <PerfilLogin />
   },
   
 ])

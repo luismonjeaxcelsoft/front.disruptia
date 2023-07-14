@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
-import RegisterPage from "./RegisterPage";
+import RegisterForm from "./RegisterForm";
 const TabsLogin = () => {
   const { TabPane } = Tabs;
   const [keyTab, setKeyTab] = useState<string>("2");
@@ -48,7 +48,7 @@ const TabsLogin = () => {
             ]}
             key="2"
           >
-            <RegisterPage />
+            <RegisterForm />
           </TabPane>
         </Tabs>
       </div>

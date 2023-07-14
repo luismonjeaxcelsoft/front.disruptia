@@ -1,7 +1,26 @@
 import { Checkbox, Form, Input } from "antd";
 import { Sidebar } from "../components/Sidebar";
 import "../styles/RegisterPage.css";
+import CustomSelect from "./CustomSelect";
 const RegisterPage = () => {
+const optionsTypeDocument = [
+    {
+        label:"Cedula de Ciudadania",
+        value:"CC"
+    },
+    {
+        label:"Cedula de Extranjeria",
+        value:"CE"
+    },
+    {
+        label:"Permiso de Trabajo",
+        value:"PT"
+    },
+    {
+        label:"Tajerta de Identidad",
+        value:"TI"
+    },
+]
   return (
     <>
       <Sidebar
@@ -39,15 +58,7 @@ const RegisterPage = () => {
                     className="input-text-register"
                   />
                 </div>
-                <div className="container-label-register">
-                  <label className="label-register-form">
-                    Tipo de Documento
-                  </label>
-                  <Input
-                    placeholder="Cédula de ciudadania"
-                    className="input-text-register"
-                  />
-                </div>
+                <CustomSelect options={optionsTypeDocument} labelName="Tipo de Documento"/>
                 <div className="container-label-register">
                   <label className="label-register-form">
                     Fecha de nacimiento

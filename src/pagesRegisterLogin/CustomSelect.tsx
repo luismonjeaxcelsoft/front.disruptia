@@ -1,36 +1,56 @@
 import { Input } from "antd";
 import Aroow from "../assets/images/Aroow-46.png";
 import { FC, useState } from "react";
+import "../styles/CustomSelect.css";
 interface CustomSelectProps {
   labelName?: string | undefined;
   options?: any;
+  placeHolder?: string;
+  name?: string;
+  classStyle?:string;
+  styleImg?:string
 }
 
-const CustomSelect: FC<CustomSelectProps> = ({ labelName, options }) => {
+const CustomSelect: FC<CustomSelectProps> = ({
+  labelName,
+  options,
+  placeHolder,
+  name,
+  classStyle,
+  styleImg
+}) => {
   const [containerOptions, setContainerOptions] = useState<boolean>(false);
+  const [labelInput, setLabelInput] = useState<any>("");
+  const handleItemClick = (itemLabel: string) => {
+    setLabelInput(itemLabel);
+    setContainerOptions(false);
+  };
   return (
     <div className="container-label-register">
       <label className="label-register-form">{labelName}</label>
       <div style={{ display: "flex" }}>
         <Input
-          placeholder="Cédula de ciudadania"
-          className="input-text-register"
+          placeholder={placeHolder}
+          className={classStyle}
+          value={labelInput}
+          name={name}
         />
-        <div
-          style={{ position: "absolute", marginTop: "9px", marginLeft: "57%" }}
-        >
-          <img
-            onClick={() => setContainerOptions(!containerOptions)}
-            style={{ width: "40px", cursor: "pointer" }}
-            alt="flecha_abajo"
-            src={Aroow}
-          />
-        </div>
+        <img
+          onClick={() => setContainerOptions(!containerOptions)}
+          className={styleImg}
+          alt="flecha_abajo"
+          src={Aroow}
+        />
       </div>
       {containerOptions && (
-        <div style={{ background: "white", borderRadius: "20px",display:"flex",flexDirection: "column"}}>
+        <div className="containerItems-custom">
           {options?.map((item: any) => (
-            <span>{item.label}</span>
+            <div
+            onClick={() => handleItemClick(item.label)}
+              className="container-items-selector"
+            >
+              <span className="items-select-custom">{item.label}</span>
+            </div>
           ))}
         </div>
       )}

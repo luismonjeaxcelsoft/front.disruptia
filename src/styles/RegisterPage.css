@@ -22,12 +22,15 @@
   border-radius: 20px;
   color: white;
   width: 240px;
+  font-family: Montserrat-Medium;
+  font-size:15px
 }
 
 .label-register-form {
   color: white;
-  font-family: Montserrat-Ligth;
+  font-family: Montserrat-Medium;
   margin-left: 15px;
+  font-size: 15px;
 }
 
 .container-label-register {
@@ -42,6 +45,8 @@
     border-radius: 20px;
     color: white;
     width: 80px;
+    font-family: Montserrat-Medium;
+    font-size:15px
   }
 
 .button-register-submit {

@@ -1,26 +1,58 @@
+import { useState, useEffect } from "react";
 import { Checkbox, Form, Input } from "antd";
 import { Sidebar } from "../components/Sidebar";
 import "../styles/RegisterPage.css";
 import CustomSelect from "./CustomSelect";
+import { GetCountries, GetMunicipality } from "../services/EstudiesService";
 const RegisterPage = () => {
-const optionsTypeDocument = [
+  const [valuesCountries, setvaluesCountries] = useState<any[]>([]);
+  const [municipality, setMunicipality] = useState<any[]>([]);
+  console.log(
+    "🚀 ~ file: RegisterPage.tsx:10 ~ RegisterPage ~ municipality:",
+    municipality
+  );
+  const optionsTypeDocument = [
     {
-        label:"Cedula de Ciudadania",
-        value:"CC"
+      label: "Cedula de Ciudadania",
+      value: "CC",
     },
     {
-        label:"Cedula de Extranjeria",
-        value:"CE"
+      label: "Cedula de Extranjeria",
+      value: "CE",
     },
     {
-        label:"Permiso de Trabajo",
-        value:"PT"
+      label: "Permiso de Trabajo",
+      value: "PT",
     },
     {
-        label:"Tajerta de Identidad",
-        value:"TI"
+      label: "Tajerta de Identidad",
+      value: "TI",
     },
-]
+  ];
+  const getPaises = async () => {
+    const resCountries = await GetCountries();
+    const getMunicipalities = await GetMunicipality();
+
+    let infoPais = resCountries.map((pais: any) => {
+      return {
+        label: pais.nombrePais,
+        value: pais.codigoPais,
+      };
+    });
+
+    let infoMunicipio = getMunicipalities.map((municipio: any) => {
+      return {
+        label: municipio.municipioDepartamento,
+        value: municipio.municipioId,
+      };
+    });
+    setvaluesCountries(infoPais);
+    setMunicipality(infoMunicipio);
+  };
+  useEffect(() => {
+    getPaises();
+  }, []);
+
   return (
     <>
       <Sidebar
@@ -41,9 +73,7 @@ const optionsTypeDocument = [
         </div>
         <div style={{ marginTop: "40px" }}>
           <Form>
-            <div
-            className="container-register-user"
-            >
+            <div className="container-register-user">
               <div>
                 <div className="container-label-register">
                   <label className="label-register-form">Nombre</label>
@@ -58,7 +88,14 @@ const optionsTypeDocument = [
                     className="input-text-register"
                   />
                 </div>
-                <CustomSelect options={optionsTypeDocument} labelName="Tipo de Documento"/>
+                <CustomSelect
+                  options={optionsTypeDocument}
+                  labelName="Tipo de Documento"
+                  placeHolder="Cédula de Ciudadanía"
+                  name="tipDocumento"
+                  classStyle="input-text-register"
+                  styleImg="imgCustom-register"
+                />
                 <div className="container-label-register">
                   <label className="label-register-form">
                     Fecha de nacimiento
@@ -68,15 +105,14 @@ const optionsTypeDocument = [
                     className="input-text-register"
                   />
                 </div>
-                <div className="container-label-register">
-                  <label className="label-register-form">
-                    Pais de residencia
-                  </label>
-                  <Input
-                    placeholder="Colombia"
-                    className="input-text-register"
-                  />
-                </div>
+                <CustomSelect
+                  options={valuesCountries}
+                  labelName="País de residencia"
+                  placeHolder="Colombia"
+                  name="pais"
+                  classStyle="input-text-register"
+                  styleImg="imgCustom-register"
+                />
                 <div className="container-label-register">
                   <label className="label-register-form">Contraseña</label>
                   <Input
@@ -141,10 +177,14 @@ const optionsTypeDocument = [
                     className="input-text-register"
                   />
                 </div>
-                <div className="container-label-register">
-                  <label className="label-register-form">Edad</label>
-                  <Input placeholder="25" className="input-text-register-ege" />
-                </div>
+                <CustomSelect
+                  options={optionsTypeDocument}
+                  labelName="Edad"
+                  placeHolder="25"
+                  name="edad"
+                  classStyle="input-text-register-ege"
+                  styleImg="imgCustom-register-eges"
+                />
                 <div
                   style={{
                     display: "grid",
@@ -152,20 +192,22 @@ const optionsTypeDocument = [
                     gap: "4%",
                   }}
                 >
-                  <div className="container-label-register">
-                    <label className="label-register-form">Departamento</label>
-                    <Input
-                      placeholder="Antioquia"
-                      className="input-text-register"
-                    />
-                  </div>
-                  <div className="container-label-register">
-                    <label className="label-register-form">Ciudad</label>
-                    <Input
-                      placeholder="Medellin"
-                      className="input-text-register"
-                    />
-                  </div>
+                  <CustomSelect
+                    options={municipality}
+                    labelName="Departamento"
+                    placeHolder="Antioquia"
+                    name="departamento"
+                    classStyle="input-text-register"
+                    styleImg="imgCustom-register"
+                  />
+                  <CustomSelect
+                    options={optionsTypeDocument}
+                    labelName="Ciudad"
+                    placeHolder="Medellin"
+                    name="pais"
+                    classStyle="input-text-register"
+                    styleImg="imgCustom-register"
+                  />
                 </div>
                 <div className="container-label-register">
                   <label className="label-register-form">
@@ -185,9 +227,7 @@ const optionsTypeDocument = [
                 marginTop: "20px",
               }}
             >
-              <button
-               className="button-register-submit"
-              >
+              <button className="button-register-submit">
                 <span
                   style={{
                     fontFamily: "Montserrat-Bold",

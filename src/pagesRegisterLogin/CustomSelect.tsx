@@ -8,7 +8,8 @@ interface CustomSelectProps {
   placeHolder?: string;
   name?: string;
   classStyle?:string;
-  styleImg?:string
+  styleImg?:string;
+  styleLabel?:string
 }
 
 const CustomSelect: FC<CustomSelectProps> = ({
@@ -17,7 +18,8 @@ const CustomSelect: FC<CustomSelectProps> = ({
   placeHolder,
   name,
   classStyle,
-  styleImg
+  styleImg,
+  styleLabel
 }) => {
   const [containerOptions, setContainerOptions] = useState<boolean>(false);
   const [labelInput, setLabelInput] = useState<any>("");
@@ -27,7 +29,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
   };
   return (
     <div className="container-label-register">
-      <label className="label-register-form">{labelName}</label>
+      <label className={styleLabel}>{labelName}</label>
       <div style={{ display: "flex" }}>
         <Input
           placeholder={placeHolder}

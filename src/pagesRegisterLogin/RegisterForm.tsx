@@ -6,7 +6,6 @@ import CustomSelect from "./CustomSelect";
 import { GetCountries, GetMunicipality } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
 
-
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [valuesCountries, setvaluesCountries] = useState<any[]>([]);
@@ -96,6 +95,7 @@ const RegisterForm = () => {
                   name="tipDocumento"
                   classStyle="input-text-register"
                   styleImg="imgCustom-register"
+                  styleLabel="label-register-form"
                 />
                 <div className="container-label-register">
                   <label className="label-register-form">
@@ -113,13 +113,11 @@ const RegisterForm = () => {
                   name="pais"
                   classStyle="input-text-register"
                   styleImg="imgCustom-register"
+                  styleLabel="label-register-form"
                 />
                 <div className="container-label-register">
                   <label className="label-register-form">Contraseña</label>
-                  <Input
-                    placeholder=""
-                    className="input-text-register"
-                  />
+                  <Input placeholder="" className="input-text-register" />
                 </div>
                 <div
                   style={{ width: "140%", marginLeft: "15px" }}
@@ -185,6 +183,7 @@ const RegisterForm = () => {
                   name="edad"
                   classStyle="input-text-register-ege"
                   styleImg="imgCustom-register-eges"
+                  styleLabel="label-register-form"
                 />
                 <div
                   style={{
@@ -200,6 +199,7 @@ const RegisterForm = () => {
                     name="departamento"
                     classStyle="input-text-register"
                     styleImg="imgCustom-register"
+                    styleLabel="label-register-form"
                   />
                   <CustomSelect
                     options={optionsTypeDocument}
@@ -208,16 +208,14 @@ const RegisterForm = () => {
                     name="pais"
                     classStyle="input-text-register"
                     styleImg="imgCustom-register"
+                    styleLabel="label-register-form"
                   />
                 </div>
                 <div className="container-label-register">
                   <label className="label-register-form">
                     Confirmar Contraseña
                   </label>
-                  <Input
-                    placeholder=""
-                    className="input-text-register"
-                  />
+                  <Input placeholder="" className="input-text-register" />
                 </div>
               </div>
             </div>
@@ -228,7 +226,12 @@ const RegisterForm = () => {
                 marginTop: "20px",
               }}
             >
-              <button onClick={()=>navigate("/profileUser")}   className="button-register-submit">
+              <button
+                onClick={() => {
+                  navigate("/profileUser");
+                }}
+                className="button-register-submit"
+              >
                 <span
                   style={{
                     fontFamily: "Montserrat-Bold",

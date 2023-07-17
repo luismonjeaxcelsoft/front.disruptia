@@ -1,0 +1,60 @@
+.text-inicio-sesion {
+    font-family: Montserrat-Bold;
+    font-size:25px;
+    color:#F3CF46;
+    margin-left: 6%;
+}
+
+.container-form-login {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15%;
+    margin-left: 30%;
+}
+
+.input-login-form {
+    background: #7B34C1;
+    color:white;
+    width:308px;
+    height: 50px;
+    border-radius: 25px;
+    border:none
+}
+
+.button-login-user {
+    width: 297px;
+    height:45px;
+    background: #F3CF46;
+    border-radius: 25px;
+    margin-left: 8px;
+}
+
+.text-login-user-bottom {
+    font-family: Montserrat-Bold;
+    color:#3600FF;
+    font-size:20px
+}
+
+.separador-line-login {
+    font-family: Montserrat-Medium;
+    font-size:15px;
+    color:white;
+    margin-left: 20px;
+    margin-right:20px
+}
+
+.button-login-google {
+    width: 289px;
+    height: 29px;
+    border-radius: 25px;
+    background: #490191;
+    border: 1px solid white;
+}
+
+.text-bottom-google {
+    color:white;
+    font-family: Montserrat-Bold;
+    font-size:15px;
+    margin-left: 33px;
+
+}

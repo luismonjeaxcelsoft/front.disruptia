@@ -2,25 +2,28 @@ import { useState } from "react";
 import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
 import RegisterForm from "./RegisterForm";
+import LoginUser from "./LoginUser";
 const TabsLogin = () => {
   const { TabPane } = Tabs;
-  const [keyTab, setKeyTab] = useState<string>("2");
+  const [keyTab, setKeyTab] = useState<string>("");
+  const [stlyeLogin, setStlyeLogin] = useState<any>(false)
   return (
     <>
       <div>
         <Tabs
-          defaultActiveKey="2"
+          defaultActiveKey={keyTab}
           className="tabs-login"
-          onChange={(e) => setKeyTab(e)}
+          onChange={(e) => {setKeyTab(e)}}
           tabBarStyle={{ marginTop: "30px" }}
         >
           <TabPane
             tab={[
-              <div>
+              <div onClick={() =>setStlyeLogin(true)}>
                 <span
                   style={{
-                    color: keyTab === "2" ? "white" : "#DBB549",
+                    color: !stlyeLogin ? "white" : "#DBB549",
                     fontSize: "25px",
+                    
                   }}
                 >
                   Iniciar Sesión
@@ -29,17 +32,17 @@ const TabsLogin = () => {
             ]}
             key="1"
           >
-            "hola"
+            <LoginUser stlyeLogin={stlyeLogin} />
           </TabPane>
           <TabPane
             style={{ width: "50px" }}
             tab={[
-              <div>
+              <div onClick={() =>setStlyeLogin(false)} style={{width:"20px"}}>
                 <span
                   style={{
-                    color: keyTab === "1" ? "white" : "#DBB549",
+                    color: keyTab === "1" ? "white" : keyTab === "" ? "white" : "#DBB549",
                     fontSize: "25px",
-                    marginLeft: keyTab === "1" ? "120px" : "23px",
+                    marginLeft: keyTab === "1" ? "120px" :keyTab === "" ? "120px" : "23px",
                   }}
                 >
                   Registrarme

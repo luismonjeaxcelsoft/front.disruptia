@@ -62,17 +62,28 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                   <CloseOutlined style={{ fontSize: "30px" }} />
                 </button>
               </div>
-              <div style={messagePassword ? {marginLeft:"20%"}: {marginLeft:"30%"}} className="container-form-login">
+              <div
+                style={
+                  messagePassword
+                    ? { marginLeft: "20%" }
+                    : { marginLeft: "30%" }
+                }
+                className="container-form-login"
+              >
                 {!messagePassword ? (
                   <div style={{ marginBottom: "15px" }}>
                     <span
                       className={
-                        valueCheck === 2
+                        type === "validate"
+                          ? "text-inicio-recuperar-contraseña"
+                          : valueCheck === 2
                           ? "text-inicio-recuperar-contraseña"
                           : "text-inicio-sesion"
                       }
                     >
-                      {valueCheck === 2
+                      {type === "validate"
+                        ? "Recuperar Contraseña"
+                        : valueCheck === 2
                         ? "¿Olvidaste tu contraseña?"
                         : "Iniciar Sesión"}
                     </span>
@@ -80,76 +91,107 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                 ) : (
                   <div style={{ marginBottom: "15px" }}>
                     <span className={"text-inicio-recuperar-contraseña"}>
-                    Te enviamos un correo electrónico
+                      Te enviamos un correo electrónico
                     </span>
                   </div>
                 )}
                 {!messagePassword && (
                   <div>
                     <Form>
-                      <Input
-                        placeholder="Correo electrónico"
-                        className="input-login-form"
-                      />
+                      <div
+                        style={
+                          type === "validate"
+                            ? { display: "flex", flexDirection: "column" }
+                            : {}
+                        }
+                      >
+                        <label className="text-label-validate-pass">
+                          Nueva contraseña
+                        </label>
+                        <Input
+                          placeholder={
+                            type === "validate"
+                              ? "Contraseña"
+                              : "Correo electrónico"
+                          }
+                          className="input-login-form"
+                          type={type === "validate" ? "password" : "email"}
+                        />
+                      </div>
                       {valueCheck !== 2 && (
                         <>
-                          <div>
+                          <div style={{ marginTop: "30px" }}>
+                            {type === "validate" && (
+                              <label className="text-label-validate-pass">
+                                Confirmar contraseña
+                              </label>
+                            )}
                             <Input
                               type={textPassword ? "text" : "password"}
                               placeholder="Contraseña"
-                              style={{ marginTop: "30px" }}
                               className="input-login-form"
                             />
-
-                            <span
+                            <div
                               onClick={() => setTextPassword(!textPassword)}
                               style={{
                                 position: "absolute",
                                 left: "68%",
-                                top: "47.5%",
+                                top: "405px",
                                 color: "white",
                                 cursor: "pointer",
                                 display: "flex",
                               }}
                             >
-                              Ver
-                            </span>
+                              <span>Ver</span>
+                            </div>
                           </div>
-                          <div
-                            style={{ marginLeft: "20px", marginTop: "10px" }}
-                          >
-                            <Checkbox>
-                              <span
+                          {type !== "validate" && (
+                            <>
+                              <div
                                 style={{
-                                  color: "white",
-                                  opacity: "0.7",
-                                  fontFamily: "Montserrat-Light",
-                                  fontSize: "12px",
+                                  marginLeft: "20px",
+                                  marginTop: "10px",
                                 }}
                               >
-                                Mantener mi sesión iniciada
-                              </span>
-                            </Checkbox>
-                          </div>
-                          <div
-                            style={{ marginLeft: "20px", marginTop: "10px" }}
-                          >
-                            <Checkbox
-                              value={2}
-                              onChange={(e) => setvalueCheck(e.target.value)}
-                            >
-                              <span
+                                <Checkbox>
+                                  <span
+                                    style={{
+                                      color: "white",
+                                      opacity: "0.7",
+                                      fontFamily: "Montserrat-Light",
+                                      fontSize: "12px",
+                                    }}
+                                  >
+                                    Mantener mi sesión iniciada
+                                  </span>
+                                </Checkbox>
+                              </div>
+                              <div
                                 style={{
-                                  color: "white",
-                                  opacity: "0.7",
-                                  fontFamily: "Montserrat-Light",
-                                  fontSize: "12px",
+                                  marginLeft: "20px",
+                                  marginTop: "10px",
                                 }}
                               >
-                                Recuperar contraseña
-                              </span>
-                            </Checkbox>
-                          </div>
+                                <Checkbox
+                                  value={2}
+                                  onChange={(e) =>
+                                    setvalueCheck(e.target.value)
+                                  }
+                                >
+                                  <span
+                                    style={{
+                                      color: "white",
+                                      opacity: "0.7",
+                                      fontFamily: "Montserrat-Light",
+                                      fontSize: "12px",
+                                    }}
+                                  >
+                                    Recuperar contraseña
+                                  </span>
+                                </Checkbox>
+                              </div>
+                            </>
+                          )}
                         </>
                       )}
                       <div
@@ -158,13 +200,39 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                       >
                         <button className="button-login-user">
                           <span className="text-login-user-bottom">
-                            {valueCheck === 2
+                            {type === "validate"
+                              ? "Recuperar"
+                              : valueCheck === 2
                               ? "Recuperar Contraseña"
                               : "Iniciar sesión"}
                           </span>
                         </button>
                       </div>
-                      {valueCheck !== 2 && (
+                      {type === "validate" ? (
+                        <>
+                          <div style={{ marginTop: "20px" }}>
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <span className="text-required-pass">
+                                La contraseña debe tener:
+                              </span>
+                              <span className="text-required-pass-list">
+                                *Mínimo 8 caracteres
+                              </span>
+                              <span className="text-required-pass-list">
+                                *Mínimo una letra mayúscula
+                              </span>
+                              <span className="text-required-pass-list">
+                                *Mínimo un caracter alfanumérico
+                              </span>
+                            </div>
+                          </div>
+                        </>
+                      ) : valueCheck !== 2 ? (
                         <>
                           {type === "disrupter" && (
                             <>
@@ -219,7 +287,7 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                             </>
                           )}
                         </>
-                      )}
+                      ) : null}
                     </Form>
                   </div>
                 )}

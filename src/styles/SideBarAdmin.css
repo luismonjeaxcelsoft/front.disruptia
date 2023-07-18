@@ -4,7 +4,12 @@
     color:#F3CF46;
     margin-left: 6%;
 }
-
+.text-inicio-recuperar-contraseña {
+    font-family: Montserrat-Medium;
+    font-size:15px;
+    color:#F3CF46;
+    margin-left: 3%;
+}
 .container-form-login {
     display: flex;
     flex-direction: column;
@@ -57,4 +62,10 @@
     font-size:15px;
     margin-left: 33px;
 
+}
+
+.text-recuperar-password {
+    font-size: 15px;
+    color:white;
+    font-family: Montserrat;
 }

@@ -1,9 +1,16 @@
 import "../styles/LoginUser.css";
 import { SidebarAdmin } from "./SideBarAdmin";
-const LoginUser = ({ stlyeLogin }: any) => {
+const LoginUser = ({ stlyeLogin, setStlyeLogin }: any) => {
+  console.log("🚀 ~ file: LoginUser.tsx:4 ~ LoginUser ~ stlyeLogin:", stlyeLogin)
   return (
     <>
-      {stlyeLogin && <SidebarAdmin />}
+      {stlyeLogin === 1 ? (
+        <SidebarAdmin type="disrupter" />
+      ) : stlyeLogin === 2 ? (
+        <SidebarAdmin type="admin" />
+      ) : (
+        ""
+      )}
 
       <div
         style={{
@@ -30,6 +37,7 @@ const LoginUser = ({ stlyeLogin }: any) => {
         <div
           style={{ background: stlyeLogin ? "#59327F" : "#9880B0" }}
           className="container-type-login"
+          onClick={() => setStlyeLogin(1)}
         >
           <div className="container-text-card">
             <span
@@ -60,8 +68,9 @@ const LoginUser = ({ stlyeLogin }: any) => {
             background: stlyeLogin ? "#59327F" : "#9880B0",
           }}
           className="container-type-login"
+          onClick={() => setStlyeLogin(2)}
         >
-          <div className="container-text-card">
+          <div  className="container-text-card">
             <span
               style={{ opacity: stlyeLogin ? "0.5" : "1" }}
               className="text-card-type-login"

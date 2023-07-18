@@ -6,7 +6,7 @@ import LoginUser from "./LoginUser";
 const TabsLogin = () => {
   const { TabPane } = Tabs;
   const [keyTab, setKeyTab] = useState<string>("");
-  const [stlyeLogin, setStlyeLogin] = useState<any>(false)
+  const [stlyeLogin, setStlyeLogin] = useState<any>(0)
   return (
     <>
       <div>
@@ -18,10 +18,10 @@ const TabsLogin = () => {
         >
           <TabPane
             tab={[
-              <div onClick={() =>setStlyeLogin(true)}>
+              <div onClick={() =>setStlyeLogin(1)}>
                 <span
                   style={{
-                    color: !stlyeLogin ? "white" : "#DBB549",
+                    color: stlyeLogin === 0 ? "white" : "#DBB549",
                     fontSize: "25px",
                     
                   }}
@@ -32,12 +32,12 @@ const TabsLogin = () => {
             ]}
             key="1"
           >
-            <LoginUser stlyeLogin={stlyeLogin} />
+            <LoginUser setStlyeLogin={setStlyeLogin} stlyeLogin={stlyeLogin} />
           </TabPane>
           <TabPane
             style={{ width: "50px" }}
             tab={[
-              <div onClick={() =>setStlyeLogin(false)} style={{width:"20px"}}>
+              <div onClick={() =>setStlyeLogin(0)} style={{width:"20px"}}>
                 <span
                   style={{
                     color: keyTab === "1" ? "white" : keyTab === "" ? "white" : "#DBB549",

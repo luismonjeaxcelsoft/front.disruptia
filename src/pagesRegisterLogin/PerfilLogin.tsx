@@ -62,11 +62,12 @@ const PerfilLogin = () => {
   return (
     <>
       <Sidebar
-        subTitle=""
+        subTitle="Construcción Cultural"
         smallTitle=""
         backColor={false}
         img={false}
         video={false}
+        subText="Instrucciones para diligenciar los campos de la derecha"
       />
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div className="container-text-perfil">

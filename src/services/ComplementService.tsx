@@ -10,7 +10,6 @@ export type COMPLEMENTARIA = {
   fechaFin: string;
   cursando: boolean;
   nombreInstitucion: string;
-  paso: number;
 };
 
 export const SaveComplemento = async (values: COMPLEMENTARIA) => {

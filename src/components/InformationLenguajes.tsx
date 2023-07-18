@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useContext } from "react";
 import { Card, Radio } from "antd";
 import "../styles/InformationLenguajes.css";
 import logo from "../assets/images/disruptialogo.png";
@@ -10,18 +10,9 @@ import {
   IDIOMA,
   SaveIdiomas,
 } from "../services/IdiomasService";
+import MyContext from "../context/MyContext";
 
-type InformationLenguajesProps = {
-  setValidateImgs: any;
-  validateImgs: any;
-};
-
-
-
-const InformationLenguajes: FC<InformationLenguajesProps> = ({
-  setValidateImgs,
-  validateImgs,
-}) => {
+const InformationLenguajes= () => {
   const disrupterId= 1;
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<IDIOMA[]>([]);
@@ -69,7 +60,6 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
     const payload = {
       disrupterId: disrupterId,
       idiomas: selectedOptions,
-      paso: 6
     };
 
     const res = await SaveIdiomas(payload);
@@ -84,6 +74,24 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
     infoRadioIdiomas();
     infoRadioIdiomasBD();
   }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
+
+  const buttonSiguiente = () => {
+    myMethod();
+    if (pasos.length !== 12) {
+      navigate("/perfiles/7");
+    } else {
+      setActualizarPreview((prev: any) => !prev)
+      navigate("/perfiles/13");
+    }
+  };
 
   return (
     <>
@@ -183,10 +191,7 @@ const InformationLenguajes: FC<InformationLenguajesProps> = ({
             className={
               validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
             }
-            onClick={() => {
-              setValidateImgs([...validateImgs, "7"]);
-              navigate("/perfiles/7");
-            }}
+            onClick={() => buttonSiguiente()}
             disabled={!validateContinue ? true : false}
           >
             <p

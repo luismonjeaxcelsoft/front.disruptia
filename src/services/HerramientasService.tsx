@@ -5,7 +5,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 export type HERRAMIENTAOFIMATICA = {
   disrupterId: number;
   herramientas: HERRAMIENTA[];
-  paso: number;
 };
 
 export type HERRAMIENTA = {

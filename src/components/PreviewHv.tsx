@@ -105,11 +105,15 @@ const PREVIEW_INICIAL = {
   referencias: [REFERENCIA_INICIAL],
 };
 
-const PreviewHv = () => {
+const PreviewHv = ({setActualizarPreview, actualizarPreview} : any) => {
   const disrupterId = 1;
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [preview, setPreview] = useState<PREVIEW>(PREVIEW_INICIAL);
+
+  useEffect(() => {
+    getPreview();
+  }, [actualizarPreview]);
 
   const handleCancel = (e: React.MouseEvent<HTMLElement>) => {
     console.log(e);
@@ -157,6 +161,7 @@ const PreviewHv = () => {
           <EditOutlined
             onClick={() => {
               navigate("/perfiles/11");
+              setActualizarPreview(!actualizarPreview);
             }}
             className="iconEdit"
           />
@@ -196,6 +201,7 @@ const PreviewHv = () => {
         </div>
         {formaciones?.map((formacion: FORMACION) => (
           <div
+            key={formacion.titulo}
             style={{
               marginBottom: "12px",
               display: "flex",
@@ -234,43 +240,54 @@ const PreviewHv = () => {
       return fechaInicioA - fechaInicioB;
     });
 
+    const experienciasFilter = experiencias.filter(
+      (item) => item.cargo !== "N/T"
+    );
+
     return (
-      <div className="containerItems">
-        <div className="containerEdit">
-          <span className="titleItem">Experiencia Laboral</span>
-          <EditOutlined
-            onClick={() => {
-              navigate("/perfiles/3");
-            }}
-            className="iconEdit"
-          />
-        </div>
-        {experiencias?.map((experiencia: EXPERIENCIA) => (
-          <div
-            style={{
-              marginBottom: "12px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <span className="itemSpan">{experiencia.cargo}</span>
-            <span className="itemSpan">
-              {experiencia.empresa +
-                ", " +
-                convertirAMes(experiencia.fechaInicio) +
-                " " +
-                convertirAAnno(experiencia.fechaInicio) +
-                " - "}
-              {experiencia.actualmente
-                ? "Actualmente"
-                : convertirAMes(experiencia.fechaFin) +
-                  " " +
-                  convertirAAnno(experiencia.fechaFin)}
-            </span>
-            <span className="itemSpan">{experiencia.logro}</span>
+      <>
+        {experienciasFilter.length > 0 ? (
+          <div className="containerItems">
+            <div className="containerEdit">
+              <span className="titleItem">Experiencia Laboral</span>
+              <EditOutlined
+                onClick={() => {
+                  navigate("/perfiles/3");
+                }}
+                className="iconEdit"
+              />
+            </div>
+            {experienciasFilter?.map((experiencia: EXPERIENCIA) => (
+              <div
+                key={experiencia.logro}
+                style={{
+                  marginBottom: "12px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <span className="itemSpan">{experiencia.cargo}</span>
+                <span className="itemSpan">
+                  {experiencia.empresa +
+                    ", " +
+                    convertirAMes(experiencia.fechaInicio) +
+                    " " +
+                    convertirAAnno(experiencia.fechaInicio) +
+                    " - "}
+                  {experiencia.actualmente
+                    ? "Actualmente"
+                    : convertirAMes(experiencia.fechaFin) +
+                      " " +
+                      convertirAAnno(experiencia.fechaFin)}
+                </span>
+                <span className="itemSpan">{experiencia.logro}</span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        ) : (
+          <></>
+        )}
+      </>
     );
   };
 
@@ -281,43 +298,54 @@ const PreviewHv = () => {
       return fechaInicioA - fechaInicioB;
     });
 
+    const actividadesFilter = actividades.filter(
+      (item) => item.actividad !== "N/T"
+    );
+
     return (
-      <div className="containerItems">
-        <div className="containerEdit">
-          <span className="titleItem">Actividades Extracurriculares</span>
-          <EditOutlined
-            onClick={() => {
-              navigate("/perfiles/4");
-            }}
-            className="iconEdit"
-          />
-        </div>
-        {actividades?.map((actividad: ACTIVIDAD) => (
-          <div
-            style={{
-              marginBottom: "12px",
-              display: "flex",
-              flexDirection: "column",
-            }}
-          >
-            <span className="itemSpan">{actividad.actividad}</span>
-            <span className="itemSpan">{actividad.tipoActividad}</span>
-            <span className="itemSpan">
-              {actividad.organizacion +
-                ", " +
-                convertirAMes(actividad.fechaInicio) +
-                " " +
-                convertirAAnno(actividad.fechaInicio) +
-                " - "}
-              {actividad.cursando
-                ? "Actualmente"
-                : convertirAMes(actividad.fechaFin) +
-                  " " +
-                  convertirAAnno(actividad.fechaFin)}
-            </span>
+      <>
+        {actividadesFilter.length > 0 ? (
+          <div className="containerItems">
+            <div className="containerEdit">
+              <span className="titleItem">Actividades Extracurriculares</span>
+              <EditOutlined
+                onClick={() => {
+                  navigate("/perfiles/4");
+                }}
+                className="iconEdit"
+              />
+            </div>
+            {actividadesFilter?.map((actividad: ACTIVIDAD) => (
+              <div
+                key={actividad.actividad}
+                style={{
+                  marginBottom: "12px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <span className="itemSpan">{actividad.actividad}</span>
+                <span className="itemSpan">{actividad.tipoActividad}</span>
+                <span className="itemSpan">
+                  {actividad.organizacion +
+                    ", " +
+                    convertirAMes(actividad.fechaInicio) +
+                    " " +
+                    convertirAAnno(actividad.fechaInicio) +
+                    " - "}
+                  {actividad.cursando
+                    ? "Actualmente"
+                    : convertirAMes(actividad.fechaFin) +
+                      " " +
+                      convertirAAnno(actividad.fechaFin)}
+                </span>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        ) : (
+          <></>
+        )}
+      </>
     );
   };
 
@@ -616,9 +644,7 @@ const PreviewHv = () => {
     );
   };
 
-  useEffect(() => {
-    getPreview();
-  }, []);
+  
 
   return (
     <>
@@ -677,11 +703,11 @@ const PreviewHv = () => {
                 </span>
                 <span className="textModal">con una oferta de empleo</span>
                 <span className="textModal">Disruptiva!</span>
-                <DocumentoPDF 
+                <DocumentoPDF
                   preview={preview}
                   setIsModalOpen={setIsModalOpen}
                   convertirAMes={convertirAMes}
-                  convertirAAnno= {convertirAAnno}
+                  convertirAAnno={convertirAAnno}
                 />
               </div>
             </div>

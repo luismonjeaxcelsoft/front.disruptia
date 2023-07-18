@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import InfoWordExperience from "./InfoWordExperience";
 import ".././styles/InfoWordExp.css";
 import logo from "../assets/images/disruptialogo.png";
 import { ESTUDIES, GetStudiesId } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
+import MyContext from "../context/MyContext";
 
 const INITIAL_VALUES_FORM = {
   id: 0,
@@ -21,15 +22,38 @@ const INITIAL_VALUES_FORM = {
   ciudad: "",
 };
 const FormInfoExperience = ({
-  setValidateImgs,
-  validateImgs,
   valuesIdPerfiles,
   valuesInputsPerfiles,
 }: any) => {
-  const [valuesForm, setValuesForm] = useState<ESTUDIES[]>([INITIAL_VALUES_FORM]);
+  const [valuesForm, setValuesForm] = useState<ESTUDIES[]>([
+    INITIAL_VALUES_FORM,
+  ]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
   const [valuesRes, setValuesRes] = useState<boolean>(false);
+
+  useEffect(() => {
+    getFormStudies();
+  }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
+
+  const buttonSiguiente = () => {
+    myMethod();
+    if (pasos.length !== 12) {
+      navigate("/perfiles/3");
+    } else {
+      setActualizarPreview((prev: boolean) => !prev)
+      navigate("/perfiles/13");
+    }
+  };
+
   const getFormStudies = async () => {
     try {
       const res = await GetStudiesId(1);
@@ -61,10 +85,6 @@ const FormInfoExperience = ({
       setValuesRes(false);
     }
   };
-
-  useEffect(() => {
-    getFormStudies();
-  }, []);
 
   return (
     <div>
@@ -115,10 +135,7 @@ const FormInfoExperience = ({
         <div className="containerSelect">
           <button
             className="buttonContinueSelect"
-            onClick={() => {
-              navigate("/perfiles/3");
-              setValidateImgs([...validateImgs, "3"]);
-            }}
+            onClick={() => buttonSiguiente()}
           >
             <p className="textSiguienteSelect">Siguiente</p>
           </button>

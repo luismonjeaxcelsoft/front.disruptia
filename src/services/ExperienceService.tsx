@@ -10,7 +10,6 @@ export type EXPERIENCE = {
   fechaFin: string;
   cursando: boolean;
   logros: string;
-  paso: number;
 };
 
 export const SaveExperience = async (values: EXPERIENCE) => {

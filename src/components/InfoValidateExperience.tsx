@@ -183,21 +183,18 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     values["cursando"] = valueCheck;
 
     if (type === "experience") {
-      values["paso"] = 3;
       const res = await SaveExperience(values);
       if (res === "Experiencia guardada") {
         setValidateViewB(true);
         getForms();
       }
     } else if (type === "additionalActivity") {
-      values["paso"] = 4;
       const res = await CreateActivity(values);
       if (res === "Actividad guardada") {
         setValidateViewB(true);
         getForms();
       }
     } else {
-      values["paso"] = 5;
       const res = await SaveComplemento(values);
       if (res === "Formacion complementaria guardada") {
         setValidateViewB(true);

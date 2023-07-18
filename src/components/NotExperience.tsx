@@ -1,33 +1,61 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useContext } from "react";
 import "../styles/NotExperience.css";
 import { Sidebar } from "./Sidebar";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
-import { GetActivitiesId } from "../services/ActivityService";
+import { CreateActivity, GetActivitiesId } from "../services/ActivityService";
+import MyContext from "../context/MyContext";
 
 type NotExperienceProps = {
   setFormComponent: React.Dispatch<boolean>;
-  setValidateImgs: any;
-  validateImgs: any;
 };
 const NotExperience: FC<NotExperienceProps> = ({
   setFormComponent,
-  setValidateImgs,
-  validateImgs,
 }) => {
   const navigate = useNavigate();
 
   const getActivity = async () => {
     const res = await GetActivitiesId(1);
 
-    if (res !== "No se encontraron actividades") {
-      setFormComponent(true);
+    if (typeof res !== "string") {
+      const validateRes = res.filter((item) => item.nombreActividad !== "N/T");
+      if (validateRes.length > 0) {
+        setFormComponent(true);
+      }
     }
   };
 
   useEffect(() => {
     getActivity();
   }, []);
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod } = context;
+
+  const buttonNo = async () => {
+    const payload = {
+      id: 0,
+      disrupterId: 1,
+      nombreActividad: "N/T",
+      organizacion: "",
+      fechaInicio: "",
+      fechaFin: "",
+      cursando: false,
+      tipoActividad: "",
+    };
+    const res = await CreateActivity(payload);
+
+    if (res === "Actividad guardada") {
+      myMethod();
+      navigate("/perfiles/5");
+    }
+  };
+
+  
 
   return (
     <>
@@ -104,10 +132,7 @@ const NotExperience: FC<NotExperienceProps> = ({
               alignItems: "center",
             }}
             className="btn btn-primary backOptionsExperience"
-            onClick={() => {
-              setValidateImgs([...validateImgs, "5"]);
-              navigate("/perfiles/5");
-            }}
+            onClick={() => buttonNo()}
           >
             <span
               style={{

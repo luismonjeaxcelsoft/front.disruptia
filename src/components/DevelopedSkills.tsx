@@ -1,21 +1,18 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useContext } from "react";
 import { Input } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import "../styles/DevelopedSkills.css";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { CloseOutlined } from "@ant-design/icons";
-import { GetHabilidadDesarrolladaDisrupterId, GetHabilidadesDesarrolladas, SaveHabilidadDesarrollada } from "../services/HabilidadDesarrolladaService";
+import {
+  GetHabilidadDesarrolladaDisrupterId,
+  GetHabilidadesDesarrolladas,
+  SaveHabilidadDesarrollada,
+} from "../services/HabilidadDesarrolladaService";
+import MyContext from "../context/MyContext";
 
-type DevelopedSkillsProps = {
-  setValidateImgs: any;
-  validateImgs: any;
-};
-
-const DevelopedSkills: FC<DevelopedSkillsProps> = ({
-  setValidateImgs,
-  validateImgs,
-}) => {
+const DevelopedSkills = () => {
   const [validateSelect, setValidateSelect] = useState(false);
 
   const navigate = useNavigate();
@@ -28,7 +25,6 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
   );
   const [valueHab, setValueHab] = useState<any>("");
 
-  
   const handleEliminarClick = (index: any) => {
     setValidateContinue(false);
     setHabilitysValues((prevOptions: any) => {
@@ -38,38 +34,30 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
 
   const handleSetHabilidades = (index: string) => {
     if (habilitysValues.length !== 10) {
-      if (!habilitysValues.includes(index)){
+      if (!habilitysValues.includes(index)) {
         if (index !== "") {
           setHabilitysValues([...habilitysValues, index]);
-        } 
-        } else {
-          window.alert(
-            "La habilidad ya esta agregada"
-          );
+        }
+      } else {
+        window.alert("La habilidad ya esta agregada");
       }
-      
     } else {
-      window.alert(
-        "No puedes agregar mas de 10 habilidades"
-      );
+      window.alert("No puedes agregar mas de 10 habilidades");
     }
-    
   };
 
   const onChangeFilter = (value: string) => {
     setValidateSelect(true);
     const filter = habilidades.filter((item: string) => item.includes(value));
     setHabilitysOptions(filter);
-  }
+  };
 
-  const saveHabilidades = async() => {
-
+  const saveHabilidades = async () => {
     const payload = {
       id: idHabilidad,
       disrupterId: 1,
       habilidades: habilitysValues,
-      paso: 9,
-    }; 
+    };
 
     const res = await SaveHabilidadDesarrollada(payload);
 
@@ -77,8 +65,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
       setValidateContinue(true);
       getHabilidadessBD();
     }
-
-  }
+  };
 
   const getHabilidadessBD = async () => {
     const res = await GetHabilidadDesarrolladaDisrupterId(1);
@@ -93,11 +80,28 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
     setHabilidades(res);
     setHabilitysOptions(res);
   };
+  const buttonSiguiente = () => {
+    myMethod();
+    if (pasos.length !== 12) {
+      navigate("/perfiles/10");
+    } else {
+      setActualizarPreview((prev: boolean) => !prev);
+      navigate("/perfiles/13");
+    }
+  };
 
   useEffect(() => {
     infoHabilidades();
     getHabilidadessBD();
   }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
   return (
     <>
       <div>
@@ -187,7 +191,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
                       fontFamily: "Montserrat-Light",
                       marginLeft: "20px",
                       color: "white",
-                      cursor: "pointer"
+                      cursor: "pointer",
                     }}
                   >
                     {item}
@@ -212,7 +216,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
               className="containerSkills"
             >
               <span className="skillText">
-                {item.length >14 ? `${item.substring(0,14)}... ` : item }
+                {item.length > 14 ? `${item.substring(0, 14)}... ` : item}
               </span>
               <CloseOutlined
                 onClick={() => handleEliminarClick(item)}
@@ -234,7 +238,7 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
               onClick={() => {
                 saveHabilidades();
               }}
-              disabled={habilitysValues.length >= 3   ? false : true}
+              disabled={habilitysValues.length >= 3 ? false : true}
             >
               Guardar
             </button>
@@ -242,14 +246,17 @@ const DevelopedSkills: FC<DevelopedSkillsProps> = ({
         )}
         <div className="containerSelect">
           <button
-            className={validateContinue ? "buttonContinueSelect" : "ContainerDisabled"}
-            onClick={() => {
-              navigate("/perfiles/10");
-              setValidateImgs([...validateImgs, "10"]);
-            }}
+            className={
+              validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
+            }
+            onClick={() => buttonSiguiente()}
             disabled={!validateContinue}
           >
-            <p className={!validateContinue ? "textDisableds" : "textSiguienteSelect"}>
+            <p
+              className={
+                !validateContinue ? "textDisableds" : "textSiguienteSelect"
+              }
+            >
               Siguiente
             </p>
           </button>

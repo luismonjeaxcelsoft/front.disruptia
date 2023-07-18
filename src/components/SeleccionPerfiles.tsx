@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   PerfilesSelect,
   PerfilesService,
@@ -8,6 +8,7 @@ import {
 import "../../src/styles/SeleccionPerfiles.css";
 import { Sidebar } from "./Sidebar";
 import { useNavigate } from "react-router-dom";
+import MyContext from "../context/MyContext";
 
 interface Perfiles {
   id: number;
@@ -18,12 +19,9 @@ const PerfilesSelect_initialValue = {
   id: 0,
   disrupterId: 1,
   perfiles: [],
-  paso: 1,
 };
 
 export const SeleccionPerfiles = ({
-  setValidateImgs,
-  validateImgs,
   setValuesIdPerfiles,
   setvaluesInputsPerfiles,
 }: any) => {
@@ -34,6 +32,22 @@ export const SeleccionPerfiles = ({
     PerfilesSelect_initialValue
   );
   const [validateResGet, setValidateResGet] = useState<boolean>(false);
+
+  useEffect(() => {
+    
+    fetchPerfiles();
+  }, []);
+  useEffect(() => {
+    getPerfiles();
+  }, [validateResGet]);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod } = context;
 
   const filterButtoms = (perfil: Perfiles) => {
     const value = sendData.some((data: number) => data === perfil.id);
@@ -49,8 +63,11 @@ export const SeleccionPerfiles = ({
       disrupterId: resGetPerfiles.disrupterId,
       perfiles: sendData,
     };
-    await saveSelectPerfiles(payload);
-    setValuesIdPerfiles(sendData);
+    const res = await saveSelectPerfiles(payload);
+    if (res === "Perfiles actualizados") {
+      myMethod();
+      setValuesIdPerfiles(sendData);
+    }
   };
 
   const getPerfiles = async () => {
@@ -63,23 +80,17 @@ export const SeleccionPerfiles = ({
       setValidateResGet(true);
     }
   };
-  useEffect(() => {
-    const fetchPerfiles = async () => {
-      try {
-        const apiData = await PerfilesService();
-        setData(apiData);
-        setvaluesInputsPerfiles(apiData);
-      } catch (error) {
-        // Maneja el error de alguna manera apropiada (por ejemplo, mostrando un mensaje de error)
-        console.error(error);
-      }
-    };
-    fetchPerfiles();
-  }, []);
-  useEffect(() => {
-    getPerfiles();
-  }, [validateResGet]);
 
+  const fetchPerfiles = async () => {
+    try {
+      const apiData = await PerfilesService();
+      setData(apiData);
+      setvaluesInputsPerfiles(apiData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   return (
     <>
       <div>
@@ -151,10 +162,10 @@ export const SeleccionPerfiles = ({
         </div>
         <div className="containerSelect">
           <button
+            disabled={!(sendData.length > 0)}
             className="buttonContinueSelect"
             onClick={() => {
               idPerfilSelect();
-              setValidateImgs([...validateImgs, "2"]);
               navigate("/perfiles/2");
             }}
           >

@@ -1,34 +1,64 @@
 import Experiencia from "../assets/images/Experiencia.png";
 import "../styles/ValidateExperience.css";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/images/disruptialogo.png";
-import { GetExperienceDisrupterId } from "../services/ExperienceService";
+import {
+  GetExperienceDisrupterId,
+  SaveExperience,
+} from "../services/ExperienceService";
+import MyContext from "../context/MyContext";
 type ValidateExperienceProps = {
   validadorComponente: React.Dispatch<number>;
-  setValidateImgs: any;
-  validateImgs: any;
 };
 
 const ValidateExperience: FC<ValidateExperienceProps> = ({
   validadorComponente,
-  setValidateImgs,
-  validateImgs,
 }) => {
   const navigate = useNavigate();
 
   const getExperience = async () => {
-
     const res = await GetExperienceDisrupterId(1);
 
-    if (res !== "No se encontro experiencia") {
-      validadorComponente(2);
+    if (typeof res !== "string") {
+      const validateRes = res.filter((item) => item.cargo !== "N/T");
+      if (validateRes.length > 0) {
+        validadorComponente(2);
+      }
     }
-  }
+  };
 
   useEffect(() => {
     getExperience();
-  }, [])
+  }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod } = context;
+
+  const buttonNo = async () => {
+    const payload = {
+      id: 0,
+      disrupterId: 1,
+      nombreEmpresa: "",
+      cargo: "N/T",
+      fechaInicio: "",
+      fechaFin: "",
+      cursando: false,
+      logros: "",
+    };
+
+    const res = await SaveExperience(payload);
+
+    if (res === "Experiencia guardada") {
+      myMethod();
+      navigate("/perfiles/4");
+    }
+  };
 
   return (
     <div className="containerValidateExperience">
@@ -89,11 +119,7 @@ const ValidateExperience: FC<ValidateExperienceProps> = ({
             ¡Sí!
           </button>
           <button
-            onClick={() => {
-              validadorComponente(3);
-              setValidateImgs([...validateImgs, "4"]);
-              navigate("/perfiles/4");
-            }}
+            onClick={() => buttonNo()}
             style={{ width: "265px", height: "87px" }}
             className="btn btn-primary backOptionsExperience"
           >

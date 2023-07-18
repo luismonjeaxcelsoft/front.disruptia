@@ -86,7 +86,6 @@ const DocumentoPDF: FC<DocumentoPDFProps> = ({
     a.download = "HojaDeVidaDisruptia.pdf";
     a.click();
     window.URL.revokeObjectURL(url);
-    // window.open(url, "_blank");
   };
 
   const formacionesPdf = () => {
@@ -133,28 +132,38 @@ const DocumentoPDF: FC<DocumentoPDFProps> = ({
       return fechaInicioA - fechaInicioB;
     });
 
+    const experienciasFilter = experiencias.filter(
+      (item) => item.cargo !== "N/T"
+    );
+
     return (
       <>
-        <Text style={styles.subtitle}>Experiencia Laboral</Text>
-        {experiencias.map((item: EXPERIENCIA) => (
-          <View key={item.logro} style={styles.section2}>
-            <Text style={styles.paragraph}>{item.cargo}</Text>
-            <Text style={styles.paragraph}>
-              {item.empresa +
-                ", " +
-                convertirAMes(item.fechaInicio) +
-                " " +
-                convertirAAnno(item.fechaInicio) +
-                " - "}
-              {item.actualmente
-                ? "Actualmente"
-                : convertirAMes(item.fechaFin) +
-                  " " +
-                  convertirAAnno(item.fechaFin)}
-            </Text>
-            <Text style={styles.paragraph}>{item.logro}</Text>
-          </View>
-        ))}
+        {experienciasFilter.length > 0 ? (
+          <>
+            <Text style={styles.subtitle}>Experiencia Laboral</Text>
+            {experienciasFilter.map((item: EXPERIENCIA) => (
+              <View key={item.logro} style={styles.section2}>
+                <Text style={styles.paragraph}>{item.cargo}</Text>
+                <Text style={styles.paragraph}>
+                  {item.empresa +
+                    ", " +
+                    convertirAMes(item.fechaInicio) +
+                    " " +
+                    convertirAAnno(item.fechaInicio) +
+                    " - "}
+                  {item.actualmente
+                    ? "Actualmente"
+                    : convertirAMes(item.fechaFin) +
+                      " " +
+                      convertirAAnno(item.fechaFin)}
+                </Text>
+                <Text style={styles.paragraph}>{item.logro}</Text>
+              </View>
+            ))}
+          </>
+        ) : (
+          <> </>
+        )}
       </>
     );
   };
@@ -167,28 +176,38 @@ const DocumentoPDF: FC<DocumentoPDFProps> = ({
         return fechaInicioA - fechaInicioB;
       });
 
+    const actividadesFilter = actividadesExtracurriculares.filter(
+      (item) => item.actividad !== "N/T"
+    );
+
     return (
       <>
-        <Text style={styles.subtitle}>Actividades Extracurriculares</Text>
-        {actividadesExtracurriculares.map((item: ACTIVIDAD) => (
-          <View key={item.actividad} style={styles.section2}>
-            <Text style={styles.paragraph}>{item.actividad}</Text>
-            <Text style={styles.paragraph}>{item.tipoActividad}</Text>
-            <Text style={styles.paragraph}>
-              {item.organizacion +
-                ", " +
-                convertirAMes(item.fechaInicio) +
-                " " +
-                convertirAAnno(item.fechaInicio) +
-                " - "}
-              {item.cursando
-                ? "Actualmente"
-                : convertirAMes(item.fechaFin) +
-                  " " +
-                  convertirAAnno(item.fechaFin)}
-            </Text>
-          </View>
-        ))}
+        {actividadesFilter.length > 0 ? (
+          <>
+            <Text style={styles.subtitle}>Actividades Extracurriculares</Text>
+            {actividadesFilter.map((item: ACTIVIDAD) => (
+              <View key={item.actividad} style={styles.section2}>
+                <Text style={styles.paragraph}>{item.actividad}</Text>
+                <Text style={styles.paragraph}>{item.tipoActividad}</Text>
+                <Text style={styles.paragraph}>
+                  {item.organizacion +
+                    ", " +
+                    convertirAMes(item.fechaInicio) +
+                    " " +
+                    convertirAAnno(item.fechaInicio) +
+                    " - "}
+                  {item.cursando
+                    ? "Actualmente"
+                    : convertirAMes(item.fechaFin) +
+                      " " +
+                      convertirAAnno(item.fechaFin)}
+                </Text>
+              </View>
+            ))}
+          </>
+        ) : (
+          <></>
+        )}
       </>
     );
   };

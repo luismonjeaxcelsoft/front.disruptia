@@ -10,11 +10,7 @@ import {
   SaveHabilidadSoftware,
 } from "../services/HabilidadSoftwareService";
 
-const SkillsDeveloping = ({
-  setValidateImgs,
-  validateImgs,
-  habilidadesDisrupter,
-}: any) => {
+const SkillsDeveloping = ({ habilidadesDisrupter }: any) => {
   type SKILL = {
     skill: string;
     back: boolean;
@@ -74,7 +70,10 @@ const SkillsDeveloping = ({
     for (const value of values) {
       habilidades.push({
         habilidad: value.skill,
-        nivel: habilidadesDisrupter.find((item: any) => item.habilidad === value.skill)?.nivel || "",
+        nivel:
+          habilidadesDisrupter.find(
+            (item: any) => item.habilidad === value.skill
+          )?.nivel || "",
       });
     }
     setHabilidadesSave(habilidades);
@@ -93,7 +92,7 @@ const SkillsDeveloping = ({
 
   const getHabilidadesSofware = async () => {
     const res = await GetHabilidadesSoftware();
-    setHabilidadesSave(habilidadesDisrupter)
+    setHabilidadesSave(habilidadesDisrupter);
 
     if (habilidadesDisrupter.length === 0) {
       const skillsDefault = res.map((item: string) => ({
@@ -144,8 +143,7 @@ const SkillsDeveloping = ({
       </div>
       {validateComponent ? (
         <LevelCompetition
-          setValidateImgs={setValidateImgs}
-          validateImgs={validateImgs}
+          setValidateComponent={setValidateComponent}
           skills={habilidades}
         />
       ) : (
@@ -227,7 +225,9 @@ const SkillsDeveloping = ({
                 onClick={() => {
                   saveHabilidadesSeleccionadas();
                 }}
-                disabled={disableButton || !skills.some((item) => item.back === true)}
+                disabled={
+                  disableButton || !skills.some((item) => item.back === true)
+                }
               >
                 Guardar
               </button>

@@ -1,5 +1,5 @@
-import { Card, Input } from "antd";
-import { FC, useState, useEffect } from "react";
+import { Card, Form, Input } from "antd";
+import { FC, useState, useEffect, useRef } from "react";
 import Aroow from "../assets/images/Aroow-46.png";
 import Delete from "../assets/images/Delete.png";
 import CardPlegada from "./CardPlegada";
@@ -34,21 +34,22 @@ const PersonalReference: FC<InfoReferences> = ({
   values,
   setValidateSiguiente,
 }) => {
+  const [form] = Form.useForm();
+  const formRef: any = useRef(null);
   const [typeReference, setTypeReference] = useState<boolean>(false);
   const [optionReference, setOptionReference] = useState<string>("");
   const [cardValidate, setCardValidate] = useState<boolean>(false);
   const [reference, setReference] = useState<any>(value);
+  const [valueErrors, setValueErrors] = useState<any>([]);
 
   const activeCardInit = () => {
     if (value.id !== 0) {
       setCardValidate(true);
       setOptionReference(value.tipoReferencia);
-    } 
+    }
   };
 
   const onChangeValues = (e: any) => {
-    console.log(e.target.value);
-
     const { name, value } = e.target;
 
     const newValues = { ...reference, [name]: value };
@@ -58,36 +59,44 @@ const PersonalReference: FC<InfoReferences> = ({
 
   const saveReference = async () => {
     if (reference.tipoReferencia === "Personal") {
-      if (
-        reference.nombreCompleto !== "" &&
-        reference.relacion !== "" &&
-        reference.empresa !== "" &&
-        reference.cargo !== "" &&
-        reference.correo !== "" &&
-        reference.celular !== ""
-      ) {
+      try {
+        form.setFieldsValue({ nombreCompleto: reference.nombreCompleto });
+        form.setFieldsValue({ relacion: reference.relacion });
+        form.setFieldsValue({ empresa: reference.empresa });
+        form.setFieldsValue({ cargo: reference.cargo });
+        form.setFieldsValue({ correo: reference.correo });
+        form.setFieldsValue({ celular: reference.celular });
+        await form.validateFields();
         const res = await SaveReference(reference);
         if (res === "Referencia guardada") {
           setCardValidate(true);
+          setValidateContinue(true);
+          setValidateSiguiente(true);
           getReferences();
         }
-      } else {
-        window.alert("Tienes que completar los campos");
+      } catch (error: any) {
+        console.log(error);
+        const errores = error?.errorFields.flatMap((item: any) => item.name);
+        setValueErrors(errores);
       }
     } else if (reference.tipoReferencia === "Familiar") {
-      if (
-        reference.nombreCompleto !== "" &&
-        reference.relacion !== "" &&
-        reference.correo !== "" &&
-        reference.celular !== ""
-      ) {
+      try {
+        form.setFieldsValue({ nombreCompleto: reference.nombreCompleto });
+        form.setFieldsValue({ relacion: reference.relacion });
+        form.setFieldsValue({ correo: reference.correo });
+        form.setFieldsValue({ celular: reference.celular });
+        await form.validateFields();
         const res = await SaveReference(reference);
         if (res === "Referencia guardada") {
           setCardValidate(true);
+          setValidateContinue(true);
+          setValidateSiguiente(true);
           getReferences();
         }
-      } else {
-        window.alert("Tienes que completar los campos");
+      } catch (error: any) {
+        console.log(error);
+        const errores = error?.errorFields.flatMap((item: any) => item.name);
+        setValueErrors(errores);
       }
     }
   };
@@ -160,6 +169,8 @@ const PersonalReference: FC<InfoReferences> = ({
                     setReference(INITIAL_VALUES_REFERENCE);
                     setValidateContinue(false);
                     setValidateSiguiente(false);
+                    setValueErrors([]);
+                    form.resetFields();
                   }}
                   className="optionsReferencesContainer"
                 >
@@ -245,259 +256,458 @@ const PersonalReference: FC<InfoReferences> = ({
             {(optionReference === "Familiar" ||
               optionReference === "Personal") && (
               <div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    marginTop: "30px",
-                  }}
-                >
-                  <label
-                    className="labelRefenrences"
-                    style={{ paddingLeft: "20px" }}
-                  >
-                    Nombre de la Referencia
-                  </label>
-                  <Input
-                    type="text"
-                    style={{
-                      paddingLeft: "20px",
-                      width: "783px",
-                      height: "44px",
-                      borderRadius: "25px",
-                      background: "#633F87",
-                      border: "none",
-                      color: "white",
-                    }}
-                    placeholder="Nombre Completo"
-                    name="nombreCompleto"
-                    value={reference.nombreCompleto}
-                    onChange={onChangeValues}
-                  />
-                </div>
-                <div
-                  style={
-                    optionReference === "Familiar"
-                      ? { display: "flex" }
-                      : { display: "flex", flexDirection: "column" }
-                  }
-                >
+                <Form form={form} ref={formRef}>
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "column",
-                      marginTop: "30px",
+                      marginTop: "10px",
                     }}
                   >
                     <label
                       className="labelRefenrences"
-                      style={{ paddingLeft: "20px" }}
-                    >
-                      {optionReference === "Familiar"
-                        ? "Parentesco"
-                        : "Relación"}
-                    </label>
-                    <Input
-                      type="text"
-                      style={{
-                        paddingLeft: "20px",
-                        width: "354px",
-                        height: "44px",
-                        borderRadius: "25px",
-                        background: "#633F87",
-                        border: "none",
-                        color: "white",
-                      }}
-                      placeholder={
-                        optionReference === "Familiar" ? "Mamá" : "Amigo"
+                      htmlFor="nombreCompleto"
+                      style={
+                        valueErrors.includes("nombreCompleto")
+                          ? {
+                              color: "#f7c947",
+                              opacity: "1",
+                            }
+                          : {}
                       }
-                      name="relacion"
-                      value={reference.relacion}
-                      onChange={onChangeValues}
-                    />
+                    >
+                      Nombre de la Referencia
+                    </label>
+                    <Form.Item
+                      name="nombreCompleto"
+                      rules={[
+                        {
+                          required: true,
+                          message: "*Campo requerido",
+                        },
+                      ]}
+                    >
+                      <Input
+                        type="text"
+                        id="nombreCompleto"
+                        autoComplete="off"
+                        style={{
+                          paddingLeft: "20px",
+                          width: "783px",
+                          height: "44px",
+                          borderRadius: "25px",
+                          background: "#633F87",
+                          border:
+                            reference.nombreCompleto === "" &&
+                            valueErrors.includes("nombreCompleto")
+                              ? ""
+                              : reference.nombreCompleto === ""
+                              ? "none"
+                              : "none",
+                          color: "white",
+                        }}
+                        placeholder="Nombre Completo"
+                        name="nombreCompleto"
+                        defaultValue={reference.nombreCompleto}
+                        onChange={onChangeValues}
+                      />
+                    </Form.Item>
                   </div>
-                  {optionReference === "Familiar" && (
+                  <div
+                    style={
+                      optionReference === "Familiar"
+                        ? { display: "flex" }
+                        : { display: "flex", flexDirection: "column" }
+                    }
+                  >
                     <div
                       style={{
                         display: "flex",
                         flexDirection: "column",
-                        marginTop: "30px",
-                        marginLeft:
-                          optionReference === "Familiar" ? "85px" : "",
+                        marginTop: "10px",
                       }}
                     >
                       <label
                         className="labelRefenrences"
-                        style={{ paddingLeft: "20px" }}
+                        htmlFor="relacion"
+                        style={
+                          valueErrors.includes("relacion")
+                            ? {
+                                color: "#f7c947",
+                                opacity: "1",
+                              }
+                            : {}
+                        }
                       >
-                        Correo
+                        {optionReference === "Familiar"
+                          ? "Parentesco"
+                          : "Relación"}
                       </label>
-                      <Input
-                        type="text"
-                        style={{
-                          paddingLeft: "20px",
-                          width: "347px",
-                          height: "44px",
-                          borderRadius: "25px",
-                          background: "#633F87",
-                          border: "none",
-                          color: "white",
-                        }}
-                        placeholder="vivi19@gmail.com"
-                        name="correo"
-                        value={reference.correo}
-                        onChange={onChangeValues}
-                      />
+                      <Form.Item
+                        name="relacion"
+                        rules={[
+                          {
+                            required: true,
+                            message: "*Campo requerido",
+                          },
+                        ]}
+                      >
+                        <Input
+                          type="text"
+                          autoComplete="off"
+                          style={{
+                            paddingLeft: "20px",
+                            width: "354px",
+                            height: "44px",
+                            borderRadius: "25px",
+                            background: "#633F87",
+                            border:
+                              reference.relacion === "" &&
+                              valueErrors.includes("relacion")
+                                ? ""
+                                : reference.relacion === ""
+                                ? "none"
+                                : "none",
+                            color: "white",
+                          }}
+                          placeholder={
+                            optionReference === "Familiar" ? "Mamá" : "Amigo"
+                          }
+                          name="relacion"
+                          id="relacion"
+                          defaultValue={reference.relacion}
+                          onChange={onChangeValues}
+                        />
+                      </Form.Item>
                     </div>
-                  )}
-                </div>
-                <div
-                  style={
-                    optionReference === "Personal" ? { display: "flex" } : {}
-                  }
-                >
+                    {optionReference === "Familiar" && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          marginTop: "10px",
+                          marginLeft:
+                            optionReference === "Familiar" ? "85px" : "",
+                        }}
+                      >
+                        <label
+                          className="labelRefenrences"
+                          style={
+                            valueErrors.includes("correo")
+                              ? {
+                                  color: "#f7c947",
+                                  opacity: "1",
+                                }
+                              : {}
+                          }
+                        >
+                          Correo
+                        </label>
+                        <Form.Item
+                          name="correo"
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="text"
+                            autoComplete="off"
+                            style={{
+                              paddingLeft: "20px",
+                              width: "347px",
+                              height: "44px",
+                              borderRadius: "25px",
+                              background: "#633F87",
+                              border:
+                                reference.correo === "" &&
+                                valueErrors.includes("correo")
+                                  ? ""
+                                  : reference.correo === ""
+                                  ? "none"
+                                  : "none",
+                              color: "white",
+                            }}
+                            placeholder="vivi19@gmail.com"
+                            id="correo"
+                            name="correo"
+                            defaultValue={reference.correo}
+                            onChange={onChangeValues}
+                          />
+                        </Form.Item>
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    style={
+                      optionReference === "Personal" ? { display: "flex" } : {}
+                    }
+                  >
+                    {optionReference === "Personal" && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          marginTop: "10px",
+                          marginRight: "50px",
+                        }}
+                      >
+                        <label
+                          className="labelRefenrences"
+                          style={
+                            valueErrors.includes("empresa")
+                              ? {
+                                  color: "#f7c947",
+                                  opacity: "1",
+                                }
+                              : {}
+                          }
+                        >
+                          Empresa
+                        </label>
+                        <Form.Item
+                          name="empresa"
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="text"
+                            autoComplete="off"
+                            style={{
+                              paddingLeft: "20px",
+                              width: "354px",
+                              height: "44px",
+                              borderRadius: "25px",
+                              background: "#633F87",
+                              border:
+                                reference.empresa === "" &&
+                                valueErrors.includes("empresa")
+                                  ? ""
+                                  : reference.empresa === ""
+                                  ? "none"
+                                  : "none",
+                              color: "white",
+                            }}
+                            name="empresa"
+                            id="empresa"
+                            placeholder="Disruptia"
+                            defaultValue={reference.empresa}
+                            onChange={onChangeValues}
+                          />
+                        </Form.Item>
+                      </div>
+                    )}
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <label
+                        className="labelRefenrences"
+                        style={
+                          optionReference === "Familiar"
+                            ? valueErrors.includes("celular")
+                              ? {
+                                  color: "#f7c947",
+                                  opacity: "1",
+                                }
+                              : {}
+                            : valueErrors.includes("cargo")
+                            ? {
+                                color: "#f7c947",
+                                opacity: "1",
+                              }
+                            : {}
+                        }
+                      >
+                        {optionReference === "Familiar"
+                          ? "Número Celular"
+                          : "Cargo"}
+                      </label>
+                      <Form.Item
+                        name={
+                          optionReference === "Familiar" ? "celular" : "cargo"
+                        }
+                        rules={[
+                          {
+                            required: true,
+                            message: "*Campo requerido",
+                          },
+                        ]}
+                      >
+                        <Input
+                          type="text"
+                          autoComplete="off"
+                          style={{
+                            paddingLeft: "20px",
+                            width:
+                              optionReference === "Familiar"
+                                ? "214px"
+                                : "380px",
+                            height: "44px",
+                            borderRadius: "25px",
+                            background: "#633F87",
+                            border:
+                              optionReference === "Familiar"
+                                ? reference.celular === "" &&
+                                  valueErrors.includes("celular")
+                                  ? ""
+                                  : reference.celular === ""
+                                  ? "none"
+                                  : "none"
+                                : reference.cargo === "" &&
+                                  valueErrors.includes("cargo")
+                                ? ""
+                                : reference.cargo === ""
+                                ? "none"
+                                : "none",
+                            color: "white",
+                          }}
+                          placeholder={
+                            optionReference === "Familiar"
+                              ? "+57 300 2456738"
+                              : "Director/a General"
+                          }
+                          defaultValue={
+                            optionReference === "Familiar"
+                              ? reference.celular
+                              : reference.cargo
+                          }
+                          id={
+                            optionReference === "Familiar" ? "celular" : "cargo"
+                          }
+                          name={
+                            optionReference === "Familiar" ? "celular" : "cargo"
+                          }
+                          onChange={onChangeValues}
+                        />
+                      </Form.Item>
+                    </div>
+                  </div>
                   {optionReference === "Personal" && (
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "30px",
-                        marginRight: "50px",
-                      }}
-                    >
-                      <label
-                        className="labelRefenrences"
-                        style={{ paddingLeft: "20px" }}
-                      >
-                        Empresa
-                      </label>
-                      <Input
-                        type="text"
+                    <div style={{ display: "flex" }}>
+                      <div
                         style={{
-                          paddingLeft: "20px",
-                          width: "354px",
-                          height: "44px",
-                          borderRadius: "25px",
-                          background: "#633F87",
-                          border: "none",
-                          color: "white",
+                          display: "flex",
+                          flexDirection: "column",
+                          marginTop: "10px",
                         }}
-                        name="empresa"
-                        placeholder="Disruptia"
-                        value={reference.empresa}
-                        onChange={onChangeValues}
-                      />
+                      >
+                        <label
+                          className="labelRefenrences"
+                          style={
+                            valueErrors.includes("celular")
+                              ? {
+                                  color: "#f7c947",
+                                  opacity: "1",
+                                }
+                              : {}
+                          }
+                        >
+                          Número Celular
+                        </label>
+                        <Form.Item
+                          name="celular"
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="text"
+                            autoComplete="off"
+                            style={{
+                              paddingLeft: "20px",
+                              width: "214px",
+                              height: "44px",
+                              borderRadius: "25px",
+                              background: "#633F87",
+                              border:
+                                reference.celular === "" &&
+                                valueErrors.includes("celular")
+                                  ? ""
+                                  : reference.celular === ""
+                                  ? "none"
+                                  : "none",
+                              color: "white",
+                            }}
+                            placeholder={"+57 300 2456738"}
+                            name="celular"
+                            id="celular"
+                            defaultValue={reference.celular}
+                            onChange={onChangeValues}
+                          />
+                        </Form.Item>
+                      </div>
+                      <div
+                        style={{
+                          display: "flex",
+                          flexDirection: "column",
+                          marginTop: "10px",
+                          marginLeft: "190px",
+                        }}
+                      >
+                        <label
+                          className="labelRefenrences"
+                          style={
+                            valueErrors.includes("correo")
+                              ? {
+                                  color: "#f7c947",
+                                  opacity: "1",
+                                }
+                              : {}
+                          }
+                        >
+                          Correo
+                        </label>
+                        <Form.Item
+                          name="correo"
+                          rules={[
+                            {
+                              required: true,
+                              message: "*Campo requerido",
+                            },
+                          ]}
+                        >
+                          <Input
+                            type="text"
+                            autoComplete="off"
+                            style={{
+                              paddingLeft: "20px",
+                              width: "347px",
+                              height: "44px",
+                              borderRadius: "25px",
+                              background: "#633F87",
+                              border:
+                                reference.correo === "" &&
+                                valueErrors.includes("correo")
+                                  ? ""
+                                  : reference.correo === ""
+                                  ? "none"
+                                  : "none",
+                              color: "white",
+                            }}
+                            placeholder="vivi19@gmail.com"
+                            name="correo"
+                            id="correo"
+                            defaultValue={reference.correo}
+                            onChange={onChangeValues}
+                          />
+                        </Form.Item>
+                      </div>
                     </div>
                   )}
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "30px",
-                    }}
-                  >
-                    <label
-                      className="labelRefenrences"
-                      style={{ paddingLeft: "20px" }}
-                    >
-                      {optionReference === "Familiar"
-                        ? "Número Celular"
-                        : "Cargo"}
-                    </label>
-                    <Input
-                      type="text"
-                      style={{
-                        paddingLeft: "20px",
-                        width:
-                          optionReference === "Familiar" ? "214px" : "380px",
-                        height: "44px",
-                        borderRadius: "25px",
-                        background: "#633F87",
-                        border: "none",
-                        color: "white",
-                      }}
-                      placeholder={
-                        optionReference === "Familiar"
-                          ? "+57 300 2456738"
-                          : "Director/a General"
-                      }
-                      value={
-                        optionReference === "Familiar"
-                          ? reference.celular
-                          : reference.cargo
-                      }
-                      name={
-                        optionReference === "Familiar" ? "celular" : "cargo"
-                      }
-                      onChange={onChangeValues}
-                    />
-                  </div>
-                </div>
-                {optionReference === "Personal" && (
-                  <div style={{ display: "flex" }}>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "30px",
-                      }}
-                    >
-                      <label
-                        className="labelRefenrences"
-                        style={{ paddingLeft: "20px" }}
-                      >
-                        Número Celular
-                      </label>
-                      <Input
-                        type="text"
-                        style={{
-                          paddingLeft: "20px",
-                          width: "214px",
-                          height: "44px",
-                          borderRadius: "25px",
-                          background: "#633F87",
-                          border: "none",
-                          color: "white",
-                        }}
-                        placeholder={"+57 300 2456738"}
-                        name="celular"
-                        value={reference.celular}
-                        onChange={onChangeValues}
-                      />
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "30px",
-                        marginLeft: "190px",
-                      }}
-                    >
-                      <label
-                        className="labelRefenrences"
-                        style={{ paddingLeft: "20px" }}
-                      >
-                        Correo
-                      </label>
-                      <Input
-                        type="text"
-                        style={{
-                          paddingLeft: "20px",
-                          width: "347px",
-                          height: "44px",
-                          borderRadius: "25px",
-                          background: "#633F87",
-                          border: "none",
-                          color: "white",
-                        }}
-                        placeholder="vivi19@gmail.com"
-                        name="correo"
-                        value={reference.correo}
-                        onChange={onChangeValues}
-                      />
-                    </div>
-                  </div>
-                )}
+                </Form>
               </div>
             )}
           </Card>
@@ -509,8 +719,6 @@ const PersonalReference: FC<InfoReferences> = ({
             <button
               onClick={() => {
                 saveReference();
-                setValidateContinue(true);
-                setValidateSiguiente(true);
               }}
               style={{
                 width: "165px",

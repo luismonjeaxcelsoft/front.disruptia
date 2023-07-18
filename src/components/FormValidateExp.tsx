@@ -1,14 +1,11 @@
-import { useState, FC, useEffect } from "react";
+import { useState, FC, useEffect, useContext } from "react";
 import logo from "../assets/images/disruptialogo.png";
 import InfoValidateExperience from "./InfoValidateExperience";
 import { useNavigate } from "react-router-dom";
-import {
-  GetExperienceDisrupterId,
-} from "../services/ExperienceService";
+import { GetExperienceDisrupterId } from "../services/ExperienceService";
 import { GetActivitiesId } from "../services/ActivityService";
-import {
-    GetComplementoDisrupterId,
-} from "../services/ComplementService";
+import { GetComplementoDisrupterId } from "../services/ComplementService";
+import MyContext from "../context/MyContext";
 
 const INITIAL_VALUES_FORM_EXPERIENCE = {
   id: 0,
@@ -19,7 +16,6 @@ const INITIAL_VALUES_FORM_EXPERIENCE = {
   fechaFin: "",
   cursando: false,
   logros: "",
-  paso: 3,
 };
 
 const INITIAL_VALUES_FORM_ACTIVIDAD = {
@@ -31,7 +27,6 @@ const INITIAL_VALUES_FORM_ACTIVIDAD = {
   fechaFin: "",
   cursando: false,
   tipoActividad: "",
-  paso: 4,
 };
 
 const INITIAL_VALUES_FORM_COMPLEMENTARIO = {
@@ -43,75 +38,87 @@ const INITIAL_VALUES_FORM_COMPLEMENTARIO = {
   cursando: false,
   nombreInstitucion: "",
   certificacion: false,
-  paso: 5,
 };
 
 type FormValidateExpProps = {
   type: string;
-  validateImgs?: any;
-  setValidateImgs?: any;
 };
 
-const FormValidateExp: FC<FormValidateExpProps> = ({
-  type,
-  setValidateImgs,
-  validateImgs,
-}) => {
-  
+const FormValidateExp: FC<FormValidateExpProps> = ({ type }) => {
   const initialValue =
     type === "experience"
       ? INITIAL_VALUES_FORM_EXPERIENCE
       : type === "additionalActivity"
       ? INITIAL_VALUES_FORM_ACTIVIDAD
       : INITIAL_VALUES_FORM_COMPLEMENTARIO;
-      
+
   const [valuesForm, setValuesForm] = useState<any>([initialValue]);
   const navigate = useNavigate();
   const [validateViewB, setValidateViewB] = useState<boolean>(false);
   const [valuesRes, setValuesRes] = useState<any>(false);
 
-  const getForms = async () => {
+  useEffect(() => {
+    getForms();
+  }, []);
 
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
+
+  const getForms = async () => {
     if (type === "experience") {
       const res = await GetExperienceDisrupterId(1);
-
+      setValuesRes(true);
+      if (typeof res !== "string") {
+        const resFilter = res.filter((item) => item.cargo !== "N/T");
+        if (resFilter.length > 0) {
+          setValuesForm(resFilter);
+        }
+      }
+    } else if (type === "additionalActivity") {
+      const res = await GetActivitiesId(1);
+      setValuesRes(true);
+      if (typeof res !== "string") {
+        const resFilter = res.filter((item) => item.nombreActividad !== "N/T");
+        if (resFilter.length > 0) {
+          setValuesForm(resFilter);
+        }
+      }
+    } else {
+      const res = await GetComplementoDisrupterId(1);
+      setValuesRes(true);
       if (typeof res !== "string") {
         setValuesForm(res);
       }
     }
-    
-
-    const res =
-      type === "experience"
-        ? await GetExperienceDisrupterId(1)
-        : type === "additionalActivity"
-        ? await GetActivitiesId(1)
-        : await GetComplementoDisrupterId(1);
-
-    if (res && res.length > 0) {
-      setValuesRes(true);
-
-      if (typeof res !== "string") {
-          setValuesForm(res);
-        }
-      }
-    
   };
 
-  useEffect(() => {
-    getForms();
-    console.log(valuesForm);
-  }, []);
   const validateNavigation = () => {
     if (type === "experience") {
-      setValidateImgs([...validateImgs, "4"]);
-      navigate("/perfiles/4");
+      if (pasos.length !== 12) {
+        navigate("/perfiles/4");
+      } else {
+        setActualizarPreview((prev: any) => !prev)
+        navigate("/perfiles/13");
+      }
     } else if (type === "additionalActivity") {
-      setValidateImgs([...validateImgs, "5"]);
-      navigate("/perfiles/5");
+      if (pasos.length !== 12) {
+        navigate("/perfiles/5");
+      } else {
+        setActualizarPreview((prev: any) => !prev)
+        navigate("/perfiles/13");
+      }
     } else if (type === "additionalCurse") {
-      setValidateImgs([...validateImgs, "6"]);
-      navigate("/perfiles/6");
+      if (pasos.length !== 12) {
+        navigate("/perfiles/6");
+      } else {
+        setActualizarPreview((prev: any) => !prev)
+        navigate("/perfiles/13");
+      }
     }
   };
 
@@ -168,6 +175,7 @@ const FormValidateExp: FC<FormValidateExpProps> = ({
         <div className="containerSelect">
           <button
             onClick={() => {
+              myMethod();
               validateNavigation();
             }}
             className="buttonContinueSelect"

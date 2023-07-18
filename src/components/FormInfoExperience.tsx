@@ -49,7 +49,7 @@ const FormInfoExperience = ({
     if (pasos.length !== 12) {
       navigate("/perfiles/3");
     } else {
-      setActualizarPreview((prev: any) => !prev)
+      setActualizarPreview((prev: boolean) => !prev)
       navigate("/perfiles/13");
     }
   };

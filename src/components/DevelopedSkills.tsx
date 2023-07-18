@@ -85,7 +85,7 @@ const DevelopedSkills = () => {
     if (pasos.length !== 12) {
       navigate("/perfiles/10");
     } else {
-      setActualizarPreview((prev: any) => !prev);
+      setActualizarPreview((prev: boolean) => !prev);
       navigate("/perfiles/13");
     }
   };

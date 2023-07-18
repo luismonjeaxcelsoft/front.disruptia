@@ -123,7 +123,7 @@ const PersonalReferences = () => {
           }
           onClick={() => {
             myMethod();
-            setActualizarPreview((prev: any) => !prev);
+            setActualizarPreview((prev: boolean) => !prev);
             navigate("/perfiles/13");
           }}
           disabled={!validateSiguiente ? true : false}

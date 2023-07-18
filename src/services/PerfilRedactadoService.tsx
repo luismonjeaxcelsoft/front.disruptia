@@ -6,7 +6,6 @@ export type PERFILREDACTADO = {
   id: number;
   disrupterId: number;
   perfil: string;
-  paso: number;
 }
 
 type VALIDARCONCHATGPT = {

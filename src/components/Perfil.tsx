@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Sidebar } from "./Sidebar";
 import "../styles/Perfil.css";
 import { Input, Spin } from "antd";
@@ -10,8 +10,9 @@ import {
   ValidarPerfilRedactado,
 } from "../services/PerfilRedactadoService";
 import { LoadingOutlined } from "@ant-design/icons";
+import MyContext from "../context/MyContext";
 
-const Perfil = ({ setValidateImgs, validateImgs }: any) => {
+const Perfil = () => {
   const disrupterId = 1;
   const maxWords = 150;
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
@@ -63,7 +64,6 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
       id: idPerfil,
       disrupterId: disrupterId,
       perfil: perfil,
-      paso: 11,
     };
     const res = await SavePerfilRedactado(payload);
     if (res === "Perfil guardado") {
@@ -104,9 +104,27 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
     }
   };
 
+  const buttonSiguiente = () => {
+    myMethod();
+    if (pasos.length !== 12) {
+      navigate("/perfiles/12");
+    } else {
+      setActualizarPreview((prev: any) => !prev)
+      navigate("/perfiles/13");
+    }
+  };
+
   useEffect(() => {
     getPerfil();
   }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
 
   return (
     <>
@@ -241,10 +259,7 @@ const Perfil = ({ setValidateImgs, validateImgs }: any) => {
             className={
               validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
             }
-            onClick={() => {
-              setValidateImgs([...validateImgs, "12"]);
-              navigate("/perfiles/12");
-            }}
+            onClick={() => buttonSiguiente()}
             disabled={!validateContinue ? true : false}
           >
             <p

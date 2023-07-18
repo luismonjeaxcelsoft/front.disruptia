@@ -5,7 +5,6 @@ const API_URL = import.meta.env.VITE_API_URL;
 export type MANEJOIDIOMA = {
   disrupterId: number;
   idiomas: IDIOMA[];
-  paso: number;
 };
 
 export type IDIOMA = {

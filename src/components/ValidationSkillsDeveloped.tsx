@@ -1,20 +1,25 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Software_Web from "../assets/images/Software_Web.jpg";
 import "../styles/ValidationSkillsDeveloped.css";
 import { useNavigate } from "react-router-dom";
 import SkillsDeveloping from "./SkillsDeveloping";
-import { GetHabilidadDeSoftwareDisrupterId } from "../services/HabilidadSoftwareService";
+import {
+  GetHabilidadDeSoftwareDisrupterId,
+  SaveHabilidadSoftware,
+} from "../services/HabilidadSoftwareService";
+import MyContext from "../context/MyContext";
 
-const ValidationSkillsDeveloped = ({ setValidateImgs, validateImgs }: any) => {
-  
+const ValidationSkillsDeveloped = () => {
   type HABILIDADES = {
     habilidad: string;
     nivel: string;
   };
- 
+
   const navigate = useNavigate();
   const [validationComponent, setValidationComponent] = useState(false);
-  const [habilidadesDisrupter, setHabilidadesDisrupter] = useState<HABILIDADES[]>([])
+  const [habilidadesDisrupter, setHabilidadesDisrupter] = useState<
+    HABILIDADES[]
+  >([]);
 
   const disrupterId = 1;
 
@@ -23,9 +28,32 @@ const ValidationSkillsDeveloped = ({ setValidateImgs, validateImgs }: any) => {
 
     if (typeof res !== "string") {
       setValidationComponent(true);
-      setHabilidadesDisrupter(res.habilidades);
-    } else {
-      setHabilidadesDisrupter([]);
+      const habilidadesFilter = res.habilidades.filter(
+        (item) => item.habilidad !== "N/T"
+      );
+
+      if (habilidadesFilter.length > 0) {
+        setHabilidadesDisrupter(habilidadesFilter);
+      }
+    } 
+  };
+
+  const buttonNo = async () => {
+    const payload = {
+      disrupterId: 1,
+      habilidades: [
+        {
+          habilidad: "N/T",
+          nivel: "N/T",
+        },
+      ],
+    };
+
+    const res = await SaveHabilidadSoftware(payload);
+
+    if (res === "Habilidades de software guardadas") {
+      myMethod();
+      navigate("/perfiles/11 ");
     }
   };
 
@@ -33,12 +61,18 @@ const ValidationSkillsDeveloped = ({ setValidateImgs, validateImgs }: any) => {
     getHabilidadesDisrupter();
   }, []);
 
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod } = context;
+
   return (
     <>
       {validationComponent ? (
         <SkillsDeveloping
-          setValidateImgs={setValidateImgs}
-          validateImgs={validateImgs}
           habilidadesDisrupter={habilidadesDisrupter}
         />
       ) : (
@@ -89,10 +123,7 @@ const ValidationSkillsDeveloped = ({ setValidateImgs, validateImgs }: any) => {
                   <span className="spanButtomResp">Si</span>
                 </button>
                 <button
-                  onClick={() => {
-                    setValidateImgs([...validateImgs, "11"]);
-                    navigate("/perfiles/11 ");
-                  }}
+                  onClick={() => buttonNo()}
                   className="buttonSelectSkillsDevelop btn btn-primary"
                 >
                   <span className="spanButtomResp">No</span>

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Sidebar } from "./Sidebar";
 import "../styles/PersonalReferences.css";
 import { useNavigate } from "react-router-dom";
 import { GetReferencesDisrupterId } from "../services/ReferencesService";
 import PersonalReference from "./PersonalReference";
+import MyContext from "../context/MyContext";
 
 const INITIAL_VALUES_REFERENCE = {
   id: 0,
@@ -29,7 +30,7 @@ type INITIAL_VALUES_FORM = {
   cargo: string;
 };
 
-const PersonalReferences = ({ setValidateImgs, validateImgs }: any) => {
+const PersonalReferences = () => {
   const [validateContinue, setValidateContinue] = useState<boolean>(false);
   const [validateSiguiente, setValidateSiguiente] = useState<boolean>(false);
   const [values, setValues] = useState<INITIAL_VALUES_FORM[]>([
@@ -55,6 +56,13 @@ const PersonalReferences = ({ setValidateImgs, validateImgs }: any) => {
   useEffect(() => {
     getReferences();
   }, []);
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, setActualizarPreview } = context;
 
   return (
     <>
@@ -114,7 +122,8 @@ const PersonalReferences = ({ setValidateImgs, validateImgs }: any) => {
             validateSiguiente ? "buttonContinueSelect" : "ContainerDisabled"
           }
           onClick={() => {
-            setValidateImgs([...validateImgs, "13"]);
+            myMethod();
+            setActualizarPreview((prev: any) => !prev);
             navigate("/perfiles/13");
           }}
           disabled={!validateSiguiente ? true : false}

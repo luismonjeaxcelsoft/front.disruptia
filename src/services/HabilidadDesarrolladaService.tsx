@@ -6,7 +6,6 @@ type HABILIDADDESARROLLADA = {
   id: number;
   disrupterId: number;
   habilidades: string[];
-  paso: number;
 };
 
 export const SaveHabilidadDesarrollada = async (values: HABILIDADDESARROLLADA) => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs } from "antd";
 import iconotab1 from "../assets/images/Iconos.png";
 import "../styles/formulario.css";
@@ -41,382 +41,375 @@ import PreviewHv from "../components/PreviewHv";
 import { useNavigate } from "react-router-dom";
 import PersonalReferences from "../components/PersonalReferences";
 import ValidationSkillsDeveloped from "../components/ValidationSkillsDeveloped";
-
+import { GetPasos } from "../services/PasosService";
+import MyContext, { MyContextType } from "../context/MyContext";
 
 export const Formulario = () => {
+  const disrupterId = 1;
   const { tab } = useParams();
   const navigate = useNavigate();
-  const [validateImgs, setValidateImgs] = useState<any>(["1"]);
-const [valuesInputsPerfiles, setvaluesInputsPerfiles] = useState<any>([])
-const [valuesIdPerfiles, setValuesIdPerfiles] = useState<any>([])
-  const handleTabClick = (tabKey: any) => {
-    let value = validateImgs.some((item: any) => item === tabKey);
+  const [validatePaso, setValidatePaso] = useState<number[]>([]);
+  const [defaultActiveKey, setDefaultActiveKey] = useState<string>("1");
+  const [valuesInputsPerfiles, setvaluesInputsPerfiles] = useState<any>([]);
+  const [valuesIdPerfiles, setValuesIdPerfiles] = useState<any>([]);
+  const [actualizarPreview, setActualizarPreview] = useState<boolean>(false);
+  const handleTabClick = (tabKey: string) => {
+    const value = validatePaso.some(
+      (item: number) =>
+        item === parseInt(tabKey) || parseInt(tabKey) - 1 === item
+    );
     if (value) {
-      navigate(`/perfiles/${tabKey}`)
+      navigate(`/perfiles/${tabKey}`);
     }
   };
+
+  const getPasos = async () => {
+    const res = await GetPasos(disrupterId);
+    if (typeof res !== "string") {
+      setValidatePaso(res);
+      setDefaultActiveKey(res[res.length - 1].toString());
+    }
+  };
+
+  const contextValue: MyContextType = {
+    myMethod: getPasos,
+    pasos: validatePaso,
+    setActualizarPreview: setActualizarPreview,
+  };
+
+  useEffect(() => {
+    getPasos();
+  }, []);
+
   return (
     <div>
-      <div className="formulario">
-        <div className="tabs">
-          <Tabs
-            onTabClick={handleTabClick}
-            activeKey={tab}
-            className="tabs-2"
-            defaultActiveKey="1"
-            centered
-            tabBarStyle={{ width: "820px" }}
-            items={[
-              {
-                label: (
-                  <div>
-                    <img
-                      style={{ width: "53px" }}
-                      alt="agenda"
-                      src={iconotab1}
-                    />
-                  </div>
-                ),
-                key: "1",
-                children: (
-                  <div>
-                    <SeleccionPerfiles
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                      setvaluesInputsPerfiles={setvaluesInputsPerfiles}
-                      setValuesIdPerfiles={setValuesIdPerfiles}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[1] === "2" ? (
-                      <img alt="toga" style={{ width: "53px" }} src={toga} />
-                    ) : (
+      <MyContext.Provider value={contextValue}>
+        <div className="formulario">
+          <div className="tabs">
+            <Tabs
+              onTabClick={handleTabClick}
+              activeKey={tab}
+              className="tabs-2"
+              defaultActiveKey={defaultActiveKey}
+              centered
+              tabBarStyle={{ width: "820px" }}
+              items={[
+                {
+                  label: (
+                    <div>
                       <img
-                        alt="toga"
                         style={{ width: "53px" }}
-                        src={togaGris}
+                        alt="agenda"
+                        src={iconotab1}
                       />
-                    )}
-                  </div>
-                ),
-                key: "2",
-                children: (
-                  <div>
-                    <FormInfoExperience
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                      valuesInputsPerfiles={valuesInputsPerfiles}
-                      valuesIdPerfiles={valuesIdPerfiles}
-                    
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[2] === "3" ? (
-                      <img
-                        alt="maletin"
-                        style={{ width: "53px" }}
-                        src={maletin}
+                    </div>
+                  ),
+                  key: "1",
+                  children: (
+                    <div>
+                      <SeleccionPerfiles
+                        setvaluesInputsPerfiles={setvaluesInputsPerfiles}
+                        setValuesIdPerfiles={setValuesIdPerfiles}
                       />
-                    ) : (
-                      <img
-                        alt="maletin"
-                        style={{ width: "53px" }}
-                        src={maletinGris}
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 1 ? (
+                        <img alt="toga" style={{ width: "53px" }} src={toga} />
+                      ) : (
+                        <img
+                          alt="toga"
+                          style={{ width: "53px" }}
+                          src={togaGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "2",
+                  children: (
+                    <div>
+                      <FormInfoExperience
+                        valuesInputsPerfiles={valuesInputsPerfiles}
+                        valuesIdPerfiles={valuesIdPerfiles}
                       />
-                    )}
-                  </div>
-                ),
-                key: "3",
-                children: (
-                  <div>
-                    <ValidateExpFather
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[3] === "4" ? (
-                      <img
-                        alt="mano"
-                        style={{ width: "53px" }}
-                        src={manoGris}
-                      />
-                    ) : (
-                      <img
-                        alt="mano"
-                        style={{ width: "53px" }}
-                        src={manoGrisFondo}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "4",
-                children: (
-                  <div>
-                    <ComunityFather
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[4] === "5" ? (
-                      <img alt="rueda" style={{ width: "53px" }} src={rueda} />
-                    ) : (
-                      <img
-                        alt="rueda"
-                        style={{ width: "53px" }}
-                        src={ruedGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "5",
-                children: (
-                  <div>
-                    <FormValidateExp
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                      type={"additionalCurse"}
-                      
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[5] === "6" ? (
-                      <img
-                        alt="idiomas"
-                        style={{ width: "53px" }}
-                        src={idiomas}
-                      />
-                    ) : (
-                      <img
-                        alt="idiomas"
-                        style={{ width: "53px" }}
-                        src={idiomasGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "6",
-                children: (
-                  <div>
-                    <InformationLenguajes
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                      
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[6] === "7" ? (
-                      <img alt="word" style={{ width: "53px" }} src={word} />
-                    ) : (
-                      <img
-                        alt="word"
-                        style={{ width: "53px" }}
-                        src={wordGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "7",
-                children: (
-                  <div>
-                    <OfficeTools
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[7] === "8" ? (
-                      <img
-                        alt="computador"
-                        style={{ width: "53px" }}
-                        src={computador}
-                      />
-                    ) : (
-                      <img
-                        alt="computador"
-                        style={{ width: "53px" }}
-                        src={compuGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "8",
-                children: (
-                  <div>
-                    <WorkingModality
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[8] === "9" ? (
-                      <img
-                        alt="bombilla"
-                        style={{ width: "53px" }}
-                        src={bombilla}
-                      />
-                    ) : (
-                      <img
-                        alt="bombilla"
-                        style={{ width: "53px" }}
-                        src={bombillaGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "9",
-                children: (
-                  <div>
-                    <DevelopedSkills
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                     
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[9] === "10" ? (
-                      <img alt="cubo" style={{ width: "53px" }} src={cubo} />
-                    ) : (
-                      <img
-                        alt="cubo"
-                        style={{ width: "53px" }}
-                        src={cuboGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "10",
-                children: (
-                  <div>
-                    <ValidationSkillsDeveloped
-                       setValidateImgs={setValidateImgs}
-                       validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[10] === "11" ? (
-                      <img
-                        alt="doctor"
-                        style={{ width: "53px" }}
-                        src={doctor}
-                      />
-                    ) : (
-                      <img
-                        alt="doctor"
-                        style={{ width: "53px" }}
-                        src={docGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "11",
-                children: (
-                  <div>
-                    <Perfil
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[11] === "12" ? (
-                      <img
-                        alt="credencial"
-                        style={{ width: "53px" }}
-                        src={referenciaNaranja}
-                      />
-                    ) : (
-                      <img
-                        alt="credencial"
-                        style={{ width: "53px" }}
-                        src={referenciaGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "12",
-                children: (
-                  <div>
-                    <PersonalReferences 
-                     setValidateImgs={setValidateImgs}
-                     validateImgs={validateImgs}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[12] === "13" ? (
-                      <img
-                        alt="credencial"
-                        style={{ width: "53px" }}
-                        src={credencial}
-                      />
-                    ) : (
-                      <img
-                        alt="credencial"
-                        style={{ width: "53px" }}
-                        src={credeGris}
-                      />
-                    )}
-                  </div>
-                ),
-                key: "13",
-                children: (
-                  <div>
-                    <PreviewHv />
-                  </div>
-                ),
-              },
-            ]}
-          />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 2 ? (
+                        <img
+                          alt="maletin"
+                          style={{ width: "53px" }}
+                          src={maletin}
+                        />
+                      ) : (
+                        <img
+                          alt="maletin"
+                          style={{ width: "53px" }}
+                          src={maletinGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "3",
+                  children: (
+                    <div>
+                      <ValidateExpFather />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 3 ? (
+                        <img
+                          alt="mano"
+                          style={{ width: "53px" }}
+                          src={manoGris}
+                        />
+                      ) : (
+                        <img
+                          alt="mano"
+                          style={{ width: "53px" }}
+                          src={manoGrisFondo}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "4",
+                  children: (
+                    <div>
+                      <ComunityFather />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 4 ? (
+                        <img
+                          alt="rueda"
+                          style={{ width: "53px" }}
+                          src={rueda}
+                        />
+                      ) : (
+                        <img
+                          alt="rueda"
+                          style={{ width: "53px" }}
+                          src={ruedGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "5",
+                  children: (
+                    <div>
+                      <FormValidateExp type={"additionalCurse"} />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 5 ? (
+                        <img
+                          alt="idiomas"
+                          style={{ width: "53px" }}
+                          src={idiomas}
+                        />
+                      ) : (
+                        <img
+                          alt="idiomas"
+                          style={{ width: "53px" }}
+                          src={idiomasGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "6",
+                  children: (
+                    <div>
+                      <InformationLenguajes />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 6 ? (
+                        <img alt="word" style={{ width: "53px" }} src={word} />
+                      ) : (
+                        <img
+                          alt="word"
+                          style={{ width: "53px" }}
+                          src={wordGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "7",
+                  children: (
+                    <div>
+                      <OfficeTools />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 7 ? (
+                        <img
+                          alt="computador"
+                          style={{ width: "53px" }}
+                          src={computador}
+                        />
+                      ) : (
+                        <img
+                          alt="computador"
+                          style={{ width: "53px" }}
+                          src={compuGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "8",
+                  children: (
+                    <div>
+                      <WorkingModality />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 8 ? (
+                        <img
+                          alt="bombilla"
+                          style={{ width: "53px" }}
+                          src={bombilla}
+                        />
+                      ) : (
+                        <img
+                          alt="bombilla"
+                          style={{ width: "53px" }}
+                          src={bombillaGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "9",
+                  children: (
+                    <div>
+                      <DevelopedSkills />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 9 ? (
+                        <img alt="cubo" style={{ width: "53px" }} src={cubo} />
+                      ) : (
+                        <img
+                          alt="cubo"
+                          style={{ width: "53px" }}
+                          src={cuboGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "10",
+                  children: (
+                    <div>
+                      <ValidationSkillsDeveloped />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 10 ? (
+                        <img
+                          alt="doctor"
+                          style={{ width: "53px" }}
+                          src={doctor}
+                        />
+                      ) : (
+                        <img
+                          alt="doctor"
+                          style={{ width: "53px" }}
+                          src={docGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "11",
+                  children: (
+                    <div>
+                      <Perfil />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 11 ? (
+                        <img
+                          alt="credencial"
+                          style={{ width: "53px" }}
+                          src={referenciaNaranja}
+                        />
+                      ) : (
+                        <img
+                          alt="credencial"
+                          style={{ width: "53px" }}
+                          src={referenciaGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "12",
+                  children: (
+                    <div>
+                      <PersonalReferences />
+                    </div>
+                  ),
+                },
+                {
+                  label: (
+                    <div>
+                      {validatePaso[validatePaso.length - 1] >= 12 ? (
+                        <img
+                          alt="credencial"
+                          style={{ width: "53px" }}
+                          src={credencial}
+                        />
+                      ) : (
+                        <img
+                          alt="credencial"
+                          style={{ width: "53px" }}
+                          src={credeGris}
+                        />
+                      )}
+                    </div>
+                  ),
+                  key: "13",
+                  children: (
+                    <div>
+                      <PreviewHv actualizarPreview={actualizarPreview} />
+                    </div>
+                  ),
+                },
+              ]}
+            />
+          </div>
         </div>
-      </div>
+      </MyContext.Provider>
     </div>
   );
 };

@@ -10,7 +10,6 @@ export type ACTIVIDAD = {
   fechaFin: string;
   cursando: boolean;
   tipoActividad: string;
-  paso: number;
 };
 
 export const CreateActivity = async (values: ACTIVIDAD) => {

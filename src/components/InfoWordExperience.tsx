@@ -114,7 +114,6 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       values["id"] = null;
     }
     values["cursando"] = valueCheck;
-    values["paso"] = 2;
 
     const res = await CreateStudy(values);
     if (res === "Estudio guardado") {

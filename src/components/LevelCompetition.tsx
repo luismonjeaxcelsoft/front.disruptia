@@ -1,9 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Radio } from "antd";
 import { useNavigate } from "react-router-dom";
-import { GetNiveles, UpdateHabilidadNivel } from "../services/HabilidadSoftwareService";
+import {
+  GetNiveles,
+  UpdateHabilidadNivel,
+} from "../services/HabilidadSoftwareService";
+import MyContext from "../context/MyContext";
 
-const LevelCompetition = ({ skills, setValidateImgs, validateImgs }: any) => {
+const LevelCompetition = ({ setValidateComponent, skills }: any) => {
   const navigate = useNavigate();
   const [valueRadio, setValueRadio] = useState<string>("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -18,30 +22,35 @@ const LevelCompetition = ({ skills, setValidateImgs, validateImgs }: any) => {
       getValidateSiguiente();
     } else if (currentIndex === skills.length - 1) {
       setValueRadio("");
-      navigate("/perfiles/11");
-      setValidateImgs([...validateImgs, "11"]);
+      myMethod();
+      setValidateComponent(false);
+      if (pasos.length !== 12) {
+        navigate("/perfiles/11");
+      } else {
+        setActualizarPreview((prev: any) => !prev);
+        navigate("/perfiles/13");
+      }
     }
   };
 
   const handleRadioChange = (item: string) => {
     setValueRadio(item);
     setValidateContinue(false);
-  }
+  };
 
   const saveNivel = async () => {
     const payload = {
       disrupterId: 1,
       habilidad: skills[currentIndex].habilidad,
-      nivel: valueRadio
-    }
+      nivel: valueRadio,
+    };
     const res = await UpdateHabilidadNivel(payload);
 
     if (res === "Nivel guardado") {
       setValidateContinue(true);
       setValidateSiguiente(false);
     }
-
-  }
+  };
 
   const getNiveles = async () => {
     const res = await GetNiveles();
@@ -49,16 +58,27 @@ const LevelCompetition = ({ skills, setValidateImgs, validateImgs }: any) => {
   };
 
   const getValidateSiguiente = () => {
-    if (skills[currentIndex].nivel !== "" && skills[currentIndex].nivel !== "Pendiente") {
+    if (
+      skills[currentIndex].nivel !== "" &&
+      skills[currentIndex].nivel !== "Pendiente"
+    ) {
       setValidateSiguiente(false);
-      setValueRadio(skills[currentIndex].nivel)
+      setValueRadio(skills[currentIndex].nivel);
     }
-  }
+  };
 
   useEffect(() => {
     getNiveles();
     getValidateSiguiente();
   }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
 
   return (
     <div>
@@ -125,10 +145,18 @@ const LevelCompetition = ({ skills, setValidateImgs, validateImgs }: any) => {
           onClick={() => {
             validateValuesFilter();
           }}
-          className={!validateSiguiente ? "buttonContinueSelect" : "ContainerDisabled"}
+          className={
+            !validateSiguiente ? "buttonContinueSelect" : "ContainerDisabled"
+          }
           disabled={validateSiguiente}
         >
-          <p className={!validateSiguiente ? "textSiguienteSelect" : "textDisabled"}>Siguiente</p>
+          <p
+            className={
+              !validateSiguiente ? "textSiguienteSelect" : "textDisabled"
+            }
+          >
+            Siguiente
+          </p>
         </button>
       </div>
     </div>

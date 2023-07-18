@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect,useContext } from "react";
 import { Checkbox } from "antd";
 import logo from "../assets/images/disruptialogo.png";
 import { useNavigate } from "react-router-dom";
@@ -9,16 +9,9 @@ import {
   GetModelosTrabajoDisrupterId,
   SaveModeloTrabajo,
 } from "../services/ModeloTrabajoService";
+import MyContext from "../context/MyContext";
 
-type WorkingModalityProps = {
-  setValidateImgs: any;
-  validateImgs: any;
-};
-
-const WorkingModality: FC<WorkingModalityProps> = ({
-  setValidateImgs,
-  validateImgs,
-}) => {
+const WorkingModality = () => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [idModelo, setIdModelo] = useState<number>(0);
@@ -40,7 +33,6 @@ const WorkingModality: FC<WorkingModalityProps> = ({
       id: idModelo,
       disrupterId: 1,
       modelos: selectedOptions,
-      paso: 8,
     };
 
     const res = await SaveModeloTrabajo(payload);
@@ -66,10 +58,28 @@ const WorkingModality: FC<WorkingModalityProps> = ({
     setModelos(res);
   };
 
+  const buttonSiguiente = () => {
+    myMethod();
+    if (pasos.length !== 12) {
+      navigate("/perfiles/9");
+    } else {
+      setActualizarPreview((prev: any) => !prev)
+      navigate("/perfiles/13");
+    }
+  };
+
   useEffect(() => {
     getModelos();
     getModelosBD();
   }, []);
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
+
 
   return (
     <>
@@ -148,10 +158,7 @@ const WorkingModality: FC<WorkingModalityProps> = ({
             className={
               validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
             }
-            onClick={() => {
-              setValidateImgs([...validateImgs, "9"]);
-              navigate("/perfiles/9");
-            }}
+            onClick={() => buttonSiguiente()}
             disabled={!validateContinue ? true : false}
           >
             <p

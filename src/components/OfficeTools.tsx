@@ -1,4 +1,4 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useContext } from "react";
 import { Card, Radio } from "antd";
 import "../styles/InformationLenguajes.css";
 import logo from "../assets/images/disruptialogo.png";
@@ -10,16 +10,9 @@ import {
   SaveHerramientas,
   HERRAMIENTA,
 } from "../services/HerramientasService";
+import MyContext from "../context/MyContext";
 
-type OfficeToolsProps = {
-  setValidateImgs: any;
-  validateImgs: any;
-};
-
-const OfficeTools: FC<OfficeToolsProps> = ({
-  setValidateImgs,
-  validateImgs,
-}) => {
+const OfficeTools= () => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState<HERRAMIENTA[]>([]);
   const [validateContinue, setValidateContinue] = useState<boolean>(
@@ -73,7 +66,6 @@ const OfficeTools: FC<OfficeToolsProps> = ({
     const payload = {
       disrupterId: 1,
       herramientas: selectedOptions,
-      paso: 7,
     };
 
     const res = await SaveHerramientas(payload);
@@ -88,6 +80,24 @@ const OfficeTools: FC<OfficeToolsProps> = ({
     infoRadioHerramientas();
     infoRadioHerramientasBD();
   }, []);
+
+  const context = useContext(MyContext);
+
+  if (!context) {
+    return null;
+  }
+
+  const { myMethod, pasos, setActualizarPreview } = context;
+
+  const buttonSiguiente = () => {
+    myMethod();
+    if (pasos.length !== 12) {
+      navigate("/perfiles/8");
+    } else {
+      setActualizarPreview((prev: any) => !prev)
+      navigate("/perfiles/13");
+    }
+  };
 
   return (
     <>
@@ -231,10 +241,7 @@ const OfficeTools: FC<OfficeToolsProps> = ({
             className={
               validateContinue ? "buttonContinueSelect" : "ContainerDisabled"
             }
-            onClick={() => {
-              setValidateImgs([...validateImgs, "8"]);
-              navigate("/perfiles/8");
-            }}
+            onClick={() => buttonSiguiente()}
             disabled={!validateContinue ? true : false}
           >
             <p

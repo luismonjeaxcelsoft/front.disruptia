@@ -14,13 +14,13 @@ const LoginUser = ({ stlyeLogin, setStlyeLogin }: any) => {
 
       <div
         style={{
-          marginLeft: "-110rem",
+          marginLeft: "-93rem",
           marginTop: "20%",
           display: "flex",
           marginBottom: "50px",
         }}
       >
-        <div style={{ width: "40%", marginTop: "110px" }}>
+        <div style={{ width: "70%", marginTop: "110px" }}>
           <span className="title-login-user">Bienvenidos a la</span>
           <p />
           <span className="title-login-user">plataforma de Diversidad</span>
@@ -64,7 +64,7 @@ const LoginUser = ({ stlyeLogin, setStlyeLogin }: any) => {
         </div>
         <div
           style={{
-            marginRight: "10%",
+            marginRight: "2%",
             background: stlyeLogin ? "#59327F" : "#9880B0",
           }}
           className="container-type-login"

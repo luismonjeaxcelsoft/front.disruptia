@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { Checkbox, Form, Input } from "antd";
+import { Checkbox, DatePicker, Form, Input } from "antd";
 import { Sidebar } from "../components/Sidebar";
 import "../styles/RegisterPage.css";
 import CustomSelect from "./CustomSelect";
 import { GetCountries, GetMunicipality } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
+import { CalendarOutlined } from "@ant-design/icons";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -62,7 +63,7 @@ const RegisterForm = () => {
         img={false}
         video={false}
       />
-      <div style={{ marginLeft: "-660px", marginTop: "50px" }}>
+      <div style={{ marginLeft: "-600px", marginTop: "50px" }}>
         <div
           style={{ display: "flex", flexDirection: "column", width: "140%" }}
         >
@@ -81,7 +82,7 @@ const RegisterForm = () => {
                 </div>
                 <div className="container-label-register">
                   <label className="label-register-form">
-                    Correo electrónico
+                    Correo Electrónico
                   </label>
                   <Input
                     placeholder="andres@gmail.com"
@@ -99,16 +100,18 @@ const RegisterForm = () => {
                 />
                 <div className="container-label-register">
                   <label className="label-register-form">
-                    Fecha de nacimiento
+                    Fecha de Nacimiento
                   </label>
-                  <Input
+                  <DatePicker
+                    suffixIcon={<CalendarOutlined style={{color:"#F3CF46"}} />} 
                     placeholder="11/marzo/1998"
-                    className="input-text-register"
+                    className="input-text-register" 
+                    style={{color:"white !important"}}
                   />
                 </div>
                 <CustomSelect
                   options={valuesCountries}
-                  labelName="País de residencia"
+                  labelName="País de Residencia"
                   placeHolder="Colombia"
                   name="pais"
                   classStyle="input-text-register"
@@ -160,7 +163,7 @@ const RegisterForm = () => {
                     />
                   </div>
                   <div className="container-label-register">
-                    <label className="label-register-form">Telefono fijo</label>
+                    <label className="label-register-form">Telefono Fijo</label>
                     <Input
                       placeholder="601345609"
                       className="input-text-register"
@@ -239,7 +242,7 @@ const RegisterForm = () => {
                     color: "#4D1AE8",
                   }}
                 >
-                  Registrarme
+                  Continuar
                 </span>
               </button>
             </div>

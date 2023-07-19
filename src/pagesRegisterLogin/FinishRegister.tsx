@@ -5,18 +5,9 @@ import "../styles/PerfilLogin.css";
 import { useNavigate } from "react-router-dom";
 import { Switch } from "antd";
 
-const PerfilLogin = () => {
+const FinishRegister = () => {
   const navigate = useNavigate();
-  const Nacionalidad = [
-    {
-      label: "Extranjero",
-      value: "1",
-    },
-    {
-      label: "Colombiano",
-      value: "2",
-    },
-  ];
+
   return (
     <>
       <Sidebar
@@ -40,18 +31,24 @@ const PerfilLogin = () => {
           <div className="line-perfil-separador"></div>
         </div>
         <div style={{ justifyContent: "center" }}>
-          <div
-            style={{ marginTop: "20px", display: "flex", marginLeft: "430px" }}
-          >
-            <CustomSelect
-              options={Nacionalidad}
-              labelName="¿Te reconoces con algún origen étnico?"
-              placeHolder="Indigena"
-              name="etnia"
-              classStyle="select-prlofile-page"
-              styleImg="imgCustom-register-nacio"
-              styleLabel="label-register-nacionalidad"
-            />
+          <div className="container-pregunta-idioma">
+            <span className="text-pregunta-socioE">
+              ¿Te encuentras en estado de embarazo o licencia de maternidad?
+            </span>
+            <div
+              style={{
+                marginLeft: "70px",
+                marginTop: "2%",
+                display: "flex",
+
+              }}
+            >
+              <Switch
+                checkedChildren="SI"
+                unCheckedChildren="NO"
+                style={{ width: "60px" }}
+              />
+            </div>
           </div>
         </div>
         <div
@@ -59,24 +56,21 @@ const PerfilLogin = () => {
         >
           <div className="line-perfil-separador"></div>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginLeft: "90px",
-          }}
-        >
-          <div className="container-pregunta-idioma">
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <CustomSelect
-                labelName="¿Cual es tu genero?"
-                placeHolder="Mujer"
-                name="etnia"
-                classStyle="select-prlofile-page"
-                styleImg="imgCustom-register-nacio"
-                styleLabel="label-register-nacionalidad"
-              />
-            </div>
+        <div className="container-pregunta-idioma">
+          <span className="text-pregunta-socioE">¿Eres cabeza de hogar?</span>
+          <div
+            style={{
+              marginLeft: "70px",
+              marginTop: "2%",
+              display: "flex",
+              marginBottom: "2px",
+            }}
+          >
+            <Switch
+              checkedChildren="SI"
+              unCheckedChildren="NO"
+              style={{ width: "60px" }}
+            />
           </div>
         </div>
         <div
@@ -110,37 +104,14 @@ const PerfilLogin = () => {
             />
           </div>
         </div>
-        <div
-          style={{ display: "flex", justifyContent: "center", marginTop: "1%" }}
-        >
-          <div className="line-perfil-separador"></div>
-        </div>
-        <div className="container-pregunta-idioma">
-          <span className="text-pregunta-socioE">
-            ¿Te consideras transgénero?
-          </span>
-          <div
-            style={{
-              marginLeft: "70px",
-              marginTop: "2%",
-              display: "flex",
-              marginBottom: "2%",
-            }}
-          >
-            <Switch
-              checkedChildren="SI"
-              unCheckedChildren="NO"
-              style={{ width: "60px" }}
-            />
-          </div>
-        </div>
+
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="line-perfil-separador"></div>
         </div>
         <div style={{ marginLeft: "430px", marginBottom: "20px" }}>
           <CustomSelect
-            labelName="¿Actualmente, tienes alguna de estas condiciones de salud?"
-            placeHolder="Intelectual"
+            labelName="¿Cuál de las siguientes categorías incluye tu edad?"
+            placeHolder="17 años o menor"
             name="etnia"
             classStyle="select-prlofile-page"
             styleImg="imgCustom-register-nacio"
@@ -155,7 +126,7 @@ const PerfilLogin = () => {
           }}
         >
           <button
-            onClick={() => navigate("/finalizar-registro")}
+            onClick={() => navigate("/registro")}
             className="button-perfile-finish"
           >
             <span
@@ -165,7 +136,7 @@ const PerfilLogin = () => {
                 color: "#4D1AE8",
               }}
             >
-              Continuar
+              Finalizar Registro
             </span>
           </button>
         </div>
@@ -174,4 +145,4 @@ const PerfilLogin = () => {
   );
 };
 
-export default PerfilLogin;
+export default FinishRegister;

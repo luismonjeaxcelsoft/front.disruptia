@@ -7,6 +7,7 @@ import HomeAdmin from './pagesAdmin/HomeAdmin';
 import TabsLogin from './pagesRegisterLogin/TabsLogin';
 import PerfilLogin from './pagesRegisterLogin/PerfilLogin';
 import ValidatePass from './pagesRegisterLogin/ValidatePass';
+import FinishRegister from './pagesRegisterLogin/FinishRegister';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
   {
     path: "/validatepass",
     element: <ValidatePass />
+  },
+  {
+    path: "/finalizar-registro",
+    element: <FinishRegister />
   }
   
 ])

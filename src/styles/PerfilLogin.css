@@ -49,8 +49,8 @@
     height: 3%;
     background-color: #5C2F5B;
     border: 1px solid #5C2F5B;
-    width: 50%;
-    margin-left: 31%
+    width: 60%;
+    margin-left: 21%
 }
 
 .input-container-nacionalidad {
@@ -64,7 +64,7 @@
     flex-direction: column;
     width: 100%;
     margin-left: 27%;
-    margin-top: 40px
+    margin-top: 20px
 }
 .text-pregunta-perfil {
     font-family: Montserrat-Bold;
@@ -118,7 +118,7 @@
     font-family: Montserrat-Bold;
     font-size: 20px;
     color: white;
-    margin-left: 15%
+    margin-left: 5%
 }
 
 .container-level-socioE {

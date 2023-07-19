@@ -14,6 +14,7 @@ interface Sidebar {
   video?: boolean;
   data?: any;
   sendData?: any;
+  open?: boolean; 
 }
 
 export const Sidebar: FC<Sidebar> = ({
@@ -27,9 +28,10 @@ export const Sidebar: FC<Sidebar> = ({
   video,
   data,
   sendData,
+  open,
 }) => {
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(open);
   const [matchingNames, setMatchingNames] = useState([]);
   // console.log("🚀 ~ file: Sidebar.tsx:33 ~ matchingNames:", matchingNames);
   useEffect(() => {

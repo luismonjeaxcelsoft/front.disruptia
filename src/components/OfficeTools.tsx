@@ -108,6 +108,7 @@ const OfficeTools= () => {
           backColor={false}
           img={false}
           video={false}
+          open={false}
         />
       </div>
       <div style={{ width: "90rem" }}>

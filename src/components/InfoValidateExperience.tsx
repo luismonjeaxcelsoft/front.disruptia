@@ -235,6 +235,9 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
               ? true
               : false
           }
+          open={type === "experience" || type === "additionalActivity"
+          ? true
+          : false}
         />
       </div>
       <div style={{ width: "75rem" }}>

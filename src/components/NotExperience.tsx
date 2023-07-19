@@ -64,6 +64,7 @@ const NotExperience: FC<NotExperienceProps> = ({
           subTitle="¿Has realizado alguna actividad extracurricular?"
           backColor={false}
           img={true}
+          open={false}
         />
       </div>
       <div style={{ width: "75rem" }}>

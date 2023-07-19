@@ -164,6 +164,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
           img={true}
           data={valuesInputsPerfiles}
           sendData={valuesIdPerfiles}
+          open={false}          
         />
       </div>
       <div className="containerTitle">

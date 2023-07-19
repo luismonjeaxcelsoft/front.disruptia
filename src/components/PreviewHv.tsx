@@ -658,6 +658,7 @@ const PreviewHv = ({setActualizarPreview, actualizarPreview} : any) => {
           backColor={false}
           img={false}
           video={false}
+          open={false}
         />
       </div>
       <div>

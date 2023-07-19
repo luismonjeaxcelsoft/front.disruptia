@@ -98,6 +98,7 @@ export const SeleccionPerfiles = ({
           subTitle="Andrea, en este campo deberás seleccionar a qué tipo de cargos quieres postularte con tu hoja de vida"
           backColor={false}
           img={true}
+          open={false}
         />
       </div>
       <div>

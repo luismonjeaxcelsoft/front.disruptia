@@ -136,6 +136,7 @@ const Perfil = () => {
           backColor={false}
           img={false}
           video={true}
+          open={true}
         />
       </div>
       <div style={{ marginBottom: "15px", marginTop: "40px" }}>

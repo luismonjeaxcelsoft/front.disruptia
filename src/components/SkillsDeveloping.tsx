@@ -139,6 +139,7 @@ const SkillsDeveloping = ({ habilidadesDisrupter }: any) => {
           backColor={false}
           img={false}
           video={false}
+          open={false}
         />
       </div>
       {validateComponent ? (

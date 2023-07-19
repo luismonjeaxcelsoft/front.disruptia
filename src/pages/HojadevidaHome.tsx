@@ -11,7 +11,7 @@ export const HojadevidaHome = () => {
         titleTwo="¡Es tu oportunidad!"
         backColor={true}
         img={false}
-        
+        open={false}        
       />
       <Home />
     </div>

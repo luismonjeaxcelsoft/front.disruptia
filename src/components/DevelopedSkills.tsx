@@ -111,6 +111,7 @@ const DevelopedSkills = () => {
           backColor={false}
           img={false}
           video={false}
+          open={false}
         />
       </div>
       <div style={{ width: "70rem", marginTop: "40px" }}>

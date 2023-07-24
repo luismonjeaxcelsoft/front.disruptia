@@ -1,30 +1,35 @@
 import { useState } from "react";
 import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
-import RegisterForm from "./RegisterForm";
-import LoginUser from "./LoginUser";
+import { SidebarAdmin } from "../pagesRegisterLogin/SideBarAdmin";
+import LoginImgEmployees from "./LoginImgEmployees";
 
 
-const TabsLogin = ({setKeyTab,keyTab}:any) => {
+
+const TabsEmployees = () => {
   const { TabPane } = Tabs;
+  const [keyTab, setKeyTab] = useState<string>("");
  
   const [stlyeLogin, setStlyeLogin] = useState<any>(1)
+  
   return (
     <>
-      <div >
+    <SidebarAdmin type="admin" />
+      <div style={{background:"white"}} >
         <Tabs
           defaultActiveKey={keyTab}
           className="tabs-login"
           onChange={(e) => {setKeyTab(e)}}
-          tabBarStyle={{ marginTop: "30px",zIndex:"1" }}
+          tabBarStyle={{ marginTop: "60px",zIndex:"1" }}
         >
           <TabPane
             tab={[
               <div onClick={() =>setStlyeLogin(1)}>
                 <span
                   style={{
-                    color: stlyeLogin === 0 ? "white" : "#DBB549",
+                    color: stlyeLogin === 0 ? "#6002BD" : "#6002BD",
                     fontSize: "25px",
+                    opacity: stlyeLogin === 0 ? "0.6" : "1",
                   }}
                 >
                   Iniciar Sesión
@@ -33,7 +38,7 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
             ]}
             key="1"
           >
-            <LoginUser  stlyeLogin={stlyeLogin} />
+            <LoginImgEmployees/>
           </TabPane>
           <TabPane
             style={{ width: "50px" }}
@@ -41,9 +46,10 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
               <div onClick={() =>setStlyeLogin(0)} style={{width:"20px"}}>
                 <span
                   style={{
-                    color: keyTab === "1" ? "white" : keyTab === "" ? "white" : "#DBB549",
+                    color: keyTab === "1" ? "#6002BD" : keyTab === "" ? "#6002BD" : "#6002BD",
                     fontSize: "25px",
                     marginLeft: keyTab === "1" ? "120px" :keyTab === "" ? "120px" : "23px",
+                    opacity: keyTab === "1" ? "1" : keyTab === "" ? "0.6" : "1",
                   }}
                 >
                   Registrarme
@@ -52,7 +58,6 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
             ]}
             key="2"
           >
-            <RegisterForm />
           </TabPane>
         </Tabs>
       </div>
@@ -60,4 +65,4 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
   );
 };
 
-export default TabsLogin;
+export default TabsEmployees;

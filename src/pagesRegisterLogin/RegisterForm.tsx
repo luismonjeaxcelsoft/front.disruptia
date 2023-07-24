@@ -179,15 +179,16 @@ const RegisterForm = () => {
                     className="input-text-register"
                   />
                 </div>
-                <CustomSelect
-                  options={optionsTypeDocument}
-                  labelName="Edad"
-                  placeHolder="25"
-                  name="edad"
-                  classStyle="input-text-register-ege"
-                  styleImg="imgCustom-register-eges"
-                  styleLabel="label-register-form"
-                />
+                <div className="container-label-register">
+                  <label className="label-register-form">
+                    Edad
+                  </label>
+                  <Input
+                    placeholder="25"
+                    className="input-text-register"
+                    style={{width:"108px"}}
+                  />
+                </div>
                 <div
                   style={{
                     display: "grid",
@@ -218,7 +219,7 @@ const RegisterForm = () => {
                   <label className="label-register-form">
                     Confirmar Contraseña
                   </label>
-                  <Input placeholder="" className="input-text-register" />
+                  <Input placeholder="" type="password" className="input-text-register" />
                 </div>
               </div>
             </div>

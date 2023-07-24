@@ -4,7 +4,6 @@ import { HojadevidaHome } from "./pages/HojadevidaHome";
 import { Formulario } from './pages/Formulario';
 import 'bootstrap/dist/css/bootstrap.css'
 import HomeAdmin from './pagesAdmin/HomeAdmin';
-import TabsLogin from './pagesRegisterLogin/TabsLogin';
 import PerfilLogin from './pagesRegisterLogin/PerfilLogin';
 import ValidatePass from './pagesRegisterLogin/ValidatePass';
 import FinishRegister from './pagesRegisterLogin/FinishRegister';
@@ -21,10 +20,7 @@ const router = createBrowserRouter([
     path: "/empresa",
     element: <HomeAdmin />
   },
-  {
-    path: "/registro",
-    element: <TabsLogin />
-  },
+ 
   {
     path: "/profileUser",
     element: <PerfilLogin />

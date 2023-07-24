@@ -1,7 +1,7 @@
 import "../styles/Sidebar.css";
 import { FC, useState } from "react";
 import {
-  CloseOutlined,
+  // CloseOutlined,
   FacebookOutlined,
   GoogleOutlined,
 } from "@ant-design/icons";
@@ -56,12 +56,12 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                     alt=""
                     src={logo}
                   />
-                  <button
+                  {/* <button
                     className="buttonclose"
                     onClick={() => setIsOpen(!isOpen)}
                   >
                     <CloseOutlined style={{ fontSize: "30px" }} />
-                  </button>
+                  </button> */}
                 </div>
                 <div
                   style={
@@ -139,7 +139,7 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                                 style={{
                                   position: "absolute",
                                   left: "70%",
-                                  top: "292px",
+                                  top: "268px",
                                   color: "white",
                                   cursor: "pointer",
                                   display: "flex",

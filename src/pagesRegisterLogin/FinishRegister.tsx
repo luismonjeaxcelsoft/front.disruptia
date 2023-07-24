@@ -1,9 +1,8 @@
 import { UserOutlined } from "@ant-design/icons";
 import { Sidebar } from "../components/Sidebar";
-import CustomSelect from "./CustomSelect";
 import "../styles/PerfilLogin.css";
 import { useNavigate } from "react-router-dom";
-import { Switch } from "antd";
+import { Radio } from "antd";
 
 const FinishRegister = () => {
   const navigate = useNavigate();
@@ -43,11 +42,8 @@ const FinishRegister = () => {
 
               }}
             >
-              <Switch
-                checkedChildren="SI"
-                unCheckedChildren="NO"
-                style={{ width: "60px" }}
-              />
+            <Radio><span style={{color:"white"}}>Sí</span></Radio>
+            <Radio><span style={{color:"white"}}>No</span></Radio>
             </div>
           </div>
         </div>
@@ -66,58 +62,11 @@ const FinishRegister = () => {
               marginBottom: "2px",
             }}
           >
-            <Switch
-              checkedChildren="SI"
-              unCheckedChildren="NO"
-              style={{ width: "60px" }}
-            />
+           <Radio><span style={{color:"white"}}>Sí</span></Radio>
+            <Radio><span style={{color:"white"}}>No</span></Radio>
           </div>
         </div>
-        <div
-          style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}
-        >
-          <div className="line-perfil-separador"></div>
-        </div>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            marginTop: "",
-            flexDirection: "column",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              marginLeft: "250px",
-              marginTop: "20px",
-              marginBottom: "30px",
-            }}
-          >
-            <CustomSelect
-              labelName="¿Cual de las siguientes opciones representa mejor tu orientación sexual?"
-              placeHolder="Bisexual"
-              name="etnia"
-              classStyle="select-prlofile-page"
-              styleImg="imgCustom-register-nacio"
-              styleLabel="label-register-nacionalidad"
-            />
-          </div>
-        </div>
-
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div className="line-perfil-separador"></div>
-        </div>
-        <div style={{ marginLeft: "430px", marginBottom: "20px" }}>
-          <CustomSelect
-            labelName="¿Cuál de las siguientes categorías incluye tu edad?"
-            placeHolder="17 años o menor"
-            name="etnia"
-            classStyle="select-prlofile-page"
-            styleImg="imgCustom-register-nacio"
-            styleLabel="label-register-nacionalidad"
-          />
-        </div>
+      
         <div
           style={{
             display: "flex",
@@ -126,7 +75,7 @@ const FinishRegister = () => {
           }}
         >
           <button
-            onClick={() => navigate("/registro")}
+            onClick={() => navigate("/")}
             className="button-perfile-finish"
           >
             <span

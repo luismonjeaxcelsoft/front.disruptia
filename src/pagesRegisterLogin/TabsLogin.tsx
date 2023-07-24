@@ -3,18 +3,21 @@ import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
 import RegisterForm from "./RegisterForm";
 import LoginUser from "./LoginUser";
-const TabsLogin = () => {
+
+
+const TabsLogin = ({setKeyTab,keyTab}:any) => {
   const { TabPane } = Tabs;
-  const [keyTab, setKeyTab] = useState<string>("");
-  const [stlyeLogin, setStlyeLogin] = useState<any>(0)
+ 
+  console.log("🚀 ~ file: TabsLogin.tsx:11 ~ TabsLogin ~ keyTab:", keyTab)
+  const [stlyeLogin, setStlyeLogin] = useState<any>(1)
   return (
     <>
-      <div>
+      <div >
         <Tabs
           defaultActiveKey={keyTab}
           className="tabs-login"
           onChange={(e) => {setKeyTab(e)}}
-          tabBarStyle={{ marginTop: "30px" }}
+          tabBarStyle={{ marginTop: "30px",zIndex:"1" }}
         >
           <TabPane
             tab={[
@@ -23,7 +26,6 @@ const TabsLogin = () => {
                   style={{
                     color: stlyeLogin === 0 ? "white" : "#DBB549",
                     fontSize: "25px",
-                    
                   }}
                 >
                   Iniciar Sesión
@@ -32,7 +34,7 @@ const TabsLogin = () => {
             ]}
             key="1"
           >
-            <LoginUser setStlyeLogin={setStlyeLogin} stlyeLogin={stlyeLogin} />
+            <LoginUser  stlyeLogin={stlyeLogin} />
           </TabPane>
           <TabPane
             style={{ width: "50px" }}

@@ -3,7 +3,7 @@ import { Sidebar } from "../components/Sidebar";
 import CustomSelect from "./CustomSelect";
 import "../styles/PerfilLogin.css";
 import { useNavigate } from "react-router-dom";
-import { Switch } from "antd";
+import { Radio } from "antd";
 
 const PerfilLogin = () => {
   const navigate = useNavigate();
@@ -127,11 +127,8 @@ const PerfilLogin = () => {
               marginBottom: "2%",
             }}
           >
-            <Switch
-              checkedChildren="SI"
-              unCheckedChildren="NO"
-              style={{ width: "60px" }}
-            />
+           <Radio><span style={{color:"white"}}>Sí</span></Radio>
+            <Radio><span style={{color:"white"}}>No</span></Radio>
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}>

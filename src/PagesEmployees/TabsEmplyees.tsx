@@ -3,6 +3,7 @@ import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
 import { SidebarAdmin } from "../pagesRegisterLogin/SideBarAdmin";
 import LoginImgEmployees from "./LoginImgEmployees";
+import RegisterEmployeesForm from "./RegisterEmployeesForm";
 
 
 
@@ -58,6 +59,7 @@ const TabsEmployees = () => {
             ]}
             key="2"
           >
+            <RegisterEmployeesForm/>
           </TabPane>
         </Tabs>
       </div>

@@ -51,19 +51,20 @@ const RegisterForm = () => {
     setvaluesCountries(infoPais);
     setMunicipality(infoMunicipio);
   };
-  const handleDateChange = (e: any) => {  
+  const handleDateChange = (e: any) => {
     calculateAge(e);
   };
-  
+
   const calculateAge = (e: any) => {
-    const fecha = moment(e)   
     if (e) {
-      const today = moment(); 
-      const formattedDate = moment(fecha) // Convertimos la fecha seleccionada al formato "YYYY-MM-DD"
-      const yearsDiff = today.diff(formattedDate, 'years');
-      setAge(yearsDiff.toString());
+      const date = new Date(e.$d);
+      const year = date.getFullYear();
+      const today = moment();
+      const years = today.year();
+      const calculatorYears = years - year
+      setAge(calculatorYears.toString());
     } else {
-      setAge('');
+      setAge("");
     }
   };
   useEffect(() => {
@@ -120,12 +121,14 @@ const RegisterForm = () => {
                   </label>
                   <DatePicker
                     suffixIcon={
-                      <CalendarOutlined  style={{ color: "#F3CF46" }} />
+                      <CalendarOutlined style={{ color: "#F3CF46" }} />
                     }
                     placeholder="11/marzo/1998"
                     className="input-text-register"
                     style={{ color: "white !important" }}
-                    onChange={(e:any)=>{handleDateChange(e)}}
+                    onChange={(e: any) => {
+                      handleDateChange(e);
+                    }}
                   />
                 </div>
                 <CustomSelect

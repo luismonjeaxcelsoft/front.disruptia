@@ -6,12 +6,13 @@ import CustomSelect from "./CustomSelect";
 import { GetCountries, GetMunicipality } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
 import { CalendarOutlined } from "@ant-design/icons";
+import moment from "moment";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [valuesCountries, setvaluesCountries] = useState<any[]>([]);
   const [municipality, setMunicipality] = useState<any[]>([]);
-
+  const [age, setAge] = useState("");
   const optionsTypeDocument = [
     {
       label: "Cedula de Ciudadania",
@@ -49,6 +50,21 @@ const RegisterForm = () => {
     });
     setvaluesCountries(infoPais);
     setMunicipality(infoMunicipio);
+  };
+  const handleDateChange = (e: any) => {  
+    calculateAge(e);
+  };
+  
+  const calculateAge = (e: any) => {
+    const fecha = moment(e)   
+    if (e) {
+      const today = moment(); 
+      const formattedDate = moment(fecha) // Convertimos la fecha seleccionada al formato "YYYY-MM-DD"
+      const yearsDiff = today.diff(formattedDate, 'years');
+      setAge(yearsDiff.toString());
+    } else {
+      setAge('');
+    }
   };
   useEffect(() => {
     getPaises();
@@ -103,10 +119,13 @@ const RegisterForm = () => {
                     Fecha de Nacimiento
                   </label>
                   <DatePicker
-                    suffixIcon={<CalendarOutlined style={{color:"#F3CF46"}} />} 
+                    suffixIcon={
+                      <CalendarOutlined  style={{ color: "#F3CF46" }} />
+                    }
                     placeholder="11/marzo/1998"
-                    className="input-text-register" 
-                    style={{color:"white !important"}}
+                    className="input-text-register"
+                    style={{ color: "white !important" }}
+                    onChange={(e:any)=>{handleDateChange(e)}}
                   />
                 </div>
                 <CustomSelect
@@ -180,13 +199,12 @@ const RegisterForm = () => {
                   />
                 </div>
                 <div className="container-label-register">
-                  <label className="label-register-form">
-                    Edad
-                  </label>
+                  <label className="label-register-form">Edad</label>
                   <Input
                     placeholder="25"
                     className="input-text-register"
-                    style={{width:"108px"}}
+                    style={{ width: "108px" }}
+                    value={age}
                   />
                 </div>
                 <div
@@ -219,7 +237,11 @@ const RegisterForm = () => {
                   <label className="label-register-form">
                     Confirmar Contraseña
                   </label>
-                  <Input placeholder="" type="password" className="input-text-register" />
+                  <Input
+                    placeholder=""
+                    type="password"
+                    className="input-text-register"
+                  />
                 </div>
               </div>
             </div>

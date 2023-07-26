@@ -1,11 +1,14 @@
 import { Form, Input } from "antd"
 import "../styles/RegisterEmployees.css"
 import {useState} from 'react'
+import { SidebarEmployees } from "./SidebarEmployees"
 
 const RegisterEmployeesForm = () => {
     const [continueRegister, setContinueRegister] = useState(false)
   return (
-    <div style={{background:"white",width:"100vw",height:"100vh"}}>
+    <>
+    <SidebarEmployees type="register"/>
+     <div style={{background:"white",width:"100vw",height:"100vh"}}>
      <div style={{marginLeft:"-200px",marginTop:"30px"}} >
         <Form>
         <div className="container-inputs-fomr-register" >
@@ -70,6 +73,8 @@ const RegisterEmployeesForm = () => {
         </Form>
      </div>
     </div>
+    </>
+   
   )
 }
 

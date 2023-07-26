@@ -10,7 +10,7 @@ import RegisterEmployeesForm from "./RegisterEmployeesForm";
 const TabsEmployees = () => {
   const { TabPane } = Tabs;
   const [keyTab, setKeyTab] = useState<string>("");
- 
+  
   const [stlyeLogin, setStlyeLogin] = useState<any>(1)
   
   return (

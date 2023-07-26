@@ -52,7 +52,7 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
               <div >
                 <div className="container-subt-sidebar">
                   <img
-                    style={{ width: "193px", height: "61px" }}
+                    style={{ width: "120px", height: "50px" }}
                     alt=""
                     src={logo}
                   />
@@ -139,7 +139,7 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                                 style={{
                                   position: "absolute",
                                   left: "70%",
-                                  top: "268px",
+                                  top: "256px",
                                   color: "white",
                                   cursor: "pointer",
                                   display: "flex",

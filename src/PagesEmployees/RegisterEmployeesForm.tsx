@@ -53,6 +53,7 @@ const RegisterEmployeesForm = () => {
             display: "flex",
             width:"34%",
             marginTop: "10px",
+            marginLeft:"85px"
           }}
         >
           <button

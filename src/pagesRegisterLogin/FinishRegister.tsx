@@ -1,4 +1,3 @@
-import { UserOutlined } from "@ant-design/icons";
 import { Sidebar } from "../components/Sidebar";
 import "../styles/PerfilLogin.css";
 import { useNavigate } from "react-router-dom";
@@ -17,13 +16,8 @@ const FinishRegister = () => {
         video={false}
         subText="Instrucciones para diligenciar los campos de la derecha"
       />
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div className="container-text-perfil">
-          <span className="title-perfil-page">Mi perfil</span>
-          <div style={{ marginLeft: "5%" }}>
-            <UserOutlined style={{ scale: "5", color: "#FFFFFF" }} />
-          </div>
-        </div>
+      <div style={{ display: "flex", flexDirection: "column",marginLeft:"25%" }}>
+   
         <div
           style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
         >
@@ -36,7 +30,7 @@ const FinishRegister = () => {
             </span>
             <div
               style={{
-                marginLeft: "70px",
+                marginLeft: "65px",
                 marginTop: "2%",
                 display: "flex",
 
@@ -56,7 +50,7 @@ const FinishRegister = () => {
           <span className="text-pregunta-socioE">¿Eres cabeza de hogar?</span>
           <div
             style={{
-              marginLeft: "70px",
+              marginLeft: "65px",
               marginTop: "2%",
               display: "flex",
               marginBottom: "2px",
@@ -70,8 +64,8 @@ const FinishRegister = () => {
         <div
           style={{
             display: "flex",
-            marginLeft: "36%",
-            marginTop: "10px",
+            marginLeft: "52%",
+            marginTop: "180px",
           }}
         >
           <button
@@ -85,7 +79,7 @@ const FinishRegister = () => {
                 color: "#4D1AE8",
               }}
             >
-              Finalizar Registro
+              Registrarme
             </span>
           </button>
         </div>

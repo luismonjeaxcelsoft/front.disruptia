@@ -2,7 +2,7 @@
 .container-register-user {
     display:grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20%;
+    gap: 10%;
 }
 .title-register {
   font-family: Montserrat-Bold;
@@ -21,7 +21,7 @@
   height: 50px;
   border-radius: 20px;
   color: white;
-  width: 240px;
+  width: 200px;
   font-family: Montserrat-Medium;
   font-size:15px
 }

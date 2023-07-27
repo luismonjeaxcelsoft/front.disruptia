@@ -118,9 +118,14 @@
     font-family: Montserrat-Bold;
     font-size: 20px;
     color: white;
-    margin-left: 5%
+    margin-left: 50px
 }
-
+.text-pregunta-socioE-buttom {
+    font-family: Montserrat-Bold;
+    font-size: 20px;
+    color: white;
+    margin-left: 47px
+}
 .container-level-socioE {
     border: 1px solid #D5BF22;
     width: 53px;
@@ -140,6 +145,7 @@
     font-family: Montserrat-Medium;
     margin-left: 6px;
     font-size: 20px;
+    margin-bottom: 15px;
 }
 .imgCustom-register-nacio {
     width: 40px;
@@ -150,9 +156,9 @@
   }
 
   .button-perfile-finish {
-    width: 80%;
+    width: 30%;
     height: 40px;
-    border-radius: 12px;
+    border-radius: 25px;
     background: #F3CF46;
     margin-bottom: 30px;
     margin-top: 40px;

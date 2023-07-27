@@ -80,9 +80,9 @@ const RegisterForm = () => {
         img={false}
         video={false}
       />
-      <div style={{ marginLeft: "-600px", marginTop: "50px" }}>
+      <div style={{ marginLeft: "-300px", marginTop: "50px" }}>
         <div
-          style={{ display: "flex", flexDirection: "column", width: "140%" }}
+          style={{ display: "flex", flexDirection: "column", width: "160%" }}
         >
           <span className="title-register">Registro</span>
           <span className="sub-title-register">
@@ -178,16 +178,16 @@ const RegisterForm = () => {
                   }}
                 >
                   <div className="container-label-register">
-                    <label className="label-register-form">Celular</label>
+                    <label className="label-register-form">Indicativo</label>
                     <Input
-                      placeholder="3284556790"
+                      placeholder="+ 57 COL"
                       className="input-text-register"
                     />
                   </div>
                   <div className="container-label-register">
-                    <label className="label-register-form">Telefono Fijo</label>
+                    <label className="label-register-form">Celular</label>
                     <Input
-                      placeholder="601345609"
+                      placeholder="3284556790"
                       className="input-text-register"
                     />
                   </div>
@@ -250,9 +250,10 @@ const RegisterForm = () => {
             </div>
             <div
               style={{
-                display: "flex",
-                justifyContent: "center",
+               
+                marginLeft: "230px",
                 marginTop: "20px",
+                width:"80%"
               }}
             >
               <button

@@ -1,4 +1,3 @@
-import { UserOutlined } from "@ant-design/icons";
 import { Sidebar } from "../components/Sidebar";
 import CustomSelect from "./CustomSelect";
 import "../styles/PerfilLogin.css";
@@ -27,13 +26,8 @@ const PerfilLogin = () => {
         video={false}
         subText="Instrucciones para diligenciar los campos de la derecha"
       />
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div className="container-text-perfil">
-          <span className="title-perfil-page">Mi perfil</span>
-          <div style={{ marginLeft: "5%" }}>
-            <UserOutlined style={{ scale: "5", color: "#FFFFFF" }} />
-          </div>
-        </div>
+      <div style={{ display: "flex", flexDirection: "column",marginLeft:"25%" }}>
+       
         <div
           style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
         >
@@ -41,7 +35,7 @@ const PerfilLogin = () => {
         </div>
         <div style={{ justifyContent: "center" }}>
           <div
-            style={{ marginTop: "20px", display: "flex", marginLeft: "430px" }}
+            style={{ marginTop: "20px", display: "flex", marginLeft: "310px" }}
           >
             <CustomSelect
               options={Nacionalidad}
@@ -63,7 +57,7 @@ const PerfilLogin = () => {
           style={{
             display: "flex",
             justifyContent: "center",
-            marginLeft: "90px",
+            marginLeft: "50px",
           }}
         >
           <div className="container-pregunta-idioma">
@@ -95,7 +89,7 @@ const PerfilLogin = () => {
           <div
             style={{
               display: "flex",
-              marginLeft: "250px",
+              marginLeft: "314px",
               marginTop: "20px",
               marginBottom: "30px",
             }}
@@ -116,12 +110,12 @@ const PerfilLogin = () => {
           <div className="line-perfil-separador"></div>
         </div>
         <div className="container-pregunta-idioma">
-          <span className="text-pregunta-socioE">
+          <span className="text-pregunta-socioE-buttom">
             ¿Te consideras transgénero?
           </span>
           <div
             style={{
-              marginLeft: "70px",
+              marginLeft: "55px",
               marginTop: "2%",
               display: "flex",
               marginBottom: "2%",
@@ -134,7 +128,7 @@ const PerfilLogin = () => {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div className="line-perfil-separador"></div>
         </div>
-        <div style={{ marginLeft: "430px", marginBottom: "20px" }}>
+        <div style={{ marginLeft: "317px", marginBottom: "20px" }}>
           <CustomSelect
             labelName="¿Actualmente, tienes alguna de estas condiciones de salud?"
             placeHolder="Intelectual"
@@ -147,7 +141,7 @@ const PerfilLogin = () => {
         <div
           style={{
             display: "flex",
-            marginLeft: "36%",
+            marginLeft: "55%",
             marginTop: "10px",
           }}
         >

@@ -1,23 +1,18 @@
-import { Sidebar } from "../components/Sidebar";
+
 import "../styles/PerfilLogin.css";
 import { useNavigate } from "react-router-dom";
 import { Radio } from "antd";
+import { SidebarEmployees } from "../PagesEmployees/SidebarEmployees";
 
 const FinishRegister = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      <Sidebar
-        subTitle="Construcción Cultural"
-        smallTitle=""
-        backColor={false}
-        img={false}
-        video={false}
-        subText="Instrucciones para diligenciar los campos de la derecha"
-      />
-      <div style={{ display: "flex", flexDirection: "column",marginLeft:"25%" }}>
-   
+    <SidebarEmployees/>
+      <div
+        style={{ display: "flex", flexDirection: "column", marginLeft: "22%" }}
+      >
         <div
           style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
         >
@@ -30,14 +25,17 @@ const FinishRegister = () => {
             </span>
             <div
               style={{
-                marginLeft: "65px",
+                marginLeft: "55px",
                 marginTop: "2%",
                 display: "flex",
-
               }}
             >
-            <Radio><span style={{color:"white"}}>Sí</span></Radio>
-            <Radio><span style={{color:"white"}}>No</span></Radio>
+              <Radio>
+                <span style={{ color: "white" }}>Sí</span>
+              </Radio>
+              <Radio>
+                <span style={{ color: "white" }}>No</span>
+              </Radio>
             </div>
           </div>
         </div>
@@ -50,17 +48,21 @@ const FinishRegister = () => {
           <span className="text-pregunta-socioE">¿Eres cabeza de hogar?</span>
           <div
             style={{
-              marginLeft: "65px",
+              marginLeft: "55px",
               marginTop: "2%",
               display: "flex",
               marginBottom: "2px",
             }}
           >
-           <Radio><span style={{color:"white"}}>Sí</span></Radio>
-            <Radio><span style={{color:"white"}}>No</span></Radio>
+            <Radio>
+              <span style={{ color: "white" }}>Sí</span>
+            </Radio>
+            <Radio>
+              <span style={{ color: "white" }}>No</span>
+            </Radio>
           </div>
         </div>
-      
+
         <div
           style={{
             display: "flex",

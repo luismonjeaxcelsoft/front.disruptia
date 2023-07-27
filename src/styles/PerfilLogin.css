@@ -118,7 +118,7 @@
     font-family: Montserrat-Bold;
     font-size: 20px;
     color: white;
-    margin-left: 50px
+    margin-left: 40px
 }
 .text-pregunta-socioE-buttom {
     font-family: Montserrat-Bold;
@@ -156,7 +156,7 @@
   }
 
   .button-perfile-finish {
-    width: 30%;
+    width: 50%;
     height: 40px;
     border-radius: 25px;
     background: #F3CF46;

@@ -1,8 +1,9 @@
-import { Sidebar } from "../components/Sidebar";
+
 import CustomSelect from "./CustomSelect";
 import "../styles/PerfilLogin.css";
 import { useNavigate } from "react-router-dom";
 import { Radio } from "antd";
+import { SidebarEmployees } from "../PagesEmployees/SidebarEmployees";
 
 const PerfilLogin = () => {
   const navigate = useNavigate();
@@ -18,14 +19,7 @@ const PerfilLogin = () => {
   ];
   return (
     <>
-      <Sidebar
-        subTitle="Construcción Cultural"
-        smallTitle=""
-        backColor={false}
-        img={false}
-        video={false}
-        subText="Instrucciones para diligenciar los campos de la derecha"
-      />
+       <SidebarEmployees/>
       <div style={{ display: "flex", flexDirection: "column",marginLeft:"25%" }}>
        
         <div
@@ -141,7 +135,7 @@ const PerfilLogin = () => {
         <div
           style={{
             display: "flex",
-            marginLeft: "55%",
+            marginLeft: "52%",
             marginTop: "10px",
           }}
         >

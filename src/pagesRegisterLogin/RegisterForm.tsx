@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { Checkbox, DatePicker, Form, Input } from "antd";
-import { Sidebar } from "../components/Sidebar";
+
 import "../styles/RegisterPage.css";
 import CustomSelect from "./CustomSelect";
 import { GetCountries, GetMunicipality } from "../services/EstudiesService";
 import { useNavigate } from "react-router-dom";
 import { CalendarOutlined } from "@ant-design/icons";
 import moment from "moment";
+import { SidebarEmployees } from "../PagesEmployees/SidebarEmployees";
 
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const RegisterForm = () => {
       const year = date.getFullYear();
       const today = moment();
       const years = today.year();
-      const calculatorYears = years - year
+      const calculatorYears = years - year;
       setAge(calculatorYears.toString());
     } else {
       setAge("");
@@ -73,13 +74,7 @@ const RegisterForm = () => {
 
   return (
     <>
-      <Sidebar
-        subTitle=""
-        smallTitle=""
-        backColor={false}
-        img={false}
-        video={false}
-      />
+      <SidebarEmployees />
       <div style={{ marginLeft: "-300px", marginTop: "50px" }}>
         <div
           style={{ display: "flex", flexDirection: "column", width: "160%" }}
@@ -250,10 +245,9 @@ const RegisterForm = () => {
             </div>
             <div
               style={{
-               
                 marginLeft: "230px",
                 marginTop: "20px",
-                width:"80%"
+                width: "80%",
               }}
             >
               <button

@@ -1,0 +1,47 @@
+.imgCustom-register {
+  width: 40px;
+  cursor: pointer;
+  position: absolute;
+  margin-top: 8px;
+  margin-left: 160px;
+}
+
+.containerItems-custom {
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.items-select-custom {
+  margin-left: 5%;
+  cursor: pointer;
+  font-family: Monserrat-Medium;
+
+}
+.items-select-custom:hover {
+    margin-left: 5%;
+    cursor: pointer;
+    font-family: Monserrat-Medium;
+  }
+.container-items-selector {
+  background: white;
+  cursor: pointer;
+  border-radius: 20px;
+  color: black
+
+}
+.container-items-selector:hover {
+  background: #310161;
+  cursor: pointer;
+  border-radius: 20px;
+  color: white
+
+}
+.imgCustom-register-eges {
+  width: 40px;
+  cursor: pointer;
+  position: absolute;
+  margin-top: 8px;
+  margin-left: 40px;
+}

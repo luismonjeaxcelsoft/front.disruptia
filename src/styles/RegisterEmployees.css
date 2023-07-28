@@ -1,0 +1,19 @@
+.input-register-employees {
+    background: #DECCEF;
+    width: 27%;
+    border-radius: 25px;
+    color:#7025BB
+}
+
+.span-register-emplyees {
+    color:#7025BB;
+    font-family: Montserrat-Bold;
+    font-size:15px;
+    margin-left: 10px;
+}
+
+.container-inputs-fomr-register {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px
+}

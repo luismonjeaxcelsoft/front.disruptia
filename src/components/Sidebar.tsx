@@ -33,7 +33,6 @@ export const Sidebar: FC<Sidebar> = ({
 
   const [isOpen, setIsOpen] = useState(open);
   const [matchingNames, setMatchingNames] = useState([]);
-  // console.log("🚀 ~ file: Sidebar.tsx:33 ~ matchingNames:", matchingNames);
   useEffect(() => {
     if (data?.length > 0 && sendData?.length > 0) {
       const names = data

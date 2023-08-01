@@ -17,26 +17,23 @@
   margin-left: 5%;
   cursor: pointer;
   font-family: Monserrat-Medium;
-
 }
 .items-select-custom:hover {
-    margin-left: 5%;
-    cursor: pointer;
-    font-family: Monserrat-Medium;
-  }
+  margin-left: 5%;
+  cursor: pointer;
+  font-family: Monserrat-Medium;
+}
 .container-items-selector {
   background: white;
   cursor: pointer;
   border-radius: 20px;
-  color: black
-
+  color: black;
 }
 .container-items-selector:hover {
   background: #310161;
   cursor: pointer;
   border-radius: 20px;
-  color: white
-
+  color: white;
 }
 .imgCustom-register-eges {
   width: 40px;
@@ -44,4 +41,52 @@
   position: absolute;
   margin-top: 8px;
   margin-left: 40px;
+}
+
+.select-antd .ant-select-selector {
+  background: rgb(90 52 129) !important;
+  border: none;
+  height: 35.5px;
+  border-radius: 20px;
+  color: white;
+  width: 200px;
+  font-family: Montserrat-Medium;
+  font-size: 10.6px;
+  text-align: left !important;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-select-single
+  .ant-select-selector
+  .ant-select-selection-placeholder {
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-select-single:not(
+    .ant-select-customize-input
+  )
+  .ant-select-selector {
+  width: 185px;
+  height: 35.5px;
+  border: none;
+  align-items: center !important;
+  justify-content: center !important;
+  display: flex !important;
+  font-family: Montserrat-Medium !important;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-select .ant-select-arrow {
+  color: #f3cf46;
+}
+
+.select-antd-indicativo .ant-select-selector {
+  background: rgb(90 52 129) !important;
+  border: none;
+  height: 35.5px;
+  border-radius: 20px;
+  color: white;
+  width: 120px !important;
+  font-family: Montserrat-Medium;
+  font-size: 10.6px;
+  align-items: center;
 }

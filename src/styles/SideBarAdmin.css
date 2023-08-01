@@ -96,3 +96,18 @@
   margin-left: 28px;
   margin-top: 5px;
 }
+
+.sidebar-register {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, #310161, #4f0094, #5802ad, #7102e0);
+  transition: width 0.3s ease;
+  justify-content: top;
+  height: 100%;
+  padding: 30px;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 44%;
+  z-index: 9;
+}

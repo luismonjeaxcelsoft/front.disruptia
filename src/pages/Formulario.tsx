@@ -83,7 +83,6 @@ export const Formulario = () => {
 
   return (
     <div>
-<<<<<<< HEAD
       <MyContext.Provider value={contextValue}>
         <div className="formulario">
           <div className="tabs">
@@ -98,46 +97,6 @@ export const Formulario = () => {
                 {
                   label: (
                     <div>
-=======
-      <div className="formulario">
-        <div className="tabs">
-          <Tabs
-            onTabClick={handleTabClick}
-            activeKey={tab}
-            className="customTabs tabs-2"
-            defaultActiveKey="1"
-            centered
-            tabBarStyle={{ width: "820px",alignItems:"center" }}
-            items={[
-              {
-                label: (
-                  <div>
-                    <img
-                      style={{ width: "53px" }}
-                      alt="agenda"
-                      src={iconotab1}
-                    />
-                  </div>
-                ),
-                key: "1",
-                children: (
-                  <div>
-                    <SeleccionPerfiles
-                      setValidateImgs={setValidateImgs}
-                      validateImgs={validateImgs}
-                      setvaluesInputsPerfiles={setvaluesInputsPerfiles}
-                      setValuesIdPerfiles={setValuesIdPerfiles}
-                    />
-                  </div>
-                ),
-              },
-              {
-                label: (
-                  <div>
-                    {validateImgs[1] === "2" ? (
-                      <img alt="toga" style={{ width: "53px" }} src={toga} />
-                    ) : (
->>>>>>> 1a015339148e51186206def9da735b7518f20311
                       <img
                         style={{ width: "53px" }}
                         alt="agenda"

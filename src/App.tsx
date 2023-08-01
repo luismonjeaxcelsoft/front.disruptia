@@ -22,18 +22,18 @@ const router = createBrowserRouter([
     element: <HomeAdmin />
   },
  
-  {
-    path: "/profileUser",
-    element: <PerfilLogin />
-  },
+  // {
+  //   path: "/profileUser",
+  //   element: <PerfilLogin />
+  // },
   {
     path: "/validatepass",
     element: <ValidatePass />
   },
-  {
-    path: "/finalizar-registro",
-    element: <FinishRegister />
-  },
+  // {
+  //   path: "/finalizar-registro",
+  //   element: <FinishRegister />
+  // },
   {
     path: "/register-employees",
     element: <TabsEmployees />

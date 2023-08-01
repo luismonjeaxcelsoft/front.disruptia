@@ -3,6 +3,7 @@ import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
 import RegisterForm from "./RegisterForm";
 import LoginUser from "./LoginUser";
+import Register from "./Register";
 
 
 const TabsLogin = ({setKeyTab,keyTab}:any) => {
@@ -24,7 +25,7 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
                 <span
                   style={{
                     color: stlyeLogin === 0 ? "white" : "#DBB549",
-                    fontSize: "25px",
+                    fontSize: "17.70px",
                   }}
                 >
                   Iniciar Sesión
@@ -42,7 +43,7 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
                 <span
                   style={{
                     color: keyTab === "1" ? "white" : keyTab === "" ? "white" : "#DBB549",
-                    fontSize: "25px",
+                    fontSize: "17.70px",
                     marginLeft: keyTab === "1" ? "120px" :keyTab === "" ? "120px" : "23px",
                   }}
                 >
@@ -52,7 +53,7 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
             ]}
             key="2"
           >
-            <RegisterForm />
+            <Register />
           </TabPane>
         </Tabs>
       </div>

@@ -2,9 +2,24 @@ import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-type COUNTRIES = {
+export type COUNTRIES = {
   codigoPais: number;
   nombrePais: string;
+  codigoTelefono: string;
+  codigo: string;
+  bandera: string;
+};
+
+export type DEPARTAMENTO = {
+  departamentoId: number;
+  nombre: string;
+  paisId: number;
+};
+
+export type CIUDAD = {
+  municipioId: number;
+  nombre: string;
+  departamentoId: number;
 };
 
 type MUNICIPALITY = {
@@ -52,6 +67,24 @@ export const GetCountries = async (): Promise<COUNTRIES[]> => {
   try {
     const response = await axios.get(`${API_URL}/formacionacademica/paises`);
     return response.data as COUNTRIES[];
+  } catch (error: any) {
+    return error.response.data;
+  }
+};
+
+export const GetDepartamento = async (paisId: number): Promise<DEPARTAMENTO[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/formacionacademica/departamentos/${paisId}`);
+    return response.data as DEPARTAMENTO[];
+  } catch (error: any) {
+    return error.response.data;
+  }
+};
+
+export const GetCiudades = async (departamentoId: number): Promise<CIUDAD[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/formacionacademica/municipios/list/${departamentoId}`);
+    return response.data as CIUDAD[];
   } catch (error: any) {
     return error.response.data;
   }

@@ -20,7 +20,7 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
   const [messagePassword, setMessagePassword] = useState(false);
   return (
     <div>
-      <div className={isOpen ? "sidebar-open" : "sidebar"}>
+      <div className={isOpen ? "sidebar-register" : "sidebar"}>
         <div>
           {!isOpen && (
             <div

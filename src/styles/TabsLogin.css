@@ -1,4 +1,14 @@
 .tabs-login {
-   margin-left: 70%;
+   margin-left: 45%;
+   display: flex;
+}
+
+.tabs-register {
+   margin-left: 50%;
    
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-tabs >.ant-tabs-nav .ant-tabs-nav-wrap {
+   padding-right: 15%;
+   flex-direction: row-reverse;
 }

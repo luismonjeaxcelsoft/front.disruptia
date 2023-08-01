@@ -1,0 +1,75 @@
+.container-register-user {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10%;
+}
+.title-register {
+  font-family: Montserrat-Bold;
+  font-size: 24.8px;
+  color: #f3cf46;
+}
+.sub-title-register {
+  font-family: Montserrat-Medium;
+  font-size: 17.7px;
+  color: white;
+}
+
+.input-text-register {
+  background: #5a3481;
+  border: none;
+  height: 35.5px;
+  border-radius: 20px;
+  color: white;
+  width: 185px;
+  font-family: Montserrat-Medium;
+  font-size: 10.62px;
+}
+
+.label-register-form {
+  color: white;
+  font-family: Montserrat-Medium;
+  margin-left: 15px;
+  font-size: 10.62px !important;
+}
+
+.container-label-register {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.container-label-register-celular {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.input-text-register-ege {
+  background: #5a3481;
+  border: none;
+  height: 35.5px;
+  border-radius: 20px;
+  color: white;
+  width: 80px;
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+}
+
+.button-register-submit {
+  width: 185px;
+  height: 40px;
+  border-radius: 25px;
+  background: #f3cf46;
+  margin-bottom: 30px;
+}
+
+:where(.css-dev-only-do-not-override-15rg2km).ant-picker
+  .ant-picker-input
+  > input {
+  color: white !important;
+}
+.ant-picker-input > input::placeholder {
+  color: white !important;
+  opacity: 0.6;
+}

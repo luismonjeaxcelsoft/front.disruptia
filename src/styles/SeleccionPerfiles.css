@@ -86,9 +86,6 @@
   font-family: "Montserrat-Bold";
 }
 
-.ant-tabs {
-  align-items: center;
-}
 :where(.css-dev-only-do-not-override-15rg2km).ant-tabs
   .ant-tabs-tab
   + .ant-tabs-tab {

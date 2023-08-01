@@ -1,0 +1,113 @@
+.text-inicio-sesion {
+  font-family: Montserrat-Bold;
+  font-size: 25px;
+  color: #f3cf46;
+  margin-left: 6%;
+}
+.text-inicio-recuperar-contraseña {
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+  color: #f3cf46;
+  margin-left: 3%;
+}
+.text-inicio-recuperar-validar {
+  font-family: Montserrat-Medium;
+  font-size: 20px;
+  color: #f3cf46;
+  margin-left: 1%;
+}
+.container-form-login {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+  margin-left: 30%;
+}
+
+.input-login-form {
+  background: #7b34c1;
+  color: white;
+  width: 308px;
+  height: 50px;
+  border-radius: 25px;
+  border: none;
+}
+
+.button-login-user {
+  width: 297px;
+  height: 45px;
+  background: #f3cf46;
+  border-radius: 25px;
+  margin-left: 5px;
+}
+
+.text-login-user-bottom {
+  font-family: Montserrat-Bold;
+  color: #3600ff;
+  font-size: 20px;
+}
+
+.separador-line-login {
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.button-login-google {
+  width: 289px;
+  height: 29px;
+  border-radius: 25px;
+  background: #490191;
+  border: 1px solid white;
+}
+
+.text-bottom-google {
+  color: white;
+  font-family: Montserrat-Bold;
+  font-size: 15px;
+  margin-left: 33px;
+}
+
+.text-recuperar-password {
+  font-size: 15px;
+  color: white;
+  font-family: Montserrat;
+}
+
+.text-label-validate-pass {
+  font-family: Montserrat-Medium;
+  font-size: 15px;
+  color: white;
+  margin-left: 25px;
+}
+
+.text-required-pass {
+  font-family: Montserrat-Medium;
+  font-size: 12px;
+  color: #f3cf46;
+  margin-left: 28px;
+}
+
+.text-required-pass-list {
+  font-family: Montserrat-Medium;
+  font-size: 12px;
+  color: white;
+  margin-left: 28px;
+  margin-top: 5px;
+}
+
+.sidebar-register {
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to top, #310161, #4f0094, #5802ad, #7102e0);
+  transition: width 0.3s ease;
+  justify-content: top;
+  height: 100%;
+  padding: 30px;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 44%;
+  z-index: 9;
+}

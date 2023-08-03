@@ -8,6 +8,7 @@ import TabsLogin from "../pagesRegisterLogin/TabsLogin";
 export const Home = ({ keyTab, setKeyTab }: any) => {
 
   const [defaultActiveKey, setDefaultActiveKey] = useState<string>("1");
+  const [inLogin, setInLogin] = useState<boolean>(false);
 
   const getPasos = async () => {
 
@@ -23,9 +24,9 @@ export const Home = ({ keyTab, setKeyTab }: any) => {
 
   return (
     <>
-      <div>
-        <TabsLogin keyTab={keyTab} setKeyTab={setKeyTab} />
-      </div>
+      {!inLogin && <div>
+        <TabsLogin keyTab={keyTab} setInLogin={setInLogin} />
+      </div>}
       {keyTab !== "2" && (
         <div style={{ display: "flex", width: "60%" }}>
           <div className="containerImagesOne">

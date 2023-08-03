@@ -1,14 +1,29 @@
 .tabs-login {
-   margin-left: 45%;
-   display: flex;
+  margin-left: 45%;
+  display: flex;
+  width: 55%;
+}
+
+.tabs-login .ant-tabs-nav-wrap {
+  /* flex-direction: row-reverse;   */
+  margin-right: 0px;
+  padding-right: 100px;
+}
+
+.text-span-inicio-sesion {
+  font-family: Montserrat-Bold;
+  font-size: 25px;
+  color: white;
+  position: fixed;
+  margin-top: 20px;
+  margin-right: 40px;
 }
 
 .tabs-register {
-   margin-left: 50%;
-   
+  margin-left: 50%;
 }
 
-:where(.css-dev-only-do-not-override-15rg2km).ant-tabs >.ant-tabs-nav .ant-tabs-nav-wrap {
+/* :where(.css-dev-only-do-not-override-15rg2km).ant-tabs >.ant-tabs-nav .ant-tabs-nav-wrap {
    padding-right: 15%;
    flex-direction: row-reverse;
-}
+} */

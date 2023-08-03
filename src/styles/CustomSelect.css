@@ -45,34 +45,14 @@
 
 .select-antd .ant-select-selector {
   background: rgb(90 52 129) !important;
-  border: none;
-  height: 35.5px;
+  border: none !important;
   border-radius: 20px;
   color: white;
-  width: 200px;
+  width: 185px !important;
+  height: 35.5px !important;
   font-family: Montserrat-Medium;
   font-size: 10.6px;
   text-align: left !important;
-}
-
-:where(.css-dev-only-do-not-override-15rg2km).ant-select-single
-  .ant-select-selector
-  .ant-select-selection-placeholder {
-  font-family: Montserrat-Medium;
-  font-size: 15px;
-}
-
-:where(.css-dev-only-do-not-override-15rg2km).ant-select-single:not(
-    .ant-select-customize-input
-  )
-  .ant-select-selector {
-  width: 185px;
-  height: 35.5px;
-  border: none;
-  align-items: center !important;
-  justify-content: center !important;
-  display: flex !important;
-  font-family: Montserrat-Medium !important;
 }
 
 :where(.css-dev-only-do-not-override-15rg2km).ant-select .ant-select-arrow {
@@ -81,12 +61,12 @@
 
 .select-antd-indicativo .ant-select-selector {
   background: rgb(90 52 129) !important;
-  border: none;
-  height: 35.5px;
+  border: none !important;
   border-radius: 20px;
   color: white;
   width: 120px !important;
+  height: 35.5px !important;
   font-family: Montserrat-Medium;
   font-size: 10.6px;
-  align-items: center;
+  text-align: left !important;
 }

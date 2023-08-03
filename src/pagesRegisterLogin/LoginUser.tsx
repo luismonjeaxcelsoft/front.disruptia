@@ -1,12 +1,12 @@
 import "../styles/LoginUser.css";
 import { SidebarAdmin } from "./SideBarAdmin";
-const LoginUser = ({ stlyeLogin }: any) => {
+const LoginUser = ({ stlyeLogin, setInLogin }: any) => {
   return (
     <>
       {stlyeLogin === 1 ? (
-        <SidebarAdmin type="disrupter" />
+        <SidebarAdmin type="disrupter" setInLogin={setInLogin} />
       ) : stlyeLogin === 2 ? (
-        <SidebarAdmin type="admin" />
+        <SidebarAdmin type="admin" setInLogin={setInLogin} />
       ) : (
         ""
       )}

@@ -89,10 +89,10 @@ export const Formulario = () => {
             <Tabs
               onTabClick={handleTabClick}
               activeKey={tab}
-              className="tabs-2"
+              className="customTabs tabs-2"
               defaultActiveKey={defaultActiveKey}
               centered
-              tabBarStyle={{ width: "820px" }}
+              tabBarStyle={{ width: "100%", alignItems: "centrer" }}
               items={[
                 {
                   label: (

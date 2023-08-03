@@ -9,15 +9,44 @@ import Deslizar from "../assets/images/Deslizar.png";
 import logo from "../assets/images/disruptialogo.png";
 import "../styles/SideBarAdmin.css";
 import { Checkbox, Form, Input } from "antd";
+import { LoginDisrupter } from "../services/LoginService";
 interface SidebarAdmin {
   type?: string;
+  setInLogin?: any;
 }
 
-export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
+const LOGIN_INITIAL = {
+  email: "",
+  password:""
+}
+
+export const SidebarAdmin: FC<SidebarAdmin> = ({ type, setInLogin }: any) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const [textPassword, setTextPassword] = useState<boolean>(false);
   const [valueCheck, setvalueCheck] = useState<number>(0);
   const [messagePassword, setMessagePassword] = useState(false);
+  const [login, setLogin] = useState(LOGIN_INITIAL);
+
+  const handleText = (e:any) => {
+    const {name, value} = e.target;
+
+    setLogin({...login, [name]: value })
+    
+
+  }
+
+  const onLogin = async() => {
+    const res = await LoginDisrupter(login);
+
+    if(res.message === "Succesfully login") {
+      console.log(res)
+      setInLogin(true)
+    } else {
+      alert("Error al iniciar Sesión")
+    }
+
+  }
+
   return (
     <div>
       <div className={isOpen ? "sidebar-register" : "sidebar"}>
@@ -48,8 +77,8 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
             </div>
           )}
           {isOpen && (
-            <div >
-              <div >
+            <div>
+              <div>
                 <div className="container-subt-sidebar">
                   <img
                     style={{ width: "120px", height: "50px" }}
@@ -118,6 +147,8 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                                 : "Correo electrónico"
                             }
                             className="input-login-form"
+                            name="email"
+                            onChange={handleText}
                             type={type === "validate" ? "password" : "email"}
                           />
                         </div>
@@ -132,6 +163,8 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                               <Input
                                 type={textPassword ? "text" : "password"}
                                 placeholder="Contraseña"
+                                name="password"
+                                onChange={handleText}
                                 className="input-login-form"
                               />
                               <div
@@ -150,7 +183,7 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                             </div>
                             {type !== "validate" && (
                               <>
-                                <div
+                                {/* <div
                                   style={{
                                     marginLeft: "20px",
                                     marginTop: "10px",
@@ -168,37 +201,37 @@ export const SidebarAdmin: FC<SidebarAdmin> = ({ type }) => {
                                       Mantener mi sesión iniciada
                                     </span>
                                   </Checkbox>
-                                </div>
+                                </div> */}
                                 <div
                                   style={{
                                     marginLeft: "20px",
                                     marginTop: "10px",
                                   }}
                                 >
-                                  <Checkbox
+                                  {/* <Checkbox
                                     value={2}
                                     onChange={(e) =>
                                       setvalueCheck(e.target.value)
                                     }
+                                  > */}
+                                  <span
+                                    style={{
+                                      color: "white",
+                                      opacity: "0.7",
+                                      fontFamily: "Montserrat-Light",
+                                      fontSize: "12px",
+                                    }}
                                   >
-                                    <span
-                                      style={{
-                                        color: "white",
-                                        opacity: "0.7",
-                                        fontFamily: "Montserrat-Light",
-                                        fontSize: "12px",
-                                      }}
-                                    >
-                                      Recuperar contraseña
-                                    </span>
-                                  </Checkbox>
+                                    Recuperar contraseña
+                                  </span>
+                                  {/* </Checkbox> */}
                                 </div>
                               </>
                             )}
                           </>
                         )}
                         <div
-                          onClick={() => setMessagePassword(true)}
+                          onClick={() => onLogin()}
                           style={{ marginTop: "7%" }}
                         >
                           <button className="button-login-user">

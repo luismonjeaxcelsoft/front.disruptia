@@ -9,11 +9,12 @@ interface CustomSelectProps {
   options?: any;
   placeHolder?: string;
   name: string;
+  info: string;
   styleLabel?: string;
   getDepartamento?: any;
   getCiudades?: any;
-  payload?: any;
-  setPayload?: any;
+  request?: any;
+  setRequest?: any;
 }
 
 const CustomSelect: FC<CustomSelectProps> = ({
@@ -21,13 +22,13 @@ const CustomSelect: FC<CustomSelectProps> = ({
   options,
   placeHolder,
   name,
+  info,
   styleLabel,
   getDepartamento,
   getCiudades,
-  payload,
-  setPayload,
+  request,
+  setRequest,
 }) => {
-  const [labelInput, setLabelInput] = useState<any>("");
   const handleItemClick = (item: any) => {
     if (name === "pais" && item === 169) {
       getDepartamento(item);
@@ -39,9 +40,18 @@ const CustomSelect: FC<CustomSelectProps> = ({
 
     if (name === "pais" || name === "departamento") {
       const value = options.find((option: any) => option.value === item).label;
-      setPayload({ ...payload, [name]: value });
+
+      const newRequest = { ...request };
+
+      newRequest[info][name] = value;
+
+      setRequest(newRequest);
     } else {
-      setPayload({ ...payload, [name]: item });
+      const newRequest = { ...request };
+
+      newRequest[info][name] = item;
+
+      setRequest(newRequest);
     }
   };
 
@@ -56,7 +66,7 @@ const CustomSelect: FC<CustomSelectProps> = ({
           className={
             name === "indicativo" ? "select-antd-indicativo" : "select-antd"
           }
-          defaultValue={labelInput}
+          value={request[info][name]}
           placeholder={placeHolder}
           options={options}
           onChange={onchange}

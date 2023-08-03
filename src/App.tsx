@@ -8,6 +8,7 @@ import PerfilLogin from './pagesRegisterLogin/PerfilLogin';
 import ValidatePass from './pagesRegisterLogin/ValidatePass';
 import FinishRegister from './pagesRegisterLogin/FinishRegister';
 import TabsEmployees from './PagesEmployees/TabsEmplyees';
+import Register from './pagesRegisterLogin/Register';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
   //   path: "/finalizar-registro",
   //   element: <FinishRegister />
   // },
+  {
+    path: "/disrupterSignUp",
+    element: <Register />
+  },
   {
     path: "/register-employees",
     element: <TabsEmployees />

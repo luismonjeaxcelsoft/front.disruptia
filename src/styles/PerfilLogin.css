@@ -153,12 +153,11 @@
 }
 
 .button-perfile-finish {
-  width: 50%;
-  height: 40px;
+  width: 226px;
+  height: 31px;
   border-radius: 25px;
   background: #f3cf46;
-  margin-bottom: 30px;
-  margin-top: 40px;
+  align-items: center;
 }
 
 .text-pregunta {
@@ -174,23 +173,47 @@
 }
 
 .button-item {
-    width: 29px;
-    height: 29px;
-    border: 1px solid #f3cf46; 
-    background-color: transparent; 
-    border-radius: 50%;
-    color: #f3cf46; 
-    font-size: 14px; 
-    text-align: center; 
-    line-height: 29px; 
-    cursor: pointer; 
-    outline: none; 
-    font-weight: bold;
+  width: 29px;
+  height: 29px;
+  border: 1px solid #f3cf46;
+  background-color: transparent;
+  border-radius: 50%;
+  color: #f3cf46;
+  font-size: 14px;
+  text-align: center;
+  line-height: 29px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
 }
 
-.button-item:hover {
-    background-color: hsl(48, 88%, 61%); 
-    color: #5a3481;
+.button-item-click {
+  width: 29px;
+  height: 29px;
+  background-color: transparent;
+  border-radius: 50%;
+  background-color: hsl(48, 88%, 61%);
+  color: #5a3481;
+  font-size: 14px;
+  text-align: center;
+  line-height: 29px;
+  cursor: pointer;
+  outline: none;
+  font-weight: bold;
+  border: none;
+}
 
+.input-cual {
+  padding: 5px;
+  background: none;
+  width: 300px;
+  color: white;
+  fontfamily: Montserrat-Light;
+}
 
+.input-cual:focus {
+  borderbottom: 2px solid white;
+  bordertop: none;
+  borderleft: none;
+  borderright: none;
 }

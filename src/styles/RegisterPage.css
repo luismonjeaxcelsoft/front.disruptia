@@ -1,7 +1,5 @@
 .container-register-user {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10%;
+  display: flex;
 }
 .title-register {
   font-family: Montserrat-Bold;
@@ -57,8 +55,8 @@
 }
 
 .button-register-submit {
-  width: 185px;
-  height: 40px;
+  width: 226px;
+  height: 31px;
   border-radius: 25px;
   background: #f3cf46;
   margin-bottom: 30px;

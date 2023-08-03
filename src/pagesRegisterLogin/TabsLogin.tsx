@@ -1,19 +1,29 @@
 import { useState } from "react";
 import { Tabs } from "antd";
 import "../styles/TabsLogin.css";
-import RegisterForm from "./RegisterForm";
 import LoginUser from "./LoginUser";
 import Register from "./Register";
+import { useNavigate } from "react-router-dom";
 
-
-const TabsLogin = ({setKeyTab,keyTab}:any) => {
+const TabsLogin = ({ setKeyTab, setInLogin }: any) => {
   const { TabPane } = Tabs;
- 
-  const [stlyeLogin, setStlyeLogin] = useState<any>(1)
+  const navigate = useNavigate();
+
+  const [stlyeLogin, setStlyeLogin] = useState<any>(1);
   return (
     <>
-      <div >
-        <Tabs
+      <div>
+        <LoginUser stlyeLogin={stlyeLogin} setInLogin={setInLogin} />
+        <div style={{ display: "flex", justifyContent: "right" }}>
+          <span
+            onClick={() => navigate("/disrupterSignUp")}
+            style={{ cursor: "pointer" }}
+            className="text-span-inicio-sesion"
+          >
+            Registrarme
+          </span>
+        </div>
+        {/* <Tabs
           defaultActiveKey={keyTab}
           className="tabs-login"
           onChange={(e) => {setKeyTab(e)}}
@@ -55,7 +65,7 @@ const TabsLogin = ({setKeyTab,keyTab}:any) => {
           >
             <Register />
           </TabPane>
-        </Tabs>
+        </Tabs> */}
       </div>
     </>
   );

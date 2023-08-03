@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Checkbox, DatePicker, Form, Input } from "antd";
 
 import "../styles/RegisterPage.css";
@@ -23,12 +23,16 @@ type DATA = {
 
 const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
   const navigate = useNavigate();
+  const [form] = Form.useForm();
+  const formRef: any = useRef(null);
   const [valuesCountries, setvaluesCountries] = useState<DATA[]>([]);
   const [valuesCountriesPhone, setvaluesCountriesPhone] = useState<any[]>([]);
   const [valuesDept, setValuesDept] = useState<DATA[]>([]);
   const [municipality, setMunicipality] = useState<DATA[]>([]);
   const [age, setAge] = useState("");
   const [payload, setPayload] = useState(request.infoPersonal);
+  const [valueErrors, setValueErrors] = useState<any>([]);
+  const [buttonClicked, setButtonClicked] = useState<boolean>(false);
   const optionsTypeDocument = [
     {
       label: "Cedula de Ciudadania",
@@ -47,6 +51,28 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
       value: "TI",
     },
   ];
+
+  const validateForm = async () => {
+    try {
+      // form.setFieldsValue({ numeroDocumento: payload.numeroDocumento });
+      // form.setFieldsValue({ email: payload.email });
+      // form.setFieldsValue({ password: payload.password });
+      form.setFieldsValue({ nombre: payload.nombre });
+      // form.setFieldsValue({ apellido: payload.apellido });
+      // form.setFieldsValue({ tipoDocumento: payload.tipoDocumento });
+      // form.setFieldsValue({ indicativo: payload.indicativo });
+      // form.setFieldsValue({ celular: payload.celular });
+      // form.setFieldsValue({ fechaNacimiento: payload.fechaNacimiento });
+      // form.setFieldsValue({ pais: payload.pais });
+      await form.validateFields();
+      // await createStudies();
+      // activeCard();
+    } catch (error: any) {
+      const errores = error?.errorFields.flatMap((item: any) => item.name);
+      setValueErrors(errores);
+    }
+  };
+
   const getPaises = async () => {
     const resCountries = await GetCountries();
     const infoPais = resCountries.map((pais: COUNTRIES) => {
@@ -108,11 +134,16 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
 
   const handleDateChange = (e: any) => {
     calculateAge(e);
+    setButtonClicked(false);
 
     const date = new Date(e.$d);
-    const fecha = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    const fecha = `${date.getFullYear()}-${
+      date.getMonth() + 1
+    }-${date.getDate()}`;
 
-    setPayload({...payload, fechaNacimiento: fecha})
+    const newRequest = { ...request };
+    newRequest.infoPersonal.fechaNacimiento = fecha;
+    // setPayload({...payload, fechaNacimiento: fecha})
   };
 
   const calculateAge = (e: any) => {
@@ -130,15 +161,17 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
 
   const onchange = (e: any) => {
     const { name, value } = e.target;
-
-    console.log(name);
-    console.log(value);
-
-    setPayload({ ...payload, [name]: value });
+    setButtonClicked(false);
+    const newRequest = { ...request };
+    newRequest.infoPersonal[name] = value;
+    setRequest(newRequest);
+    // setPayload({ ...payload, [name]: value });
   };
 
   const onContinuar = () => {
-    setRequest({...request, infoPersonal: payload})
+    // setRequest({ ...request, infoPersonal: payload });
+    setButtonClicked(true);
+    validateForm();
     setPasoRegistro(2);
   };
 
@@ -147,11 +180,24 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
   }, []);
 
   return (
-    <>
-      {/* <SidebarEmployees /> */}
-      <div style={{ marginLeft: "70px", marginTop: "25px" }}>
+    <div>
+      <div style={{ marginLeft: "650px", marginTop: "25px", width: "600px" }}>
+        <div style={{ display: "flex", justifyContent: "right" }}>
+          <span
+            onClick={()=> navigate("/")}
+            style={{ cursor: "pointer" }}
+            className="sub-title-register"
+          >
+            Iniciar Sesión
+          </span>
+        </div>
         <div
-          style={{ display: "flex", flexDirection: "column", width: "488px" }}
+          style={{
+            marginTop: "50px",
+            display: "flex",
+            flexDirection: "column",
+            width: "488px",
+          }}
         >
           <span className="title-register">Registro</span>
           <span className="sub-title-register">
@@ -164,32 +210,61 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
               <div>
                 <div className="container-label-register">
                   <label className="label-register-form">Nombre</label>
+                  {/* <Form.Item
+                    name="nombre"
+                    rules={[
+                      {
+                        required: true,
+                        message: buttonClicked ? "*Campo requerido" : "",
+                      },
+                    ]}
+                  > */}
                   <Input
-                    placeholder="Andres"
+                    // placeholder="Andres"
                     className="input-text-register"
                     name="nombre"
                     onChange={onchange}
+                    value={payload.nombre}
+                    autoComplete="off"
                   />
+                  {/* </Form.Item> */}
                 </div>
                 <div className="container-label-register">
                   <label className="label-register-form">
                     Correo Electrónico
                   </label>
+                  {/* <Form.Item
+                    name="email"
+                    rules={[
+                      {
+                        required: true,
+                        message: "*Campo requerido",
+                      },
+                      {
+                        type: "email",
+                        message: buttonClicked ? "*El formato del correo electrónico no es válido " : "",
+                      },
+                    ]}
+                  > */}
                   <Input
-                    placeholder="andres@gmail.com"
+                    // placeholder="andres@gmail.com"
                     className="input-text-register"
                     name="email"
                     onChange={onchange}
+                    value={payload.email}
+                    autoComplete="off"
                   />
+                  {/* </Form.Item> */}
                 </div>
                 <CustomSelect
                   options={optionsTypeDocument}
                   labelName="Tipo de Documento"
                   placeHolder="Cédula de Ciudadanía"
                   name="tipoDocumento"
+                  info="infoPersonal"
                   styleLabel="label-register-form"
-                  payload={payload}
-                  setPayload={setPayload}
+                  request={request}
+                  setRequest={setRequest}
                 />
                 <div className="container-label-register">
                   <label className="label-register-form">
@@ -199,7 +274,7 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                     suffixIcon={
                       <CalendarOutlined style={{ color: "#F3CF46" }} />
                     }
-                    placeholder="11/marzo/1998"
+                    // placeholder="11/marzo/1998"
                     className="input-text-register"
                     style={{ color: "white !important" }}
                     onChange={(e: any) => {
@@ -210,21 +285,24 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                 <CustomSelect
                   options={valuesCountries}
                   labelName="País de Residencia"
-                  placeHolder="Colombia"
+                  // placeHolder="Colombia"
                   name="pais"
                   styleLabel="label-register-form"
                   getDepartamento={getDepartamento}
-                  payload={payload}
-                  setPayload={setPayload}
+                  info="infoPersonal"
+                  request={request}
+                  setRequest={setRequest}
                 />
                 <div className="container-label-register">
                   <label className="label-register-form">Contraseña</label>
                   <Input
-                    placeholder=""
+                    // placeholder=""
                     className="input-text-register"
                     name="password"
                     type="password"
                     onChange={onchange}
+                    value={payload.password}
+                    autoComplete="off"
                   />
                 </div>
                 <div
@@ -249,10 +327,12 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                 <div className="container-label-register">
                   <label className="label-register-form">Apellido</label>
                   <Input
-                    placeholder="Beltrán"
+                    // placeholder="Beltrán"
                     className="input-text-register"
                     name="apellido"
                     onChange={onchange}
+                    value={payload.apellido}
+                    autoComplete="off"
                   />
                 </div>
                 <div
@@ -268,16 +348,19 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                     placeHolder="+57 COL"
                     name="indicativo"
                     styleLabel="label-register-form"
-                    payload={payload}
-                    setPayload={setPayload}
+                    info="infoPersonal"
+                    request={request}
+                    setRequest={setRequest}
                   />
                   <div className="container-label-register-celular">
                     <label className="label-register-form">Celular</label>
                     <Input
-                      placeholder="3284556790"
+                      // placeholder="3284556790"
                       className="input-text-register"
                       name="celular"
                       onChange={onchange}
+                      value={payload.celular}
+                      autoComplete="off"
                     />
                   </div>
                 </div>
@@ -286,19 +369,26 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                     Número de Documento
                   </label>
                   <Input
-                    placeholder="1016784335"
+                    // placeholder="1016784335"
                     className="input-text-register"
                     name="numeroDocumento"
                     onChange={onchange}
+                    value={
+                      payload.numeroDocumento === 0
+                        ? ""
+                        : payload.numeroDocumento
+                    }
+                    autoComplete="off"
                   />
                 </div>
                 <div className="container-label-register">
                   <label className="label-register-form">Edad</label>
                   <Input
-                    placeholder="25"
+                    // placeholder="25"
                     className="input-text-register"
                     style={{ width: "108px" }}
                     value={age}
+                    autoComplete="off"
                   />
                 </div>
                 <div
@@ -315,8 +405,9 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                     name="departamento"
                     styleLabel="label-register-form"
                     getCiudades={getCiudades}
-                    payload={payload}
-                    setPayload={setPayload}
+                    info="infoPersonal"
+                    request={request}
+                    setRequest={setRequest}
                   />
                   <CustomSelect
                     options={municipality}
@@ -324,8 +415,9 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                     placeHolder="Medellin"
                     name="ciudad"
                     styleLabel="label-register-form"
-                    payload={payload}
-                    setPayload={setPayload}
+                    info="infoPersonal"
+                    request={request}
+                    setRequest={setRequest}
                   />
                 </div>
                 <div className="container-label-register">
@@ -336,6 +428,8 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                     placeholder=""
                     type="password"
                     className="input-text-register"
+                    // value={payload.password}
+                    autoComplete="off"
                   />
                 </div>
               </div>
@@ -356,7 +450,7 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
                 <span
                   style={{
                     fontFamily: "Montserrat-Bold",
-                    fontSize: "20px",
+                    fontSize: "15px",
                     color: "#4D1AE8",
                   }}
                 >
@@ -367,7 +461,7 @@ const RegisterForm = ({ setRequest, setPasoRegistro, request }: any) => {
           </Form>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

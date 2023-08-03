@@ -10,6 +10,8 @@ import {
   GetOrientacionSexual,
   IDENTIDAD_GENERO,
 } from "../services/PreguntasRegistroService";
+import ArrowBack from "../assets/images/LogIn_Arrow-50.png";
+import ArrowNext from "../assets/images/LogIn_Arrow-49.png";
 
 const PerfilLogin = ({
   setRequest,
@@ -17,13 +19,13 @@ const PerfilLogin = ({
   setPasoRegistro,
   request,
 }: any) => {
-  const navigate = useNavigate();
   const [identidadGenero, setIdentidadGenero] = useState<IDENTIDAD_GENERO[]>(
     []
   );
   const [orientacionSexual, setOrientacionSexual] = useState<any[]>([]);
-  const [comunidadCulturalEtnica, setComunidadCulturalEtnica] = useState<any[]>([]);
-
+  const [comunidadCulturalEtnica, setComunidadCulturalEtnica] = useState<any[]>(
+    []
+  );
   const getIdentidadGenero = async () => {
     const res = await GetIdentidadGenero();
     if (typeof res !== "string") {
@@ -57,10 +59,22 @@ const PerfilLogin = ({
     setPasoRegistro(3);
   };
 
+  const onBack = () => {
+
+    setPasoRegistro(1);
+  };
+
+  const handleRadioChange = (e: any) => {
+    const newRequest = { ...request };
+    newRequest.preguntasRegistro.identidadGenero = e.target.value;
+    setRequest(newRequest);
+    // setPayload({ ...payload, identidadGenero: e.target.value });
+  };
+
   useEffect(() => {
     getIdentidadGenero();
     getOrientacionSexual();
-    getComunidadCulturalEtnica()
+    getComunidadCulturalEtnica();
   }, [pasoRegistro]);
 
   return (
@@ -70,10 +84,24 @@ const PerfilLogin = ({
         style={{
           display: "flex",
           flexDirection: "column",
-          marginLeft: "80px",
+          marginLeft: "650px",
+          marginTop: "20px",
           width: "600px",
+          marginBottom: "50px",
         }}
       >
+        <div style={{display: "flex", flexDirection: "row-reverse"}}>
+            <img
+              onClick={() => onContinuar()}
+              src={ArrowNext}
+              style={{ width: "26px", cursor: "pointer" }}
+            ></img>
+            <img
+              onClick={() => onBack()}
+              src={ArrowBack}
+              style={{ width: "26px", cursor: "pointer" }}
+            ></img>
+          </div>
         <div
           style={{ display: "flex", justifyContent: "center", marginTop: "5%" }}
         >
@@ -86,17 +114,26 @@ const PerfilLogin = ({
           </span>
         </div>
         <div style={{ marginTop: "10px" }}>
-          <Radio.Group>
+          <Radio.Group
+            onChange={handleRadioChange}
+            value={request.preguntasRegistro.identidadGenero}
+          >
             {identidadGenero.map((item: any) => (
-              <div key={item} style={{ marginTop: "10px" }}>
-                <Radio></Radio>
-                <span className="text-pregunta-bold">
-                  {item.descripcion}{" "}
-                  <span className="text-pregunta">
-                    {"("}
-                    {item.caracteristica} {")"}
+              <div key={item} style={{ marginTop: "10px", display: "flex" }}>
+                <Radio
+                  style={{ color: "white" }}
+                  value={item.descripcion}
+                  key={item.descripcion}
+                ></Radio>
+                <div>
+                  <span className="text-pregunta-bold">
+                    {item.descripcion}{" "}
+                    <span className="text-pregunta">
+                      {"("}
+                      {item.caracteristica} {")"}
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
             ))}
           </Radio.Group>
@@ -116,6 +153,9 @@ const PerfilLogin = ({
               placeHolder="Indigena"
               name="orientacionSexual"
               styleLabel="label-register-nacionalidad"
+              info="preguntasRegistro"
+              request={request}
+              setRequest={setRequest}
             />
           </div>
         </div>
@@ -125,7 +165,10 @@ const PerfilLogin = ({
           <div className="line-perfil-separador"></div>
         </div>
         <div style={{ marginTop: "10px" }}>
-          <span className="text-pregunta">¿Te identificas con alguna comunidad cultural o étnica en particular?</span>
+          <span className="text-pregunta">
+            ¿Te identificas con alguna comunidad cultural o étnica en
+            particular?
+          </span>
         </div>
         <div style={{ justifyContent: "center" }}>
           <div style={{ marginTop: "0px", display: "flex", marginLeft: "0px" }}>
@@ -134,6 +177,9 @@ const PerfilLogin = ({
               placeHolder="Indigena"
               name="comunidadCulturalEtnica"
               styleLabel="label-register-nacionalidad"
+              info="preguntasRegistro"
+              request={request}
+              setRequest={setRequest}
             />
           </div>
         </div>
@@ -142,22 +188,21 @@ const PerfilLogin = ({
             display: "flex",
             marginLeft: "52%",
             marginTop: "10px",
+            marginBottom:"20px"
           }}
         >
-          <button
-            onClick={() => onContinuar()}
-            className="button-perfile-finish"
-          >
-            <span
-              style={{
-                fontFamily: "Montserrat-Bold",
-                fontSize: "20px",
-                color: "#4D1AE8",
-              }}
-            >
-              Continuar
-            </span>
-          </button>
+          <div>
+            <img
+              onClick={() => onBack()}
+              src={ArrowBack}
+              style={{ width: "22px", cursor: "pointer" }}
+            ></img>
+            <img
+              onClick={() => onContinuar()}
+              src={ArrowNext}
+              style={{ width: "22px", cursor: "pointer" }}
+            ></img>
+          </div>
         </div>
       </div>
     </>

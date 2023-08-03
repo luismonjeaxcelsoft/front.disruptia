@@ -1,42 +1,13 @@
 import { type } from "os";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { SidebarEmployees } from "../PagesEmployees/SidebarEmployees";
 import RegisterForm from "./RegisterForm";
 import PerfilLogin from "./PerfilLogin";
 import FinishRegister from "./FinishRegister";
+import { ConfirmarRegistro, REGISTRO, SaveRegistro } from "../services/RegisterService";
 
-type INFO_PERSONAL = {
-  numeroDocumento: number;
-  email: string;
-  password: string;
-  nombre: string;
-  apellido: string;
-  tipoDocumento: string;
-  indicativo: string;
-  celular: string;
-  fechaNacimiento: string;
-  pais: string;
-  departamento: string;
-  ciudad: string;
-  role: string;
-};
 
-type PREGUNTAS_REGISTRO = {
-  identidadGenero: string;
-  orientacionSexual: string;
-  comunidadCulturalEtnica: string;
-  idiomaDialecto: string;
-  idiomaDialectoTexto: string;
-  area: string;
-  cabezaHogar: string;
-  discapacidad: string;
-  nivelSocioEconomico: number;
-};
-
-type REGISTRO = {
-  infoPersonal: INFO_PERSONAL;
-  preguntasRegistro: PREGUNTAS_REGISTRO;
-};
 
 const INITIAL_VALUE = {
   infoPersonal: {
@@ -52,7 +23,7 @@ const INITIAL_VALUE = {
     pais: "",
     departamento: "",
     ciudad: "",
-    role: "",
+    role: "ROLE_DISRUPTER",
   },
   preguntasRegistro: {
     identidadGenero: "",
@@ -68,8 +39,15 @@ const INITIAL_VALUE = {
 };
 
 const Register = () => {
+  const navigate = useNavigate();
   const [request, setRequest] = useState<REGISTRO>(INITIAL_VALUE);
   const [pasoRegistro, setPasoRegistro] = useState<number>(1);
+
+  const onRegister = async() => {
+    console.log(request);
+    await SaveRegistro(request);
+    // onConfirmar();    
+  }
 
   return (
     <>
@@ -95,6 +73,8 @@ const Register = () => {
           setRequest={setRequest}
           request={request}
           pasoRegistro={pasoRegistro}
+          setPasoRegistro={setPasoRegistro}
+          onRegister={onRegister}
         />
       )}
     </>

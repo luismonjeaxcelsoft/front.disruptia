@@ -70,12 +70,15 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
       window.alert(
         "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
       );
-      return;
+    } else {
+      const { name, value } = e.target;
+      changeValuesForm(name, value);
     }
-    const { name, value } = e.target;
-    changeValuesForm(name, value);
+    // const { name, value } = e.target;
+    // changeValuesForm(name, value);
   };
   const changeValuesForm = (name: string, value: string) => {
+    console.log("entra")
     setValues((prevValues: any) => {
       const newValues = [...prevValues];
       newValues[id] = { ...values, [name]: value };
@@ -164,7 +167,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
           img={true}
           data={valuesInputsPerfiles}
           sendData={valuesIdPerfiles}
-          open={false}          
+          open={false}
         />
       </div>
       <div className="containerTitle">
@@ -239,7 +242,10 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                             defaultValue={values.nombreCurso}
                           />
                         </Form.Item>
-                        <span style={{top:"160px"}} className="countInputTitulo">
+                        <span
+                          style={{ top: "160px" }}
+                          className="countInputTitulo"
+                        >
                           {countPalabras.length}/20
                         </span>
                       </div>
@@ -455,7 +461,10 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                           />
                         </Form.Item>
 
-                        <span style={{top:"420px"}} className="countInputIns">
+                        <span
+                          style={{ top: "420px" }}
+                          className="countInputIns"
+                        >
                           {countKeysIns.length}/20
                         </span>
                       </div>
@@ -578,6 +587,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                               ]}
                             >
                               <Select
+                                showSearch
                                 style={{
                                   background: "#4F2678",
                                   color: "white",
@@ -607,6 +617,7 @@ const InfoWordExperience: FC<InfoWordExperienceProps> = ({
                                 ]}
                               >
                                 <Select
+                                  showSearch
                                   style={{
                                     background: "#4F2678",
                                     color: "white",

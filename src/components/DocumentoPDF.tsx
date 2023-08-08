@@ -143,10 +143,10 @@ const DocumentoPDF: FC<DocumentoPDFProps> = ({
             <Text style={styles.subtitle}>Experiencia Laboral</Text>
             {experienciasFilter.map((item: EXPERIENCIA) => (
               <View key={item.logro} style={styles.section2}>
+                <Text style={styles.paragraph}>{item.empresa}</Text>
                 <Text style={styles.paragraph}>{item.cargo}</Text>
                 <Text style={styles.paragraph}>
-                  {item.empresa +
-                    ", " +
+                  {
                     convertirAMes(item.fechaInicio) +
                     " " +
                     convertirAAnno(item.fechaInicio) +
@@ -328,9 +328,9 @@ const DocumentoPDF: FC<DocumentoPDFProps> = ({
     return (
       <Document title="Documento nuevo">
         <Page size="A4" style={styles.page}>
-          <View>
+          {/* <View>
             <Text style={styles.title}>Hoja de vida</Text>
-          </View>
+          </View> */}
           <View style={styles.section}>
             <Text style={styles.subtitle}>Andres Mauricio Beltrán</Text>
             <Text style={styles.paragraph}>andresbeltran@gmail.com</Text>

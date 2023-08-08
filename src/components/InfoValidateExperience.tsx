@@ -85,15 +85,21 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
     } else if (e.target?.id === "cargo" || e.target?.id === "organizacion") {
       setCountKeysIns(palabras);
     }
-    if (e.target?.id !== "nombreInstitucion" && palabras.length > maxWords) {
+    if (
+      e.target?.id !== "nombreInstitucion" &&
+      e.target?.id !== "logros" &&
+      palabras.length > maxWords
+    ) {
+      console.log("Parte1");
       window.alert(
         "Se ha superado el límite de palabras permitidas... El campo no puede contener mas de 20 palabras"
       );
       return;
     } else if (
       e.target?.id === "nombreInstitucion" ||
-      e.target?.id === "logros"
+      e.target.name === "logros"
     ) {
+      console.log("Parte2");
       setCountKeysLogrosObtenidos(palabras);
       if (palabras.length > maxWordsIns) {
         window.alert(
@@ -235,9 +241,11 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
               ? true
               : false
           }
-          open={type === "experience" || type === "additionalActivity"
-          ? true
-          : false}
+          open={
+            type === "experience" || type === "additionalActivity"
+              ? true
+              : false
+          }
         />
       </div>
       <div style={{ width: "75rem" }}>
@@ -443,6 +451,8 @@ const InfoValidateExperience: FC<InfoValidateExperienceProps> = ({
                         >
                           {type === "experience"
                             ? "Actualmente"
+                            : type === "additionalActivity"
+                            ? "Desempeñando Actualmente"
                             : "Cursando Actualmente"}
                         </label>
                       </div>

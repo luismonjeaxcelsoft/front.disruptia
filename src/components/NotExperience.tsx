@@ -92,6 +92,7 @@ const NotExperience: FC<NotExperienceProps> = ({
             height="315"
             src="https://www.youtube.com/embed/SSyRzzuJpEs"
             style={{ borderRadius: "10px", border: "none" }}
+            allowFullScreen
           ></iframe>
         </div>
         <div className="contentTextSpan">

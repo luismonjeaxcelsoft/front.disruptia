@@ -266,11 +266,10 @@ const PreviewHv = ({setActualizarPreview, actualizarPreview} : any) => {
                   flexDirection: "column",
                 }}
               >
+                <span className="itemSpan">{experiencia.empresa}</span>
                 <span className="itemSpan">{experiencia.cargo}</span>
                 <span className="itemSpan">
-                  {experiencia.empresa +
-                    ", " +
-                    convertirAMes(experiencia.fechaInicio) +
+                  {convertirAMes(experiencia.fechaInicio) +
                     " " +
                     convertirAAnno(experiencia.fechaInicio) +
                     " - "}
